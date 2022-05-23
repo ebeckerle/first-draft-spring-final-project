@@ -34,7 +34,7 @@
             <tr>
                 <th></th>
                 <th></th>
-                <th><select name="daysOfTheWeek"><option th:each="day : ${daysOfTheWeek}" th:value="${day}" th:text="${day.getDisplayName()}">default day of the week</option></select></th>
+                <th><select name="daysOfTheWeek"><option th:each="day : ${daysOfTheWeek}" th:value="${day}" th:text="${day}">default day of the week</option></select></th>
                 <th></th>
             </tr>
             <tr>
@@ -99,7 +99,9 @@
     <p th:text='${day}'>Harry</p>
 
 <!--    <p th:if='${entry1Project.equals("Iowa State Capital")}' th:text="harrycat">default text - stay asleep fox</p>-->
-<!--    <p th:if='${day.equals("MONDAY")}'>Harry</p>-->
+<!--    <p th:if='${day.equals("Monday")}'>Harry</p>-->
+    <p th:if='${daysOfTheWeek.equals("Monday")}' th:text="${day}">Harry</p>
+<!--    <p th:if='${day.equals("Monday")}' th:text="${day}">Harry</p>-->
 
 <!--<ol th:if="logOfEntries.size()>0">-->
 <!--    <li th:each="entry : ${logOfEntries}" th:text="${entry.getDayOfWeek}">default</li>-->

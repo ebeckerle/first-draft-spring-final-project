@@ -47,9 +47,22 @@ public class EmployeePortalController {
 
         ArrayList<Project> projects = ProjectData.getAllProjects();
         ArrayList<WorkType> workTypes = WorkTypeData.getAllWorkTypes();
+        ArrayList<String> daysOfWeek = new ArrayList<>();
+        String monday = "Monday";
+        String tuesday = "Tuesday";
+        String wednesday = "Wednesday";
+        String thursday = "Thursday";
+        String friday = "Friday";
+        String saturday = "Saturday";
+        daysOfWeek.add(monday);
+        daysOfWeek.add(tuesday);
+        daysOfWeek.add(wednesday);
+        daysOfWeek.add(thursday);
+        daysOfWeek.add(friday);
+        daysOfWeek.add(saturday);
 
         model.addAttribute("title", "Timesheet");
-        model.addAttribute("daysOfTheWeek", DaysOfWeek.values());
+        model.addAttribute("daysOfTheWeek", daysOfWeek);
         model.addAttribute("projects", projects);
         model.addAttribute("workTypes", workTypes);
 
@@ -75,8 +88,8 @@ public class EmployeePortalController {
         ArrayList<WorkType> workTypes = WorkTypeData.getAllWorkTypes();
         model.addAttribute("workTypes", workTypes);
 
-        LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), hours);
-        newEntry.setDayOfTheWeek("Monday");
+        LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), daysOfTheWeek, hours);
+
         ArrayList<LineEntriesOnTimesheet> logOfEntries = new ArrayList<>();
         logOfEntries.add(newEntry);
         currentTimesheet.setLineEntries(logOfEntries);

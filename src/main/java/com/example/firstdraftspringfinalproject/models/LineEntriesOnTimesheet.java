@@ -19,6 +19,14 @@ public class LineEntriesOnTimesheet {
         this.dayOfTheWeek = dayOfTheWeek;
     }
 
+    public LineEntriesOnTimesheet(Project project, WorkType workType, String dayOfTheWeek, Integer hours, Date date){
+        this.project = project;
+        this.workType = workType;
+        this.hours = hours;
+        this.dayOfTheWeek = dayOfTheWeek;
+        this.date = date;
+    }
+
     public LineEntriesOnTimesheet(Project project, WorkType workType, Integer hours){
         this.project = project;
         this.workType = workType;
