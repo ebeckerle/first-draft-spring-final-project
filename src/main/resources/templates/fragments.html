@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <script src=""></script>
+</head>
+<body>
+
+<!--Header Fragment if not logged in-->
+    <div th:fragment="header-nav">
+        <header>Restoration Company</header>
+    </div>
+
+<!--Header Fragment when logged in-->
+    <div th:fragment="header-nav-login">
+        <header>Restoration Company</header>
+        <nav>
+            <ol>
+                <li><a href="/employee">My Homepage</a></li>
+                <li><a href="/employee/timesheet">Timesheet</a></li>
+                <li><a href="/">Log Off</a></li>
+            </ol>
+        </nav>
+    </div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+package com.example.firstdraftspringfinalproject.models;
+
+import java.util.Objects;
+
+public class WorkType {
+
+
+    private Integer workTypeId;
+    private String workDescription;
+
+    public WorkType(Integer workTypeId, String workDescription){
+        this.workTypeId = workTypeId;
+        this.workDescription = workDescription;
+    }
+
+    public Integer getWorkTypeId() {
+        return workTypeId;
+    }
+
+    public String getWorkDescription() {
+        return workDescription;
+    }
+
+    public void setWorkTypeId(Integer workTypeId) {
+        this.workTypeId = workTypeId;
+    }
+
+    public void setWorkDescription(String workDescription) {
+        this.workDescription = workDescription;
+    }
+
+    @Override
+    public String toString() {
+        return workTypeId +" - " + workDescription;
+    }
+
+    public static String toStringWorkTypes(WorkType aWorkType){
+        String workTypeId;
+        workTypeId = String.valueOf(aWorkType.getWorkTypeId());
+        return  workTypeId + " - " + aWorkType.getWorkDescription();
+    }
+
+    public String toStringWorkTypeCode(){
+        return String.valueOf(getWorkTypeId());
+    }
+
+//    public boolean equalsWorkTypes(WorkType aWorkType){
+//        if (aWorkType ==this){
+//            return true;
+//        }
+//        if (aWorkType ==null){
+//            return false;
+//        }
+//        if (aWorkType.getClass() != getClass()){
+//            return false;
+//        }
+//        WorkType theWorkType = (WorkType) aWorkType;
+//        return theWorkType.getWorkTypeId() == getWorkTypeId();
+//    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WorkType workType = (WorkType) o;
+        return Objects.equals(workTypeId, workType.workTypeId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(workTypeId);
+    }
+}

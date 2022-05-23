@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Restoration Company</title>
+</head>
+<body>
+<div th:replace="fragments :: header-nav"></div>
+<form>
+    <label>Username: <input type="text"></label>
+    <label>Password: <input type="text"></label>
+    <button>Log In</button>
+</form>
+
+<button th:href="register"><a href="/register">Register</a></button>
+
+
+</body>
+</html>
