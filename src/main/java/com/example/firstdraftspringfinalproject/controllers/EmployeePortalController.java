@@ -96,7 +96,7 @@ public class EmployeePortalController {
         model.addAttribute("logOfEntries", logOfEntries);
         model.addAttribute("testAttribute", "Fox is the Best baby ever");
 //        model.addAttribute("day", currentTimesheet.getLineEntries().get(0).getDayOfTheWeek());
-        model.addAttribute("day", daysOfTheWeek);
+        model.addAttribute("daysOfTheWeek", daysOfTheWeek);
         model.addAttribute("entry1Project", currentTimesheet.getLineEntries().get(0).getProject().toString());
         model.addAttribute("entry1WorkType", currentTimesheet.getLineEntries().get(0).getWorkType().toStringWorkTypeCode());
         model.addAttribute("entry1Hours", currentTimesheet.getLineEntries().get(0).getHours());
