@@ -64,7 +64,9 @@
             <th></th>
         </tr>
         </thead>
-<!--        <th:block th:each="lineEntry : ${currentTimesheet.get"-->
+
+<!--        <th:block th:each="lineEntry : ${currentTimesheet.getLineEntries}"-->
+        <th:block th:each="lineEntry : ${logOfEntries}">
         <tr>
             <th th:text="${entry1Project+' - '+entry1WorkType}">default Project - workType</th>
 
@@ -129,6 +131,76 @@
             <td>T</td>
             <td>edit icon</td>
         </tr>
+
+</th:block>
+<!--            &lt;!&ndash;        <th:block th:each="lineEntry : ${currentTimesheet.getLineEntries}"&ndash;&gt;-->
+<!--            &lt;!&ndash;        <th:block th:each="lineEntry : ${logOfEntries}"&ndash;&gt;-->
+<!--            <tr>-->
+<!--                <th th:text="${entry1Project+' - '+entry1WorkType}">default Project - workType</th>-->
+<!--    -->
+<!--                &lt;!&ndash;            MONDAY COLUMN&ndash;&gt;-->
+<!--                <td>-->
+<!--                    <div th:if='${daysOfTheWeek.equals("Monday")}'>-->
+<!--                        <p th:text="${entry1Hours}"></p>-->
+<!--                    </div>-->
+<!--                    <div th:unless='${daysOfTheWeek.equals("Monday")}'>-->
+<!--                        <p></p>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--    -->
+<!--                &lt;!&ndash;            TUESDAY COLUMN&ndash;&gt;-->
+<!--                <td>-->
+<!--                    <div th:if='${daysOfTheWeek.equals("Tuesday")}'>-->
+<!--                        <p th:text="${entry1Hours}"></p>-->
+<!--                    </div>-->
+<!--                    <div th:unless='${daysOfTheWeek.equals("Tuesday")}'>-->
+<!--                        <p></p>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--                &lt;!&ndash;            WEDNESDAY COLUMN&ndash;&gt;-->
+<!--                <td>-->
+<!--                    <div th:if='${daysOfTheWeek.equals("Wednesday")}'>-->
+<!--                        <p th:text="${entry1Hours}"></p>-->
+<!--                    </div>-->
+<!--                    <div th:unless='${daysOfTheWeek.equals("Wednesday")}'>-->
+<!--                        <p></p>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--    -->
+<!--                &lt;!&ndash;            THURSDAY COLUMN&ndash;&gt;-->
+<!--                <td>-->
+<!--                    <div th:if='${daysOfTheWeek.equals("Thursday")}'>-->
+<!--                        <p th:text="${entry1Hours}"></p>-->
+<!--                    </div>-->
+<!--                    <div th:unless='${daysOfTheWeek.equals("Thursday")}'>-->
+<!--                        <p></p>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--    -->
+<!--                &lt;!&ndash;            FRIDAY COLUMN&ndash;&gt;-->
+<!--                <td>-->
+<!--                    <div th:if='${daysOfTheWeek.equals("Friday")}'>-->
+<!--                        <p th:text="${entry1Hours}"></p>-->
+<!--                    </div>-->
+<!--                    <div th:unless='${daysOfTheWeek.equals("Friday")}'>-->
+<!--                        <p></p>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--                &lt;!&ndash;            SATURDAY COLUMN&ndash;&gt;-->
+<!--                <td>-->
+<!--                    <div th:if='${daysOfTheWeek.equals("Saturday")}'>-->
+<!--                        <p th:text="${entry1Hours}"></p>-->
+<!--                    </div>-->
+<!--                    <div th:unless='${daysOfTheWeek.equals("Saturday")}'>-->
+<!--                        <p></p>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--                &lt;!&ndash;            TOTAL COLUMN&ndash;&gt;-->
+<!--                <td>T</td>-->
+<!--                <td>edit icon</td>-->
+<!--            </tr>-->
+<!--    -->
+<!--            </th:block>-->
 
 <!--total row at bottom of table-->
         <tr>

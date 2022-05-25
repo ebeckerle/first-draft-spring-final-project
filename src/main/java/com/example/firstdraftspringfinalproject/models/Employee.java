@@ -24,6 +24,7 @@ public class Employee {
         this.firstName = firstName;
         this.lastName = lastName;
         this.employeeId = nextId;
+        this.timesheets = new ArrayList<>();
         nextId++;
     }
 
@@ -96,6 +97,8 @@ public class Employee {
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
+
+    //getCurrentTimesheet method - here or in Employee Data class?
 
     //to String & Equals Methods
 
