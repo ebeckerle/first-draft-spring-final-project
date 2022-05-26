@@ -13,7 +13,7 @@ public class Employee {
     private String userName = "defaultUserName"; //--> TODO: code a random generator before the employee resets it.
     private String password = "password";
     private ArrayList<Timesheet> timesheets;
-    private Boolean currentTimesheetCompletionStatus;
+    private Boolean currentTimesheetCompletionStatus = true;
     private Boolean supervisorAccess;
     private float payRate;
     private GregorianCalendar firstDateOfWork;
