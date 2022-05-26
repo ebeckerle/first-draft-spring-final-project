@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -74,23 +75,29 @@ public class EmployeePortalController {
         model.addAttribute("payDay", payDay);
 
         //display the line entry form--> TODO - get these days of the week to enum, clean up this code.
+//        ArrayList<String> daysOfWeek = new ArrayList<>();
+//        String monday = "Monday";
+//        String tuesday = "Tuesday";
+//        String wednesday = "Wednesday";
+//        String thursday = "Thursday";
+//        String friday = "Friday";
+//        String saturday = "Saturday";
+//        daysOfWeek.add(monday);
+//        daysOfWeek.add(tuesday);
+//        daysOfWeek.add(wednesday);
+//        daysOfWeek.add(thursday);
+//        daysOfWeek.add(friday);
+//        daysOfWeek.add(saturday);
+//        model.addAttribute("daysOfTheWeek", daysOfWeek);
+
+        //ENUM Effort - still an issue with it all being uppercase, maybe I need to write a method that
+        // using getDisplayName(TextStyle.FULL, Locale.US) - will put them in format i want (you can't do in the view it seems)
+        model.addAttribute("daysOfWeek", DayOfWeek.values());
+
         ArrayList<Project> projects = ProjectData.getAllProjects();
         ArrayList<WorkType> workTypes = WorkTypeData.getAllWorkTypes();
-        ArrayList<String> daysOfWeek = new ArrayList<>();
-        String monday = "Monday";
-        String tuesday = "Tuesday";
-        String wednesday = "Wednesday";
-        String thursday = "Thursday";
-        String friday = "Friday";
-        String saturday = "Saturday";
-        daysOfWeek.add(monday);
-        daysOfWeek.add(tuesday);
-        daysOfWeek.add(wednesday);
-        daysOfWeek.add(thursday);
-        daysOfWeek.add(friday);
-        daysOfWeek.add(saturday);
+
         model.addAttribute("title", "Timesheet");
-        model.addAttribute("daysOfTheWeek", daysOfWeek);
         model.addAttribute("projects", projects);
         model.addAttribute("workTypes", workTypes);
 

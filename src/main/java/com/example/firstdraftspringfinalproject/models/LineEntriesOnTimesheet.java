@@ -1,5 +1,6 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import java.time.DayOfWeek;
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ public class LineEntriesOnTimesheet {
     private Project project;
     private WorkType workType;
     private Integer hours;
-//    private DaysOfWeek dayOfTheWeek;
+    private DayOfWeek dayOfWeek;
     private String dayOfTheWeek;
     private Date date;
 
@@ -19,10 +20,11 @@ public class LineEntriesOnTimesheet {
         this.dayOfTheWeek = dayOfTheWeek;
     }
 
-    public LineEntriesOnTimesheet(Project project, WorkType workType, String dayOfTheWeek, Integer hours, Date date){
+    public LineEntriesOnTimesheet(Project project, WorkType workType, DayOfWeek dayOfWeek, String dayOfTheWeek, Integer hours, Date date){
         this.project = project;
         this.workType = workType;
         this.hours = hours;
+        this.dayOfWeek = dayOfWeek;
         this.dayOfTheWeek = dayOfTheWeek;
         this.date = date;
     }
