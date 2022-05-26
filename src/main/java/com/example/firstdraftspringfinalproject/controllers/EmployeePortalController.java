@@ -27,7 +27,7 @@ public class EmployeePortalController {
 
 
     @GetMapping
-    public String displayEmployeeWelcome(Model model){
+    public String displayEmployeeWelcome(@ModelAttribute Employee loggedInEmployee, Model model){
 
         //TODO - Delete? -some hardcoded stuff to delete when model binding is complete or MySQL comes along??
         Employee employee = EmployeeData.getEmployeeById(1);
@@ -40,6 +40,10 @@ public class EmployeePortalController {
         model.addAttribute("employeeName", employeeFirstName);
         model.addAttribute("todaysDate", todaysDate);
         model.addAttribute("employeeId", employeeId);
+
+        //?
+        model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
+
         return "employee/home";
     }
 
@@ -52,6 +56,8 @@ public class EmployeePortalController {
         newTimesheet.setDates(startDateGC);
         //set the new timesheet completion status as false
         newTimesheet.setCompletionStatus(false);
+        //set the employee's current timesheet completion status as false
+        EmployeeData.getEmployeeById(employeeId).setCurrentTimesheetCompletionStatus(false);
         //add that new timesheet object to the timesheets arraylist of the appropriate employee object
         EmployeeData.getEmployeeById(employeeId).getTimesheets().add(newTimesheet);
         // ??? set employee's currentTimesheetCompletionStatus as false?
