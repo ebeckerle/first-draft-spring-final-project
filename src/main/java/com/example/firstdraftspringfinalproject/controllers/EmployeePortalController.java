@@ -41,8 +41,6 @@ public class EmployeePortalController {
         model.addAttribute("employeeName", employeeFirstName);
         model.addAttribute("todaysDate", todaysDate);
         model.addAttribute("employeeId", employeeId);
-
-        //?
         model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
 
         return "employee/home";
@@ -74,22 +72,6 @@ public class EmployeePortalController {
         model.addAttribute("dueDate", dueDate);
         model.addAttribute("payDay", payDay);
 
-        //display the line entry form--> TODO - get these days of the week to enum, clean up this code.
-//        ArrayList<String> daysOfWeek = new ArrayList<>();
-//        String monday = "Monday";
-//        String tuesday = "Tuesday";
-//        String wednesday = "Wednesday";
-//        String thursday = "Thursday";
-//        String friday = "Friday";
-//        String saturday = "Saturday";
-//        daysOfWeek.add(monday);
-//        daysOfWeek.add(tuesday);
-//        daysOfWeek.add(wednesday);
-//        daysOfWeek.add(thursday);
-//        daysOfWeek.add(friday);
-//        daysOfWeek.add(saturday);
-//        model.addAttribute("daysOfTheWeek", daysOfWeek);
-
         //ENUM Effort - still an issue with it all being uppercase, maybe I need to write a method that
         // using getDisplayName(TextStyle.FULL, Locale.US) - will put them in format i want (you can't do in the view it seems)
         model.addAttribute("daysOfWeek", DayOfWeek.values());
@@ -101,8 +83,24 @@ public class EmployeePortalController {
         model.addAttribute("projects", projects);
         model.addAttribute("workTypes", workTypes);
 
+        //will delete this soon when I better figure out the employee sign in / authentication process, for now I think
+        // i need to hardcode it and pass it thtrough as a model attribute so I can grab it as a request parameter
+        // in the Timesheet Controller
+        model.addAttribute("employeeId", 1);
+
         return "employee/timesheettrial";
     }
+
+    //the controller for when would hit the Edit current Timesheet Button - gonna go get the current timesheet from the server
+//    @GetMapping("timesheet")
+//    public String displayEmployeeCurrentTimesheetLineEntryForm(@RequestParam Integer employeeId, Model model){
+//        //get employee by ID
+//        //get the current timesheet from the logged in employee's ArrayList of timesheets
+//        //create model attribute for the array list of log entries in the timesheet
+//
+//        //add model attributes to populate / display the first table, the line entry table, b
+//        return "employee/timesheettrial";
+//    }
 
 //    @GetMapping("timesheet")
 //    //@GetMapping("editTimesheet") -???
@@ -113,19 +111,6 @@ public class EmployeePortalController {
 //
 //        ArrayList<Project> projects = ProjectData.getAllProjects();
 //        ArrayList<WorkType> workTypes = WorkTypeData.getAllWorkTypes();
-//        ArrayList<String> daysOfWeek = new ArrayList<>();
-//        String monday = "Monday";
-//        String tuesday = "Tuesday";
-//        String wednesday = "Wednesday";
-//        String thursday = "Thursday";
-//        String friday = "Friday";
-//        String saturday = "Saturday";
-//        daysOfWeek.add(monday);
-//        daysOfWeek.add(tuesday);
-//        daysOfWeek.add(wednesday);
-//        daysOfWeek.add(thursday);
-//        daysOfWeek.add(friday);
-//        daysOfWeek.add(saturday);
 //
 //        model.addAttribute("title", "Timesheet");
 //        model.addAttribute("daysOfTheWeek", daysOfWeek);
@@ -147,7 +132,7 @@ public class EmployeePortalController {
 //    }
 //
 //    @PostMapping("timesheet")
-//    public String createEntry(@RequestParam String project, @RequestParam String workType, @RequestParam String daysOfTheWeek, @RequestParam Integer hours, @ModelAttribute LineEntriesOnTimesheet newLineEntry, Model model){
+//    public String createLineEntryOnCurrentTimesheet(@RequestParam String project, @RequestParam String workType, @RequestParam String daysOfTheWeek, @RequestParam Integer hours, @ModelAttribute LineEntriesOnTimesheet newLineEntry, Model model){
 //
 //        ArrayList<Project> projects = ProjectData.getAllProjects();
 //        model.addAttribute("projects", projects);
@@ -167,7 +152,18 @@ public class EmployeePortalController {
 //        model.addAttribute("entry1Project", currentTimesheet.getLineEntries().get(0).getProject().toString());
 //        model.addAttribute("entry1WorkType", currentTimesheet.getLineEntries().get(0).getWorkType().toStringWorkTypeCode());
 //        model.addAttribute("entry1Hours", currentTimesheet.getLineEntries().get(0).getHours());
-//        return "employee/timesheet";
+//        return "employee/timesheettrial";
+//    }
+
+
+//    //controller for when the timesheet is complete and the employee submits it / posts it to the server
+//    @PostMapping("timesheet")
+//    public String submitCompleteTimesheet(Model model){
+//        //set the employee's currentTimesheetCompletionStatus to true
+//        //set the timesheet's completionStatus to True
+//        //return the user to their home page, but I would like to leave a little message up there that's like:
+//        // "Timesheet has been Submitted"
+//        return "redirect:";
 //    }
 
 

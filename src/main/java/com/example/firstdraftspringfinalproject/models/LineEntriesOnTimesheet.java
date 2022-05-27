@@ -13,7 +13,7 @@ public class LineEntriesOnTimesheet {
     private String dayOfTheWeek;
     private Date date;
 
-    public LineEntriesOnTimesheet(Project project, WorkType workType, String dayOfTheWeek, Integer hours){
+    public LineEntriesOnTimesheet(Project project, WorkType workType, DayOfWeek dayOfWeek, Integer hours){
         this.project = project;
         this.workType = workType;
         this.hours = hours;

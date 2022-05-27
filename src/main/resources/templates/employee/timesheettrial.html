@@ -20,7 +20,7 @@
 </div>
 
 <table>
-    <form method="post" action="timesheet">
+    <form method="post" action="employee/timesheet">
         <tr>
             <th></th>
             <th></th>
@@ -31,12 +31,14 @@
             <td><select name="project"><option value="" disabled selected>Project</option><option th:each="project : ${projects}" th:value="${project}" th:text="${project.toString()}">default project</option></select></td>
             <td><select name="workType"><option value="" disabled selected>Work</option><option th:each="workType : ${workTypes}" th:value="${workType}" th:text="${workType.toString()}">default work type</option></select></td>
             <td><input type="number" max="24" placeholder="hours" name="hours"></td>
+            <input type="hidden" name="employeeId" th:value="${employeeId}">
             <!--                following onclick="runFormValidation()" - does not work yet but is suppose to run the JavaScript form validation-->
             <td><input type="submit" onclick="runFormValidation()"></td>
         </tr>
     </form>
 
 </table>
+
 
 
 
@@ -55,29 +57,82 @@
     </tr>
     </thead>
 
-    <tr>
-        <th>default Project - workType</th>
+    <!--        <th:block th:each="lineEntry : ${currentTimesheet.getLineEntries}"-->
+    <th:block th:each="lineEntry : ${logOfEntries}">
+        <tr>
+            <th th:text="${entry1Project+' - '+entry1WorkType}">default Project - workType</th>
 
-        <!--            MONDAY COLUMN-->
-        <td></td>
+            <!--            MONDAY COLUMN-->
+            <td>
+                <div th:if='${day.equals("MONDAY")}'>
+                    <p th:text="${entry1Hours}"></p>
+                </div>
+                <div th:unless='${day.equals("MONDAY")}'>
+                    <p></p>
+                </div>
+            </td>
 
-        <!--            TUESDAY COLUMN-->
-        <td></td>
-        <!--            WEDNESDAY COLUMN-->
-        <td></td>
+<!--            &lt;!&ndash;            TUESDAY COLUMN&ndash;&gt;-->
+<!--            <td>-->
+<!--                <div th:if='${day.equals("Tuesday")}'>-->
+<!--                    <p th:text="${entry1Hours}"></p>-->
+<!--                </div>-->
+<!--                <div th:unless='${day.equals("Tuesday")}'>-->
+<!--                    <p></p>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--            &lt;!&ndash;            WEDNESDAY COLUMN&ndash;&gt;-->
+<!--            <td>-->
+<!--                <div th:if='${day.equals("Wednesday")}'>-->
+<!--                    <p th:text="${entry1Hours}"></p>-->
+<!--                </div>-->
+<!--                <div th:unless='${day.equals("Wednesday")}'>-->
+<!--                    <p></p>-->
+<!--                </div>-->
+<!--            </td>-->
 
-        <!--            THURSDAY COLUMN-->
-        <td></td>
+<!--            &lt;!&ndash;            THURSDAY COLUMN&ndash;&gt;-->
+<!--            <td>-->
+<!--                <div th:if='${daysOfTheWeek.equals("Thursday")}'>-->
+<!--                    <p th:text="${entry1Hours}"></p>-->
+<!--                </div>-->
+<!--                <div th:unless='${daysOfTheWeek.equals("Thursday")}'>-->
+<!--                    <p></p>-->
+<!--                </div>-->
+<!--            </td>-->
 
-        <!--            FRIDAY COLUMN-->
-        <td></td>
-        <!--            SATURDAY COLUMN-->
-        <td></td>
-        <!--            TOTAL COLUMN-->
-        <td>T</td>
-        <td>edit icon</td>
-    </tr>
+<!--            &lt;!&ndash;            FRIDAY COLUMN&ndash;&gt;-->
+<!--            <td>-->
+<!--                <div th:if='${daysOfTheWeek.equals("Friday")}'>-->
+<!--                    <p th:text="${entry1Hours}"></p>-->
+<!--                </div>-->
+<!--                <div th:unless='${daysOfTheWeek.equals("Friday")}'>-->
+<!--                    <p></p>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--            &lt;!&ndash;            SATURDAY COLUMN&ndash;&gt;-->
+<!--            <td>-->
+<!--                <div th:if='${daysOfTheWeek.equals("Saturday")}'>-->
+<!--                    <p th:text="${entry1Hours}"></p>-->
+<!--                </div>-->
+<!--                <div th:unless='${daysOfTheWeek.equals("Saturday")}'>-->
+<!--                    <p></p>-->
+<!--                </div>-->
+<!--            </td>-->
 
+            <td>T</td>
+            <td>w</td>
+            <td>T</td>
+            <td>f</td>
+            <td>s</td>
+            <!--            TOTAL COLUMN-->
+            <td>T</td>
+            <td>edit icon</td>
+        </tr>
+
+    </th:block>
+
+    <!--total row at bottom of table-->
     <tr>
         <th>Total</th>
         <td></td>
@@ -90,7 +145,6 @@
         <td></td>
     </tr>
 </table>
-
 
 
 </body>

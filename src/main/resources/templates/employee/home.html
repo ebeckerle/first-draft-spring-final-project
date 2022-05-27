@@ -20,7 +20,7 @@
 
 <div th:unless="${completionStatus}">
 <!--TODO nest in a th:unless or th:if, so only appears if the employee object's currentTimesheetCompletionStatus field is FALSE-->
-    <form method="post" action="editTimesheet">
+    <form method="post">
         <input type="hidden" name="employeeId" th:value="${employeeId}">
         <input type="hidden" name="todaysDate" th:value="${todaysDate}">
         <button type="submit" name="submit">Edit Current Timesheet</button>

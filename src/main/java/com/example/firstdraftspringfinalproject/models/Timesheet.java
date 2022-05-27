@@ -18,6 +18,7 @@ public class Timesheet {
     private HashMap <WorkType, HashMap<Project, Integer>> friday;
     private HashMap <WorkType, HashMap<Project, Integer>> saturday;
     private ArrayList<LineEntriesOnTimesheet> lineEntries;
+//    private String error = "Error";
 
 
     public Timesheet (Employee employee){
@@ -43,6 +44,11 @@ public class Timesheet {
         this.friday = friday;
         this.saturday = saturday;
     }
+
+//    public Timesheet(Employee employee, String error){
+//        this.employee=employee;
+//        this.error=error;
+//    }
 
     // GETTERS & SETTERS
 
