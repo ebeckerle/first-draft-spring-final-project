@@ -26,7 +26,7 @@ public class EmployeePortalController {
     Timesheet currentTimesheet = new Timesheet(employee, startDate);
 
 
-
+    //lives at /employee, renders employee>home.html
     @GetMapping
     public String displayEmployeeWelcome(@ModelAttribute Employee loggedInEmployee, Model model){
 
@@ -46,6 +46,7 @@ public class EmployeePortalController {
         return "employee/home";
     }
 
+    //lives at /employee, but renders employee>timesheettrial
     @PostMapping
     public String createNewTimesheet(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate todaysDate, @RequestParam Integer employeeId, Model model){
         //create a new timesheet object based on the employee (figured from employeeId)

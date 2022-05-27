@@ -21,6 +21,7 @@
 
 <table>
     <form method="post" action="employee/timesheet">
+<!--    <form method="post">-->
         <tr>
             <th></th>
             <th></th>
@@ -33,7 +34,7 @@
             <td><input type="number" max="24" placeholder="hours" name="hours"></td>
             <input type="hidden" name="employeeId" th:value="${employeeId}">
             <!--                following onclick="runFormValidation()" - does not work yet but is suppose to run the JavaScript form validation-->
-            <td><input type="submit" onclick="runFormValidation()"></td>
+            <td><input type="submit" value="save" onclick="runFormValidation()"></td>
         </tr>
     </form>
 
