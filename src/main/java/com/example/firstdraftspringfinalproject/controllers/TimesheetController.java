@@ -21,7 +21,7 @@ import java.util.GregorianCalendar;
 public class TimesheetController {
 
     @PostMapping
-    public String createLineEntryOnCurrentTimesheet(@RequestParam Integer employeeId, @RequestParam String project, @RequestParam String workType, @RequestParam(required = false) String day, @RequestParam Integer hours, Model model){
+    public String createLineEntryOnCurrentTimesheet(@RequestParam Integer employeeId, @RequestParam String project, @RequestParam String workType, @RequestParam(required = false) String daysOfWeek, @RequestParam Integer hours, Model model){
 
 //        //String Request Parameter converted to ENUM inorder to go into Line Entry constructor:
 //        // create a reference variable for the DayOfWeek enum, which we have passed here as a string,
@@ -32,7 +32,7 @@ public class TimesheetController {
 //        LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), day2, hours);
 
         //DayOfTheWeek Enum as the REquest Parameter type for day
-        LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), day, hours);
+        LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), daysOfWeek, hours);
 
         //2nd lets find the correct employee's arraylist of timesheets
         Employee employee = EmployeeData.getEmployeeById(employeeId);
@@ -55,7 +55,7 @@ public class TimesheetController {
 
 //        String dayToString  = day2.name();
 
-        model.addAttribute("day", day);
+        model.addAttribute("day", daysOfWeek);
         model.addAttribute("entry1Project", currentTimesheet.getLineEntries().get(0).getProject().toString());
         model.addAttribute("entry1WorkType", currentTimesheet.getLineEntries().get(0).getWorkType().toStringWorkTypeCode());
         model.addAttribute("entry1Hours", currentTimesheet.getLineEntries().get(0).getHours());

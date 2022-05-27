@@ -58,16 +58,16 @@
     </thead>
 
     <!--        <th:block th:each="lineEntry : ${currentTimesheet.getLineEntries}"-->
-    <th:block th:each="lineEntry : ${logOfEntries}">
+<!--    <th:block th:each="lineEntry : ${logOfEntries}">-->
         <tr>
             <th th:text="${entry1Project+' - '+entry1WorkType}">default Project - workType</th>
 
             <!--            MONDAY COLUMN-->
             <td>
-                <div th:if='${day.equals("MONDAY")}'>
+                <div th:if='${daysOfWeek.equals("MONDAY")}'>
                     <p th:text="${entry1Hours}"></p>
                 </div>
-                <div th:unless='${day.equals("MONDAY")}'>
+                <div th:unless='${daysOfWeek.equals("MONDAY")}'>
                     <p></p>
                 </div>
             </td>
@@ -130,7 +130,7 @@
             <td>edit icon</td>
         </tr>
 
-    </th:block>
+<!--    </th:block>-->
 
     <!--total row at bottom of table-->
     <tr>
