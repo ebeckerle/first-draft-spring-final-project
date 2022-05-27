@@ -109,7 +109,7 @@ public class EmployeePortalController {
         //this is a quirk but want to try this:
         model.addAttribute("day", "don't display");
 
-        return "employee/timesheettrial";
+        return "employee/timesheet2";
     }
 
     //the controller for when would hit the Edit current Timesheet Button - gonna go get the current timesheet from the server

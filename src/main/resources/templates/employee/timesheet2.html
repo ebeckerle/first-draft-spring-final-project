@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+
+<p>timesheet2 - coming here from hitting new timesheet button on the homepage, or being redirected after hitting save on the createlineentry page</p>
+<div th:replace="fragments :: header-nav-login"></div>
+
+<div>
+    <ul>
+        <li th:text="${today}">Tuesday, 02|05|2022</li>
+        <li th:text="${'Timesheet Week of ' + startDate}">Timesheet Week of 2/4/2022</li>
+        <li th:text="${'Due: '+ dueDate}">Due: 2/11/2022 5pm</li>
+        <li th:text="${'PayDay: '+payDay}">PayDay: 2/15/2022</li>
+    </ul>
+</div>
+
+<a href="/employee/timesheet/createlineentry">Add hours to your timesheet</a>
+
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th>M</th>
+        <th>T</th>
+        <th>W</th>
+        <th>T</th>
+        <th>F</th>
+        <th>S</th>
+        <th>Total</th>
+        <th></th>
+    </tr>
+    </thead>
+
+    <th:block th:each="lineEntry : ${logOfEntries}">
+        <tr>
+            <th th:text="${lineEntry.getProject().toString()+' - '+lineEntry.getWorkType().toStringWorkTypeCode()}">default Project - workType</th>
+            <!--            MONDAY COLUMN-->
+            <td>
+                <div th:if='${lineEntry.getDayOfTheWeek().equals("MONDAY")}'>
+                    <p th:text="${lineEntry.getHours()}"></p>
+                </div>
+                <div th:unless='${lineEntry.getDayOfTheWeek().equals("MONDAY")}'>
+                    <p></p>
+                </div>
+            </td>
+            <!--            TUESDAY COLUMN-->
+            <td>
+                <div th:if='${lineEntry.getDayOfTheWeek().equals("TUESDAY")}'>
+                    <p th:text="${lineEntry.getHours()}"></p>
+                </div>
+                <div th:unless='${lineEntry.getDayOfTheWeek().equals("TUESDAY")}'>
+                    <p></p>
+                </div>
+            </td>
+            <!--            WEDNESDAY COLUMN-->
+            <td>
+                <div th:if='${lineEntry.getDayOfTheWeek().equals("WEDNESDAY")}'>
+                    <p th:text="${lineEntry.getHours()}"></p>
+                </div>
+                <div th:unless='${lineEntry.getDayOfTheWeek().equals("WEDNESDAY")}'>
+                    <p></p>
+                </div>
+            </td>
+
+            <!--            THURSDAY COLUMN-->
+            <td>
+                <div th:if='${lineEntry.getDayOfTheWeek().equals("THURSDAY")}'>
+                    <p th:text="${lineEntry.getHours()}"></p>
+                </div>
+                <div th:unless='${lineEntry.getDayOfTheWeek().equals("THURSDAY")}'>
+                    <p></p>
+                </div>
+            </td>
+
+            <!--            FRIDAY COLUMN-->
+            <td>
+                <div th:if='${lineEntry.getDayOfTheWeek().equals("FRIDAY")}'>
+                    <p th:text="${lineEntry.getHours()}"></p>
+                </div>
+                <div th:unless='${lineEntry.getDayOfTheWeek().equals("FRIDAY")}'>
+                    <p></p>
+                </div>
+            </td>
+            <!--            SATURDAY COLUMN-->
+            <td>
+                <div th:if='${lineEntry.getDayOfTheWeek().equals("SATURDAY")}'>
+                    <p th:text="${lineEntry.getHours()}"></p>
+                </div>
+                <div th:unless='${lineEntry.getDayOfTheWeek().equals("SATURDAY")}'>
+                    <p></p>
+                </div>
+            </td>
+            <td>T</td>
+            <td>edit icon</td>
+        </tr>
+    </th:block>
+    <!--total row at bottom of table-->
+    <tr>
+        <th>Total</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+
+
+
+
+</body>
+</html>
