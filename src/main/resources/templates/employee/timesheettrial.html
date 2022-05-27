@@ -56,8 +56,24 @@
 
     <tr>
         <th th:text="${entry1Project+' - '+entry1WorkType}">default Project - workType</th>
-        <td th:text="${entry1Hours}"></td>
-        <td>4</td>
+        <!--            MONDAY COLUMN-->
+        <td>
+            <div th:if='${day.equals("MONDAY")}'>
+                <p th:text="${entry1Hours}"></p>
+            </div>
+            <div th:unless='${day.equals("MONDAY")}'>
+                <p></p>
+            </div>
+        </td>
+        <!--            TUESDAY COLUMN-->
+        <td>
+            <div th:if='${day.equals("TUESDAY")}'>
+                <p th:text="${entry1Hours}"></p>
+            </div>
+            <div th:unless='${day.equals("TUESDAY")}'>
+                <p></p>
+            </div>
+        </td>
         <td></td>
         <td></td>
         <td></td>

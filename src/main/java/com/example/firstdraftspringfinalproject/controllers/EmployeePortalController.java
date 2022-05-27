@@ -105,6 +105,9 @@ public class EmployeePortalController {
         // in the Timesheet Controller
         model.addAttribute("employeeId", 1);
 
+        //this is a quirk but want to try this:
+        model.addAttribute("day", "don't display");
+
         return "employee/timesheettrial";
     }
 
