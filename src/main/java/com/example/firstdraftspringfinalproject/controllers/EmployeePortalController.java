@@ -72,9 +72,26 @@ public class EmployeePortalController {
         model.addAttribute("dueDate", dueDate);
         model.addAttribute("payDay", payDay);
 
-        //ENUM Effort - still an issue with it all being uppercase, maybe I need to write a method that
-        // using getDisplayName(TextStyle.FULL, Locale.US) - will put them in format i want (you can't do in the view it seems)
-        model.addAttribute("daysOfWeek", DayOfWeek.values());
+//        //ENUM Effort - still an issue with it all being uppercase, maybe I need to write a method that
+//        // using getDisplayName(TextStyle.FULL, Locale.US) - will put them in format i want (you can't do in the view it seems)
+////        model.addAttribute("daysOfWeek", DayOfWeek.values());
+//        model.addAttribute("daysOfWeek", DayOfWeek.values());
+        //revert back to Days of week in an Array List, don't use enum type
+        ArrayList<String> daysOfWeek = new ArrayList<>();
+        String monday = "MONDAY";
+        String tuesday = "TUESDAY";
+        String wednesday = "WEDNESDAY";
+        String thursday = "THURSDAY";
+        String friday = "FRIDAY";
+        String saturday = "SATURDAY";
+        daysOfWeek.add(monday);
+        daysOfWeek.add(tuesday);
+        daysOfWeek.add(wednesday);
+        daysOfWeek.add(thursday);
+        daysOfWeek.add(friday);
+        daysOfWeek.add(saturday);
+        model.addAttribute("daysOfWeek", daysOfWeek);
+
 
         ArrayList<Project> projects = ProjectData.getAllProjects();
         ArrayList<WorkType> workTypes = WorkTypeData.getAllWorkTypes();

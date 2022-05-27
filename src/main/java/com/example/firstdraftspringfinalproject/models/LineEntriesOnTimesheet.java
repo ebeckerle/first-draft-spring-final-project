@@ -17,7 +17,7 @@ public class LineEntriesOnTimesheet {
         this.project = project;
         this.workType = workType;
         this.hours = hours;
-        this.dayOfTheWeek = dayOfTheWeek;
+        this.dayOfWeek = dayOfWeek;
     }
 
     public LineEntriesOnTimesheet(Project project, WorkType workType, DayOfWeek dayOfWeek, String dayOfTheWeek, Integer hours, Date date){
@@ -67,6 +67,14 @@ public class LineEntriesOnTimesheet {
         if (dayOfTheWeek.equals("Monday")  || dayOfTheWeek.equals("Tuesday") || dayOfTheWeek.equals("Wednesday") || dayOfTheWeek.equals("Thursday")|| dayOfTheWeek.equals("Friday") || dayOfTheWeek.equals("Saturday")) {
             this.dayOfTheWeek = dayOfTheWeek;
         }
+    }
+
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     @Override

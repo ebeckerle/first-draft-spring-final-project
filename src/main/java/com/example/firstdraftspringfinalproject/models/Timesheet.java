@@ -17,7 +17,7 @@ public class Timesheet {
     private HashMap <WorkType, HashMap<Project, Integer>> thursday;
     private HashMap <WorkType, HashMap<Project, Integer>> friday;
     private HashMap <WorkType, HashMap<Project, Integer>> saturday;
-    private ArrayList<LineEntriesOnTimesheet> lineEntries;
+    private ArrayList<LineEntriesOnTimesheet> lineEntries = new ArrayList<>();
 //    private String error = "Error";
 
 
