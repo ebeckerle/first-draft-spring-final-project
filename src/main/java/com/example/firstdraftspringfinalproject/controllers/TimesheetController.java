@@ -23,16 +23,16 @@ public class TimesheetController {
     @PostMapping
     public String createLineEntryOnCurrentTimesheet(@RequestParam Integer employeeId, @RequestParam String project, @RequestParam String workType, @RequestParam(required = false) String day, @RequestParam Integer hours, Model model){
 
-        //String Request Parameter converted to ENUM inorder to go into Line Entry constructor:
-        // create a reference variable for the DayOfWeek enum, which we have passed here as a string,
-        // but we want to convert back to an enum to put in our line entry constructor
-        DayOfWeek day2 = DayOfWeek.valueOf(day);
-        //update the current timesheet with the saved new line entry
-        //1st lets create the line entry object
-        LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), day2, hours);
+//        //String Request Parameter converted to ENUM inorder to go into Line Entry constructor:
+//        // create a reference variable for the DayOfWeek enum, which we have passed here as a string,
+//        // but we want to convert back to an enum to put in our line entry constructor
+//        DayOfWeek day2 = DayOfWeek.valueOf(day);
+//        //update the current timesheet with the saved new line entry
+//        //1st lets create the line entry object
+//        LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), day2, hours);
 
-//        //DayOfWeek Enum as the REquest Parameter type for day
-//        LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), day, hours);
+        //DayOfTheWeek Enum as the REquest Parameter type for day
+        LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), day, hours);
 
         //2nd lets find the correct employee's arraylist of timesheets
         Employee employee = EmployeeData.getEmployeeById(employeeId);
@@ -53,9 +53,9 @@ public class TimesheetController {
         //DISPLAY the necessary attributes for the timesheet table (the second table)
         model.addAttribute("logOfEntries", logOfEntries);
 
-        String dayToString  = day2.name();
+//        String dayToString  = day2.name();
 
-        model.addAttribute("day", day2);
+        model.addAttribute("day", day);
         model.addAttribute("entry1Project", currentTimesheet.getLineEntries().get(0).getProject().toString());
         model.addAttribute("entry1WorkType", currentTimesheet.getLineEntries().get(0).getWorkType().toStringWorkTypeCode());
         model.addAttribute("entry1Hours", currentTimesheet.getLineEntries().get(0).getHours());

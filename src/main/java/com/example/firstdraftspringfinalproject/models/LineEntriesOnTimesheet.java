@@ -9,25 +9,31 @@ public class LineEntriesOnTimesheet {
     private Project project;
     private WorkType workType;
     private Integer hours;
-    private DayOfWeek dayOfWeek;
+//    private DayOfWeek dayOfWeek;
     private String dayOfTheWeek;
     private Date date;
 
-    public LineEntriesOnTimesheet(Project project, WorkType workType, DayOfWeek dayOfWeek, Integer hours){
-        this.project = project;
-        this.workType = workType;
-        this.hours = hours;
-        this.dayOfWeek = dayOfWeek;
-    }
+//    public LineEntriesOnTimesheet(Project project, WorkType workType, DayOfWeek dayOfWeek, Integer hours){
+//        this.project = project;
+//        this.workType = workType;
+//        this.hours = hours;
+//        this.dayOfWeek = dayOfWeek;
+//    }
+    public LineEntriesOnTimesheet(Project project, WorkType workType, String dayOfTheWeek, Integer hours){
+            this.project = project;
+            this.workType = workType;
+            this.hours = hours;
+            this.dayOfTheWeek = dayOfTheWeek;
+        }
 
-    public LineEntriesOnTimesheet(Project project, WorkType workType, DayOfWeek dayOfWeek, String dayOfTheWeek, Integer hours, Date date){
-        this.project = project;
-        this.workType = workType;
-        this.hours = hours;
-        this.dayOfWeek = dayOfWeek;
-        this.dayOfTheWeek = dayOfTheWeek;
-        this.date = date;
-    }
+//    public LineEntriesOnTimesheet(Project project, WorkType workType, DayOfWeek dayOfWeek, String dayOfTheWeek, Integer hours, Date date){
+//        this.project = project;
+//        this.workType = workType;
+//        this.hours = hours;
+//        this.dayOfWeek = dayOfWeek;
+//        this.dayOfTheWeek = dayOfTheWeek;
+//        this.date = date;
+//    }
 
     public LineEntriesOnTimesheet(Project project, WorkType workType, Integer hours){
         this.project = project;
@@ -69,13 +75,13 @@ public class LineEntriesOnTimesheet {
         }
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
+//    public DayOfWeek getDayOfWeek() {
+//        return dayOfWeek;
+//    }
+//
+//    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+//        this.dayOfWeek = dayOfWeek;
+//    }
 
     @Override
     public boolean equals(Object o) {
