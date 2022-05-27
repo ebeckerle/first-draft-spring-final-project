@@ -39,7 +39,45 @@
 
 </table>
 
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th>M</th>
+        <th>T</th>
+        <th>W</th>
+        <th>T</th>
+        <th>F</th>
+        <th>S</th>
+        <th>Total</th>
+        <th></th>
+    </tr>
+    </thead>
 
+    <tr>
+        <th th:text="${entry1Project+' - '+entry1WorkType}">default Project - workType</th>
+        <td th:text="${entry1Hours}"></td>
+        <td>4</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>4</td>
+        <td>edit icon</td>
+    </tr>
+    <!--total row at bottom of table-->
+    <tr>
+        <th>Total</th>
+        <td></td>
+        <td>4</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
 
 
 <table>
@@ -59,18 +97,18 @@
 
     <!--        <th:block th:each="lineEntry : ${currentTimesheet.getLineEntries}"-->
 <!--    <th:block th:each="lineEntry : ${logOfEntries}">-->
-        <tr>
-            <th th:text="${entry1Project+' - '+entry1WorkType}">default Project - workType</th>
+<!--        <tr>-->
+<!--            <th th:text="${entry1Project+' - '+entry1WorkType}">default Project - workType</th>-->
 
-            <!--            MONDAY COLUMN-->
-            <td>
-                <div th:if='${daysOfWeek.equals("MONDAY")}'>
-                    <p th:text="${entry1Hours}"></p>
-                </div>
-                <div th:unless='${daysOfWeek.equals("MONDAY")}'>
-                    <p></p>
-                </div>
-            </td>
+<!--            &lt;!&ndash;            MONDAY COLUMN&ndash;&gt;-->
+<!--            <td>-->
+<!--                <div th:if='${daysOfWeek.equals("MONDAY")}'>-->
+<!--                    <p th:text="${entry1Hours}"></p>-->
+<!--                </div>-->
+<!--                <div th:unless='${daysOfWeek.equals("MONDAY")}'>-->
+<!--                    <p></p>-->
+<!--                </div>-->
+<!--            </td>-->
 
 <!--            &lt;!&ndash;            TUESDAY COLUMN&ndash;&gt;-->
 <!--            <td>-->
@@ -120,15 +158,15 @@
 <!--                </div>-->
 <!--            </td>-->
 
-            <td>T</td>
-            <td>w</td>
-            <td>T</td>
-            <td>f</td>
-            <td>s</td>
-            <!--            TOTAL COLUMN-->
-            <td>T</td>
-            <td>edit icon</td>
-        </tr>
+<!--            <td>T</td>-->
+<!--            <td>w</td>-->
+<!--            <td>T</td>-->
+<!--            <td>f</td>-->
+<!--            <td>s</td>-->
+<!--            &lt;!&ndash;            TOTAL COLUMN&ndash;&gt;-->
+<!--            <td>T</td>-->
+<!--            <td>edit icon</td>-->
+<!--        </tr>-->
 
 <!--    </th:block>-->
 

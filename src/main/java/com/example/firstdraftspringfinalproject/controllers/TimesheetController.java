@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -31,7 +32,7 @@ public class TimesheetController {
 //        //1st lets create the line entry object
 //        LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), day2, hours);
 
-        //DayOfTheWeek Enum as the REquest Parameter type for day
+        //DayOfTheWeek Enum as the Request Parameter type for day
         LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), daysOfWeek, hours);
 
         //2nd lets find the correct employee's arraylist of timesheets
@@ -49,6 +50,30 @@ public class TimesheetController {
         model.addAttribute("projects", projects);
         ArrayList<WorkType> workTypes = WorkTypeData.getAllWorkTypes();
         model.addAttribute("workTypes", workTypes);
+        ArrayList<String> daysOfWeek1 = new ArrayList<>();
+        String monday = "MONDAY";
+        String tuesday = "TUESDAY";
+        String wednesday = "WEDNESDAY";
+        String thursday = "THURSDAY";
+        String friday = "FRIDAY";
+        String saturday = "SATURDAY";
+        daysOfWeek1.add(monday);
+        daysOfWeek1.add(tuesday);
+        daysOfWeek1.add(wednesday);
+        daysOfWeek1.add(thursday);
+        daysOfWeek1.add(friday);
+        daysOfWeek1.add(saturday);
+        model.addAttribute("daysOfWeek", daysOfWeek1);
+        //display the Dates for this Timesheet
+        String startDate = currentTimesheet.formatDates(currentTimesheet.getStartDate());
+        String dueDate = currentTimesheet.formatDates(currentTimesheet.getDueDate());
+        String payDay = currentTimesheet.formatDates(currentTimesheet.getPayDay());
+        LocalDate currentDate = LocalDate.now();
+        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
+        model.addAttribute("today", today);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("dueDate", dueDate);
+        model.addAttribute("payDay", payDay);
 
         //DISPLAY the necessary attributes for the timesheet table (the second table)
         model.addAttribute("logOfEntries", logOfEntries);
