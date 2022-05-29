@@ -11,14 +11,8 @@ public class Timesheet {
     private GregorianCalendar payDay;
     private Boolean completionStatus;
     private Boolean supervisorApproval;
-    private HashMap <WorkType, HashMap<Project, Integer>> monday;
-    private HashMap <WorkType, HashMap<Project, Integer>> tuesday;
-    private HashMap <WorkType, HashMap<Project, Integer>> wednesday;
-    private HashMap <WorkType, HashMap<Project, Integer>> thursday;
-    private HashMap <WorkType, HashMap<Project, Integer>> friday;
-    private HashMap <WorkType, HashMap<Project, Integer>> saturday;
     private ArrayList<LineEntriesOnTimesheet> lineEntries = new ArrayList<>();
-//    private String error = "Error";
+
 
 
     public Timesheet (Employee employee){
@@ -30,25 +24,15 @@ public class Timesheet {
         this.startDate=startDate;
     }
 
-    public Timesheet (Employee employee, GregorianCalendar startDate, GregorianCalendar dueDate, GregorianCalendar payDay, Boolean completionStatus, Boolean supervisorApproval, HashMap<WorkType, HashMap<Project, Integer>> monday, HashMap<WorkType, HashMap<Project, Integer>> tuesday, HashMap<WorkType, HashMap<Project, Integer>> wednesday, HashMap<WorkType, HashMap<Project, Integer>> thursday, HashMap<WorkType, HashMap<Project, Integer>> friday, HashMap<WorkType, HashMap<Project, Integer>> saturday){
+    public Timesheet (Employee employee, GregorianCalendar startDate, GregorianCalendar dueDate, GregorianCalendar payDay, Boolean completionStatus, Boolean supervisorApproval){
         this.employee = employee;
         this.startDate = startDate;
         this.dueDate = dueDate;
         this.payDay = payDay;
         this.completionStatus = completionStatus;
         this.supervisorApproval = supervisorApproval;
-        this.monday = monday;
-        this.tuesday = tuesday;
-        this.wednesday = wednesday;
-        this.thursday = thursday;
-        this.friday = friday;
-        this.saturday = saturday;
     }
 
-//    public Timesheet(Employee employee, String error){
-//        this.employee=employee;
-//        this.error=error;
-//    }
 
     // GETTERS & SETTERS
 
@@ -71,51 +55,6 @@ public class Timesheet {
 
     public Boolean getSupervisorApproval() {
         return supervisorApproval;
-    }
-
-    public HashMap<WorkType, HashMap<Project, Integer>> getMonday() {
-        return monday;
-    }
-    public ArrayList<String> getMondayWorkTypes(){
-        Collection<WorkType> mondayWorkTypeCollection = monday.keySet();
-        ArrayList<String> mondayWorkTypeCollectionToString = new ArrayList<>();
-        String workTypeAsString;
-        for (WorkType theWorkType : mondayWorkTypeCollection){
-            workTypeAsString = WorkType.toStringWorkTypes(theWorkType);
-            mondayWorkTypeCollectionToString.add(workTypeAsString);
-        }
-        return mondayWorkTypeCollectionToString;
-    }
-
-    public static void printMondayWorkTypes(ArrayList<String> mondayWorkTypes){
-        for (String workType:
-                mondayWorkTypes) {
-            System.out.println(workType);
-        }
-    }
-
-    public String getMondayWorkTypeInString(){
-        return "Work on this method";
-    }
-
-    public HashMap<WorkType, HashMap<Project, Integer>> getTuesday() {
-        return tuesday;
-    }
-
-    public HashMap<WorkType, HashMap<Project, Integer>> getWednesday() {
-        return wednesday;
-    }
-
-    public HashMap<WorkType, HashMap<Project, Integer>> getThursday() {
-        return thursday;
-    }
-
-    public HashMap<WorkType, HashMap<Project, Integer>> getFriday() {
-        return friday;
-    }
-
-    public HashMap<WorkType, HashMap<Project, Integer>> getSaturday() {
-        return saturday;
     }
 
     public ArrayList<LineEntriesOnTimesheet> getLineEntries() {
@@ -150,33 +89,11 @@ public class Timesheet {
         this.supervisorApproval = supervisorApproval;
     }
 
-    public void setMonday(HashMap<WorkType, HashMap<Project, Integer>> monday) {
-        this.monday = monday;
-    }
-
-    public void setTuesday(HashMap<WorkType, HashMap<Project, Integer>> tuesday) {
-        this.tuesday = tuesday;
-    }
-
-    public void setWednesday(HashMap<WorkType, HashMap<Project, Integer>> wednesday) {
-        this.wednesday = wednesday;
-    }
-
-    public void setThursday(HashMap<WorkType, HashMap<Project, Integer>> thursday) {
-        this.thursday = thursday;
-    }
-
-    public void setFriday(HashMap<WorkType, HashMap<Project, Integer>> friday) {
-        this.friday = friday;
-    }
-
-    public void setSaturday(HashMap<WorkType, HashMap<Project, Integer>> saturday) {
-        this.saturday = saturday;
-    }
-
     public void setLineEntries(ArrayList<LineEntriesOnTimesheet> lineEntries) {
         this.lineEntries = lineEntries;
     }
+
+
 /* Timesheet - you can't have a workType key have a value where there are two entries with the same project
      - write a method to validate that? & unit Test- ie. we can't have:
      workType1: {
@@ -194,14 +111,10 @@ public class Timesheet {
         workTypeSand: {projectB: 6hrs;} <---------- right here can't have this twice, project C would need to go in the index 0
      */
 
-    public static Integer totalMondaysHours(Timesheet aTimeSheet){
+    public static Integer totalMondayHours(Timesheet aTimeSheet){
         Integer totalHours = 0;
-        HashMap <WorkType, HashMap<Project, Integer>> monday;
-        monday = aTimeSheet.getMonday();
-        for (Map.Entry<WorkType, HashMap<Project, Integer>> row : monday.entrySet()){
-            for (Map.Entry<Project, Integer> subRow : row.getValue().entrySet()){
-                totalHours += subRow.getValue();
-            }
+        for (LineEntriesOnTimesheet lineEntry : aTimeSheet.getLineEntries()){
+
         }
         return totalHours;
     }
@@ -243,5 +156,7 @@ public class Timesheet {
             return todayGC;
         }
     }
+
+//    TODO - write a method that will total all of Day of week's hours for all line entries in timesheet
 
 }

@@ -27,7 +27,9 @@
 <!--    </form>-->
 <!--</div>-->
 
-<a href="/employee/timesheet">Edit Current timesheet</a>
+<div th:unless="${completionStatus}">
+    <button><a href="/employee/timesheet">Edit Current Timesheet</a></button>
+</div>
 
 </body>
 </html>
