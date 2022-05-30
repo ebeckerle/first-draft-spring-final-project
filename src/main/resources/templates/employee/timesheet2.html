@@ -39,62 +39,76 @@
     <th:block th:each="lineEntry : ${logOfEntries}">
         <tr>
             <th th:text="${lineEntry.getProject().toString()+' - '+lineEntry.getWorkType().toStringWorkTypeCode()}">default Project - workType</th>
+
             <!--            MONDAY COLUMN-->
             <td>
-                <div th:if='${lineEntry.getDayOfTheWeek().equals("MONDAY")}'>
-                    <p th:text="${lineEntry.getHours()}"></p>
-                </div>
-                <div th:unless='${lineEntry.getDayOfTheWeek().equals("MONDAY")}'>
-                    <p></p>
+                <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">
+                    <div th:if='${dayHoursPair.key.equals("MONDAY")}'>
+                        <p th:text="${dayHoursPair.value}"></p>
+                    </div>
+                    <div th:unless='${dayHoursPair.key.equals("MONDAY")}'>
+                        <p></p>
+                    </div>
                 </div>
             </td>
             <!--            TUESDAY COLUMN-->
             <td>
-                <div th:if='${lineEntry.getDayOfTheWeek().equals("TUESDAY")}'>
-                    <p th:text="${lineEntry.getHours()}"></p>
-                </div>
-                <div th:unless='${lineEntry.getDayOfTheWeek().equals("TUESDAY")}'>
-                    <p></p>
+                <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">
+                    <div th:if='${dayHoursPair.key.equals("TUESDAY")}'>
+                        <p th:text="${dayHoursPair.value}"></p>
+                    </div>
+                    <div th:unless='${dayHoursPair.key.equals("TUESDAY")}'>
+                        <p></p>
+                    </div>
                 </div>
             </td>
             <!--            WEDNESDAY COLUMN-->
             <td>
-                <div th:if='${lineEntry.getDayOfTheWeek().equals("WEDNESDAY")}'>
-                    <p th:text="${lineEntry.getHours()}"></p>
-                </div>
-                <div th:unless='${lineEntry.getDayOfTheWeek().equals("WEDNESDAY")}'>
-                    <p></p>
+                <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">
+                    <div th:if='${dayHoursPair.key.equals("WEDNESDAY")}'>
+                        <p th:text="${dayHoursPair.value}"></p>
+                    </div>
+                    <div th:unless='${dayHoursPair.key.equals("WEDNESDAY")}'>
+                        <p></p>
+                    </div>
                 </div>
             </td>
 
             <!--            THURSDAY COLUMN-->
             <td>
-                <div th:if='${lineEntry.getDayOfTheWeek().equals("THURSDAY")}'>
-                    <p th:text="${lineEntry.getHours()}"></p>
-                </div>
-                <div th:unless='${lineEntry.getDayOfTheWeek().equals("THURSDAY")}'>
-                    <p></p>
+                <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">
+                    <div th:if='${dayHoursPair.key.equals("THURSDAY")}'>
+                        <p th:text="${dayHoursPair.value}"></p>
+                    </div>
+                    <div th:unless='${dayHoursPair.key.equals("THURSDAY")}'>
+                        <p></p>
+                    </div>
                 </div>
             </td>
 
             <!--            FRIDAY COLUMN-->
             <td>
-                <div th:if='${lineEntry.getDayOfTheWeek().equals("FRIDAY")}'>
-                    <p th:text="${lineEntry.getHours()}"></p>
-                </div>
-                <div th:unless='${lineEntry.getDayOfTheWeek().equals("FRIDAY")}'>
-                    <p></p>
+                <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">
+                    <div th:if='${dayHoursPair.key.equals("FRIDAY")}'>
+                        <p th:text="${dayHoursPair.value}"></p>
+                    </div>
+                    <div th:unless='${dayHoursPair.key.equals("FRIDAY")}'>
+                        <p></p>
+                    </div>
                 </div>
             </td>
             <!--            SATURDAY COLUMN-->
             <td>
-                <div th:if='${lineEntry.getDayOfTheWeek().equals("SATURDAY")}'>
-                    <p th:text="${lineEntry.getHours()}"></p>
-                </div>
-                <div th:unless='${lineEntry.getDayOfTheWeek().equals("SATURDAY")}'>
-                    <p></p>
+                <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">
+                    <div th:if='${dayHoursPair.key.equals("SATURDAY")}'>
+                        <p th:text="${dayHoursPair.value}"></p>
+                    </div>
+                    <div th:unless='${dayHoursPair.key.equals("SATURDAY")}'>
+                        <p></p>
+                    </div>
                 </div>
             </td>
+
             <td>T</td>
             <td>edit icon</td>
         </tr>

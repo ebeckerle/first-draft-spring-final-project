@@ -27,7 +27,7 @@ public class TimesheetController {
         // find the current timesheet
         Timesheet currentTimesheet = EmployeeData.findCurrentTimesheetForEmployee(employee);
         //grab the ArrayList of Line Entries in current timesheet
-        ArrayList<LineEntriesOnTimesheet> logOfEntries = currentTimesheet.getLineEntries();
+        ArrayList<LineEntry> logOfEntries = currentTimesheet.getLineEntries();
 
 
         //display the Dates for this Timesheet
@@ -91,20 +91,41 @@ public class TimesheetController {
     @PostMapping("createlineentry")
     public String processCreateLineEntryForm(@RequestParam Integer employeeId, @RequestParam String project, @RequestParam String workType, @RequestParam(required = false) String daysOfWeek, @RequestParam Integer hours, Model model){
 
-        //1st lets create the line entry object
-        LineEntriesOnTimesheet newEntry = new LineEntriesOnTimesheet(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), daysOfWeek, hours);
-
-        //2nd lets find the correct employee's arraylist of timesheets
+        //1ST lets find the correct employee's arraylist of timesheets
         Employee employee = EmployeeData.getEmployeeById(employeeId);
 
-        //3rd lets find the current timesheet
+        //2nd lets find the current timesheet
         Timesheet currentTimesheet = EmployeeData.findCurrentTimesheetForEmployee(employee);
 
-        //NEW TODO - check if the lineEntry Project WorkType Combo already exists as a line entry
-        //4th update the current timesheet by adding this line entry
-        ArrayList<LineEntriesOnTimesheet> logOfEntries = currentTimesheet.getLineEntries();
+        //Create the new line entry object
+        LineEntry newEntry = new LineEntry(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), daysOfWeek, hours);
+        //check if the lineEntry Project WorkType Combo already exists as a line entry, if so, update that line entry, if not, add a new line entry.
 
-        logOfEntries.add(newEntry);
+        currentTimesheet.checkAndAddALineEntry(newEntry, daysOfWeek, hours);
+
+//        boolean doesLineEntryAlreadyExist = false;
+//        while (!doesLineEntryAlreadyExist) {
+//            for (LineEntry entry :
+//                    currentTimesheet.getLineEntries()) {
+//                if (entry.getProject().equals(newEntry.getProject()) && entry.getWorkType().equals(newEntry.getWorkType())) {
+//                    currentTimesheet.addHoursToALineEntry(newEntry, daysOfWeek, hours);
+//                    doesLineEntryAlreadyExist = true;
+//                    break;
+//                }
+//            }
+//            if (!doesLineEntryAlreadyExist){
+//                currentTimesheet.getLineEntries().add(newEntry);
+//                break;
+//            }
+//        }
+
+
+//        if (currentTimesheet.checkALineEntryAlreadyExists(newEntry)){
+//            currentTimesheet.addHoursToALineEntry(newEntry, daysOfWeek, hours);
+//        }else{
+//            currentTimesheet.getLineEntries().add(newEntry);
+//        }
+
 
         return "redirect:";
     }

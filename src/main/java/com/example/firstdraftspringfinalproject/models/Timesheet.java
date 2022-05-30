@@ -11,7 +11,7 @@ public class Timesheet {
     private GregorianCalendar payDay;
     private Boolean completionStatus;
     private Boolean supervisorApproval;
-    private ArrayList<LineEntriesOnTimesheet> lineEntries = new ArrayList<>();
+    private ArrayList<LineEntry> lineEntries = new ArrayList<>();
 
 
 
@@ -57,7 +57,7 @@ public class Timesheet {
         return supervisorApproval;
     }
 
-    public ArrayList<LineEntriesOnTimesheet> getLineEntries() {
+    public ArrayList<LineEntry> getLineEntries() {
         return lineEntries;
     }
 
@@ -89,8 +89,49 @@ public class Timesheet {
         this.supervisorApproval = supervisorApproval;
     }
 
-    public void setLineEntries(ArrayList<LineEntriesOnTimesheet> lineEntries) {
+    public void setLineEntries(ArrayList<LineEntry> lineEntries) {
         this.lineEntries = lineEntries;
+    }
+
+    public Boolean checkALineEntryAlreadyExists(LineEntry lineEntry){
+//        for (LineEntry entry :
+//                this.lineEntries) {
+//            if (entry.getProject().equals(lineEntry.getProject()) && entry.getWorkType().equals(lineEntry.getWorkType())){
+//                return true;
+//            }
+//        }
+        if (this.lineEntries.contains(lineEntry)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public void addHoursToALineEntry(LineEntry lineEntry, String dayOfWeek, Integer hours){
+        for (LineEntry entry :
+             this.lineEntries) {
+            if (entry.getProject().equals(lineEntry.getProject()) && entry.getWorkType().equals(lineEntry.getWorkType())){
+                entry.setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(dayOfWeek, hours);
+            }
+        }
+    }
+
+    public void checkAndAddALineEntry(LineEntry newEntry, String dayOfWeek, Integer hours){
+        boolean doesLineEntryAlreadyExist = false;
+        while (!doesLineEntryAlreadyExist) {
+            for (LineEntry entry :
+                    this.lineEntries) {
+                if (entry.equals(newEntry)) {
+                    entry.setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(dayOfWeek, hours);
+                    doesLineEntryAlreadyExist = true;
+                    break;
+                }
+            }
+            if (!doesLineEntryAlreadyExist){
+                this.lineEntries.add(newEntry);
+                break;
+            }
+        }
     }
 
 
@@ -113,7 +154,7 @@ public class Timesheet {
 
     public static Integer totalMondayHours(Timesheet aTimeSheet){
         Integer totalHours = 0;
-        for (LineEntriesOnTimesheet lineEntry : aTimeSheet.getLineEntries()){
+        for (LineEntry lineEntry : aTimeSheet.getLineEntries()){
 
         }
         return totalHours;
@@ -158,5 +199,7 @@ public class Timesheet {
     }
 
 //    TODO - write a method that will total all of Day of week's hours for all line entries in timesheet
+
+
 
 }
