@@ -106,7 +106,7 @@ public class EmployeePortalController {
         //this is a quirk but want to try this:
         model.addAttribute("day", "don't display");
 
-        return "employee/timesheet2";
+        return "employee/timesheet";
     }
 
 

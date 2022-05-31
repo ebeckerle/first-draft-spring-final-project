@@ -46,8 +46,9 @@ public class TimesheetController {
 
         //We need total hours worked on each individual day of the week and display them in the last row of the table
 
+        model.addAttribute("title", "Current Timesheet");
 
-        return "employee/timesheet2";
+        return "employee/timesheet";
     }
 
     @GetMapping("/createlineentry")
@@ -83,6 +84,7 @@ public class TimesheetController {
 //        model.addAttribute("dueDate", dueDate);
 //        model.addAttribute("payDay", payDay);
 
+        model.addAttribute("title", "Add hours to your Timesheet");
         //not sure what to do with this
         model.addAttribute("employeeId", 1);
         return "employee/createlineentry";

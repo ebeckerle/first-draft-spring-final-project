@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
+<head th:replace="fragments :: head">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${title}">Title</title>
 </head>
 <body>
 <div th:replace="fragments :: header-nav-login"></div>
