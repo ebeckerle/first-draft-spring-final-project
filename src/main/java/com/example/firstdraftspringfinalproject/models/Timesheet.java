@@ -72,7 +72,7 @@ public class Timesheet {
         int monthOfStart = startDate.get(Calendar.MONTH);
         int dateOfStart = startDate.get(Calendar.DATE);
 
-        GregorianCalendar dueDate = new GregorianCalendar(yearOfStart, monthOfStart, dateOfStart );
+        GregorianCalendar dueDate = new GregorianCalendar(yearOfStart, monthOfStart, dateOfStart);
         dueDate.add(Calendar.DATE, 7);
         this.dueDate = dueDate;
 
@@ -94,12 +94,7 @@ public class Timesheet {
     }
 
     public Boolean checkALineEntryAlreadyExists(LineEntry lineEntry){
-//        for (LineEntry entry :
-//                this.lineEntries) {
-//            if (entry.getProject().equals(lineEntry.getProject()) && entry.getWorkType().equals(lineEntry.getWorkType())){
-//                return true;
-//            }
-//        }
+
         if (this.lineEntries.contains(lineEntry)){
             return true;
         }else {
@@ -132,32 +127,6 @@ public class Timesheet {
                 break;
             }
         }
-    }
-
-
-/* Timesheet - you can't have a workType key have a value where there are two entries with the same project
-     - write a method to validate that? & unit Test- ie. we can't have:
-     workType1: {
-        projectA: 6hrs;
-        projectB: 2hrs;
-        projectA: 2hrs; <---------- right here can't have this twice.
-     */
-
-    /* Timesheet - you can't have two of the same work types in one day (ie, monday, tuesday, etc)
-     - write a method to validate that does not happen? & unit Test- ie. we can't have:
-     monday: {
-        workTypeSand: {projectA: 6hrs;
-                       projectC: 2hrs;
-        workTypePaint: {projectA: 6hrs;}
-        workTypeSand: {projectB: 6hrs;} <---------- right here can't have this twice, project C would need to go in the index 0
-     */
-
-    public static Integer totalMondayHours(Timesheet aTimeSheet){
-        Integer totalHours = 0;
-        for (LineEntry lineEntry : aTimeSheet.getLineEntries()){
-
-        }
-        return totalHours;
     }
 
     // code a method like totalMondaysHours, but will work for any day of the week - totalDayOfWeekHours(Timesheet aTimesheet,

@@ -1,5 +1,7 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import java.util.Objects;
+
 public class Project {
 
     private String projectId;
@@ -36,5 +38,18 @@ public class Project {
     @Override
     public String toString() {
         return projectName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return projectId.equals(project.projectId) && projectName.equals(project.projectName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(projectId, projectName);
     }
 }

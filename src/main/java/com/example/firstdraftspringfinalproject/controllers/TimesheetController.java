@@ -27,7 +27,7 @@ public class TimesheetController {
         // find the current timesheet
         Timesheet currentTimesheet = EmployeeData.findCurrentTimesheetForEmployee(employee);
         //grab the ArrayList of Line Entries in current timesheet
-        ArrayList<LineEntry> logOfEntries = currentTimesheet.getLineEntries();
+//        ArrayList<LineEntry> logOfEntries = currentTimesheet.getLineEntries();
 
 
         //display the Dates for this Timesheet
@@ -42,7 +42,14 @@ public class TimesheetController {
         model.addAttribute("payDay", payDay);
 
         //DISPLAY the necessary attributes for the timesheet table (the second table)
-        model.addAttribute("logOfEntries", logOfEntries);
+        model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
+
+        System.out.println("Fox is the Best baby");
+        System.out.println("display Current Timesheet controller");
+        for (LineEntry lineEntry:
+                currentTimesheet.getLineEntries()) {
+            System.out.println("entry: "+lineEntry.getProject().getProjectName()+lineEntry.getWorkType().getWorkTypeId().toString());
+        }
 
         //We need total hours worked on each individual day of the week and display them in the last row of the table
 
@@ -55,10 +62,10 @@ public class TimesheetController {
     public String displayCreateLineEntryForm(Model model){
 
         //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
-        ArrayList<Project> projects = ProjectData.getAllProjects();
-        model.addAttribute("projects", projects);
-        ArrayList<WorkType> workTypes = WorkTypeData.getAllWorkTypes();
-        model.addAttribute("workTypes", workTypes);
+//        ArrayList<Project> projects = ProjectData.getAllProjects();
+        model.addAttribute("projects", ProjectData.getAllProjects());
+//        ArrayList<WorkType> workTypes = WorkTypeData.getAllWorkTypes();
+        model.addAttribute("workTypes", WorkTypeData.getAllWorkTypes());
         ArrayList<String> daysOfWeek1 = new ArrayList<>();
         String monday = "MONDAY";
         String tuesday = "TUESDAY";
@@ -87,6 +94,8 @@ public class TimesheetController {
         model.addAttribute("title", "Add hours to your Timesheet");
         //not sure what to do with this
         model.addAttribute("employeeId", 1);
+
+        System.out.println("Display Create Line Entry Form (Get Request)");
         return "employee/createlineentry";
     }
 
@@ -105,29 +114,11 @@ public class TimesheetController {
 
         currentTimesheet.checkAndAddALineEntry(newEntry, daysOfWeek, hours);
 
-//        boolean doesLineEntryAlreadyExist = false;
-//        while (!doesLineEntryAlreadyExist) {
-//            for (LineEntry entry :
-//                    currentTimesheet.getLineEntries()) {
-//                if (entry.getProject().equals(newEntry.getProject()) && entry.getWorkType().equals(newEntry.getWorkType())) {
-//                    currentTimesheet.addHoursToALineEntry(newEntry, daysOfWeek, hours);
-//                    doesLineEntryAlreadyExist = true;
-//                    break;
-//                }
-//            }
-//            if (!doesLineEntryAlreadyExist){
-//                currentTimesheet.getLineEntries().add(newEntry);
-//                break;
-//            }
-//        }
-
-
-//        if (currentTimesheet.checkALineEntryAlreadyExists(newEntry)){
-//            currentTimesheet.addHoursToALineEntry(newEntry, daysOfWeek, hours);
-//        }else{
-//            currentTimesheet.getLineEntries().add(newEntry);
-//        }
-
+        System.out.println("Fox is sleeping, this is in the process create line entry form");
+        for (LineEntry lineEntry:
+                currentTimesheet.getLineEntries()) {
+            System.out.println("entry: "+lineEntry.getProject().getProjectName()+lineEntry.getWorkType().getWorkTypeId().toString());
+        }
 
         return "redirect:";
     }

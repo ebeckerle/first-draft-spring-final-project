@@ -9,11 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 @Controller
@@ -39,6 +36,8 @@ public class EmployeePortalController {
         model.addAttribute("todaysDate", todaysDate);
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
+
+        System.out.println("display Employee Welcome controller");
 
         return "employee/home";
     }
@@ -90,21 +89,12 @@ public class EmployeePortalController {
         daysOfWeek.add(saturday);
         model.addAttribute("daysOfWeek", daysOfWeek);
 
-
-        ArrayList<Project> projects = ProjectData.getAllProjects();
-        ArrayList<WorkType> workTypes = WorkTypeData.getAllWorkTypes();
-
         model.addAttribute("title", "Timesheet");
-        model.addAttribute("projects", projects);
-        model.addAttribute("workTypes", workTypes);
 
         //will delete this soon when I better figure out the employee sign in / authentication process, for now I think
         // i need to hardcode it and pass it thtrough as a model attribute so I can grab it as a request parameter
         // in the Timesheet Controller
         model.addAttribute("employeeId", 1);
-
-        //this is a quirk but want to try this:
-        model.addAttribute("day", "don't display");
 
         return "employee/timesheet";
     }

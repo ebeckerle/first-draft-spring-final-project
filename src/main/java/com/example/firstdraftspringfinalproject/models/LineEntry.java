@@ -15,7 +15,7 @@ public class LineEntry {
     private HashMap<String, Integer> dayOfWeekAndHours;
     private Date date;
 
-    private Integer totalHours;
+    private Integer totalHours = 0;
 
 
     public LineEntry(Project project, WorkType workType, String dayOfWeek, Integer hours){
@@ -33,6 +33,8 @@ public class LineEntry {
         this.dayOfWeekAndHours = dayOfWeekAndHours;
     }
 
+
+    //GETTERS & SETTERS
     public Project getProject() {
         return project;
     }
@@ -58,7 +60,6 @@ public class LineEntry {
     }
 
     public Integer getTotalHoursInLineEntry(){
-//        TODO -- ..test this???
         for (Integer hours : dayOfWeekAndHours.values()){
             totalHours += hours;
         }
