@@ -116,9 +116,11 @@ public class TimesheetController {
 
         //Create the new line entry object
         LineEntry newEntry = new LineEntry(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), daysOfWeek, hours);
+
         //check if the lineEntry Project WorkType Combo already exists as a line entry, if so, update that line entry, if not, add a new line entry.
 
         currentTimesheet.checkAndAddALineEntry(newEntry, daysOfWeek, hours);
+        newEntry.setTotalHoursInLineEntry();
 
         System.out.println("Fox is sleeping, this is in the process create line entry form");
         for (LineEntry lineEntry:

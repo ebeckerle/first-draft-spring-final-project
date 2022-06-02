@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head">
-    <meta charset="UTF-8">
-    <title th:text="${title}">Title</title>
-</head>
+<head th:replace="fragments :: head"></head>
 <body>
 <div th:replace="fragments :: header-nav-login"></div>
 <p th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</p>

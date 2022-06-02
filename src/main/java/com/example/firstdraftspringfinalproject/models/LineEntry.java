@@ -60,10 +60,13 @@ public class LineEntry {
     }
 
     public Integer getTotalHoursInLineEntry(){
+        return totalHours;
+    }
+
+    public void setTotalHoursInLineEntry(){
         for (Integer hours : dayOfWeekAndHours.values()){
             totalHours += hours;
         }
-        return totalHours;
     }
 
     public void setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(String dayOfWeek, Integer hours){

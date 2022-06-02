@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head">
-    <meta charset="UTF-8">
-    <title></title>
-    <link href="../static/styles.css" rel="stylesheet" th:href="@{styles.css}"/>
-    <!--as far as I can tell I can't get this script to work, would like to get it to work and then move out of head and into it's own script.js file-->
-    <script th:src="@{script.js}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="">
+<head th:replace="fragments :: head"></head>
+
+<!--<head>-->
+<!--<meta charset="UTF-8">-->
+<!--<title th:text="${title}></title>-->
+<!--    <link rel="stylesheet" th:href="@{styles.css}"/>-->
+<!--<link href="../static/styles.css" rel="stylesheet" th:href="@{styles.css}"/>-->
+<!--as far as I can tell I can't get this script to work, would like to get it to work and then move out of head and into it's own script.js file-->
+<!--<script th:src="@{script.js}">-->
 <!--        window.addEventListener("load", function(){-->
 <!--            let form = document.querySelector("form");-->
 <!--            form.addEventListener("submit", function(event){-->
@@ -16,8 +19,9 @@
 <!--                }-->
 <!--            })-->
 <!--        }-->
-    </script>
-</head>
+<!--</script>-->
+<!--</head>-->
+
 <body>
 
 <p>timesheet2 - coming here from hitting new timesheet button on the homepage, or being redirected after hitting save on the createlineentry page</p>
