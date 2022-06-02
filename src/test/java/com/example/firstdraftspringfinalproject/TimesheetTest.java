@@ -77,4 +77,36 @@ public class TimesheetTest {
 
         assertEquals(testTimesheet.getLineEntries().size(), testTimesheet2.getLineEntries().size());
     }
+
+    @Test
+    public void testTotalDayOfWeekHours(){
+        Employee practiceEmployee = new Employee("Elizabeth", "Beckerle");
+        Timesheet testTimesheet = new Timesheet(practiceEmployee);
+
+        Project pIasc = new Project("IASC", "Iowa State Capitol");
+        WorkType wT101 = new WorkType(101, "Inventory");
+        HashMap<String, Integer> dayOfWeekAndHours = new HashMap<>();
+        dayOfWeekAndHours.put("MONDAY", 4);
+        LineEntry lineEntry1 = new LineEntry(pIasc, wT101, dayOfWeekAndHours);
+
+        WorkType wT102 = new WorkType(102, "Cut and Process Rough Parts");
+        LineEntry lineEntry2 = new LineEntry(pIasc, wT102, dayOfWeekAndHours);
+
+        testTimesheet.checkAndAddALineEntry(lineEntry1, "MONDAY", 4);
+        testTimesheet.checkAndAddALineEntry(lineEntry2, "MONDAY", 4);
+
+        assertEquals(8, testTimesheet.totalDayOfWeekHours("MONDAY"));
+
+    }
+
+//    public Integer totalDayOfWeekHours(String dayOfWeek){
+//        Integer totalHours = 0;
+//        for (LineEntry lineEntry:
+//                this.lineEntries) {
+//            if (lineEntry.getDayOfWeekAndHours().containsKey(dayOfWeek)){
+//                totalHours += lineEntry.getDayOfWeekAndHours().get(dayOfWeek);
+//            }
+//        }
+//        return totalHours;
+//    }
 }

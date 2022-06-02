@@ -129,8 +129,18 @@ public class Timesheet {
         }
     }
 
-    // code a method like totalMondaysHours, but will work for any day of the week - totalDayOfWeekHours(Timesheet aTimesheet,
-
+    /* TODO - code a method like totalMondaysHours, but will work for any day of the week - totalDayOfWeekHours(Timesheet aTimesheet,
+     - TODO  - Still need to throw error if amount of hours is over 24!!*/
+    public Integer totalDayOfWeekHours(String dayOfWeek){
+        Integer totalHours = 0;
+        for (LineEntry lineEntry:
+             this.lineEntries) {
+            if (lineEntry.getDayOfWeekAndHours().containsKey(dayOfWeek)){
+                totalHours += lineEntry.getDayOfWeekAndHours().get(dayOfWeek);
+            }
+        }
+        return totalHours;
+    }
 
     public String formatDates(GregorianCalendar date){
         return date.get(Calendar.MONTH)+1 + "/" + date.get(Calendar.DATE) + "/" + date.get(Calendar.YEAR);

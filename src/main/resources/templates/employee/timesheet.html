@@ -122,20 +122,71 @@
                 </div>
             </td>
 
-            <td>T</td>
+            <td th:text="${lineEntry.getTotalHoursInLineEntry()}">T</td>
             <td>edit icon</td>
         </tr>
     </th:block>
     <!--total row at bottom of table-->
     <tr>
         <th>Total</th>
+        <!--            DAY TOTALS ROW-->
+        <!--            MONDAY TOTALS CELL -->
+        <td>
+            <div th:if='${mondayTotal > 0}'>
+                <p th:text="${mondayTotal}"></p>
+            </div>
+            <div th:unless='${mondayTotal > 0}'>
+                <p></p>
+            </div>
+        </td>
+        <!--            TUESDAY TOTALS CELL -->
+        <td>
+            <div th:if='${tuesdayTotal > 0}'>
+                <p th:text="${tuesdayTotal}"></p>
+            </div>
+            <div th:unless='${tuesdayTotal > 0}'>
+                <p></p>
+            </div>
+        </td>
+        <!--            WEDNESDAY TOTALS CELL -->
+        <td>
+            <div th:if='${wednesdayTotal > 0}'>
+                <p th:text="${wednesdayTotal}"></p>
+            </div>
+            <div th:unless='${wednesdayTotal > 0}'>
+                <p></p>
+            </div>
+        </td>
+        <!--            THURSDAY TOTALS CELL -->
+        <td>
+            <div th:if='${thursdayTotal > 0}'>
+                <p th:text="${thursdayTotal}"></p>
+            </div>
+            <div th:unless='${thursdayTotal > 0}'>
+                <p></p>
+            </div>
+        </td>
+        <!--            FRIDAY TOTALS CELL -->
+        <td>
+            <div th:if='${fridayTotal > 0}'>
+                <p th:text="${fridayTotal}"></p>
+            </div>
+            <div th:unless='${fridayTotal > 0}'>
+                <p></p>
+            </div>
+        </td>
+        <!--            SATURDAY TOTALS CELL -->
+        <td>
+            <div th:if='${saturdayTotal > 0}'>
+                <p th:text="${saturdayTotal}"></p>
+            </div>
+            <div th:unless='${saturdayTotal > 0}'>
+                <p></p>
+            </div>
+        </td>
+        <!--            TOTAL OF TOTALS CELL-->
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+
         <td></td>
     </tr>
 </table>

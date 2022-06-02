@@ -52,6 +52,12 @@ public class TimesheetController {
         }
 
         //We need total hours worked on each individual day of the week and display them in the last row of the table
+        model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours("MONDAY"));
+        model.addAttribute("tuesdayTotal", currentTimesheet.totalDayOfWeekHours("TUESDAY"));
+        model.addAttribute("wednesdayTotal", currentTimesheet.totalDayOfWeekHours("WEDNESDAY"));
+        model.addAttribute("thursdayTotal", currentTimesheet.totalDayOfWeekHours("THURSDAY"));
+        model.addAttribute("fridayTotal", currentTimesheet.totalDayOfWeekHours("FRIDAY"));
+        model.addAttribute("saturdayTotal", currentTimesheet.totalDayOfWeekHours("SATURDAY"));
 
         model.addAttribute("title", "Current Timesheet");
 
