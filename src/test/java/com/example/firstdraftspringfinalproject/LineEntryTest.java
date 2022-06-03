@@ -15,7 +15,7 @@ import static org.testng.AssertJUnit.assertEquals;
 public class LineEntryTest {
 
     @Test
-    public void testGetTotalHoursInLineEntry(){
+    public void testSetTotalHoursInLineEntry(){
         Project pIasc = new Project("IASC", "Iowa State Capitol");
         WorkType wT101 = new WorkType(101, "Inventory");
         HashMap<String, Integer> dayOfWeekAndHours = new HashMap<>();
@@ -25,6 +25,7 @@ public class LineEntryTest {
         LineEntry lineEntry = new LineEntry(pIasc, wT101, dayOfWeekAndHours);
 
         Integer expected = 24;
+        lineEntry.setTotalHoursInLineEntry();
         Integer actual = lineEntry.getTotalHoursInLineEntry();
         assertEquals(expected, actual);
     }

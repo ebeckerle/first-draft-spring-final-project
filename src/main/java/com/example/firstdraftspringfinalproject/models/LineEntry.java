@@ -64,13 +64,13 @@ public class LineEntry {
     }
 
     public void setTotalHoursInLineEntry(){
+        totalHours = 0;
         for (Integer hours : dayOfWeekAndHours.values()){
             totalHours += hours;
         }
     }
 
     public void setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(String dayOfWeek, Integer hours){
-        //TODO -- ..test this???
         if(this.dayOfWeekAndHours.containsKey(dayOfWeek)){
             Integer originalValue = this.dayOfWeekAndHours.get(dayOfWeek);
             Integer newTotal = hours + originalValue;

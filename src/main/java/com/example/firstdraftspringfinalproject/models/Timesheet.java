@@ -118,12 +118,14 @@ public class Timesheet {
                     this.lineEntries) {
                 if (entry.equals(newEntry)) {
                     entry.setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(dayOfWeek, hours);
+                    entry.setTotalHoursInLineEntry();
                     doesLineEntryAlreadyExist = true;
                     break;
                 }
             }
             if (!doesLineEntryAlreadyExist){
                 this.lineEntries.add(newEntry);
+                newEntry.setTotalHoursInLineEntry();
                 break;
             }
         }

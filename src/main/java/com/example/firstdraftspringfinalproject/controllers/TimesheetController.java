@@ -106,7 +106,7 @@ public class TimesheetController {
     }
 
     @PostMapping("createlineentry")
-    public String processCreateLineEntryForm(@RequestParam Integer employeeId, @RequestParam String project, @RequestParam String workType, @RequestParam(required = false) String daysOfWeek, @RequestParam Integer hours, Model model){
+    public String processCreateLineEntryForm(@RequestParam Integer employeeId, @RequestParam String project, @RequestParam String workType, @RequestParam String daysOfWeek, @RequestParam Integer hours, Model model){
 
         //1ST lets find the correct employee's arraylist of timesheets
         Employee employee = EmployeeData.getEmployeeById(employeeId);
@@ -120,7 +120,8 @@ public class TimesheetController {
         //check if the lineEntry Project WorkType Combo already exists as a line entry, if so, update that line entry, if not, add a new line entry.
 
         currentTimesheet.checkAndAddALineEntry(newEntry, daysOfWeek, hours);
-        newEntry.setTotalHoursInLineEntry();
+//        newEntry.setTotalHoursInLineEntry();
+
 
         System.out.println("Fox is sleeping, this is in the process create line entry form");
         for (LineEntry lineEntry:
