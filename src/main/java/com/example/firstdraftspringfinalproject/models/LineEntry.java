@@ -11,10 +11,10 @@ import javax.validation.constraints.*;
 public class LineEntry {
 
     //    EVERYTHING BELOW IS CODE FOR A lINE ENTRY CLASS USING DayOfTheWeek AS STRING!!!
-    @NotBlank(message="You must select a project")
+//    @NotBlank(message="You must select a project")
     private Project project;
 
-    @NotBlank(message="You must select a work type")
+//    @NotBlank(message="You must select a work type")
     private WorkType workType;
 
     private HashMap<String, Integer> dayOfWeekAndHours;
@@ -99,6 +99,7 @@ public class LineEntry {
     public int hashCode() {
         return Objects.hash(project, workType);
     }
+
 //    EVERYTHING BELOW IS CODE FOR A lINE ENTRY CLASS USING DayOfWeek ENUM!!!
 
 //    private Project project;

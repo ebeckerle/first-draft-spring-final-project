@@ -24,19 +24,17 @@
             <th></th>
         </tr>
         <tr>
-<!--            <td><select name="project"><option value="" disabled selected>Project</option><option th:each="project : ${projects}" th:value="${project}" th:text="${project.toString()}">default project</option></select></td>-->
-<!--            <td><select name="workType"><option value="" disabled selected>Work</option><option th:each="workType : ${workTypes}" th:value="${workType}" th:text="${workType.toString()}">default work type</option></select></td>-->
-            <td><select name="project" th:field="${lineEntry.project}"><option value="" disabled selected>Project</option><option th:each="project : ${projects}" th:value="${project}" th:text="${project.toString()}">default project</option></select></td>
-<!--            <td><select th:field="${lineEntry.project}"><option th:each="project : ${projects}" th:value="${project}" th:text="${project.toString()}">default project</option></select></td>-->
-            <td><select th:field="${lineEntry.workType}"><option th:each="workType : ${workTypes}" th:value="${workType}" th:text="${workType.toString()}">default work type</option></select></td>
-<!--            <td><select name="workType" th:field="${lineEntry.workType}"><option value="" disabled selected>Work</option><option th:each="workType : ${workTypes}" th:value="${workType}" th:text="${workType.toString()}">default work type</option></select></td>-->
+
+            <td><select name="project"><option value="" disabled selected>Project</option><option th:each="project : ${projects}" th:value="${project}" th:text="${project.toString()}">default project</option></select></td>
+            <td><select name="workType"><option value="" disabled selected>Work</option><option th:each="workType : ${workTypes}" th:value="${workType}" th:text="${workType.toString()}">default work type</option></select></td>
+
+<!--            MODEL BOUND VERSION OF SAME CODE ABOVE- NOT A FAN AS DISABLE SELECTED DOES NOT WORK THE SAME-->
+<!--            <td><select th:field="${lineEntry.project}"><option value="" disabled selected>Project</option><option th:each="project : ${projects}" th:value="${project}" th:text="${project.toString()}">default project</option></select></td>-->
+<!--            <td><select th:field="${lineEntry.workType}"><option th:each="workType : ${workTypes}" th:value="${workType}" th:text="${workType.toString()}">default work type</option></select></td>-->
+
             <td><input type="number" max="24" placeholder="hours" name="hours"></td>
             <input type="hidden" name="employeeId" th:value="${employeeId}">
               <td><input type="submit" value="save" onclick="runFormValidation()"></td>
-        </tr>
-        <tr>
-            <td th:errors="${lineEntry.project}"></td>
-            <td th:errors="${lineEntry.workType}"></td>
         </tr>
     </form>
 
