@@ -1,5 +1,8 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
@@ -11,7 +14,17 @@ public class Timesheet {
     private GregorianCalendar payDay;
     private Boolean completionStatus;
     private Boolean supervisorApproval;
+
+    @NotBlank(message = "There are no hours listed on your timesheet, you must add a line entry to submit a timesheet")
     private ArrayList<LineEntry> lineEntries = new ArrayList<>();
+
+    @Min(0) @Max(24)
+    private Integer totalMondayHours;
+    private Integer totalTuesdayHours;
+    private Integer totalWednesdayHours;
+    private Integer totalThursdayHours;
+    private Integer totalFridayHours;
+    private Integer totalSaturdayHours;
 
 
 

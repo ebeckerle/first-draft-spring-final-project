@@ -5,13 +5,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import javax.validation.constraints.*;
+
 
 public class LineEntry {
 
     //    EVERYTHING BELOW IS CODE FOR A lINE ENTRY CLASS USING DayOfTheWeek AS STRING!!!
-
+    @NotBlank(message="You must select a project")
     private Project project;
+
+    @NotBlank(message="You must select a work type")
     private WorkType workType;
+
     private HashMap<String, Integer> dayOfWeekAndHours;
     private Date date;
 
@@ -32,6 +37,8 @@ public class LineEntry {
         this.workType = workType;
         this.dayOfWeekAndHours = dayOfWeekAndHours;
     }
+
+    public LineEntry(){}
 
 
     //GETTERS & SETTERS
