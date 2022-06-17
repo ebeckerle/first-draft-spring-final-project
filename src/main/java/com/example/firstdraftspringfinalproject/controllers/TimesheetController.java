@@ -28,9 +28,6 @@ public class TimesheetController {
 
         // find the current timesheet
         Timesheet currentTimesheet = EmployeeData.findCurrentTimesheetForEmployee(employee);
-        //grab the ArrayList of Line Entries in current timesheet
-//        ArrayList<LineEntry> logOfEntries = currentTimesheet.getLineEntries();
-
 
         //display the Dates for this Timesheet
         String startDate = currentTimesheet.formatDates(currentTimesheet.getStartDate());
@@ -46,8 +43,6 @@ public class TimesheetController {
         //DISPLAY the necessary attributes for the timesheet table (the second table)
         model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
 
-        System.out.println("Fox is the Best baby");
-        System.out.println("display Current Timesheet controller");
         for (LineEntry lineEntry:
                 currentTimesheet.getLineEntries()) {
             System.out.println("entry: "+lineEntry.getProject().getProjectName()+lineEntry.getWorkType().getWorkTypeId().toString());
@@ -70,9 +65,7 @@ public class TimesheetController {
     public String displayCreateLineEntryForm(Model model){
 
         //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
-//        ArrayList<Project> projects = ProjectData.getAllProjects();
         model.addAttribute("projects", ProjectData.getAllProjects());
-//        ArrayList<WorkType> workTypes = WorkTypeData.getAllWorkTypes();
         model.addAttribute("workTypes", WorkTypeData.getAllWorkTypes());
         ArrayList<String> daysOfWeek1 = new ArrayList<>();
         String monday = "MONDAY";
@@ -88,23 +81,14 @@ public class TimesheetController {
         daysOfWeek1.add(friday);
         daysOfWeek1.add(saturday);
         model.addAttribute("daysOfWeek", daysOfWeek1);
-        //display the Dates for this Timesheet
-//        String startDate = currentTimesheet.formatDates(currentTimesheet.getStartDate());
-//        String dueDate = currentTimesheet.formatDates(currentTimesheet.getDueDate());
-//        String payDay = currentTimesheet.formatDates(currentTimesheet.getPayDay());
+
         LocalDate currentDate = LocalDate.now();
         String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
         model.addAttribute("today", today);
-//        model.addAttribute("startDate", startDate);
-//        model.addAttribute("dueDate", dueDate);
-//        model.addAttribute("payDay", payDay);
 
         model.addAttribute("title", "Add hours to your Timesheet");
-        model.addAttribute(new LineEntry());
         //not sure what to do with this
         model.addAttribute("employeeId", 1);
-
-        System.out.println("Display Create Line Entry Form (Get Request)");
         return "employee/createlineentry";
     }
 

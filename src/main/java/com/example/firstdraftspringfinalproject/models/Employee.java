@@ -15,7 +15,7 @@ public class Employee {
     private ArrayList<Timesheet> timesheets;
     private Boolean currentTimesheetCompletionStatus = true;
     private Boolean supervisorAccess;
-    private float payRate;
+    private Integer payRate;
     private GregorianCalendar firstDateOfWork;
 
     // Pay Rate?, eligible for benefits, remaining time off
