@@ -1,9 +1,11 @@
 package com.example.firstdraftspringfinalproject.controllers;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeData;
+import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectData;
 import com.example.firstdraftspringfinalproject.data.WorkTypeData;
 import com.example.firstdraftspringfinalproject.models.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,20 +14,21 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("employee")
 public class EmployeePortalController {
 
-    //practice - move code, not right here.
-    Employee employee = EmployeeData.getEmployeeById(1);
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     //lives at /employee, renders employee>home.html
     @GetMapping
     public String displayEmployeeWelcome(@ModelAttribute Employee loggedInEmployee, Model model){
 
         //TODO - Delete? -some hardcoded stuff to delete when model binding is complete or MySQL comes along??
-        Employee employee = EmployeeData.getEmployeeById(1);
+        Employee employee = employeeRepository.findById(7).get();
 
         String employeeFirstName = employee.getFirstName();
         LocalDate todaysDate = LocalDate.now();
@@ -46,16 +49,16 @@ public class EmployeePortalController {
     @PostMapping
     public String createNewTimesheet(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate todaysDate, @RequestParam Integer employeeId, Model model){
         //create a new timesheet object based on the employee (figured from employeeId)
-        Timesheet newTimesheet = new Timesheet(EmployeeData.getEmployeeById(employeeId));
+        Timesheet newTimesheet = new Timesheet(employeeRepository.findById(employeeId).get());
         //set the new timesheet's start date based on todaysDate using setDates() method
         GregorianCalendar startDateGC = newTimesheet.figureStartDateBasedOnTodaysDate(todaysDate);
         newTimesheet.setDates(startDateGC);
         //set the new timesheet completion status as false
         newTimesheet.setCompletionStatus(false);
         //set the employee's current timesheet completion status as false
-        EmployeeData.getEmployeeById(employeeId).setCurrentTimesheetCompletionStatus(false);
+        employeeRepository.findById(employeeId).get().setCurrentTimesheetCompletionStatus(false);
         //add that new timesheet object to the timesheets arraylist of the appropriate employee object
-        EmployeeData.getEmployeeById(employeeId).getTimesheets().add(newTimesheet);
+        employeeRepository.findById(employeeId).get().getTimesheets().add(newTimesheet);
         // ??? set employee's currentTimesheetCompletionStatus as false?
 
         //display the Dates for this Timesheet

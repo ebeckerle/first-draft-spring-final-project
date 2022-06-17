@@ -1,9 +1,11 @@
 package com.example.firstdraftspringfinalproject.controllers;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeData;
+import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectData;
 import com.example.firstdraftspringfinalproject.data.WorkTypeData;
 import com.example.firstdraftspringfinalproject.models.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -20,11 +22,14 @@ import javax.validation.Valid;
 @RequestMapping("employee/timesheet")
 public class TimesheetController {
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
     @GetMapping
     public String displayCurrentTimesheet(Model model){
 
         //2nd lets find the correct employee's arraylist of timesheets
-        Employee employee = EmployeeData.getEmployeeById(1);//--> TODO - is this a requestparam?
+        Employee employee = employeeRepository.findById(1).get();//--> TODO - is this a requestparam?
 
         // find the current timesheet
         Timesheet currentTimesheet = EmployeeData.findCurrentTimesheetForEmployee(employee);
