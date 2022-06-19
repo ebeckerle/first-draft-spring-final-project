@@ -1,9 +1,6 @@
 package com.example.firstdraftspringfinalproject.controllers;
 
-import com.example.firstdraftspringfinalproject.data.EmployeeData;
-import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
-import com.example.firstdraftspringfinalproject.data.ProjectData;
-import com.example.firstdraftspringfinalproject.data.WorkTypeData;
+import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,14 +22,24 @@ public class TimesheetController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private ProjectRepository projectRepository;
+
+    @Autowired
+    private WorkTypeRepository workTypeRepository;
+
     @GetMapping
     public String displayCurrentTimesheet(Model model){
 
-        //2nd lets find the correct employee's arraylist of timesheets
-        Employee employee = employeeRepository.findById(1).get();//--> TODO - is this a requestparam?
+        //find the correct employee
+        Employee employee = employeeRepository.findById(7).get();//--> TODO - is this a requestparam?
 
-        // find the current timesheet
-        Timesheet currentTimesheet = EmployeeData.findCurrentTimesheetForEmployee(employee);
+        // find the current timesheet for correct employee
+        //TODO --> fix now that we have the Employee Repository - a method we write into Employee Repository?
+//        Timesheet currentTimesheet = EmployeeData.findCurrentTimesheetForEmployee(employee);
+        Timesheet currentTimesheet = TimesheetRepository.findCurrentTimesheetForEmployee(employee);
+//        Timesheet currentTimesheet = TimesheetRepository.findByEmployeeIdAndFindByCompletionStatusIsActiveFalse(7);
+
 
         //display the Dates for this Timesheet
         String startDate = currentTimesheet.formatDates(currentTimesheet.getStartDate());

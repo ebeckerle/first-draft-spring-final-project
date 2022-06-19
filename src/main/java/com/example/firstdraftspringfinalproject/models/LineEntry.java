@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import javax.persistence.Entity;
 import javax.validation.constraints.*;
 
 
+@Entity
 public class LineEntry {
 
     //    EVERYTHING BELOW IS CODE FOR A lINE ENTRY CLASS USING DayOfTheWeek AS STRING!!!

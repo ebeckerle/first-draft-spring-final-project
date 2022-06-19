@@ -1,10 +1,14 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
+@Entity
 public class WorkType {
 
-
+    @Id
     private Integer workTypeId;
     private String workDescription;
 
@@ -12,6 +16,8 @@ public class WorkType {
         this.workTypeId = workTypeId;
         this.workDescription = workDescription;
     }
+
+    public WorkType () {}
 
     public Integer getWorkTypeId() {
         return workTypeId;

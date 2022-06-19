@@ -1,9 +1,12 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -20,20 +23,24 @@ public class Employee {
     @NotBlank(message = "Employee must have a last name.")
     private String lastName;
     private String title;
-    private String userName = "defaultUserName"; //--> TODO: code a random generator before the employee resets it.
-    private String password = "password";
+    private String username;
+
+    @NotNull
+    private String pwHash;
     private ArrayList<Timesheet> timesheets;
     private Boolean currentTimesheetCompletionStatus = true;
     private Boolean supervisorAccess;
     private Integer payRate;
     private GregorianCalendar firstDateOfWork;
 
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
     // Pay Rate?, eligible for benefits, remaining time off
 
     public Employee (String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.timesheets = new ArrayList<>();
+//        this.pwHash = encoder.encode(password);
     }
 
     public Employee () {}
@@ -72,20 +79,20 @@ public class Employee {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     public ArrayList<Timesheet> getTimesheets() {
         return timesheets;
@@ -157,6 +164,10 @@ public class Employee {
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
         return employeeId.equals(employee.employeeId);
+    }
+
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, pwHash);
     }
 
 }

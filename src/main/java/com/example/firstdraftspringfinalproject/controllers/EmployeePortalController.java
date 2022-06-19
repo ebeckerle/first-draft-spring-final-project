@@ -57,8 +57,8 @@ public class EmployeePortalController {
         newTimesheet.setCompletionStatus(false);
         //set the employee's current timesheet completion status as false
         employeeRepository.findById(employeeId).get().setCurrentTimesheetCompletionStatus(false);
-        //add that new timesheet object to the timesheets arraylist of the appropriate employee object
-        employeeRepository.findById(employeeId).get().getTimesheets().add(newTimesheet);
+        //add that new timesheet object to the timesheets arraylist of the appropriate employee object - do we need to do this anymore?
+//        employeeRepository.findById(employeeId).get().getTimesheets().add(newTimesheet);
         // ??? set employee's currentTimesheetCompletionStatus as false?
 
         //display the Dates for this Timesheet

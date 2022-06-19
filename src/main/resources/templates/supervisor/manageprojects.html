@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8">
+    <title th:text="${title}">Default Title</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <th>Project</th>
+    <th>Project Code</th>
+    </thead>
+
+    <tr th:each="project : ${projects}">
+        <td th:text="${project.projectName}"></td>
+        <td th:text="${project.projectCode}"></td>
+    </tr>
+</table>
+
+<a href="/supervisor/manageemployeeprofiles/newemployee">Add an Employee</a>
+</body>
+</html>

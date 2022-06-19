@@ -1,5 +1,8 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -7,8 +10,14 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
 
+@Entity
 public class Timesheet {
-    private Employee employee;
+
+//    private Employee employee;
+    @Id
+    @GeneratedValue
+    private Integer timesheetId;
+
     private GregorianCalendar startDate;
     private GregorianCalendar dueDate;
     private GregorianCalendar payDay;
@@ -25,6 +34,10 @@ public class Timesheet {
     private Integer totalThursdayHours;
     private Integer totalFridayHours;
     private Integer totalSaturdayHours;
+
+    private Integer totalHours;
+
+    private Integer totalPay;
 
 
 
@@ -46,6 +59,7 @@ public class Timesheet {
         this.supervisorApproval = supervisorApproval;
     }
 
+    public Timesheet () {}
 
     // GETTERS & SETTERS
 
