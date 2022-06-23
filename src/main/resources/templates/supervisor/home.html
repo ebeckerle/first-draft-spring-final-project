@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="${title}">Default Title</title>
 </head>
-<body>
+<body class="container">
 
     <h1>Upcoming</h1>
         <ol>
@@ -21,15 +21,13 @@
             <li><a>Manage Incoming Shipments</a></li>
             <li><a>Current Bids/RFPs</a></li>
         </ol>
-        <ol>
-            <li><a>Default Project 1</a></li>
-            <li><a>Default Project 2</a></li>
-            <li><a>Default Project 3</a></li>
+        <ol th:each="project : ${projects}">
+            <li><a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a></li>
         </ol>
 
     <h1>Outgoing</h1>
         <ol>
-            <li><a>Retire a Project</a></li>
+            <li><a href="/supervisor/manageprojects">Retire a Project</a></li>
             <li><a>View Metrics</a></li>
             <li><a>Review a Retired Project</a></li>
         </ol>

@@ -5,10 +5,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -27,7 +29,10 @@ public class Employee {
 
     @NotNull
     private String pwHash;
-    private ArrayList<Timesheet> timesheets;
+
+    @OneToMany(mappedBy = "employee")
+    private List<Timesheet> timesheets = new ArrayList<>();
+
     private Boolean currentTimesheetCompletionStatus = true;
     private Boolean supervisorAccess;
     private Integer payRate;
@@ -86,20 +91,9 @@ public class Employee {
         this.username = userName;
     }
 
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
 
-    public ArrayList<Timesheet> getTimesheets() {
+    public List<Timesheet> getTimesheets() {
         return timesheets;
-    }
-
-    public void setTimesheets(ArrayList<Timesheet> timesheets) {
-        this.timesheets = timesheets;
     }
 
     public Timesheet getCurrentTimesheet(){

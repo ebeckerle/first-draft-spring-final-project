@@ -1,11 +1,14 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
+import com.example.firstdraftspringfinalproject.models.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("supervisor/manageprojects")
@@ -19,5 +22,30 @@ public class ManageProjectsController {
         model.addAttribute("projects", projectRepository.findAll());
         return "supervisor/manageprojects";
     }
+
+    @GetMapping("newproject")
+    public String displayAddNewProjectForm(Model model){
+        model.addAttribute("title", "Add a Project");
+        model.addAttribute(new Project());
+        return "supervisor/newproject";
+    }
+
+    @PostMapping("newproject")
+    public String processAddNewProjectForm(@ModelAttribute @Valid Project project, Errors errors, Model model){
+        if (errors.hasErrors()){
+            model.addAttribute("title", "Add a Project");
+            return "supervisor/newproject";
+        }
+        projectRepository.save(project);
+        model.addAttribute("projects", projectRepository.findAll());
+        return "redirect:";
+    }
+
+    @GetMapping("projectdetails")
+    public String displayProjectDetails(Model model, @RequestParam Integer projectId){
+        model.addAttribute("project", projectRepository.findById(projectId).get());
+        return "supervisor/projectdetails";
+    }
+
 
 }

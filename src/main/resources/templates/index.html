@@ -9,13 +9,21 @@
 
 <body>
 <div th:replace="fragments :: header-nav"></div>
-<form>
-    <label>Username: <input type="text"></label>
-    <label>Password: <input type="password"></label>
-    <button>Log In</button>
-</form>
+<div  class="log-in">
+    <form>
+        <div>
+            <label>Username: <input type="text"></label>
+        </div>
+        <div>
+            <label>Password: <input type="password"></label>
+        </div>
+        <div>
+            <button>Log In</button>
+        </div>
+    </form>
+    <button th:href="register"><a href="/register">Register</a></button>
+</div>
 
-<button th:href="register"><a href="/register">Register</a></button>
 
 
 </body>

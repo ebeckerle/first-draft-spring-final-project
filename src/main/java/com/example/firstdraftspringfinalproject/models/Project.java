@@ -14,8 +14,8 @@ public class Project {
     @GeneratedValue
     private Integer projectId;
 
-    @NotBlank(message = "Please provide a 3 to 5 characters that best abbreviates the project's name.")
-    @Size(min=3, max=5, message = "Please provide a 3 to 5 characters that best abbreviates the project's name.")
+    @NotBlank(message = "Please provide 3 to 5 characters that best abbreviates the project's name.")
+    @Size(min=3, max=5, message = "Please provide 3 to 5 characters that best abbreviates the project's name.")
     private String projectCode;
 
     @NotBlank(message = "Please provide a name for the project")

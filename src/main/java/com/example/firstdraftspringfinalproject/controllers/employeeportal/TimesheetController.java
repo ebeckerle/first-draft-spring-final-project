@@ -1,19 +1,14 @@
-package com.example.firstdraftspringfinalproject.controllers;
+package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping("employee/timesheet")
@@ -28,6 +23,10 @@ public class TimesheetController {
     @Autowired
     private WorkTypeRepository workTypeRepository;
 
+    @Autowired
+    private TimesheetRepository timesheetRepository;
+
+
     @GetMapping
     public String displayCurrentTimesheet(Model model){
 
@@ -35,11 +34,7 @@ public class TimesheetController {
         Employee employee = employeeRepository.findById(7).get();//--> TODO - is this a requestparam?
 
         // find the current timesheet for correct employee
-        //TODO --> fix now that we have the Employee Repository - a method we write into Employee Repository?
-//        Timesheet currentTimesheet = EmployeeData.findCurrentTimesheetForEmployee(employee);
-        Timesheet currentTimesheet = TimesheetRepository.findCurrentTimesheetForEmployee(employee);
-//        Timesheet currentTimesheet = TimesheetRepository.findByEmployeeIdAndFindByCompletionStatusIsActiveFalse(7);
-
+        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(7, false);
 
         //display the Dates for this Timesheet
         String startDate = currentTimesheet.formatDates(currentTimesheet.getStartDate());
@@ -77,8 +72,9 @@ public class TimesheetController {
     public String displayCreateLineEntryForm(Model model){
 
         //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
-        model.addAttribute("projects", ProjectData.getAllProjects());
-        model.addAttribute("workTypes", WorkTypeData.getAllWorkTypes());
+        model.addAttribute("projects", projectRepository.findAll());
+        model.addAttribute("workTypes", workTypeRepository.findAll());
+
         ArrayList<String> daysOfWeek1 = new ArrayList<>();
         String monday = "MONDAY";
         String tuesday = "TUESDAY";
@@ -100,7 +96,8 @@ public class TimesheetController {
 
         model.addAttribute("title", "Add hours to your Timesheet");
         //not sure what to do with this
-        model.addAttribute("employeeId", 1);
+        model.addAttribute("employeeId", 7);
+
         return "employee/createlineentry";
     }
 
@@ -112,13 +109,16 @@ public class TimesheetController {
         Employee employee = EmployeeData.getEmployeeById(employeeId);
 
         //2nd lets find the current timesheet
-        Timesheet currentTimesheet = EmployeeData.findCurrentTimesheetForEmployee(employee);
+        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(employeeId, false);
+
 
         //Create the new line entry object
-        LineEntry newEntry = new LineEntry(ProjectData.findProjectByName(project), WorkTypeData.findWorkTypeByCode(workType), daysOfWeek, hours);
+        Integer workTypeId = WorkType.fromToStringToId(workType);
+        LineEntry newEntry = new LineEntry(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId), daysOfWeek, hours);
 
         //check if the lineEntry Project WorkType Combo already exists as a line entry, if so, update that line entry, if not, add a new line entry.
         currentTimesheet.checkAndAddALineEntry(newEntry, daysOfWeek, hours);
+
 
         return "redirect:";
     }

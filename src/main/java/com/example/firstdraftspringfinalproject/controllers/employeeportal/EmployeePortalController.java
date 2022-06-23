@@ -1,9 +1,6 @@
-package com.example.firstdraftspringfinalproject.controllers;
+package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 
-import com.example.firstdraftspringfinalproject.data.EmployeeData;
-import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
-import com.example.firstdraftspringfinalproject.data.ProjectData;
-import com.example.firstdraftspringfinalproject.data.WorkTypeData;
+import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,11 +20,13 @@ public class EmployeePortalController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private TimesheetRepository timesheetRepository;
+
     //lives at /employee, renders employee>home.html
     @GetMapping
-    public String displayEmployeeWelcome(@ModelAttribute Employee loggedInEmployee, Model model){
+    public String displayEmployeeWelcome(Model model){
 
-        //TODO - Delete? -some hardcoded stuff to delete when model binding is complete or MySQL comes along??
         Employee employee = employeeRepository.findById(7).get();
 
         String employeeFirstName = employee.getFirstName();
@@ -40,26 +39,25 @@ public class EmployeePortalController {
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
 
-        System.out.println("display Employee Welcome controller");
-
         return "employee/home";
     }
 
     //lives at /employee, but renders employee>timesheettrial
     @PostMapping
     public String createNewTimesheet(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate todaysDate, @RequestParam Integer employeeId, Model model){
+
         //create a new timesheet object based on the employee (figured from employeeId)
         Timesheet newTimesheet = new Timesheet(employeeRepository.findById(employeeId).get());
         //set the new timesheet's start date based on todaysDate using setDates() method
         GregorianCalendar startDateGC = newTimesheet.figureStartDateBasedOnTodaysDate(todaysDate);
         newTimesheet.setDates(startDateGC);
-        //set the new timesheet completion status as false
+        //set the new timesheet completion status and supervisor approval as false
         newTimesheet.setCompletionStatus(false);
+        newTimesheet.setSupervisorApproval(false);
+        timesheetRepository.save(newTimesheet);
+
         //set the employee's current timesheet completion status as false
         employeeRepository.findById(employeeId).get().setCurrentTimesheetCompletionStatus(false);
-        //add that new timesheet object to the timesheets arraylist of the appropriate employee object - do we need to do this anymore?
-//        employeeRepository.findById(employeeId).get().getTimesheets().add(newTimesheet);
-        // ??? set employee's currentTimesheetCompletionStatus as false?
 
         //display the Dates for this Timesheet
         String startDate = newTimesheet.formatDates(newTimesheet.getStartDate());
@@ -95,26 +93,14 @@ public class EmployeePortalController {
         model.addAttribute("title", "Timesheet");
 
         //will delete this soon when I better figure out the employee sign in / authentication process, for now I think
-        // i need to hardcode it and pass it thtrough as a model attribute so I can grab it as a request parameter
+        // i need to hardcode it and pass it through as a model attribute so I can grab it as a request parameter
         // in the Timesheet Controller
-        model.addAttribute("employeeId", 1);
+        model.addAttribute("employeeId", employeeId);
 
 
         return "employee/timesheet";
     }
 
-
-
-
-//    //controller for when the timesheet is complete and the employee submits it / posts it to the server
-//    @PostMapping("timesheet")
-//    public String submitCompleteTimesheet(Model model){
-//        //set the employee's currentTimesheetCompletionStatus to true
-//        //set the timesheet's completionStatus to True
-//        //return the user to their home page, but I would like to leave a little message up there that's like:
-//        // "Timesheet has been Submitted"
-//        return "redirect:";
-//    }
 
 
 }

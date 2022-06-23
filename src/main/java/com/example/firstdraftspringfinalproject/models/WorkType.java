@@ -40,6 +40,11 @@ public class WorkType {
         return workTypeId +" - " + workDescription;
     }
 
+    public static Integer fromToStringToId(String workTypeString){
+        String workingString = String.valueOf(workTypeString.charAt(0)+workTypeString.charAt(1)+workTypeString.charAt(2));
+        return Integer.valueOf(workingString);
+    }
+
     public static String toStringWorkTypes(WorkType aWorkType){
         String workTypeId;
         workTypeId = String.valueOf(aWorkType.getWorkTypeId());

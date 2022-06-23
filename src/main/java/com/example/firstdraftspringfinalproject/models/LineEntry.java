@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.*;
 
 
@@ -13,10 +16,15 @@ import javax.validation.constraints.*;
 public class LineEntry {
 
     //    EVERYTHING BELOW IS CODE FOR A lINE ENTRY CLASS USING DayOfTheWeek AS STRING!!!
-//    @NotBlank(message="You must select a project")
+
+    @Id
+    @GeneratedValue
+    private Integer lineEntryId;
+
+    @ManyToOne
     private Project project;
 
-//    @NotBlank(message="You must select a work type")
+    @ManyToOne
     private WorkType workType;
 
     private HashMap<String, Integer> dayOfWeekAndHours;

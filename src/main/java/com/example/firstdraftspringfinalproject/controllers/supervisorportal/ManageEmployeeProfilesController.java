@@ -38,7 +38,7 @@ public class ManageEmployeeProfilesController {
             return "supervisor/newemployee";
         }
         employeeRepository.save(employee);
-        return "redirect";
+        return "redirect:";
     }
 
     @GetMapping(value = "editEmployee")

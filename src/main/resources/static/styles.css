@@ -1,5 +1,102 @@
-body {
+html {
     font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333333;
+    padding: 10px;
+    font-size: x-large;
+    margin-bottom: 6px;
+    color: white;
+}
+
+.log-in {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 3%;
+}
+
+.log-in form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 3%;
+    padding: 4px 8px 2px 8px;
+    border: 1px solid grey;
+    border-radius: 1px;
+}
+
+.log-in form div {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+/*
+.log-in form div label {
+    justify-content: right;
+    align-items: right;
+}
+
+.log-in form div label input {
+    margin-left: 1%;
+}
+
+*/
+
+.log-in form div label input {
+    border: 1px solid lightgrey;
+    padding: 2px;
+}
+
+.log-in button {
+    border: none;
+    background-color: #939799;
+    color: white;
+    padding: 4px;
+    width: 60px;
+    border-radius: 2px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+}
+
+.log-in a:link {
+    color: white;
+}
+
+.log-in a:visited {
+    color: white;
+}
+
+
+.log-in button:hover {
+    border: none;
+    background-color: #2243b6;
+    color: white;
+    padding: 4px;
+    width: 60px;
+    border-radius: 2px;
+}
+
+.log-in button:active {
+    border: none;
+    background-color: #2243b6;
+    color: white;
+    padding: 4px;
+    width: 60px;
+    border-radius: 2px;
 }
 
 ol {
@@ -9,6 +106,13 @@ ol {
 ul {
     list-style: none;
     padding-left: 0%;
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    margin: 0;
+    padding: 0;
 }
 
 table {
@@ -18,3 +122,31 @@ table {
 tr:nth-child(odd) {
     background-color: lightgrey;
 }
+
+/* HEADER & NAV BAR AFTER USER LOGS IN- */
+
+.header-nav-login {
+    display: flex;
+    justify-content: space-between;
+    background-color: #333333;
+}
+
+.drop-down-btn {
+    background-color: #333333;
+    border: none;
+    padding: 10px;
+    font-size: x-large;
+    position: static;
+    float: left;
+    margin-right: 12px;
+}
+
+.drop-down-menu {
+    display: none;
+    background-color: lightgrey;
+}
+
+.drop-down:hover .drop-down-menu {
+    display: block;
+}
+

@@ -2,9 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:fragment="head">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">-->
+<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>-->
+
+
     <title th:text="${title}"></title>
 <!--    <script src=@"styles.css"></script>-->
 <!--    <link href="../static/styles.css" rel="stylesheet" th:href="@{styles.css}"/>-->
+
     <link rel="stylesheet" th:href="@{/styles.css}"/>
 </head>
 <body>
@@ -16,14 +23,19 @@
 
 <!--Header Fragment when logged in-->
     <div th:fragment="header-nav-login">
-        <header>Restoration Company</header>
-        <nav>
-            <ol>
-                <li><a href="/employee">My Homepage</a></li>
-                <li><a href="/employee/timesheet">Timesheet</a></li>
-                <li><a href="/">Log Off</a></li>
-            </ol>
-        </nav>
+        <div class="header-nav-login">
+            <header>Restoration Company</header>
+            <div class="drop-down">
+                <button class="drop-down-btn">=</button>
+                <nav class="drop-down-menu">
+                    <ol>
+                        <li><a href="/employee">My Homepage</a></li>
+                        <li><a href="/employee/timesheet">Timesheet</a></li>
+                        <li><a href="/">Log Off</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
     </div>
 
 

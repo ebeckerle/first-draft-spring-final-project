@@ -1,6 +1,7 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
+import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,13 @@ public class SupervisorPortalController {
 
     Employee practiceEmployee = new Employee("Fox", "Turner");
 
+    @Autowired
+    private ProjectRepository projectRepository;
+
     @GetMapping
     public String displayHomePage(Model model){
         model.addAttribute("title", practiceEmployee.getFirstName()+"'s Portal");
+        model.addAttribute("projects", projectRepository.findAll());
         return "supervisor/home";
     }
 

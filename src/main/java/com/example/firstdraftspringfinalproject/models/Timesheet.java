@@ -1,8 +1,11 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -13,7 +16,9 @@ import java.util.*;
 @Entity
 public class Timesheet {
 
-//    private Employee employee;
+    @ManyToOne
+    private Employee employee;
+
     @Id
     @GeneratedValue
     private Integer timesheetId;
@@ -24,7 +29,7 @@ public class Timesheet {
     private Boolean completionStatus;
     private Boolean supervisorApproval;
 
-    @NotBlank(message = "There are no hours listed on your timesheet, you must add a line entry to submit a timesheet")
+//    @NotBlank(message = "There are no hours listed on your timesheet, you must add a line entry to submit a timesheet")
     private ArrayList<LineEntry> lineEntries = new ArrayList<>();
 
     @Min(0) @Max(24)
@@ -66,6 +71,7 @@ public class Timesheet {
     public Employee getEmployee() {
         return employee;
     }
+
     public GregorianCalendar getStartDate() {
         return startDate;
     }
