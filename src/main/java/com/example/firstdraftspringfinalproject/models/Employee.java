@@ -45,11 +45,16 @@ public class Employee {
     public Employee (String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-//        this.pwHash = encoder.encode(password);
+    }
+
+    public Employee (String firstName, String lastName, String username, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.pwHash = encoder.encode(password);
     }
 
     public Employee () {}
-
 
 
     //  GETTERS & SETTERS
