@@ -7,18 +7,15 @@
 <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">-->
 <!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>-->
 
-
     <title th:text="${title}"></title>
-<!--    <script src=@"styles.css"></script>-->
-<!--    <link href="../static/styles.css" rel="stylesheet" th:href="@{styles.css}"/>-->
-
     <link rel="stylesheet" th:href="@{/styles.css}"/>
+
 </head>
 <body>
 
 <!--Header Fragment if not logged in-->
     <div th:fragment="header-nav">
-        <header>Restoration Company</header>
+        <a href="/"><header>Restoration Company</header></a>
     </div>
 
 <!--Header Fragment when logged in-->
@@ -31,7 +28,7 @@
                     <ol>
                         <li class="nav-link"><a href="/employee">My Homepage</a></li>
                         <li class="nav-link"><a href="/employee/timesheet">Timesheet</a></li>
-                        <li class="nav-link"><a href="/">Log Off</a></li>
+                        <li class="nav-link"><a href="/logout">Log Off</a></li>
                     </ol>
                 </nav>
 <!--            </div>-->

@@ -10,17 +10,20 @@
 <body>
 <div th:replace="fragments :: header-nav"></div>
 <div  class="log-in">
-    <form>
+    <form method="post">
         <div>
-            <label>Username: <input type="text"></label>
+            <label th:for="username">Username: <input type="text" th:field="${loginFormDTO.username}"></label>
+            <p class="error" th:errors="${loginFormDTO.username}"></p>
         </div>
         <div>
-            <label>Password: <input type="password"></label>
+            <label>Password: <input type="password" th:field="${loginFormDTO.password}"></label>
+            <p class="error" th:errors="${loginFormDTO.password}"></p>
         </div>
         <div>
             <button>Log In</button>
         </div>
     </form>
+    <p>New Employee?  Register a username: </p>
     <button th:href="register"><a href="/register">Register</a></button>
 </div>
 

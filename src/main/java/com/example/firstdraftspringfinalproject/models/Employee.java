@@ -19,10 +19,10 @@ public class Employee {
     @GeneratedValue
     private Integer employeeId;
 
-    @NotBlank(message = "Employee must have a first name.")
+//    @NotBlank(message = "Employee must have a first name.")
     private String firstName;
 
-    @NotBlank(message = "Employee must have a last name.")
+//    @NotBlank(message = "Employee must have a last name.")
     private String lastName;
     private String title;
     private String username;
@@ -42,14 +42,19 @@ public class Employee {
 
     // Pay Rate?, eligible for benefits, remaining time off
 
-    public Employee (String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+//    public Employee (String firstName, String lastName) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//    }
+//
+//    public Employee (String firstName, String lastName, String username, String password) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.username = username;
+//        this.pwHash = encoder.encode(password);
+//    }
 
-    public Employee (String firstName, String lastName, String username, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Employee (String username, String password) {
         this.username = username;
         this.pwHash = encoder.encode(password);
     }

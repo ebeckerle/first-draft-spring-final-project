@@ -1,5 +1,6 @@
 package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 
+import com.example.firstdraftspringfinalproject.controllers.AuthenticationController;
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -25,16 +28,19 @@ public class EmployeePortalController {
 
     //lives at /employee, renders employee>home.html
     @GetMapping
-    public String displayEmployeeWelcome(Model model){
+    public String displayEmployeeWelcome(HttpServletRequest request, Model model){
 
-        Employee employee = employeeRepository.findById(7).get();
+        HttpSession session = request.getSession();
+        Integer employeeId = (Integer) session.getAttribute("user");
+
+        Employee employee = employeeRepository.findById(employeeId).get();
 
         String employeeFirstName = employee.getFirstName();
         LocalDate todaysDate = LocalDate.now();
-        Integer employeeId = employee.getEmployeeId();
 
         model.addAttribute("title", "Home");
         model.addAttribute("employeeName", employeeFirstName);
+        //the following are hidden
         model.addAttribute("todaysDate", todaysDate);
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
@@ -42,7 +48,7 @@ public class EmployeePortalController {
         return "employee/home";
     }
 
-    //lives at /employee, but renders employee>timesheettrial
+    //lives at /employee, but renders employee>timesheet
     @PostMapping
     public String createNewTimesheet(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate todaysDate, @RequestParam Integer employeeId, Model model){
 
