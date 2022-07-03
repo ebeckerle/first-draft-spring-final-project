@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 @Controller
@@ -26,15 +30,25 @@ public class TimesheetController {
     @Autowired
     private TimesheetRepository timesheetRepository;
 
+    @Autowired
+    private LineEntryRepository lineEntryRepository;
+
+    @Autowired
+    private ProjectWorkTypeSetRepository projectWorkTypeSetRepository;
+
+    @Autowired
+    private DaysOfWeekHoursSetRepository daysOfWeekHoursSetRepository;
+
 
     @GetMapping
-    public String displayCurrentTimesheet(Model model){
+    public String displayCurrentTimesheet(HttpServletRequest request, Model model){
 
-        //find the correct employee
-        Employee employee = employeeRepository.findById(7).get();//--> TODO - is this a requestparam?
+        // find the correct employee for the session
+        HttpSession session = request.getSession();
+        Integer employeeId = (Integer) session.getAttribute("user");
 
         // find the current timesheet for correct employee
-        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(7, false);
+        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(employeeId, false);
 
         //display the Dates for this Timesheet
         String startDate = currentTimesheet.formatDates(currentTimesheet.getStartDate());
@@ -52,16 +66,18 @@ public class TimesheetController {
 
         for (LineEntry lineEntry:
                 currentTimesheet.getLineEntries()) {
-            System.out.println("entry: "+lineEntry.getProject().getProjectName()+lineEntry.getWorkType().getWorkTypeId().toString());
+            System.out.println("entry: "
+                    + lineEntry.getProjectWorkTypeCombo().getProject().getProjectCode()
+                    + lineEntry.getProjectWorkTypeCombo().getWorkType().getWorkTypeId().toString());
         }
 
         //We need total hours worked on each individual day of the week and display them in the last row of the table
-        model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours("MONDAY"));
-        model.addAttribute("tuesdayTotal", currentTimesheet.totalDayOfWeekHours("TUESDAY"));
-        model.addAttribute("wednesdayTotal", currentTimesheet.totalDayOfWeekHours("WEDNESDAY"));
-        model.addAttribute("thursdayTotal", currentTimesheet.totalDayOfWeekHours("THURSDAY"));
-        model.addAttribute("fridayTotal", currentTimesheet.totalDayOfWeekHours("FRIDAY"));
-        model.addAttribute("saturdayTotal", currentTimesheet.totalDayOfWeekHours("SATURDAY"));
+        model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours("Monday"));
+        model.addAttribute("tuesdayTotal", currentTimesheet.totalDayOfWeekHours("Tuesday"));
+        model.addAttribute("wednesdayTotal", currentTimesheet.totalDayOfWeekHours("Wednesday"));
+        model.addAttribute("thursdayTotal", currentTimesheet.totalDayOfWeekHours("Thursday"));
+        model.addAttribute("fridayTotal", currentTimesheet.totalDayOfWeekHours("Friday"));
+        model.addAttribute("saturdayTotal", currentTimesheet.totalDayOfWeekHours("Saturday"));
 
         model.addAttribute("title", "Current Timesheet");
 
@@ -69,7 +85,7 @@ public class TimesheetController {
     }
 
     @GetMapping("/createlineentry")
-    public String displayCreateLineEntryForm(Model model){
+    public String displayCreateLineEntryForm(HttpServletRequest request, Model model){
 
         //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
         model.addAttribute("projects", projectRepository.findAll());
@@ -96,29 +112,41 @@ public class TimesheetController {
 
         model.addAttribute("title", "Add hours to your Timesheet");
         //not sure what to do with this
-        model.addAttribute("employeeId", 7);
+
+        HttpSession session = request.getSession();
+        Integer employeeId = (Integer) session.getAttribute("user");
+        model.addAttribute("employeeId", employeeId);
 
         return "employee/createlineentry";
     }
 
-    //FOLLOWING IS USING REQUEST PARAMETERS INSTEAD OF MODEL BINDING, IS ACTUALLY ONE LESS LINE OF CODE DESPITE THE LONG LIST OF PARAMETERS...
+
     @PostMapping("createlineentry")
     public String processCreateLineEntryForm(@RequestParam Integer employeeId, @RequestParam String project, @RequestParam String workType, @RequestParam String daysOfWeek, @RequestParam Integer hours){
 
         //1ST lets find the correct employee's arraylist of timesheets
-        Employee employee = EmployeeData.getEmployeeById(employeeId);
+//        Employee employee = EmployeeData.getEmployeeById(employeeId);
 
         //2nd lets find the current timesheet
         Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(employeeId, false);
 
-
-        //Create the new line entry object
         Integer workTypeId = WorkType.fromToStringToId(workType);
-        LineEntry newEntry = new LineEntry(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId), daysOfWeek, hours);
+        //check if project & worktype combo already exists in database (write a query returning boolean?)))
+        Integer projectWorkTypeId = projectWorkTypeSetRepository.findIdByProjectAndWorkType(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId));
+        if (projectWorkTypeId == null){
+            ProjectWorkTypeSet projectWorkTypeCombo = new ProjectWorkTypeSet(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId));
+            projectWorkTypeSetRepository.save(projectWorkTypeCombo);
+        }
+        // , if not, save the new project worktype combo
+
+        DaysOfWeekHoursSet daysOfWeekHoursCombo = new DaysOfWeekHoursSet(daysOfWeek, hours);
+        ProjectWorkTypeSet projectWorkTypeCombo = new ProjectWorkTypeSet(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId));
+        //Create the new line entry object
+        LineEntry newEntry = new LineEntry(projectWorkTypeCombo, daysOfWeekHoursCombo);
 
         //check if the lineEntry Project WorkType Combo already exists as a line entry, if so, update that line entry, if not, add a new line entry.
-        currentTimesheet.checkAndAddALineEntry(newEntry, daysOfWeek, hours);
-
+        currentTimesheet.checkAndAddALineEntry(newEntry);
+        timesheetRepository.save(currentTimesheet);
 
         return "redirect:";
     }

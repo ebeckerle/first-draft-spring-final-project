@@ -1,11 +1,10 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import com.example.firstdraftspringfinalproject.data.LineEntryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +14,7 @@ import java.util.*;
 
 @Entity
 public class Timesheet {
+
 
     @ManyToOne
     private Employee employee;
@@ -30,7 +30,8 @@ public class Timesheet {
     private Boolean supervisorApproval;
 
 //    @NotBlank(message = "There are no hours listed on your timesheet, you must add a line entry to submit a timesheet")
-    private ArrayList<LineEntry> lineEntries = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<LineEntry> lineEntries = new ArrayList<>();
 
     @Min(0) @Max(24)
     private Integer totalMondayHours;
@@ -90,7 +91,7 @@ public class Timesheet {
         return supervisorApproval;
     }
 
-    public ArrayList<LineEntry> getLineEntries() {
+    public List<LineEntry> getLineEntries() {
         return lineEntries;
     }
 
@@ -135,43 +136,106 @@ public class Timesheet {
         }
     }
 
-    public void addHoursToALineEntry(LineEntry lineEntry, String dayOfWeek, Integer hours){
-        for (LineEntry entry :
-             this.lineEntries) {
-            if (entry.getProject().equals(lineEntry.getProject()) && entry.getWorkType().equals(lineEntry.getWorkType())){
-                entry.setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(dayOfWeek, hours);
-            }
-        }
-    }
+//    public void addHoursToALineEntry(LineEntry lineEntry, String dayOfWeek, Integer hours){
+//        for (LineEntry entry :
+//             this.lineEntries) {
+//            if (entry.getProject().equals(lineEntry.getProject()) && entry.getWorkType().equals(lineEntry.getWorkType())){
+//                entry.setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(dayOfWeek, hours);
+//            }
+//        }
+//    }
+//
+//    public void checkAndAddALineEntry(LineEntry newEntry, String dayOfWeek, Integer hours){
+//        boolean doesLineEntryAlreadyExist = false;
+//        while (!doesLineEntryAlreadyExist) {
+//            for (LineEntry entry :
+//                    this.lineEntries) {
+//                if (entry.equals(newEntry)) {
+//                    entry.setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(dayOfWeek, hours);
+//                    entry.setTotalHoursInLineEntry();
+//                    doesLineEntryAlreadyExist = true;
+//                    break;
+//                }
+//            }
+//            if (!doesLineEntryAlreadyExist){
+//                this.lineEntries.add(newEntry);
+//                newEntry.setTotalHoursInLineEntry();
+//                break;
+//            }
+//        }
+//    }
+//
+//    /* TODO - code a method like totalMondaysHours, but will work for any day of the week - totalDayOfWeekHours(Timesheet aTimesheet,
+//     - TODO  - Still need to throw error if amount of hours is over 24!!*/
+//    public Integer totalDayOfWeekHours(String dayOfWeek){
+//        Integer totalHours = 0;
+//        for (LineEntry lineEntry:
+//             this.lineEntries) {
+//            if (lineEntry.getDayOfWeekAndHours().containsKey(dayOfWeek)){
+//                totalHours += lineEntry.getDayOfWeekAndHours().get(dayOfWeek);
+//            }
+//        }
+//        return totalHours;
+//    }
 
-    public void checkAndAddALineEntry(LineEntry newEntry, String dayOfWeek, Integer hours){
+        public void checkAndAddALineEntry(LineEntry newEntry){
         boolean doesLineEntryAlreadyExist = false;
         while (!doesLineEntryAlreadyExist) {
             for (LineEntry entry :
                     this.lineEntries) {
                 if (entry.equals(newEntry)) {
-                    entry.setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(dayOfWeek, hours);
-                    entry.setTotalHoursInLineEntry();
+                    DaysOfWeekHoursSet dayHourCombo1 = newEntry.getDaysOfWeekHoursCombo();
+                    DaysOfWeekHoursSet dayHourCombo2 = entry.getDaysOfWeekHoursCombo();
+                    Integer newMondayTotal = dayHourCombo1.getMondayHours() + dayHourCombo2.getMondayHours();
+                    Integer newTuesdayTotal = dayHourCombo1.getTuesdayHours() + dayHourCombo2.getTuesdayHours();
+                    Integer newWednesdayTotal = dayHourCombo1.getWednesdayHours() + dayHourCombo2.getWednesdayHours();
+                    Integer newThursdayTotal = dayHourCombo1.getThursdayHours() + dayHourCombo2.getThursdayHours();
+                    Integer newFridayTotal = dayHourCombo1.getFridayHours() + dayHourCombo2.getFridayHours();
+                    Integer newSaturdayTotal = dayHourCombo1.getSaturdayHours() + dayHourCombo2.getSaturdayHours();
+                    DaysOfWeekHoursSet dayHourCombo3 = new DaysOfWeekHoursSet(newMondayTotal, newTuesdayTotal, newWednesdayTotal, newThursdayTotal, newFridayTotal, newSaturdayTotal);
+                    newEntry.setDaysOfWeekHoursCombo(dayHourCombo3);
                     doesLineEntryAlreadyExist = true;
                     break;
                 }
             }
             if (!doesLineEntryAlreadyExist){
                 this.lineEntries.add(newEntry);
-                newEntry.setTotalHoursInLineEntry();
                 break;
             }
         }
     }
 
-    /* TODO - code a method like totalMondaysHours, but will work for any day of the week - totalDayOfWeekHours(Timesheet aTimesheet,
-     - TODO  - Still need to throw error if amount of hours is over 24!!*/
     public Integer totalDayOfWeekHours(String dayOfWeek){
         Integer totalHours = 0;
-        for (LineEntry lineEntry:
-             this.lineEntries) {
-            if (lineEntry.getDayOfWeekAndHours().containsKey(dayOfWeek)){
-                totalHours += lineEntry.getDayOfWeekAndHours().get(dayOfWeek);
+        if (dayOfWeek.equals("Monday")){
+            for (LineEntry lineEntry:
+                    this.lineEntries) {
+                totalHours += lineEntry.getDaysOfWeekHoursCombo().getMondayHours();
+                }
+        } else if (dayOfWeek.equals("Tuesday")){
+            for (LineEntry lineEntry:
+                    this.lineEntries) {
+                totalHours += lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours();
+            }
+        }else if (dayOfWeek.equals("Wednesday")){
+            for (LineEntry lineEntry:
+                    this.lineEntries) {
+                totalHours += lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours();
+            }
+        }else if (dayOfWeek.equals("Thursday")){
+            for (LineEntry lineEntry:
+                    this.lineEntries) {
+                totalHours += lineEntry.getDaysOfWeekHoursCombo().getThursdayHours();
+            }
+        }else if (dayOfWeek.equals("Friday")){
+            for (LineEntry lineEntry:
+                    this.lineEntries) {
+                totalHours += lineEntry.getDaysOfWeekHoursCombo().getFridayHours();
+            }
+        }else if (dayOfWeek.equals("Saturday")){
+            for (LineEntry lineEntry:
+                    this.lineEntries) {
+                totalHours += lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours();
             }
         }
         return totalHours;

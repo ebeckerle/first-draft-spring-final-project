@@ -40,7 +40,7 @@ public class EmployeePortalController {
 
         model.addAttribute("title", "Home");
         model.addAttribute("employeeName", employeeFirstName);
-        //the following are hidden
+        //the following are hidden in the form
         model.addAttribute("todaysDate", todaysDate);
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
@@ -62,8 +62,11 @@ public class EmployeePortalController {
         newTimesheet.setSupervisorApproval(false);
         timesheetRepository.save(newTimesheet);
 
-        //set the employee's current timesheet completion status as false
-        employeeRepository.findById(employeeId).get().setCurrentTimesheetCompletionStatus(false);
+        //set the employee's current timesheet completion status as false - this line of code currently isn't working, not sure why...
+        Employee employee = employeeRepository.findById(employeeId).get();
+        employee.setCurrentTimesheetCompletionStatus(false);
+        employeeRepository.save(employee);
+
 
         //display the Dates for this Timesheet
         String startDate = newTimesheet.formatDates(newTimesheet.getStartDate());

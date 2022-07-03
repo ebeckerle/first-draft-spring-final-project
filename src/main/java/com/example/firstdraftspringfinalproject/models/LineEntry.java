@@ -5,10 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 
@@ -19,82 +16,51 @@ public class LineEntry {
 
     @Id
     @GeneratedValue
-    private Integer lineEntryId;
+    private Integer id;
 
-    @ManyToOne
-    private Project project;
+    @OneToOne(cascade = CascadeType.ALL)
+    private ProjectWorkTypeSet projectWorkTypeCombo;
 
-    @ManyToOne
-    private WorkType workType;
-
-    private HashMap<String, Integer> dayOfWeekAndHours;
-    private Date date;
+    @OneToOne(cascade = CascadeType.ALL)
+    private DaysOfWeekHoursSet daysOfWeekHoursCombo;
 
     private Integer totalHours = 0;
 
 
-    public LineEntry(Project project, WorkType workType, String dayOfWeek, Integer hours){
-        this.project = project;
-        this.workType = workType;
-        HashMap<String, Integer> aDayOfWeekAndHours= new HashMap<>();
-        aDayOfWeekAndHours.put(dayOfWeek, hours);
-        this.dayOfWeekAndHours = aDayOfWeekAndHours;
+    public LineEntry(ProjectWorkTypeSet projectWorkTypeCombo, DaysOfWeekHoursSet daysOfWeekHoursCombo){
+        this.projectWorkTypeCombo = projectWorkTypeCombo;
+        this.daysOfWeekHoursCombo = daysOfWeekHoursCombo;
+        this.totalHours = daysOfWeekHoursCombo.getTotalHours();
     }
 
-
-    public LineEntry(Project project, WorkType workType, HashMap<String, Integer> dayOfWeekAndHours){
-        this.project = project;
-        this.workType = workType;
-        this.dayOfWeekAndHours = dayOfWeekAndHours;
-    }
 
     public LineEntry(){}
 
 
     //GETTERS & SETTERS
-    public Project getProject() {
-        return project;
+
+    public ProjectWorkTypeSet getProjectWorkTypeCombo() {
+        return projectWorkTypeCombo;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProjectWorkTypeCombo(ProjectWorkTypeSet projectWorkTypeCombo) {
+        this.projectWorkTypeCombo = projectWorkTypeCombo;
     }
 
-    public WorkType getWorkType() {
-        return workType;
+    public DaysOfWeekHoursSet getDaysOfWeekHoursCombo() {
+        return daysOfWeekHoursCombo;
     }
 
-    public void setWorkType(WorkType workType) {
-        this.workType = workType;
+    public void setDaysOfWeekHoursCombo(DaysOfWeekHoursSet daysOfWeekHoursCombo) {
+        this.daysOfWeekHoursCombo = daysOfWeekHoursCombo;
     }
 
-    public HashMap<String, Integer> getDayOfWeekAndHours() {
-        return dayOfWeekAndHours;
-    }
-
-    public void setDayOfWeekAndHours(HashMap<String, Integer> dayOfWeekAndHours) {
-        this.dayOfWeekAndHours = dayOfWeekAndHours;
-    }
-
-    public Integer getTotalHoursInLineEntry(){
+    public Integer getTotalHours() {
         return totalHours;
     }
 
-    public void setTotalHoursInLineEntry(){
-        totalHours = 0;
-        for (Integer hours : dayOfWeekAndHours.values()){
-            totalHours += hours;
-        }
-    }
-
-    public void setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(String dayOfWeek, Integer hours){
-        if(this.dayOfWeekAndHours.containsKey(dayOfWeek)){
-            Integer originalValue = this.dayOfWeekAndHours.get(dayOfWeek);
-            Integer newTotal = hours + originalValue;
-            this.dayOfWeekAndHours.replace(dayOfWeek, newTotal);
-        }else{
-            this.dayOfWeekAndHours.put(dayOfWeek, hours);
-        }
+    public void setTotalHours(Integer totalHours) {
+        this.totalHours = totalHours;
     }
 
     @Override
@@ -102,13 +68,46 @@ public class LineEntry {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LineEntry lineEntry = (LineEntry) o;
-        return project.equals(lineEntry.project) && workType.equals(lineEntry.workType);
+        return projectWorkTypeCombo.equals(lineEntry.projectWorkTypeCombo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(project, workType);
+        return Objects.hash(projectWorkTypeCombo);
     }
+//    public Integer getTotalHoursInLineEntry(){
+//        return totalHours;
+//    }
+//
+//    public void setTotalHoursInLineEntry(){
+//        totalHours = 0;
+//        for (Integer hours : dayOfWeekAndHours.values()){
+//            totalHours += hours;
+//        }
+//    }
+//
+//    public void setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(String dayOfWeek, Integer hours){
+//        if(this.dayOfWeekAndHours.containsKey(dayOfWeek)){
+//            Integer originalValue = this.dayOfWeekAndHours.get(dayOfWeek);
+//            Integer newTotal = hours + originalValue;
+//            this.dayOfWeekAndHours.replace(dayOfWeek, newTotal);
+//        }else{
+//            this.dayOfWeekAndHours.put(dayOfWeek, hours);
+//        }
+//    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        LineEntry lineEntry = (LineEntry) o;
+//        return project.equals(lineEntry.project) && workType.equals(lineEntry.workType);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(project, workType);
+//    }
 
 //    EVERYTHING BELOW IS CODE FOR A lINE ENTRY CLASS USING DayOfWeek ENUM!!!
 
