@@ -109,7 +109,7 @@ public class AuthenticationController {
 
         if (!theEmployee.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
-            return "login";
+            return "index";
         }
 
         setUserInSession(request.getSession(), theEmployee);

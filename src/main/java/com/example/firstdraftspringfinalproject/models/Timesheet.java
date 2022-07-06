@@ -178,31 +178,58 @@ public class Timesheet {
 //        return totalHours;
 //    }
 
-        public void checkAndAddALineEntry(LineEntry newEntry){
+//        public void checkAndAddALineEntry(LineEntry newEntry){
+//        boolean doesLineEntryAlreadyExist = false;
+//        while (!doesLineEntryAlreadyExist) {
+//            for (LineEntry entry :
+//                    this.lineEntries) {
+//                if (entry.equals(newEntry)) {
+//                    DaysOfWeekHoursSet dayHourCombo1 = newEntry.getDaysOfWeekHoursCombo();
+//                    DaysOfWeekHoursSet dayHourCombo2 = entry.getDaysOfWeekHoursCombo();
+//                    Integer newMondayTotal = dayHourCombo1.getMondayHours() + dayHourCombo2.getMondayHours();
+//                    Integer newTuesdayTotal = dayHourCombo1.getTuesdayHours() + dayHourCombo2.getTuesdayHours();
+//                    Integer newWednesdayTotal = dayHourCombo1.getWednesdayHours() + dayHourCombo2.getWednesdayHours();
+//                    Integer newThursdayTotal = dayHourCombo1.getThursdayHours() + dayHourCombo2.getThursdayHours();
+//                    Integer newFridayTotal = dayHourCombo1.getFridayHours() + dayHourCombo2.getFridayHours();
+//                    Integer newSaturdayTotal = dayHourCombo1.getSaturdayHours() + dayHourCombo2.getSaturdayHours();
+//                    DaysOfWeekHoursSet dayHourCombo3 = new DaysOfWeekHoursSet(newMondayTotal, newTuesdayTotal, newWednesdayTotal, newThursdayTotal, newFridayTotal, newSaturdayTotal);
+//                    newEntry.setDaysOfWeekHoursCombo(dayHourCombo3);
+//                    doesLineEntryAlreadyExist = true;
+//                    break;
+//                }
+//            }
+//            if (!doesLineEntryAlreadyExist){
+//                this.lineEntries.add(newEntry);
+//                break;
+//            }
+//        }
+//    }
+
+    public boolean checkALineEntry(LineEntry newEntry){
         boolean doesLineEntryAlreadyExist = false;
         while (!doesLineEntryAlreadyExist) {
             for (LineEntry entry :
                     this.lineEntries) {
                 if (entry.equals(newEntry)) {
-                    DaysOfWeekHoursSet dayHourCombo1 = newEntry.getDaysOfWeekHoursCombo();
-                    DaysOfWeekHoursSet dayHourCombo2 = entry.getDaysOfWeekHoursCombo();
-                    Integer newMondayTotal = dayHourCombo1.getMondayHours() + dayHourCombo2.getMondayHours();
-                    Integer newTuesdayTotal = dayHourCombo1.getTuesdayHours() + dayHourCombo2.getTuesdayHours();
-                    Integer newWednesdayTotal = dayHourCombo1.getWednesdayHours() + dayHourCombo2.getWednesdayHours();
-                    Integer newThursdayTotal = dayHourCombo1.getThursdayHours() + dayHourCombo2.getThursdayHours();
-                    Integer newFridayTotal = dayHourCombo1.getFridayHours() + dayHourCombo2.getFridayHours();
-                    Integer newSaturdayTotal = dayHourCombo1.getSaturdayHours() + dayHourCombo2.getSaturdayHours();
-                    DaysOfWeekHoursSet dayHourCombo3 = new DaysOfWeekHoursSet(newMondayTotal, newTuesdayTotal, newWednesdayTotal, newThursdayTotal, newFridayTotal, newSaturdayTotal);
-                    newEntry.setDaysOfWeekHoursCombo(dayHourCombo3);
                     doesLineEntryAlreadyExist = true;
                     break;
                 }
             }
             if (!doesLineEntryAlreadyExist){
-                this.lineEntries.add(newEntry);
                 break;
             }
         }
+        return doesLineEntryAlreadyExist;
+    }
+
+    public LineEntry getLineEntryWithMatchingProjectWorkType(ProjectWorkTypeSet projectWorkTypeSet){
+        for (LineEntry lineEntry:
+             this.lineEntries) {
+            if (lineEntry.getProjectWorkTypeCombo().equals(projectWorkTypeSet)){
+                return lineEntry;
+            }
+        }
+        return new LineEntry();
     }
 
     public Integer totalDayOfWeekHours(String dayOfWeek){

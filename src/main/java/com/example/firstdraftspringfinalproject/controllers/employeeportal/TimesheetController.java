@@ -92,12 +92,12 @@ public class TimesheetController {
         model.addAttribute("workTypes", workTypeRepository.findAll());
 
         ArrayList<String> daysOfWeek1 = new ArrayList<>();
-        String monday = "MONDAY";
-        String tuesday = "TUESDAY";
-        String wednesday = "WEDNESDAY";
-        String thursday = "THURSDAY";
-        String friday = "FRIDAY";
-        String saturday = "SATURDAY";
+        String monday = "Monday";
+        String tuesday = "Tuesday";
+        String wednesday = "Wednesday";
+        String thursday = "Thursday";
+        String friday = "Friday";
+        String saturday = "Saturday";
         daysOfWeek1.add(monday);
         daysOfWeek1.add(tuesday);
         daysOfWeek1.add(wednesday);
@@ -131,21 +131,53 @@ public class TimesheetController {
         Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(employeeId, false);
 
         Integer workTypeId = WorkType.fromToStringToId(workType);
-        //check if project & worktype combo already exists in database (write a query returning boolean?)))
-        Integer projectWorkTypeId = projectWorkTypeSetRepository.findIdByProjectAndWorkType(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId));
-        if (projectWorkTypeId == null){
-            ProjectWorkTypeSet projectWorkTypeCombo = new ProjectWorkTypeSet(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId));
-            projectWorkTypeSetRepository.save(projectWorkTypeCombo);
-        }
-        // , if not, save the new project worktype combo
 
+        //check if project & worktype combo already exists in database
+        ProjectWorkTypeSet projectWorkTypeSet = projectWorkTypeSetRepository.findByProjectAndWorkType(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId));
+
+        if (projectWorkTypeSet == null){
+            // , if not, save the new project worktype combo
+            projectWorkTypeSetRepository.save(new ProjectWorkTypeSet(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId)));
+            System.out.println("we are in the if statement");
+
+        }
+
+//        ProjectWorkTypeSet projectWorkTypeCombo = projectWorkTypeSetRepository.findByProjectAndWorkType(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId));
+//        Integer projectWorkTypeId = projectWorkTypeCombo.getId();
+        Integer projectWorkTypeId =  projectWorkTypeSetRepository.findByProjectAndWorkType(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId)).getId();
+        ProjectWorkTypeSet projectWorkTypeCombo = projectWorkTypeSetRepository.findById(projectWorkTypeId).get();
+        System.out.println(projectWorkTypeId);
         DaysOfWeekHoursSet daysOfWeekHoursCombo = new DaysOfWeekHoursSet(daysOfWeek, hours);
-        ProjectWorkTypeSet projectWorkTypeCombo = new ProjectWorkTypeSet(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId));
+        System.out.println(hours);
+        System.out.println(daysOfWeek);
+        daysOfWeekHoursSetRepository.save(daysOfWeekHoursCombo);
+
         //Create the new line entry object
         LineEntry newEntry = new LineEntry(projectWorkTypeCombo, daysOfWeekHoursCombo);
 
-        //check if the lineEntry Project WorkType Combo already exists as a line entry, if so, update that line entry, if not, add a new line entry.
-        currentTimesheet.checkAndAddALineEntry(newEntry);
+        lineEntryRepository.deleteById(83);
+
+        //check if the lineEntry Project WorkType Combo already exists as a line entry,
+        if (currentTimesheet.checkALineEntry(newEntry)){
+            //first grab existing entry's id so we can delete it after we update it and save a new one
+            Integer existingLineEntryId = currentTimesheet.getLineEntryWithMatchingProjectWorkType(projectWorkTypeCombo).getId();
+//            Integer existingLineEntryId = lineEntryRepository.findByProjectWorkTypeComboIdAndTimesheet(projectWorkTypeCombo, currentTimesheet).getId();
+            System.out.println("existingLineEntryId" + existingLineEntryId);
+            // if so, update that line entry,
+            newEntry.updateALineEntry(daysOfWeekHoursCombo);
+            System.out.println("we are in the if statement to check if the Project WorkType Combo already exists as a line entry");
+            System.out.println("Before save" + newEntry.getId());
+            //save for now
+            lineEntryRepository.save(newEntry);
+            System.out.println("After save" +newEntry.getId());
+            LineEntry oldLineEntryToDelete = lineEntryRepository.findById(existingLineEntryId).get();
+            lineEntryRepository.delete(oldLineEntryToDelete);
+            System.out.println();
+        }
+        // if not, add a new line entry.
+        lineEntryRepository.save(newEntry);
+        currentTimesheet.getLineEntries().add(newEntry);
+
         timesheetRepository.save(currentTimesheet);
 
         return "redirect:";

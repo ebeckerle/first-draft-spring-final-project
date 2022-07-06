@@ -41,7 +41,7 @@ public class WorkType {
     }
 
     public static Integer fromToStringToId(String workTypeString){
-        String workingString = String.valueOf(workTypeString.charAt(0)+workTypeString.charAt(1)+workTypeString.charAt(2));
+        String workingString =  "" + workTypeString.charAt(0) + "" + workTypeString.charAt(1) + "" + workTypeString.charAt(2);
         return Integer.valueOf(workingString);
     }
 
@@ -82,4 +82,6 @@ public class WorkType {
     public int hashCode() {
         return Objects.hash(workTypeId);
     }
+
+
 }

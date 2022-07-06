@@ -10,6 +10,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TimesheetTest {
 
+
+        @Test
+    public void testCheckALineEntry(){
+//         boolean checkALineEntry(LineEntry newEntry)
+
+        Employee practiceEmployee = new Employee("Elizabeth", "Beckerle");
+        Timesheet testTimesheet = new Timesheet(practiceEmployee);
+        Timesheet testTimesheet2 = new Timesheet(practiceEmployee);
+
+        Project pIasc = new Project("IASC", "Iowa State Capitol");
+        WorkType wT101 = new WorkType(101, "Inventory");
+
+
+        WorkType wT102 = new WorkType(102, "Cut and Process Rough Parts");
+
+        assertEquals(3, 3);
+    }
+
 //    @Test
 //    public void testCheckAndAddALineEntry(){
 ////        checkAndAddALineEntry(LineEntry newEntry, String dayOfWeek, Integer hours)

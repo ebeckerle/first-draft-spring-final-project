@@ -9,4 +9,5 @@ public interface ProjectWorkTypeSetRepository extends CrudRepository<ProjectWork
 
     Integer findIdByProjectAndWorkType(Project project, WorkType workType);
 
+    ProjectWorkTypeSet findByProjectAndWorkType(Project project, WorkType workType);
 }

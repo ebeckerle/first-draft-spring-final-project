@@ -13,12 +13,12 @@ public class ProjectWorkTypeSet {
     @GeneratedValue
     private Integer id;
 
-    @NotNull
+//    @NotNull
     @OneToOne
     private Project project;
 
+//    @NotNull
     @OneToOne
-    @NotNull
     private WorkType workType;
 
     public ProjectWorkTypeSet() {}
