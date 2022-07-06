@@ -153,24 +153,33 @@ public class TimesheetController {
         daysOfWeekHoursSetRepository.save(daysOfWeekHoursCombo);
 
         //Create the new line entry object
-        LineEntry newEntry = new LineEntry(projectWorkTypeCombo, daysOfWeekHoursCombo);
-
-        lineEntryRepository.deleteById(83);
+        LineEntry newEntry = new LineEntry(projectWorkTypeCombo, daysOfWeekHoursCombo, currentTimesheet);
 
         //check if the lineEntry Project WorkType Combo already exists as a line entry,
         if (currentTimesheet.checkALineEntry(newEntry)){
-            //first grab existing entry's id so we can delete it after we update it and save a new one
-            Integer existingLineEntryId = currentTimesheet.getLineEntryWithMatchingProjectWorkType(projectWorkTypeCombo).getId();
-//            Integer existingLineEntryId = lineEntryRepository.findByProjectWorkTypeComboIdAndTimesheet(projectWorkTypeCombo, currentTimesheet).getId();
-            System.out.println("existingLineEntryId" + existingLineEntryId);
+            //first grab incoming entry's id so we can delete it after we update it and save a new one
+            Integer incomingLineEntryId = currentTimesheet.getLineEntryWithMatchingProjectWorkType(projectWorkTypeCombo).getId();
+
+            System.out.println("incomingLineEntryId; " + incomingLineEntryId);
+
+            //find the existing matching line entry:
+            LineEntry existingLineEntry = lineEntryRepository.findByProjectWorkTypeComboAndTimesheet(projectWorkTypeCombo, currentTimesheet);
+            System.out.println("existingLineEntry total hours: "+existingLineEntry.getTotalHours());
+            System.out.println("initial total hours: " + newEntry.getTotalHours());
             // if so, update that line entry,
-            newEntry.updateALineEntry(daysOfWeekHoursCombo);
-            System.out.println("we are in the if statement to check if the Project WorkType Combo already exists as a line entry");
-            System.out.println("Before save" + newEntry.getId());
+            DaysOfWeekHoursSet newCombinedDaysOfWeekHoursCombo = newEntry.updateALineEntry(daysOfWeekHoursCombo, existingLineEntry.getDaysOfWeekHoursCombo());
+            System.out.println("total Monday hours: "+newCombinedDaysOfWeekHoursCombo.getMondayHours());
+            System.out.println("total hours: "+newCombinedDaysOfWeekHoursCombo.getTotalHours());
+            daysOfWeekHoursSetRepository.save(newCombinedDaysOfWeekHoursCombo);
+            newEntry.setDaysOfWeekHoursCombo(newCombinedDaysOfWeekHoursCombo);
+            System.out.println("new total hours after update: " + newEntry.getTotalHours());
             //save for now
             lineEntryRepository.save(newEntry);
-            System.out.println("After save" +newEntry.getId());
-            LineEntry oldLineEntryToDelete = lineEntryRepository.findById(existingLineEntryId).get();
+            System.out.println("After save newEntryId: " +newEntry.getId());
+
+
+            LineEntry oldLineEntryToDelete = lineEntryRepository.findById(incomingLineEntryId).get();
+            currentTimesheet.getLineEntries().remove(oldLineEntryToDelete);
             lineEntryRepository.delete(oldLineEntryToDelete);
             System.out.println();
         }

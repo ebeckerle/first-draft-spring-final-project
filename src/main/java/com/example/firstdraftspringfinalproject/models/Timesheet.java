@@ -30,7 +30,7 @@ public class Timesheet {
     private Boolean supervisorApproval;
 
 //    @NotBlank(message = "There are no hours listed on your timesheet, you must add a line entry to submit a timesheet")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "timesheet", cascade = CascadeType.ALL)
     private List<LineEntry> lineEntries = new ArrayList<>();
 
     @Min(0) @Max(24)
@@ -135,6 +135,20 @@ public class Timesheet {
             return false;
         }
     }
+
+//    public Integer totalDayOfWeekHours(String dayOfWeek){
+//        Integer totalHours = 0;
+//        if (dayOfWeek.equals("Monday")){
+//            for (LineEntry lineEntry:
+//                    this.lineEntries) {
+//                if (lineEntry.getDaysOfWeekHoursCombo().getMondayHours()>0){
+//                    Integer mondayHours = lineEntry.getDaysOfWeekHoursCombo().getMondayHours();
+//                    totalHours += mondayHours;
+//                }
+//            }
+//        }
+//        return totalHours;
+//    }
 
 //    public void addHoursToALineEntry(LineEntry lineEntry, String dayOfWeek, Integer hours){
 //        for (LineEntry entry :

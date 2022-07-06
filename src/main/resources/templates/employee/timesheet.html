@@ -45,141 +45,130 @@
                 <th th:text="${lineEntry.getProjectWorkTypeCombo.getProject().toString()+
                     ' - '+lineEntry.getProjectWorkTypeCombo.getWorkType().toStringWorkTypeCode()}">default Project - workType</th>
 
-<!--                &lt;!&ndash;            MONDAY COLUMN&ndash;&gt;-->
-<!--                <td>-->
-<!--                    <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">-->
-<!--                        <div th:if='${dayHoursPair.key.equals("MONDAY")}'>-->
-<!--                            <p th:text="${dayHoursPair.value}"></p>-->
-<!--                        </div>-->
-<!--                        <div th:unless='${dayHoursPair.key.equals("MONDAY")}'>-->
-<!--                            <p></p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--                &lt;!&ndash;            TUESDAY COLUMN&ndash;&gt;-->
-<!--                <td>-->
-<!--                    <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">-->
-<!--                        <div th:if='${dayHoursPair.key.equals("TUESDAY")}'>-->
-<!--                            <p th:text="${dayHoursPair.value}"></p>-->
-<!--                        </div>-->
-<!--                        <div th:unless='${dayHoursPair.key.equals("TUESDAY")}'>-->
-<!--                            <p></p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--                &lt;!&ndash;            WEDNESDAY COLUMN&ndash;&gt;-->
-<!--                <td>-->
-<!--                    <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">-->
-<!--                        <div th:if='${dayHoursPair.key.equals("WEDNESDAY")}'>-->
-<!--                            <p th:text="${dayHoursPair.value}"></p>-->
-<!--                        </div>-->
-<!--                        <div th:unless='${dayHoursPair.key.equals("WEDNESDAY")}'>-->
-<!--                            <p></p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </td>-->
+                <!--            MONDAY COLUMN-->
+                <td>
+                         <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getMondayHours() > 0}'>
+                            <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getMondayHours()}"></p>
+                        </div>
+                        <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getMondayHours() > 0}'>
+                            <p></p>
+                        </div>
 
-<!--                &lt;!&ndash;            THURSDAY COLUMN&ndash;&gt;-->
-<!--                <td>-->
-<!--                    <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">-->
-<!--                        <div th:if='${dayHoursPair.key.equals("THURSDAY")}'>-->
-<!--                            <p th:text="${dayHoursPair.value}"></p>-->
-<!--                        </div>-->
-<!--                        <div th:unless='${dayHoursPair.key.equals("THURSDAY")}'>-->
-<!--                            <p></p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </td>-->
+                </td>
+                <!--            TUESDAY COLUMN-->
+                <td>
+                        <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours() > 0}'>
+                            <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours()}"></p>
+                        </div>
+                        <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours() > 0}'>
+                            <p></p>
+                        </div>
+                </td>
+                <!--            WEDNESDAY COLUMN-->
+                <td>
+                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours() > 0}'>
+                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours()}"></p>
+                    </div>
+                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours() > 0}'>
+                        <p></p>
+                    </div>
+                </td>
 
-<!--                &lt;!&ndash;            FRIDAY COLUMN&ndash;&gt;-->
-<!--                <td>-->
-<!--                    <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">-->
-<!--                        <div th:if='${dayHoursPair.key.equals("FRIDAY")}'>-->
-<!--                            <p th:text="${dayHoursPair.value}"></p>-->
-<!--                        </div>-->
-<!--                        <div th:unless='${dayHoursPair.key.equals("FRIDAY")}'>-->
-<!--                            <p></p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--                &lt;!&ndash;            SATURDAY COLUMN&ndash;&gt;-->
-<!--                <td>-->
-<!--                    <div th:each="dayHoursPair : ${lineEntry.getDayOfWeekAndHours()}">-->
-<!--                        <div th:if='${dayHoursPair.key.equals("SATURDAY")}'>-->
-<!--                            <p th:text="${dayHoursPair.value}"></p>-->
-<!--                        </div>-->
-<!--                        <div th:unless='${dayHoursPair.key.equals("SATURDAY")}'>-->
-<!--                            <p></p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </td>-->
+                <!--            THURSDAY COLUMN-->
+                <td>
+                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours() > 0}'>
+                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours()}"></p>
+                    </div>
+                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours() > 0}'>
+                        <p></p>
+                    </div>
+                </td>
 
-<!--                <td th:text="${lineEntry.getTotalHoursInLineEntry()}">T</td>-->
-<!--                <td>edit icon</td>-->
-<!--            </tr>-->
-<!--        </th:block>-->
-<!--        &lt;!&ndash;total row at bottom of table&ndash;&gt;-->
-<!--        <tr>-->
-<!--            <th>Total</th>-->
-<!--            &lt;!&ndash;            DAY TOTALS ROW&ndash;&gt;-->
-<!--            &lt;!&ndash;            MONDAY TOTALS CELL &ndash;&gt;-->
-<!--            <td>-->
-<!--                <div th:if='${mondayTotal > 0}'>-->
-<!--                    <p th:text="${mondayTotal}"></p>-->
-<!--                </div>-->
-<!--                <div th:unless='${mondayTotal > 0}'>-->
-<!--                    <p></p>-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            &lt;!&ndash;            TUESDAY TOTALS CELL &ndash;&gt;-->
-<!--            <td>-->
-<!--                <div th:if='${tuesdayTotal > 0}'>-->
-<!--                    <p th:text="${tuesdayTotal}"></p>-->
-<!--                </div>-->
-<!--                <div th:unless='${tuesdayTotal > 0}'>-->
-<!--                    <p></p>-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            &lt;!&ndash;            WEDNESDAY TOTALS CELL &ndash;&gt;-->
-<!--            <td>-->
-<!--                <div th:if='${wednesdayTotal > 0}'>-->
-<!--                    <p th:text="${wednesdayTotal}"></p>-->
-<!--                </div>-->
-<!--                <div th:unless='${wednesdayTotal > 0}'>-->
-<!--                    <p></p>-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            &lt;!&ndash;            THURSDAY TOTALS CELL &ndash;&gt;-->
-<!--            <td>-->
-<!--                <div th:if='${thursdayTotal > 0}'>-->
-<!--                    <p th:text="${thursdayTotal}"></p>-->
-<!--                </div>-->
-<!--                <div th:unless='${thursdayTotal > 0}'>-->
-<!--                    <p></p>-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            &lt;!&ndash;            FRIDAY TOTALS CELL &ndash;&gt;-->
-<!--            <td>-->
-<!--                <div th:if='${fridayTotal > 0}'>-->
-<!--                    <p th:text="${fridayTotal}"></p>-->
-<!--                </div>-->
-<!--                <div th:unless='${fridayTotal > 0}'>-->
-<!--                    <p></p>-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            &lt;!&ndash;            SATURDAY TOTALS CELL &ndash;&gt;-->
-<!--            <td>-->
-<!--                <div th:if='${saturdayTotal > 0}'>-->
-<!--                    <p th:text="${saturdayTotal}"></p>-->
-<!--                </div>-->
-<!--                <div th:unless='${saturdayTotal > 0}'>-->
-<!--                    <p></p>-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            &lt;!&ndash;            TOTAL OF TOTALS CELL&ndash;&gt;-->
-<!--            <td></td>-->
+                <!--            FRIDAY COLUMN-->
+                <td>
+                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getFridayHours() > 0}'>
+                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getFridayHours()}"></p>
+                    </div>
+                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getFridayHours() > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+                <!--            SATURDAY COLUMN-->
+                <td>
+                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours() > 0}'>
+                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours()}"></p>
+                    </div>
+                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours() > 0}'>
+                        <p></p>
+                    </div>
+                </td>
 
-<!--            <td></td>-->
+                <td th:text="${lineEntry.getTotalHours()}">T</td>
+                <td>edit icon</td>
+            </tr>
+        </th:block>
+        <!--total row at bottom of table-->
+        <tr>
+            <th>Total</th>
+            <!--            DAY TOTALS ROW-->
+            <!--            MONDAY TOTALS CELL -->
+            <td>
+                <div th:if='${mondayTotal > 0}'>
+                    <p th:text="${mondayTotal}"></p>
+                </div>
+                <div th:unless='${mondayTotal > 0}'>
+                    <p></p>
+                </div>
+            </td>
+            <!--            TUESDAY TOTALS CELL -->
+            <td>
+                <div th:if='${tuesdayTotal > 0}'>
+                    <p th:text="${tuesdayTotal}"></p>
+                </div>
+                <div th:unless='${tuesdayTotal > 0}'>
+                    <p></p>
+                </div>
+            </td>
+            <!--            WEDNESDAY TOTALS CELL -->
+            <td>
+                <div th:if='${wednesdayTotal > 0}'>
+                    <p th:text="${wednesdayTotal}"></p>
+                </div>
+                <div th:unless='${wednesdayTotal > 0}'>
+                    <p></p>
+                </div>
+            </td>
+            <!--            THURSDAY TOTALS CELL -->
+            <td>
+                <div th:if='${thursdayTotal > 0}'>
+                    <p th:text="${thursdayTotal}"></p>
+                </div>
+                <div th:unless='${thursdayTotal > 0}'>
+                    <p></p>
+                </div>
+            </td>
+            <!--            FRIDAY TOTALS CELL -->
+            <td>
+                <div th:if='${fridayTotal > 0}'>
+                    <p th:text="${fridayTotal}"></p>
+                </div>
+                <div th:unless='${fridayTotal > 0}'>
+                    <p></p>
+                </div>
+            </td>
+            <!--            SATURDAY TOTALS CELL -->
+            <td>
+                <div th:if='${saturdayTotal > 0}'>
+                    <p th:text="${saturdayTotal}"></p>
+                </div>
+                <div th:unless='${saturdayTotal > 0}'>
+                    <p></p>
+                </div>
+            </td>
+            <!--            TOTAL OF TOTALS CELL-->
+            <td></td>
+
+            <td></td>
         </tr>
     </table>
 

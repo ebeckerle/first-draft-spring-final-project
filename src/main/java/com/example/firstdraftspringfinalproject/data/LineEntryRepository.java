@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> {
 
-//    LineEntry findByProjectWorkTypeComboIdAndTimesheet(ProjectWorkTypeSet projectWorkTypeSet, Timesheet timesheet);
+    LineEntry findByProjectWorkTypeComboAndTimesheet(ProjectWorkTypeSet projectWorkTypeSet, Timesheet timesheet);
 
 }

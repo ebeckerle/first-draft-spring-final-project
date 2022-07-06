@@ -24,16 +24,18 @@ public class LineEntry {
     @OneToOne(cascade = CascadeType.ALL)
     private DaysOfWeekHoursSet daysOfWeekHoursCombo;
 
-//    @OneToOne
-//    private Timesheet timesheet;
+    @ManyToOne
+    @JoinColumn(name="timesheet_id")
+    private Timesheet timesheet;
 
     private Integer totalHours = 0;
 
 
-    public LineEntry(ProjectWorkTypeSet projectWorkTypeCombo, DaysOfWeekHoursSet daysOfWeekHoursCombo){
+    public LineEntry(ProjectWorkTypeSet projectWorkTypeCombo, DaysOfWeekHoursSet daysOfWeekHoursCombo, Timesheet timesheet){
         this.projectWorkTypeCombo = projectWorkTypeCombo;
         this.daysOfWeekHoursCombo = daysOfWeekHoursCombo;
         this.totalHours = daysOfWeekHoursCombo.getTotalHours();
+        this.timesheet = timesheet;
     }
 
 
@@ -63,11 +65,19 @@ public class LineEntry {
     }
 
     public Integer getTotalHours() {
-        return totalHours;
+        return  daysOfWeekHoursCombo.getTotalHours();
     }
 
     public void setTotalHours(Integer totalHours) {
         this.totalHours = totalHours;
+    }
+
+    public Timesheet getTimesheet() {
+        return timesheet;
+    }
+
+    public void setTimesheet(Timesheet timesheet) {
+        this.timesheet = timesheet;
     }
 
     @Override
@@ -84,9 +94,7 @@ public class LineEntry {
     }
 
 
-    public void updateALineEntry(DaysOfWeekHoursSet dayHourCombo2){
-
-        DaysOfWeekHoursSet dayHourCombo1 = this.daysOfWeekHoursCombo;
+    public DaysOfWeekHoursSet updateALineEntry(DaysOfWeekHoursSet dayHourCombo1, DaysOfWeekHoursSet dayHourCombo2){
 
         Integer newMondayTotal = dayHourCombo1.getMondayHours() + dayHourCombo2.getMondayHours();
         Integer newTuesdayTotal = dayHourCombo1.getTuesdayHours() + dayHourCombo2.getTuesdayHours();
@@ -96,7 +104,7 @@ public class LineEntry {
         Integer newSaturdayTotal = dayHourCombo1.getSaturdayHours() + dayHourCombo2.getSaturdayHours();
 
         DaysOfWeekHoursSet dayHourCombo3 = new DaysOfWeekHoursSet(newMondayTotal, newTuesdayTotal, newWednesdayTotal, newThursdayTotal, newFridayTotal, newSaturdayTotal);
-        this.daysOfWeekHoursCombo = dayHourCombo3;
+        return dayHourCombo3;
     }
 
 //    public Integer getTotalHoursInLineEntry(){
