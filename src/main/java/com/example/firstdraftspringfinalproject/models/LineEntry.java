@@ -18,7 +18,7 @@ public class LineEntry {
     @GeneratedValue
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private ProjectWorkTypeSet projectWorkTypeCombo;
 
     @OneToOne(cascade = CascadeType.ALL)

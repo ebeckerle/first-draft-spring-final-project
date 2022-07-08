@@ -267,3 +267,7 @@ tr:nth-child(odd) {
     min-width: 53px;
 }
 
+.error-msg {
+    color: red;
+}
+

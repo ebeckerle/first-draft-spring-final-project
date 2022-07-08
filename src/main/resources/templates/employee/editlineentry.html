@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="">
+<head th:replace="fragments :: head"></head>
+
+<body>
+
+<div th:replace="fragments :: header-nav-login"></div>
+
+<h1>Edit Line Entry</h1>
+
+<form method="post">
+<table class="timesheet">
+
+        <thead>
+        <tr>
+            <th class="total-header"></th>
+            <th class="day-header">M</th>
+            <th class="day-header">T</th>
+            <th class="day-header">W</th>
+            <th class="day-header">T</th>
+            <th class="day-header">F</th>
+            <th class="day-header">S</th>
+        </tr>
+        </thead>
+
+        <tr>
+                <th th:text="${lineEntry.getProjectWorkTypeCombo.getProject().toString()+
+                        ' - '+lineEntry.getProjectWorkTypeCombo.getWorkType().toStringWorkTypeCode()}">default Project - workType</th>
+
+                <!--            MONDAY COLUMN-->
+                <td>
+                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getMondayHours() > 0}'>
+                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getMondayHours()}"></p>
+                    </div>
+                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getMondayHours() > 0}'>
+                        <p></p>
+                    </div>
+
+                </td>
+                <!--            TUESDAY COLUMN-->
+                <td>
+                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours() > 0}'>
+                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours()}"></p>
+                    </div>
+                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours() > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+                <!--            WEDNESDAY COLUMN-->
+                <td>
+                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours() > 0}'>
+                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours()}"></p>
+                    </div>
+                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours() > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+
+                <!--            THURSDAY COLUMN-->
+                <td>
+                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours() > 0}'>
+                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours()}"></p>
+                    </div>
+                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours() > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+
+                <!--            FRIDAY COLUMN-->
+                <td>
+                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getFridayHours() > 0}'>
+                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getFridayHours()}"></p>
+                    </div>
+                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getFridayHours() > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+                <!--            SATURDAY COLUMN-->
+                <td>
+                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours() > 0}'>
+                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours()}"></p>
+                    </div>
+                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours() > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+
+            </tr>
+        <tr>
+            <td></td>
+            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getMondayHours()}" name="mondayHours"></td>
+            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours()}" name="tuesdayHours"></td>
+            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours()}" name="wednesdayHours"></td>
+            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours()}" name="thursdayHours"></td>
+            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getFridayHours()}" name="fridayHours"></td>
+            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours()}" name="saturdayHours"></td>
+        </tr>
+
+</table>
+
+    <input type="hidden" name="lineEntryId" th:value="${lineEntry.getId()}">
+    <input type="hidden" name="currentTimesheetId" th:value="${currentTimesheetId}">
+
+    <button type="submit" name="delete">Delete Entry</button>
+    <button type="submit" name="save">Save Changes</button>
+
+</form>
+
+
+
+</body>
+</html>

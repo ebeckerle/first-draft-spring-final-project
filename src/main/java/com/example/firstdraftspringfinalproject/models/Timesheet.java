@@ -33,7 +33,7 @@ public class Timesheet {
     @OneToMany(mappedBy = "timesheet", cascade = CascadeType.ALL)
     private List<LineEntry> lineEntries = new ArrayList<>();
 
-    @Min(0) @Max(24)
+//    @Min(0) @Max(24)
     private Integer totalMondayHours;
     private Integer totalTuesdayHours;
     private Integer totalWednesdayHours;
@@ -68,6 +68,10 @@ public class Timesheet {
     public Timesheet () {}
 
     // GETTERS & SETTERS
+
+    public Integer getId() {
+        return timesheetId;
+    }
 
     public Employee getEmployee() {
         return employee;
@@ -136,88 +140,14 @@ public class Timesheet {
         }
     }
 
-//    public Integer totalDayOfWeekHours(String dayOfWeek){
-//        Integer totalHours = 0;
-//        if (dayOfWeek.equals("Monday")){
-//            for (LineEntry lineEntry:
-//                    this.lineEntries) {
-//                if (lineEntry.getDaysOfWeekHoursCombo().getMondayHours()>0){
-//                    Integer mondayHours = lineEntry.getDaysOfWeekHoursCombo().getMondayHours();
-//                    totalHours += mondayHours;
-//                }
-//            }
-//        }
-//        return totalHours;
-//    }
+    public Integer getTotalHours() {
+        return totalHours;
+    }
 
-//    public void addHoursToALineEntry(LineEntry lineEntry, String dayOfWeek, Integer hours){
-//        for (LineEntry entry :
-//             this.lineEntries) {
-//            if (entry.getProject().equals(lineEntry.getProject()) && entry.getWorkType().equals(lineEntry.getWorkType())){
-//                entry.setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(dayOfWeek, hours);
-//            }
-//        }
-//    }
-//
-//    public void checkAndAddALineEntry(LineEntry newEntry, String dayOfWeek, Integer hours){
-//        boolean doesLineEntryAlreadyExist = false;
-//        while (!doesLineEntryAlreadyExist) {
-//            for (LineEntry entry :
-//                    this.lineEntries) {
-//                if (entry.equals(newEntry)) {
-//                    entry.setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(dayOfWeek, hours);
-//                    entry.setTotalHoursInLineEntry();
-//                    doesLineEntryAlreadyExist = true;
-//                    break;
-//                }
-//            }
-//            if (!doesLineEntryAlreadyExist){
-//                this.lineEntries.add(newEntry);
-//                newEntry.setTotalHoursInLineEntry();
-//                break;
-//            }
-//        }
-//    }
-//
-//    /* TODO - code a method like totalMondaysHours, but will work for any day of the week - totalDayOfWeekHours(Timesheet aTimesheet,
-//     - TODO  - Still need to throw error if amount of hours is over 24!!*/
-//    public Integer totalDayOfWeekHours(String dayOfWeek){
-//        Integer totalHours = 0;
-//        for (LineEntry lineEntry:
-//             this.lineEntries) {
-//            if (lineEntry.getDayOfWeekAndHours().containsKey(dayOfWeek)){
-//                totalHours += lineEntry.getDayOfWeekAndHours().get(dayOfWeek);
-//            }
-//        }
-//        return totalHours;
-//    }
+    public void setTotalHours(Integer totalHours) {
+        this.totalHours = totalHours;
+    }
 
-//        public void checkAndAddALineEntry(LineEntry newEntry){
-//        boolean doesLineEntryAlreadyExist = false;
-//        while (!doesLineEntryAlreadyExist) {
-//            for (LineEntry entry :
-//                    this.lineEntries) {
-//                if (entry.equals(newEntry)) {
-//                    DaysOfWeekHoursSet dayHourCombo1 = newEntry.getDaysOfWeekHoursCombo();
-//                    DaysOfWeekHoursSet dayHourCombo2 = entry.getDaysOfWeekHoursCombo();
-//                    Integer newMondayTotal = dayHourCombo1.getMondayHours() + dayHourCombo2.getMondayHours();
-//                    Integer newTuesdayTotal = dayHourCombo1.getTuesdayHours() + dayHourCombo2.getTuesdayHours();
-//                    Integer newWednesdayTotal = dayHourCombo1.getWednesdayHours() + dayHourCombo2.getWednesdayHours();
-//                    Integer newThursdayTotal = dayHourCombo1.getThursdayHours() + dayHourCombo2.getThursdayHours();
-//                    Integer newFridayTotal = dayHourCombo1.getFridayHours() + dayHourCombo2.getFridayHours();
-//                    Integer newSaturdayTotal = dayHourCombo1.getSaturdayHours() + dayHourCombo2.getSaturdayHours();
-//                    DaysOfWeekHoursSet dayHourCombo3 = new DaysOfWeekHoursSet(newMondayTotal, newTuesdayTotal, newWednesdayTotal, newThursdayTotal, newFridayTotal, newSaturdayTotal);
-//                    newEntry.setDaysOfWeekHoursCombo(dayHourCombo3);
-//                    doesLineEntryAlreadyExist = true;
-//                    break;
-//                }
-//            }
-//            if (!doesLineEntryAlreadyExist){
-//                this.lineEntries.add(newEntry);
-//                break;
-//            }
-//        }
-//    }
 
     public boolean checkALineEntry(LineEntry newEntry){
         boolean doesLineEntryAlreadyExist = false;

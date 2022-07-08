@@ -104,7 +104,17 @@
                 </td>
 
                 <td th:text="${lineEntry.getTotalHours()}">T</td>
-                <td>edit icon</td>
+
+                <!--            DELETE ENTRY COLUMN-->
+                <td>
+                   <a th:href="@{/employee/timesheet/editlineentry(lineEntryId=${lineEntry.getId()})}">edit</a>
+<!--                    <form method="post">-->
+<!--                        <input type="hidden" name="lineEntryId" th:value="${lineEntry.getId()}">-->
+<!--                        <input type="hidden" name="currentTimesheetId" th:value="${currentTimesheet.getId()}">-->
+<!--                        <button type="submit" name="submit">X</button>-->
+<!--                    </form>-->
+                </td>
+<!--                <td th:href="/employee/timesheet/deletelineentry">X</td>-->
             </tr>
         </th:block>
         <!--total row at bottom of table-->
@@ -165,6 +175,7 @@
                     <p></p>
                 </div>
             </td>
+
             <!--            TOTAL OF TOTALS CELL-->
             <td></td>
 
@@ -172,6 +183,27 @@
         </tr>
     </table>
 
+    <div class="error-msg" th:if="${mondayTotal>18 or tuesdayTotal>18 or wednesdayTotal>18 or thursdayTotal>18 or fridayTotal>18 or saturdayTotal>18}">
+        <p>You cannot work more than 18 hours in a 24 hour time period, please correct your timesheet before submitting.</p>
+    </div>
+
+    <div>
+        <p>Total Hours for the Week</p>
+        <p th:text="${totalHoursForTheWeek}">default total Hours</p>
+    </div>
+    <div class="line-entry-link" th:if="${totalHoursForTheWeek>0 and mondayTotal<18 and tuesdayTotal<18 and wednesdayTotal<18 and thursdayTotal<18 and fridayTotal<18 and saturdayTotal<18}">
+        <form method="post">
+            <input type="hidden" name="currentTimesheetId" th:value="${currentTimesheet.getId()}">
+            <input type="hidden" name="mondayTotal" th:value="${mondayTotal}">
+            <input type="hidden" name="tuesdayTotal" th:value="${tuesdayTotal}">
+            <input type="hidden" name="wednesdayTotal" th:value="${wednesdayTotal}">
+            <input type="hidden" name="thursdayTotal" th:value="${thursdayTotal}">
+            <input type="hidden" name="fridayTotal" th:value="${fridayTotal}">
+            <input type="hidden" name="saturdayTotal" th:value="${saturdayTotal}">
+            <input type="hidden" name="totalHours" th:value="${totalHoursForTheWeek}">
+            <button type="submit" name="submit">SUBMIT</button>
+        </form>
+    </div>
 </div>
 
 

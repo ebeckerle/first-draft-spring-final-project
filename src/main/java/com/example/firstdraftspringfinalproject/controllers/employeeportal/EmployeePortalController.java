@@ -28,7 +28,7 @@ public class EmployeePortalController {
 
     //lives at /employee, renders employee>home.html
     @GetMapping
-    public String displayEmployeeWelcome(HttpServletRequest request, Model model){
+    public String displayEmployeeWelcome(HttpServletRequest request, Model model, @RequestParam(required = false) String successfulSubmit){
 
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
@@ -44,7 +44,9 @@ public class EmployeePortalController {
         model.addAttribute("todaysDate", todaysDate);
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
-
+        if(successfulSubmit!= null){
+            model.addAttribute("successfulSubmit", successfulSubmit);
+        }
         return "employee/home";
     }
 
