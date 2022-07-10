@@ -140,6 +140,54 @@ public class Timesheet {
         }
     }
 
+    public Integer getTotalMondayHours() {
+        return totalMondayHours;
+    }
+
+    public void setTotalMondayHours(Integer totalMondayHours) {
+        this.totalMondayHours = totalMondayHours;
+    }
+
+    public Integer getTotalTuesdayHours() {
+        return totalTuesdayHours;
+    }
+
+    public void setTotalTuesdayHours(Integer totalTuesdayHours) {
+        this.totalTuesdayHours = totalTuesdayHours;
+    }
+
+    public Integer getTotalWednesdayHours() {
+        return totalWednesdayHours;
+    }
+
+    public void setTotalWednesdayHours(Integer totalWednesdayHours) {
+        this.totalWednesdayHours = totalWednesdayHours;
+    }
+
+    public Integer getTotalThursdayHours() {
+        return totalThursdayHours;
+    }
+
+    public void setTotalThursdayHours(Integer totalThursdayHours) {
+        this.totalThursdayHours = totalThursdayHours;
+    }
+
+    public Integer getTotalFridayHours() {
+        return totalFridayHours;
+    }
+
+    public void setTotalFridayHours(Integer totalFridayHours) {
+        this.totalFridayHours = totalFridayHours;
+    }
+
+    public Integer getTotalSaturdayHours() {
+        return totalSaturdayHours;
+    }
+
+    public void setTotalSaturdayHours(Integer totalSaturdayHours) {
+        this.totalSaturdayHours = totalSaturdayHours;
+    }
+
     public Integer getTotalHours() {
         return totalHours;
     }

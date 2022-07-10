@@ -7,13 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
+// - TODO  - TODO - add a PTO feature, make it so that the employee cannot submit more than one timesheet for the given week
 
 @Controller
 @RequestMapping("employee/timesheet")
@@ -65,13 +66,6 @@ public class TimesheetController {
         //DISPLAY the necessary attributes for the timesheet table (the second table)
         model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
 
-//        for (LineEntry lineEntry:
-//                currentTimesheet.getLineEntries()) {
-//            System.out.println("entry: "
-//                    + lineEntry.getProjectWorkTypeCombo().getProject().getProjectCode()
-//                    + lineEntry.getProjectWorkTypeCombo().getWorkType().getWorkTypeId().toString());
-//        }
-
         //We need total hours worked on each individual day of the week and display them in the last row of the table
         Integer mondayTotal = currentTimesheet.totalDayOfWeekHours("Monday");
         Integer tuesdayTotal = currentTimesheet.totalDayOfWeekHours("Tuesday");
@@ -89,8 +83,9 @@ public class TimesheetController {
         model.addAttribute("totalHoursForTheWeek", mondayTotal + tuesdayTotal + wednesdayTotal + thursdayTotal + fridayTotal + saturdayTotal);
 
         model.addAttribute("title", "Current Timesheet");
-
         model.addAttribute("currentTimesheet", currentTimesheet);
+
+        model.addAttribute("successfulSubmit", "You Have Successfully Submitted your Timesheet for the week of: ");
 
         return "employee/timesheet";
     }
@@ -284,16 +279,33 @@ public class TimesheetController {
                                          @RequestParam Integer fridayTotal,
                                          @RequestParam Integer saturdayTotal,
                                          @RequestParam Integer totalHours,
+                                         @RequestParam String successfulSubmit,
+                                         HttpServletRequest request,
                                          Model model){
-        model.addAttribute("successfulSubmit", "You Have Successfully Submitted your Timesheet for the week of: ");
+        model.addAttribute("successfulSubmit", successfulSubmit);
 
         //grab the current timesheet
+        Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
         //set the total of monday's hours, tuesdays hours, etc
+        currentTimesheet.setTotalMondayHours(mondayTotal);
+        currentTimesheet.setTotalTuesdayHours(tuesdayTotal);
+        currentTimesheet.setTotalWednesdayHours(wednesdayTotal);
+        currentTimesheet.setTotalThursdayHours(thursdayTotal);
+        currentTimesheet.setTotalFridayHours(fridayTotal);
+        currentTimesheet.setTotalSaturdayHours(saturdayTotal);
         //set the total hours
+        currentTimesheet.setTotalHours(totalHours);
         //set the completion Status to true
+        currentTimesheet.setCompletionStatus(true);
         //save the current timesheet
+        timesheetRepository.save(currentTimesheet);
         //set the employee's current timesheet completion status to true
+        HttpSession session = request.getSession();
+        Integer employeeId = (Integer) session.getAttribute("user");
+        Employee loggedInEmployee = employeeRepository.findById(employeeId).get();
+        loggedInEmployee.setCurrentTimesheetCompletionStatus(true);
         //save the employee
+        employeeRepository.save(loggedInEmployee);
 
         return "redirect:";
     }
