@@ -6,7 +6,7 @@
 <p th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</p>
 <br>
 
-<div><p th:text="${successfulSubmit}"></p></div>
+<div><p th:if="${successSubmit}" th:text="${successSubmit}"></p></div>
 
 <div th:if="${completionStatus}">
 <!--TODO nest in a th:unless or th:if, so only appears if the employee object's currentTimesheetCompletionStatus field is TRUE-->
