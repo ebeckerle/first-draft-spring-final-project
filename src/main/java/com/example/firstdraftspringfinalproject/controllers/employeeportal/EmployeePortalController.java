@@ -54,8 +54,9 @@ public class EmployeePortalController {
 
         Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
         GregorianCalendar startDate = (GregorianCalendar) inputFlashMap.get("timesheetStartDate");
-        //fix format date
-        model.addAttribute("successSubmit", "You Have Successfully Submitted your Timesheet for the week of: " + startDate);
+        //TODO ------- FIX -  format startDate - break into two model attributes and format correctly in the view????
+        model.addAttribute("successSubmit", "You Have Successfully Submitted your Timesheet for the week of: ");
+        model.addAttribute("startDate", startDate);
 
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
