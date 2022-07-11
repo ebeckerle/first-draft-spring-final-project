@@ -8,12 +8,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -46,6 +48,36 @@ public class EmployeePortalController {
         model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
         return "employee/home";
     }
+
+//    @GetMapping("/successSubmit")
+//    public String displayEmployeeWelcomeAfterSuccessSubmit(HttpServletRequest request, Model model){
+//
+//        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+//        if (inputFlashMap != null){
+//            model.addAttribute("successSubmit", "You Have Successfully Submitted your Timesheet for the week of: ");
+//            return "employee/home";
+//        } else {
+//            HttpSession session = request.getSession();
+//            Integer employeeId = (Integer) session.getAttribute("user");
+//
+//            Employee employee = employeeRepository.findById(employeeId).get();
+//
+//            String employeeFirstName = employee.getFirstName();
+//            LocalDate todaysDate = LocalDate.now();
+//
+//            model.addAttribute("title", "Home");
+//            model.addAttribute("employeeName", employeeFirstName);
+//            //the following are hidden in the form
+//            model.addAttribute("todaysDate", todaysDate);
+//            model.addAttribute("employeeId", employeeId);
+//            model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
+//
+//            model.addAttribute("failedSubmit", "Timesheet failed to submit");
+//            return "employee/home";
+//        }
+//
+//    }
+
 
     //lives at /employee, but renders employee>timesheet
     @PostMapping
