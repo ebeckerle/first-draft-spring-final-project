@@ -3,27 +3,30 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <div th:replace="fragments :: header-nav-login"></div>
-<p th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</p>
-<br>
 
-<div th:if="${successSubmit}">
-    <p th:text="${successSubmit}"></p>
-    <p th:text="${#calendars.format(startDate, 'dd/MMM/yyyy')}"></p>
-</div>
+<div class="main-contents">
 
-<div th:unless="${successSubmit}">
-    <div th:if="${completionStatus}">
-        <form method="post">
-            <input type="hidden" name="employeeId" th:value="${employeeId}">
-            <input type="hidden" name="todaysDate" th:value="${todaysDate}">
-            <button type="submit" name="submit">Create A New Timesheet</button>
-        </form>
+    <p th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</p>
+    <br>
+
+    <div th:if="${successSubmit}">
+        <p th:text="${successSubmit}"></p>
+        <p th:text="${#calendars.format(startDate, 'dd/MMM/yyyy')}"></p>
     </div>
 
-
-    <div th:unless="${completionStatus}">
-        <button><a href="/employee/timesheet">Edit Current Timesheet</a></button>
+    <div th:unless="${successSubmit}">
+        <div th:if="${completionStatus}">
+            <form method="post">
+                <input type="hidden" name="employeeId" th:value="${employeeId}">
+                <input type="hidden" name="todaysDate" th:value="${todaysDate}">
+                <button type="submit" name="submit">Create A New Timesheet</button>
+            </form>
+        </div>
+        <div th:unless="${completionStatus}">
+            <button><a href="/employee/timesheet">Edit Current Timesheet</a></button>
+        </div>
     </div>
+
 </div>
 
 </body>
