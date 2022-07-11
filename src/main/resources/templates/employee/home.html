@@ -7,21 +7,20 @@
 <br>
 
 <div><p th:if="${successSubmit}" th:text="${successSubmit}"></p></div>
-<div><p th:text="${successSubmit}"></p></div>
-<div><p th:text="${failedSubmit}"></p></div>
 
-<div th:if="${completionStatus}">
-<!--TODO nest in a th:unless or th:if, so only appears if the employee object's currentTimesheetCompletionStatus field is TRUE-->
-    <form method="post">
-        <input type="hidden" name="employeeId" th:value="${employeeId}">
-        <input type="hidden" name="todaysDate" th:value="${todaysDate}">
-        <button type="submit" name="submit">Create A New Timesheet</button>
-    </form>
-</div>
+<div th:unless="${successSubmit}">
+    <div th:if="${completionStatus}">
+        <form method="post">
+            <input type="hidden" name="employeeId" th:value="${employeeId}">
+            <input type="hidden" name="todaysDate" th:value="${todaysDate}">
+            <button type="submit" name="submit">Create A New Timesheet</button>
+        </form>
+    </div>
 
 
-<div th:unless="${completionStatus}">
-    <button><a href="/employee/timesheet">Edit Current Timesheet</a></button>
+    <div th:unless="${completionStatus}">
+        <button><a href="/employee/timesheet">Edit Current Timesheet</a></button>
+    </div>
 </div>
 
 </body>

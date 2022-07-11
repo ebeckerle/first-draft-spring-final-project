@@ -308,7 +308,7 @@ public class TimesheetController {
         redirectAttributes.addFlashAttribute("timesheetTotalHours", currentTimesheet.getTotalHours());
         redirectAttributes.addFlashAttribute("timesheetPayDay", currentTimesheet.getPayDay());
 
-        return new RedirectView("redirect:/employee/successSubmit", true);
+        return new RedirectView("/employee/successSubmit", true);
     }
 
 //    @PostMapping
