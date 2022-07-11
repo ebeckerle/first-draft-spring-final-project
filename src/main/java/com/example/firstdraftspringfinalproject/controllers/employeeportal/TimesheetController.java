@@ -96,20 +96,7 @@ public class TimesheetController {
         model.addAttribute("projects", projectRepository.findAll());
         model.addAttribute("workTypes", workTypeRepository.findAll());
 
-        ArrayList<String> daysOfWeek1 = new ArrayList<>();
-        String monday = "Monday";
-        String tuesday = "Tuesday";
-        String wednesday = "Wednesday";
-        String thursday = "Thursday";
-        String friday = "Friday";
-        String saturday = "Saturday";
-        daysOfWeek1.add(monday);
-        daysOfWeek1.add(tuesday);
-        daysOfWeek1.add(wednesday);
-        daysOfWeek1.add(thursday);
-        daysOfWeek1.add(friday);
-        daysOfWeek1.add(saturday);
-        model.addAttribute("daysOfWeek", daysOfWeek1);
+        model.addAttribute("daysOfWeek", DaysOfWeek.values());
 
         LocalDate currentDate = LocalDate.now();
         String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
@@ -310,42 +297,5 @@ public class TimesheetController {
 
         return new RedirectView("/employee/successSubmit", true);
     }
-
-//    @PostMapping
-//    public String processSubmitTimesheet(@RequestParam Integer currentTimesheetId,
-//                                               @RequestParam Integer mondayTotal,
-//                                               @RequestParam Integer tuesdayTotal,
-//                                               @RequestParam Integer wednesdayTotal,
-//                                               @RequestParam Integer thursdayTotal,
-//                                               @RequestParam Integer fridayTotal,
-//                                               @RequestParam Integer saturdayTotal,
-//                                               @RequestParam Integer totalHours,
-//                                               HttpServletRequest request){
-//
-//        //grab the current timesheet
-//        Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
-//        //set the total of monday's hours, tuesdays hours, etc
-//        currentTimesheet.setTotalMondayHours(mondayTotal);
-//        currentTimesheet.setTotalTuesdayHours(tuesdayTotal);
-//        currentTimesheet.setTotalWednesdayHours(wednesdayTotal);
-//        currentTimesheet.setTotalThursdayHours(thursdayTotal);
-//        currentTimesheet.setTotalFridayHours(fridayTotal);
-//        currentTimesheet.setTotalSaturdayHours(saturdayTotal);
-//        //set the total hours
-//        currentTimesheet.setTotalHours(totalHours);
-//        //set the completion Status to true
-//        currentTimesheet.setCompletionStatus(true);
-//        //save the current timesheet
-//        timesheetRepository.save(currentTimesheet);
-//        //set the employee's current timesheet completion status to true
-//        HttpSession session = request.getSession();
-//        Integer employeeId = (Integer) session.getAttribute("user");
-//        Employee loggedInEmployee = employeeRepository.findById(employeeId).get();
-//        loggedInEmployee.setCurrentTimesheetCompletionStatus(true);
-//        //save the employee
-//        employeeRepository.save(loggedInEmployee);
-//
-//        return "redirect:/employee/home";
-//    }
 
 }
