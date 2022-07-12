@@ -93,7 +93,7 @@ public class AuthenticationController {
 
         if (!registeringEmployee.isMatchingPassword(firstTimePassword)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
-            return "index";
+            return "register";
         }
 
         // if an employee exists with the same first name and last name and password, then set the new username and
@@ -107,7 +107,7 @@ public class AuthenticationController {
 
         //return "employee/home";
         //but if employee has supervisor access return "supervisor/home";
-        return "employee/home";
+        return "redirect:/employee";
     }
 
     @GetMapping
