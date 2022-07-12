@@ -77,10 +77,33 @@ public class AuthenticationController {
             return "register";
         }
 
-        //so I think when I refactor this I don't want to create a new Employee but update an existing here
-        Employee newEmployee = new Employee(registerFormDTO.getUsername(), registerFormDTO.getPassword());
-        employeeRepository.save(newEmployee);
-        setUserInSession(request.getSession(), newEmployee);
+        //if the first name last name combo does not match any existing employee in the system
+        Optional<Employee> employee = employeeRepository.findByFirstNameAndLastName(registerFormDTO.getFirstName(), registerFormDTO.getLastName());
+
+        if (employee.isEmpty()){
+            errors.rejectValue("firstName", "firstNameLastName.doesNotExist", "There is no Employee with this First and Last Name in the System");
+            model.addAttribute("title", "Register");
+            return "register";
+        }
+
+        Employee registeringEmployee = employee.get();
+
+        //if the first time password does not match
+        String firstTimePassword = registerFormDTO.getFirstTimePassword();
+
+        if (!registeringEmployee.isMatchingPassword(firstTimePassword)) {
+            errors.rejectValue("password", "password.invalid", "Invalid password");
+            return "index";
+        }
+
+        // if an employee exists with the same first name and last name and password, then set the new username and
+        // password and save updated employee
+
+        registeringEmployee.setUserName(registerFormDTO.getUsername());
+        registeringEmployee.setPwHash(registerFormDTO.getPassword());
+
+        employeeRepository.save(registeringEmployee);
+        setUserInSession(request.getSession(), registeringEmployee);
 
         //return "employee/home";
         //but if employee has supervisor access return "supervisor/home";

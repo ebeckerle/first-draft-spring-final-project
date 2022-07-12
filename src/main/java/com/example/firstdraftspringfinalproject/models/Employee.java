@@ -184,6 +184,10 @@ public class Employee {
         return otpHash;
     }
 
+    public void setPwHash(String password){
+        this.pwHash = encoder.encode(password);
+    }
+
 //    public void resetOtpHashToNull() {
 //        this.otpHash = null;
 //    }
