@@ -27,14 +27,15 @@ public class Employee {
     private String title;
     private String username;
 
-    @NotNull
     private String pwHash;
+
+    private String otpHash;
 
     @OneToMany(mappedBy = "employee")
     private List<Timesheet> timesheets = new ArrayList<>();
 
     private Boolean currentTimesheetCompletionStatus = true;
-    private Boolean supervisorAccess;
+    private Boolean supervisorAccess = false;
     private Integer payRate;
     private GregorianCalendar firstDateOfWork;
     private Integer paidTimeOff;
@@ -46,14 +47,23 @@ public class Employee {
 
     // Pay Rate?, eligible for benefits, remaining time off
 
-    public Employee (String firstName, String lastName, String title, Boolean supervisorAccess, Integer payRate, GregorianCalendar firstDateOfWork, Integer paidTimeOff) {
+//    public Employee (String firstName, String lastName, String title, Boolean supervisorAccess, Integer payRate, GregorianCalendar firstDateOfWork, Integer paidTimeOff, String oneTimePassword) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.title = title;
+//        this.supervisorAccess = supervisorAccess;
+//        this.payRate = payRate;
+//        this.firstDateOfWork = firstDateOfWork;
+//        this.paidTimeOff = paidTimeOff;
+//        this.pwHash = encoder.encode(oneTimePassword);
+//    }
+    public Employee (String firstName, String lastName, String title, Integer payRate, Integer paidTimeOff, String oneTimePassword) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.title = title;
-        this.supervisorAccess = supervisorAccess;
         this.payRate = payRate;
-        this.firstDateOfWork = firstDateOfWork;
         this.paidTimeOff = paidTimeOff;
+        this.pwHash = encoder.encode(oneTimePassword);
     }
 //
 //    public Employee (String firstName, String lastName, String username, String password) {
@@ -169,7 +179,16 @@ public class Employee {
     public void setPaidTimeOff(Integer paidTimeOff) {
         this.paidTimeOff = paidTimeOff;
     }
-//to String & Equals Methods
+
+    public String getOtpHash() {
+        return otpHash;
+    }
+
+//    public void resetOtpHashToNull() {
+//        this.otpHash = null;
+//    }
+
+    //to String & Equals Methods
 
 
     @Override

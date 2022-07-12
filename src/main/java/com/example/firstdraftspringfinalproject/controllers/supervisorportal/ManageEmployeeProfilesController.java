@@ -2,6 +2,8 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.models.Employee;
+import com.example.firstdraftspringfinalproject.models.OtpGenerator;
+import com.example.firstdraftspringfinalproject.models.dto.CreateEmployeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,17 +29,35 @@ public class ManageEmployeeProfilesController {
     @GetMapping("newemployee")
     public String displayAddNewEmployeeForm(Model model){
         model.addAttribute("title", "Add an Employee");
-        model.addAttribute(new Employee());
+//        OtpGenerator otpGenerator = new OtpGenerator();
+//        otpGenerator.setOtp(5);
+//        String oneTimePassword = otpGenerator.getOtp();
+//        model.addAttribute("oneTimePassword", oneTimePassword);
+//        model.addAttribute("supervisorAccess", true);
+        model.addAttribute(new CreateEmployeeDTO());
         return "supervisor/newemployee";
     }
 
     @PostMapping("newemployee")
-    public String processAddNewEmployeeForm(@ModelAttribute @Valid Employee employee, Errors errors, Model model){
+    public String processAddNewEmployeeForm(@ModelAttribute @Valid CreateEmployeeDTO createEmployeeDTO, Errors errors, Model model){
         if (errors.hasErrors()){
             model.addAttribute("title", "Add an Employee");
             return "supervisor/newemployee";
         }
-        employeeRepository.save(employee);
+        OtpGenerator otpGenerator = new OtpGenerator();
+        otpGenerator.setOtp(5);
+        String oneTimePassword = otpGenerator.getOtp();
+        createEmployeeDTO.setOneTimePassword(oneTimePassword);
+
+        Employee newEmployee = new Employee(createEmployeeDTO.getFirstName(),
+                createEmployeeDTO.getLastName(),
+                createEmployeeDTO.getTitle(),
+                createEmployeeDTO.getPayRate(),
+                createEmployeeDTO.getPaidTimeOff(),
+                createEmployeeDTO.getOneTimePassword());
+        System.out.println(createEmployeeDTO.getFirstName());
+        System.out.println(createEmployeeDTO.getOneTimePassword());
+        employeeRepository.save(newEmployee);
         return "redirect:";
     }
 

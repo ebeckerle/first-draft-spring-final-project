@@ -5,25 +5,27 @@ import java.util.SplittableRandom;
 
 public class OtpGenerator {
 
-    public static void main(String[] args){
-        System.out.println(OtpGenerator.generateOtp(7));
+    private String otp;
 
-        System.out.println(generateOtpAlphaNumeric(5));
-    }
+//    public static void main(String[] args){
+//        System.out.println(OtpGenerator.generateOtp(7));
+//
+//        System.out.println(generateOtpAlphaNumeric(5));
+//    }
 
-    public static String generateOtp (Integer OtpLength){
-        SplittableRandom splittableRandom = new SplittableRandom();
+//    public static String generateOtp (Integer OtpLength){
+//        SplittableRandom splittableRandom = new SplittableRandom();
+//
+//        StringBuilder sb = new StringBuilder();
+//
+//        for (int i = 0; i < OtpLength ; i++){
+//            sb.append(splittableRandom.nextInt(0,10));
+//        }
+//
+//        return  sb.toString();
+//    }
 
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < OtpLength ; i++){
-            sb.append(splittableRandom.nextInt(0,10));
-        }
-
-        return  sb.toString();
-    }
-
-    static char[] generateOtpAlphaNumeric(int length){
+    public void setOtp(int length){
         String Capital_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String Small_chars = "abcdefghijklmnopqrstuvwxyz";
         String numbers = "0123456789";
@@ -38,7 +40,10 @@ public class OtpGenerator {
         for(int i = 0; i<length; i++){
             password[i] = values.charAt(random.nextInt(values.length()));
         }
+        this.otp = String.valueOf(password);
+    }
 
-        return password;
+    public String getOtp() {
+        return otp;
     }
 }
