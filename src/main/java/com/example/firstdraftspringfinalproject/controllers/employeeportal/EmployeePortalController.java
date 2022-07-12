@@ -43,10 +43,21 @@ public class EmployeePortalController {
             model.addAttribute("title", "Home");
             model.addAttribute("employeeName", employee.getFirstName());
 
-            //the following are hidden in the form
+            //the following are hidden in the form to create or edit timesheet
             model.addAttribute("todaysDate", todaysDate);
             model.addAttribute("employeeId", employeeId);
             model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
+
+            //add a model attribute
+            GregorianCalendar lastWeeksStartDate = Timesheet.figureLastWeeksStartDateBasedOnTodaysDate(todaysDate);
+            Optional<Timesheet> lastWeeksTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndStartDate(employeeId, lastWeeksStartDate);
+            if(lastWeeksTimesheet.isPresent()){
+                if(lastWeeksTimesheet.get().getSupervisorApproval()){
+                    model.addAttribute("lastWeekTimesheet", "Your timesheet for last week has been approved!");
+                }else if (!lastWeeksTimesheet.get().getSupervisorApproval()){
+                    model.addAttribute("lastWeekTimesheet", "Your timesheet for last week is awaiting approval..");
+                }
+            }
         }
 
         return "employee/home";
