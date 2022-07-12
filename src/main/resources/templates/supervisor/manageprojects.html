@@ -6,18 +6,24 @@
 </head>
 <body>
 
-<table>
-    <thead>
-    <th>Project</th>
-    <th>Project Code</th>
-    </thead>
+<div th:replace="fragments :: header-nav-login-sup"></div>
 
-    <tr th:each="project : ${projects}">
-        <td th:text="${project.projectName}"></td>
-        <td th:text="${project.projectCode}"></td>
-    </tr>
-</table>
+<div class="main-contents">
+    <table>
+        <thead>
+        <th>Project</th>
+        <th>Project Code</th>
+        </thead>
 
-<a href="/supervisor/manageprojects/newproject">Add a Project</a>
+        <tr th:each="project : ${projects}">
+            <td th:text="${project.projectName}"></td>
+            <td th:text="${project.projectCode}"></td>
+        </tr>
+    </table>
+    <br>
+    <a href="/supervisor/manageprojects/newproject">Add a Project</a>
+</div>
+
+
 </body>
 </html>

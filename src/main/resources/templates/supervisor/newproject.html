@@ -5,27 +5,34 @@
     <title th:text="${title}">Default Title</title>
 </head>
 <body>
-<h1>Add a New Project</h1>
-<form method="post">
 
-    <div class="form-group">
-        <label>Code:
-            <input th:field="${project.projectCode}" class="form-control">
-        </label>
-        <p class="error" th:errors="${project.projectCode}"></p>
-    </div>
+<div th:replace="fragments :: header-nav-login-sup"></div>
 
-    <div class="form-group">
-        <label>Project:
-            <input th:field="${project.projectName}" class="form-control">
-        </label>
-        <p class="error" th:errors="${project.projectName}"></p>
-    </div>
+<div class="main-contents">
 
-    <div class="form-group">
-        <input type="submit" value="Add" class="btn btn-success">
-    </div>
+    <h1>Add a New Project</h1>
+    <form method="post">
 
-</form>
+        <div class="form-group">
+            <label>Code:
+                <input th:field="${project.projectCode}" class="form-control">
+            </label>
+            <p class="error" th:errors="${project.projectCode}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Project:
+                <input th:field="${project.projectName}" class="form-control">
+            </label>
+            <p class="error" th:errors="${project.projectName}"></p>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Add" class="btn btn-success">
+        </div>
+    </form>
+
+</div>
+
 </body>
 </html>

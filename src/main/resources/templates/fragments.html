@@ -18,7 +18,7 @@
         <a href="/"><header>Restoration Company</header></a>
     </div>
 
-<!--Header Fragment when logged in-->
+<!--Header Fragment when employee logged in-->
     <div th:fragment="header-nav-login">
         <div class="header-nav-login">
             <header>Restoration Company</header>
@@ -32,6 +32,21 @@
                     </ol>
                 </nav>
 <!--            </div>-->
+        </div>
+    </div>
+
+    <!--Header Fragment when employee logged in-->
+    <div th:fragment="header-nav-login-sup">
+        <div class="header-nav-login">
+            <header>Restoration Company</header>
+
+            <nav>
+                <ol>
+                    <li class="nav-link"><a href="/supervisor">My Homepage</a></li>
+                    <li class="nav-link"><a href="/logout">Log Off</a></li>
+                </ol>
+            </nav>
+
         </div>
     </div>
 

@@ -4,28 +4,40 @@
     <meta charset="UTF-8">
     <title th:text="${title}">Default Title</title>
 </head>
+
 <body>
 
-<table>
-    <thead>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Title</th>
-    <th>Current Timesheet</th>
-    <th>Pay Rate</th>
-    <th>Edit Profile</th>
-    </thead>
+<div th:replace="fragments :: header-nav-login-sup"></div>
 
-    <tr th:each="employee : ${employees}">
-        <td th:text="${employee.firstName}"></td>
-        <td th:text="${employee.lastName}"></td>
-        <td th:text="${employee.title}"></td>
-        <td th:text="${employee.currentTimesheetCompletionStatus}"></td>
-        <td th:text="${employee.payRate}"></td>
-        <td><a th:href="@{/supervisor/manageemployeeprofiles/editEmployee(employeeId=${employee.employeeId})}">link here</a></td>
-    </tr>
-</table>
+<div class="main-contents">
+    <div th:if="${successSubmit}">
+        <p th:text="${'You have successfully created an Employee Profile for '+ employeeFirstName+'. '+ employeeFirstName
+    +'''s first time passcode is : '+ employeeFirstTimePassword}"></p>
+        <p>Please give the employee their first time passcode and tell them to use it register a unique username and password.</p>
+    </div>
 
-<a href="/supervisor/manageemployeeprofiles/newemployee">Add an Employee</a>
+    <table>
+        <thead>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Title</th>
+        <th>Current Timesheet</th>
+        <th>Pay Rate</th>
+        <th>Edit Profile</th>
+        </thead>
+
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.firstName}"></td>
+            <td th:text="${employee.lastName}"></td>
+            <td th:text="${employee.title}"></td>
+            <td th:text="${employee.currentTimesheetCompletionStatus}"></td>
+            <td th:text="${employee.payRate}"></td>
+            <td><a th:href="@{/supervisor/manageemployeeprofiles/editEmployee(employeeId=${employee.employeeId})}">link here</a></td>
+        </tr>
+    </table>
+
+    <a href="/supervisor/manageemployeeprofiles/newemployee">Add an Employee</a>
+</div>
+
 </body>
 </html>

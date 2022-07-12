@@ -9,8 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.GregorianCalendar;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -26,23 +32,34 @@ public class ManageEmployeeProfilesController {
         return "supervisor/manageemployeeprofiles";
     }
 
+    @GetMapping(value = "/successNewEmployee")
+    public String displayManageEmployeeProfilesHomeSuccessNewEmployee(HttpServletRequest request, Model model){
+
+        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+        String employeeFirstName = (String) inputFlashMap.get("employeeFirstName");
+        String employeeFirstTimePassword = (String) inputFlashMap.get("employeeFirstTimePassword");
+
+        model.addAttribute("employeeFirstName", employeeFirstName);
+        model.addAttribute("employeeFirstTimePassword", employeeFirstTimePassword);
+        model.addAttribute("successSubmit", "true");
+        model.addAttribute("employees", employeeRepository.findAll());
+        return "supervisor/manageemployeeprofiles";
+    }
+
     @GetMapping("newemployee")
     public String displayAddNewEmployeeForm(Model model){
         model.addAttribute("title", "Add an Employee");
-//        OtpGenerator otpGenerator = new OtpGenerator();
-//        otpGenerator.setOtp(5);
-//        String oneTimePassword = otpGenerator.getOtp();
-//        model.addAttribute("oneTimePassword", oneTimePassword);
-//        model.addAttribute("supervisorAccess", true);
         model.addAttribute(new CreateEmployeeDTO());
         return "supervisor/newemployee";
     }
 
     @PostMapping("newemployee")
-    public String processAddNewEmployeeForm(@ModelAttribute @Valid CreateEmployeeDTO createEmployeeDTO, Errors errors, Model model){
+    public RedirectView processAddNewEmployeeForm(@ModelAttribute @Valid CreateEmployeeDTO createEmployeeDTO,
+                                                  Errors errors, Model model,
+                                                  RedirectAttributes redirectAttributes){
         if (errors.hasErrors()){
             model.addAttribute("title", "Add an Employee");
-            return "supervisor/newemployee";
+            return new RedirectView("supervisor/newemployee");
         }
         OtpGenerator otpGenerator = new OtpGenerator();
         otpGenerator.setOtp(5);
@@ -58,7 +75,11 @@ public class ManageEmployeeProfilesController {
         System.out.println(createEmployeeDTO.getFirstName());
         System.out.println(createEmployeeDTO.getOneTimePassword());
         employeeRepository.save(newEmployee);
-        return "redirect:";
+
+        redirectAttributes.addFlashAttribute("employeeFirstName", createEmployeeDTO.getFirstName());
+        redirectAttributes.addFlashAttribute("employeeFirstTimePassword", createEmployeeDTO.getOneTimePassword());
+
+        return new RedirectView("/supervisor/manageemployeeprofiles/successNewEmployee", true);
     }
 
     @GetMapping(value = "editEmployee")
