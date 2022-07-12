@@ -5,25 +5,25 @@
 <body>
 
 <div th:replace="fragments :: header-nav-login"></div>
+<div class="main-contents">
+    <h1>Edit Line Entry</h1>
 
-<h1>Edit Line Entry</h1>
+    <form method="post">
+        <table class="edit-timesheet-table">
 
-<form method="post">
-<table class="timesheet">
+            <thead>
+            <tr>
+                <th></th>
+                <th>M</th>
+                <th>T</th>
+                <th>W</th>
+                <th>T</th>
+                <th>F</th>
+                <th>S</th>
+            </tr>
+            </thead>
 
-        <thead>
-        <tr>
-            <th class="total-header"></th>
-            <th class="day-header">M</th>
-            <th class="day-header">T</th>
-            <th class="day-header">W</th>
-            <th class="day-header">T</th>
-            <th class="day-header">F</th>
-            <th class="day-header">S</th>
-        </tr>
-        </thead>
-
-        <tr>
+            <tr>
                 <th th:text="${lineEntry.getProjectWorkTypeCombo.getProject().toString()+
                         ' - '+lineEntry.getProjectWorkTypeCombo.getWorkType().toStringWorkTypeCode()}">default Project - workType</th>
 
@@ -86,26 +86,29 @@
                 </td>
 
             </tr>
-        <tr>
-            <td></td>
-            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getMondayHours()}" name="mondayHours"></td>
-            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours()}" name="tuesdayHours"></td>
-            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours()}" name="wednesdayHours"></td>
-            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours()}" name="thursdayHours"></td>
-            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getFridayHours()}" name="fridayHours"></td>
-            <td><input type="number" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours()}" name="saturdayHours"></td>
-        </tr>
+            <tr>
+                <td></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getMondayHours()}" name="mondayHours"></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours()}" name="tuesdayHours"></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours()}" name="wednesdayHours"></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours()}" name="thursdayHours"></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getFridayHours()}" name="fridayHours"></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours()}" name="saturdayHours"></td>
+            </tr>
 
-</table>
+        </table>
 
-    <input type="hidden" name="lineEntryId" th:value="${lineEntry.getId()}">
-    <input type="hidden" name="currentTimesheetId" th:value="${currentTimesheetId}">
+        <input type="hidden" name="lineEntryId" th:value="${lineEntry.getId()}">
+        <input type="hidden" name="currentTimesheetId" th:value="${currentTimesheetId}">
+        <div class="btn-style">
+            <button type="submit" name="delete">Delete Entry</button>
+            <button type="submit" name="save">Save Changes</button>
+        </div>
 
-    <button type="submit" name="delete">Delete Entry</button>
-    <button type="submit" name="save">Save Changes</button>
+    </form>
 
-</form>
 
+</div>
 
 
 </body>

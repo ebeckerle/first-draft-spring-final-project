@@ -19,10 +19,10 @@
             <form method="post">
                 <input type="hidden" name="employeeId" th:value="${employeeId}">
                 <input type="hidden" name="todaysDate" th:value="${todaysDate}">
-                <button type="submit" name="submit">Create A New Timesheet</button>
+                <button  class="btn-style" type="submit" name="submit">Create A New Timesheet</button>
             </form>
         </div>
-        <div th:unless="${completionStatus}">
+        <div class="btn-style" th:unless="${completionStatus}">
             <button><a href="/employee/timesheet">Edit Current Timesheet</a></button>
         </div>
     </div>

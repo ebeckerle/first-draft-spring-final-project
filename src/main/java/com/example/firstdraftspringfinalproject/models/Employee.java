@@ -37,15 +37,24 @@ public class Employee {
     private Boolean supervisorAccess;
     private Integer payRate;
     private GregorianCalendar firstDateOfWork;
+    private Integer paidTimeOff;
+
+    private String email;
+    private String address;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     // Pay Rate?, eligible for benefits, remaining time off
 
-//    public Employee (String firstName, String lastName) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//    }
+    public Employee (String firstName, String lastName, String title, Boolean supervisorAccess, Integer payRate, GregorianCalendar firstDateOfWork, Integer paidTimeOff) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.title = title;
+        this.supervisorAccess = supervisorAccess;
+        this.payRate = payRate;
+        this.firstDateOfWork = firstDateOfWork;
+        this.paidTimeOff = paidTimeOff;
+    }
 //
 //    public Employee (String firstName, String lastName, String username, String password) {
 //        this.firstName = firstName;
@@ -153,7 +162,13 @@ public class Employee {
         this.firstDateOfWork = firstDateOfWork;
     }
 
+    public Integer getPaidTimeOff() {
+        return paidTimeOff;
+    }
 
+    public void setPaidTimeOff(Integer paidTimeOff) {
+        this.paidTimeOff = paidTimeOff;
+    }
 //to String & Equals Methods
 
 
