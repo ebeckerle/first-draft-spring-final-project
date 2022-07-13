@@ -1,6 +1,7 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
+import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.models.Employee;
 import com.example.firstdraftspringfinalproject.models.OtpGenerator;
 import com.example.firstdraftspringfinalproject.models.dto.CreateEmployeeDTO;
@@ -15,21 +16,22 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.GregorianCalendar;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
-@RequestMapping("supervisor/manageemployeeprofiles")
-public class ManageEmployeeProfilesController {
+@RequestMapping("supervisor/manageemployees")
+public class ManageEmployeesController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private TimesheetRepository timesheetRepository;
+
     @GetMapping(value = "")
     public String displayManageEmployeeProfilesHome(Model model){
         model.addAttribute("employees", employeeRepository.findAll());
-        return "supervisor/manageemployeeprofiles";
+        return "supervisor/manageemployees";
     }
 
     @GetMapping(value = "/successNewEmployee")
@@ -43,7 +45,7 @@ public class ManageEmployeeProfilesController {
         model.addAttribute("employeeFirstTimePassword", employeeFirstTimePassword);
         model.addAttribute("successSubmit", "true");
         model.addAttribute("employees", employeeRepository.findAll());
-        return "supervisor/manageemployeeprofiles";
+        return "supervisor/manageemployees";
     }
 
     @GetMapping("newemployee")
@@ -88,5 +90,35 @@ public class ManageEmployeeProfilesController {
         return "supervisor/editemployee";
     }
 
+    @GetMapping(value = "retireemployee")
+    public String displayRetireEmployeeForm(){
+        return "supervisor/retireemployee";
+    }
+
+    @GetMapping(value="timesheets")
+    public String displayTimesheetsPage(Model model){
+        model.addAttribute("all", "all");
+        model.addAttribute("approval", "approval");
+        return "supervisor/timesheets";
+    }
+
+    @PostMapping(value="timesheets/results")
+    public String processTimesheetSearch(@RequestParam String searchType, @RequestParam(required = false) String lastName, Model model){
+        if(searchType.equals("all")){
+            model.addAttribute("timesheets", timesheetRepository.findAll());
+        }else if (searchType.equals("approval")){
+            model.addAttribute("timesheets", timesheetRepository.findBySupervisorApprovalAndCompletionStatus(false, true));
+        }
+//        else if (searchType.equals("lastName")){
+//            model.addAttribute("timesheets", timesheetRepository.findByLastNameAndCompletionStatus(lastName, true));
+//        }
+        return "supervisor/timesheets";
+    }
+
+    @GetMapping(value="timesheets/detail")
+    public String displayTimesheetDetail(@RequestParam Integer timesheetId, Model model){
+        model.addAttribute("timesheet", timesheetRepository.findById(timesheetId));
+        return "viewtimesheet";
+    }
 
 }

@@ -54,9 +54,9 @@ public class TimesheetController {
         Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(employeeId, false);
 
         //display the Dates for this Timesheet
-        String startDate = currentTimesheet.formatDates(currentTimesheet.getStartDate());
-        String dueDate = currentTimesheet.formatDates(currentTimesheet.getDueDate());
-        String payDay = currentTimesheet.formatDates(currentTimesheet.getPayDay());
+        String startDate = Timesheet.formatDates(currentTimesheet.getStartDate());
+        String dueDate = Timesheet.formatDates(currentTimesheet.getDueDate());
+        String payDay = Timesheet.formatDates(currentTimesheet.getPayDay());
         LocalDate currentDate = LocalDate.now();
         String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
         model.addAttribute("today", today);

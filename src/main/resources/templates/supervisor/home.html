@@ -9,31 +9,36 @@
 <div th:replace="fragments :: header-nav-login-sup"></div>
 
 <div class="main-contents">
-    <h1>Upcoming</h1>
-    <ol>
-        <li><a href="/supervisor/manageprojects">Add a Project</a></li>
-        <li><a href="/supervisor/manageemployeeprofiles">Manage Employees</a></li>
-        <li><a>Manage Incoming Shipments</a></li>
-        <li><a>Current Bids/RFPs</a></li>
-    </ol>
+
+    <h3 th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</h3>
+    <p th:text="${'Today is ' + today}">Today's Date</p>
+
+    <p>I want to add a link using th:if, something like, "You have 3 timesheets awaiting approval - Approve Timesheets</p>
+<!--    <h1>Upcoming</h1>-->
+<!--    <ol>-->
+<!--        <li><a href="/supervisor/manageprojects">Add a Project</a></li>-->
+<!--        <li><a href="/supervisor/manageemployeeprofiles">Manage Employees</a></li>-->
+<!--        <li><a>Manage Incoming Shipments</a></li>-->
+<!--        <li><a>Current Bids/RFPs</a></li>-->
+<!--    </ol>-->
 
 
-    <h1>Current</h1>
-    <ol>
-        <li><a>Approve Timesheets</a></li>
-        <li><a>Manage Incoming Shipments</a></li>
-        <li><a>Current Bids/RFPs</a></li>
-    </ol>
-    <ol th:each="project : ${projects}">
-        <li><a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a></li>
-    </ol>
+<!--    <h1>Current</h1>-->
+<!--    <ol>-->
+<!--        <li><a>Approve Timesheets</a></li>-->
+<!--        <li><a>Manage Incoming Shipments</a></li>-->
+<!--        <li><a>Current Bids/RFPs</a></li>-->
+<!--    </ol>-->
+<!--    <ol th:each="project : ${projects}">-->
+<!--        <li><a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a></li>-->
+<!--    </ol>-->
 
-    <h1>Outgoing</h1>
-    <ol>
-        <li><a href="/supervisor/manageprojects">Retire a Project</a></li>
-        <li><a>View Metrics</a></li>
-        <li><a>Review a Retired Project</a></li>
-    </ol>
+<!--    <h1>Outgoing</h1>-->
+<!--    <ol>-->
+<!--        <li><a href="/supervisor/manageprojects">Retire a Project</a></li>-->
+<!--        <li><a>View Metrics</a></li>-->
+<!--        <li><a>Review a Retired Project</a></li>-->
+<!--    </ol>-->
 
 </div>
 

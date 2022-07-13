@@ -18,5 +18,11 @@ public interface TimesheetRepository extends CrudRepository <Timesheet, Integer>
 
     Optional<Timesheet> findByEmployeeEmployeeIdAndStartDate(Integer employeeId, GregorianCalendar startDate);
 
+    List<Timesheet> findBySupervisorApprovalAndCompletionStatus(Boolean supervisorApproval, Boolean completionStatus);
+
+    // need to work on this query  - inner join with employee table???
+
+//    List<Timesheet> findByLastNameAndCompletionStatus(String lastName, Boolean completionStatus);
+
 
 }

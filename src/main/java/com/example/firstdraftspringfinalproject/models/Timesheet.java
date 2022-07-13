@@ -73,6 +73,10 @@ public class Timesheet {
         return timesheetId;
     }
 
+    public Integer getTimesheetId() {
+        return timesheetId;
+    }
+
     public Employee getEmployee() {
         return employee;
     }
@@ -260,7 +264,7 @@ public class Timesheet {
         return totalHours;
     }
 
-    public String formatDates(GregorianCalendar date){
+    public static String formatDates(GregorianCalendar date){
         return date.get(Calendar.MONTH)+1 + "/" + date.get(Calendar.DATE) + "/" + date.get(Calendar.YEAR);
     }
 

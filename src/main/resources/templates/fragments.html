@@ -35,14 +35,18 @@
         </div>
     </div>
 
-    <!--Header Fragment when employee logged in-->
+    <!--Header Fragment when supervisor logged in-->
     <div th:fragment="header-nav-login-sup">
         <div class="header-nav-login">
-            <header>Restoration Company</header>
+            <a href="/supervisor"><header>Restoration Company</header></a>
 
             <nav>
                 <ol>
-                    <li class="nav-link"><a href="/supervisor">My Homepage</a></li>
+                    <li class="nav-link"><a href="/supervisor">Dashboard</a></li>
+                    <li class="nav-link"><a href="/supervisor/manageprojects">Projects</a></li>
+                    <li class="nav-link"><a href="/supervisor/manageemployees">Employees</a></li>
+                    <li class="nav-link"><a href="/supervisor/manageshipments">Shipments</a></li>
+                    <li class="nav-link"><a href="/supervisor/metrics">Metrics</a></li>
                     <li class="nav-link"><a href="/logout">Log Off</a></li>
                 </ol>
             </nav>

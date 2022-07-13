@@ -10,11 +10,24 @@
 <div th:replace="fragments :: header-nav-login-sup"></div>
 
 <div class="main-contents">
+
     <div th:if="${successSubmit}">
         <p th:text="${'You have successfully created an Employee Profile for '+ employeeFirstName+'. '+ employeeFirstName
     +'''s first time passcode is : '+ employeeFirstTimePassword}"></p>
         <p>Please give the employee their first time passcode and tell them to use it register a unique username and password.</p>
     </div>
+
+    <h1>Manage Employees</h1>
+        <ol>
+            <li><a>View All</a></li>
+            <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>
+            <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>
+            <li><a href="/supervisor/manageemployees/timesheets">Approve Timesheets</a></li>
+            <li><a href="#edit">Edit An Employee Profile</a></li>
+        </ol>
+
+    <p>3 timesheets awaiting approval -  encase this in a th:if and link to /supervisor/manageemployees/timesheets ... results of timesheets awaiting approval</p>
+
 
     <table>
         <thead>
@@ -22,8 +35,7 @@
         <th>Last Name</th>
         <th>Title</th>
         <th>Current Timesheet</th>
-        <th>Pay Rate</th>
-        <th>Edit Profile</th>
+        <th id="edit">Edit Profile</th>
         </thead>
 
         <tr th:each="employee : ${employees}">
@@ -31,8 +43,7 @@
             <td th:text="${employee.lastName}"></td>
             <td th:text="${employee.title}"></td>
             <td th:text="${employee.currentTimesheetCompletionStatus}"></td>
-            <td th:text="${employee.payRate}"></td>
-            <td><a th:href="@{/supervisor/manageemployeeprofiles/editEmployee(employeeId=${employee.employeeId})}">link here</a></td>
+            <td><a th:href="@{/supervisor/manageemployees/editEmployee(employeeId=${employee.employeeId})}">link here</a></td>
         </tr>
     </table>
 

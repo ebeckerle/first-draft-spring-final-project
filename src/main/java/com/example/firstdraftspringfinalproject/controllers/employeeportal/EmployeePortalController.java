@@ -52,10 +52,12 @@ public class EmployeePortalController {
             GregorianCalendar lastWeeksStartDate = Timesheet.figureLastWeeksStartDateBasedOnTodaysDate(todaysDate);
             Optional<Timesheet> lastWeeksTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndStartDate(employeeId, lastWeeksStartDate);
             if(lastWeeksTimesheet.isPresent()){
+                String startDate = Timesheet.formatDates(lastWeeksTimesheet.get().getStartDate());
+
                 if(lastWeeksTimesheet.get().getSupervisorApproval()){
-                    model.addAttribute("lastWeekTimesheet", "Your timesheet for last week has been approved!");
+                    model.addAttribute("lastWeekTimesheet", "Your timesheet for the week of "+startDate+ " has been approved!");
                 }else if (!lastWeeksTimesheet.get().getSupervisorApproval()){
-                    model.addAttribute("lastWeekTimesheet", "Your timesheet for last week is awaiting approval..");
+                    model.addAttribute("lastWeekTimesheet", "Your timesheet for the week of "+startDate+ " is awaiting approval.");
                 }
             }
         }
