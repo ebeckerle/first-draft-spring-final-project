@@ -4,6 +4,7 @@ import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.models.Employee;
 import com.example.firstdraftspringfinalproject.models.OtpGenerator;
+import com.example.firstdraftspringfinalproject.models.Timesheet;
 import com.example.firstdraftspringfinalproject.models.dto.CreateEmployeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("supervisor/manageemployees")
@@ -117,8 +119,12 @@ public class ManageEmployeesController {
 
     @GetMapping(value="timesheets/detail")
     public String displayTimesheetDetail(@RequestParam Integer timesheetId, Model model){
-        model.addAttribute("timesheet", timesheetRepository.findById(timesheetId));
-        return "viewtimesheet";
+        Optional<Timesheet> timesheet = timesheetRepository.findById(timesheetId);
+        if (timesheet.isPresent()){
+            model.addAttribute("timesheet", timesheetRepository.findById(timesheetId).get());
+        }
+
+        return "supervisor/viewtimesheet";
     }
 
 }
