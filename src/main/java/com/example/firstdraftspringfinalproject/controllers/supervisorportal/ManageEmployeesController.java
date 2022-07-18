@@ -109,7 +109,7 @@ public class ManageEmployeesController {
     @PostMapping(value="timesheets/results")
     public String processTimesheetSearch(@RequestParam String searchType, @RequestParam(required = false) String lastName, Model model){
         if(searchType.equals("all")){
-            model.addAttribute("timesheets", timesheetRepository.findAll());
+            model.addAttribute("timesheets", timesheetRepository.findByCompletionStatus(true));
         }else if (searchType.equals("approval")){
             model.addAttribute("timesheets", timesheetRepository.findBySupervisorApprovalAndCompletionStatus(false, true));
         }

@@ -22,6 +22,8 @@ public interface TimesheetRepository extends CrudRepository <Timesheet, Integer>
 
     List<Timesheet> findByEmployeeEmployeeIdAndCompletionStatus(Integer employeeId, Boolean completionStatus);
 
+    List<Timesheet> findByCompletionStatus(Boolean completionStatus);
+
 
 
 }
