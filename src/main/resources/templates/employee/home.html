@@ -9,7 +9,7 @@
     <p th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</p>
     <br>
 
-    <div th:if="${successSubmit}">
+    <div th:if="${successSubmit}" class="success-submit">
         <p th:text="${successSubmit}"></p>
         <p th:text="${#calendars.format(startDate, 'dd/MMM/yyyy')}"></p>
     </div>

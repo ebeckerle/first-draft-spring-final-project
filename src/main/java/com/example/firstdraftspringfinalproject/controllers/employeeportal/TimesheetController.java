@@ -51,7 +51,7 @@ public class TimesheetController {
         Integer employeeId = (Integer) session.getAttribute("user");
 
         // find the current timesheet for correct employee
-        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(employeeId, false);
+        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
 
         //display the Dates for this Timesheet
         String startDate = Timesheet.formatDates(currentTimesheet.getStartDate());
@@ -117,7 +117,7 @@ public class TimesheetController {
     public String processCreateLineEntryForm(@RequestParam Integer employeeId, @RequestParam String project, @RequestParam String workType, @RequestParam String daysOfWeek, @RequestParam Integer hours){
 
         //find the current timesheet
-        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(employeeId, false);
+        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
 
         Integer workTypeId = WorkType.fromToStringToId(workType);
 
@@ -173,7 +173,7 @@ public class TimesheetController {
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
         // find the current timesheet for correct employee
-        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(employeeId, false);
+        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
         model.addAttribute("currentTimesheetId", currentTimesheet.getId());
         model.addAttribute("lineEntry", lineEntryRepository.findById(lineEntryId).get());
         return "employee/editlineentry";
@@ -267,7 +267,6 @@ public class TimesheetController {
                                                @RequestParam Integer totalHours,
                                                HttpServletRequest request,
                                                RedirectAttributes redirectAttributes){
-        System.out.println("we are in processSubmitTimesheet post method");
         //grab the current timesheet
         Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
         //set the total of monday's hours, tuesdays hours, etc

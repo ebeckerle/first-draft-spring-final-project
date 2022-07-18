@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Optional;
 
@@ -101,6 +102,7 @@ public class ManageEmployeesController {
     public String displayTimesheetsPage(Model model){
         model.addAttribute("all", "all");
         model.addAttribute("approval", "approval");
+        model.addAttribute("previousChoice", "all");
         return "supervisor/timesheets";
     }
 
@@ -111,20 +113,54 @@ public class ManageEmployeesController {
         }else if (searchType.equals("approval")){
             model.addAttribute("timesheets", timesheetRepository.findBySupervisorApprovalAndCompletionStatus(false, true));
         }
-//        else if (searchType.equals("lastName")){
-//            model.addAttribute("timesheets", timesheetRepository.findByLastNameAndCompletionStatus(lastName, true));
-//        }
+        else if (searchType.equals("lastName")){
+            if(employeeRepository.findByLastName(lastName).isPresent()){
+                Integer employeeId = employeeRepository.findByLastName(lastName).get().getEmployeeId();
+                model.addAttribute("timesheets", timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(employeeId, true));
+            }else{
+                model.addAttribute("error", "There is no employee with that last name");
+            }
+        }
+        model.addAttribute("all", "all");
+        model.addAttribute("approval", "approval");
+        model.addAttribute("previousChoice", searchType);
         return "supervisor/timesheets";
     }
 
     @GetMapping(value="timesheets/detail")
     public String displayTimesheetDetail(@RequestParam Integer timesheetId, Model model){
-        Optional<Timesheet> timesheet = timesheetRepository.findById(timesheetId);
-        if (timesheet.isPresent()){
-            model.addAttribute("timesheet", timesheetRepository.findById(timesheetId).get());
-        }
-
+        timesheetRepository.findById(timesheetId).ifPresent(timesheet -> model.addAttribute("timesheet", timesheet));
         return "supervisor/viewtimesheet";
     }
+
+    @PostMapping(value="timesheets/approve")
+    public RedirectView processSubmitTimesheetForm(@RequestParam Integer timesheetId, RedirectAttributes redirectAttributes){
+        if (timesheetRepository.findById(timesheetId).isPresent()){
+            Timesheet timesheet = timesheetRepository.findById(timesheetId).get();
+            timesheet.setSupervisorApproval(true);
+            timesheetRepository.save(timesheet);
+
+            redirectAttributes.addFlashAttribute("timesheetEmployee", timesheet.getEmployee().getFirstName() + " " + timesheet.getEmployee().getLastName());
+            redirectAttributes.addFlashAttribute("timesheetWeek", Timesheet.formatDates(timesheet.getStartDate()) + " - " + Timesheet.formatDates(timesheet.getDueDate()));
+        }
+        return new RedirectView("successfulapproval", true);
+    }
+
+    @GetMapping("timesheets/successfulapproval")
+    public String displayTimesheetsPageAfterSuccessfulApproval(HttpServletRequest request, Model model){
+
+        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+        String timesheetEmployee = (String) inputFlashMap.get("timesheetEmployee");
+        String timesheetWeek = (String) inputFlashMap.get("timesheetWeek");
+        model.addAttribute("successSubmit", "You Have Successfully Approved ");
+        model.addAttribute("timesheetEmployee", timesheetEmployee);
+        model.addAttribute("timesheetWeek", timesheetWeek);
+
+        model.addAttribute("all", "all");
+        model.addAttribute("approval", "approval");
+
+        return "supervisor/timesheets";
+    }
+
 
 }

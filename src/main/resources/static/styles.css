@@ -22,10 +22,11 @@ header {
 a {
     text-decoration: none;
 }
-
+/*
 a:visited {
     color: black;
 }
+*/
 
 ol {
     list-style-type: none;
@@ -51,6 +52,30 @@ ul li {
     margin-bottom: 1%;
     margin-left: 3%;
     margin-right: 1%
+}
+
+.table-style1 {
+    border-collapse: seperate;
+    border-spacing: 0 5px;
+}
+.table-style1 thead tr th {
+    border-bottom: 3px solid #212121;
+    border-collapse: seperate;
+    border-spacing: 5px 5px;
+    padding-right: 15px;
+    padding-left: 15px
+}
+
+/*.style1-left-col {
+    font-weight: bold;
+    color: #939799;
+    text-align: left;
+}*/
+
+.table-style1 tr td {
+    text-align: center;
+    padding: 2px 10px 2px 10px;
+    border-bottom: 1px solid #a9a9a9;
 }
 
 .btn-style button {
@@ -83,6 +108,10 @@ ul li {
     color: white;
     padding: 4px;
     border-radius: 2px;
+}
+
+.success-submit p {
+    color: green;
 }
 
 /* - INDEX - LOGIN PAGE- */

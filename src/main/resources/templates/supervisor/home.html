@@ -13,7 +13,11 @@
     <h3 th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</h3>
     <p th:text="${'Today is ' + today}">Today's Date</p>
 
-    <p>I want to add a link using th:if, something like, "You have 3 timesheets awaiting approval - Approve Timesheets</p>
+
+
+    <div th:if="${timesheetsForApproval}">
+        <p>There are <a th:href="@{/supervisor/manageemployees/timesheets}" th:text="${timesheetsForApproval+' timesheets'}"></a> awaiting approval.</p>
+    </div>
 <!--    <h1>Upcoming</h1>-->
 <!--    <ol>-->
 <!--        <li><a href="/supervisor/manageprojects">Add a Project</a></li>-->

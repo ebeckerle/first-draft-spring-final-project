@@ -168,8 +168,8 @@
 
     </div>
 
-    <form>
-        <input type="hidden" th:value="${timesheet.id}">
+    <form th:action="@{/supervisor/manageemployees/timesheets/approve}" method="post">
+        <input type="hidden" th:value="${timesheet.id}" name="timesheetId">
         <input type="submit" value="Approve">
     </form>
 

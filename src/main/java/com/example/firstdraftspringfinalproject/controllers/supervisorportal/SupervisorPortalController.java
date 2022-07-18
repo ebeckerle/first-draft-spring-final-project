@@ -2,6 +2,7 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
+import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ public class SupervisorPortalController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private TimesheetRepository timesheetRepository;
+
     @GetMapping
     public String displayHomePage(HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
@@ -31,6 +35,10 @@ public class SupervisorPortalController {
         if (employeeRepository.findById(employeeId).isPresent()){
             model.addAttribute("title", employeeRepository.findById(employeeId).get().getFirstName()+"'s Portal");
             model.addAttribute("employeeName", employeeRepository.findById(employeeId).get().getFirstName());
+        }
+
+        if (!timesheetRepository.findBySupervisorApprovalAndCompletionStatus(false, true).isEmpty()){
+            model.addAttribute("timesheetsForApproval", timesheetRepository.findBySupervisorApprovalAndCompletionStatus(false, true).size());
         }
 
         LocalDate currentDate = LocalDate.now();

@@ -10,4 +10,6 @@ public interface EmployeeRepository extends CrudRepository <Employee, Integer> {
     Employee findByUsername(String username);
 
     Optional <Employee> findByFirstNameAndLastName(String firstName, String lastName);
+
+    Optional<Employee> findByLastName(String lastName);
 }
