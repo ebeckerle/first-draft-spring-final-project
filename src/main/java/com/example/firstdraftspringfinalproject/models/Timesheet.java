@@ -268,7 +268,7 @@ public class Timesheet {
         return date.get(Calendar.MONTH)+1 + "/" + date.get(Calendar.DATE) + "/" + date.get(Calendar.YEAR);
     }
 
-    public GregorianCalendar figureStartDateBasedOnTodaysDate(LocalDate todaysDate){
+    public static GregorianCalendar figureStartDateBasedOnTodaysDate(LocalDate todaysDate){
         //convert LocalDate to a new Gregorian Calendar Date
         int dayOfMonth = todaysDate.getDayOfMonth();
         int monthValue = todaysDate.getMonthValue();

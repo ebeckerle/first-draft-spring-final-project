@@ -6,29 +6,35 @@
 
 <div class="main-contents">
 
-    <p th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</p>
+    <a href="/employee"><h2 th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</h2></a>
     <br>
-
+    <hr>
     <div th:if="${successSubmit}" class="success-submit">
         <p th:text="${successSubmit}"></p>
         <p th:text="${#calendars.format(startDate, 'dd/MMM/yyyy')}"></p>
     </div>
+    <hr>
+    <p th:text="${thisWeekTimesheetSubmissionMessage}"></p>
+    <div th:unless="${thisWeekTimesheetSubmissionMessage}">
+        <div th:unless="${successSubmit}">
+            <div th:if="${completionStatus}">
+                <form method="post">
+                    <input type="hidden" name="employeeId" th:value="${employeeId}">
+                    <input type="hidden" name="todaysDate" th:value="${todaysDate}">
+                    <div class="btn-style">
+                        <button  type="submit" name="submit">Create A New Timesheet</button>
+                    </div>
+                </form>
+            </div>
+            <div class="btn-style" th:unless="${completionStatus}">
+                <button><a href="/employee/timesheet">Edit Current Timesheet</a></button>
+            </div>
+        </div>
 
-    <div th:unless="${successSubmit}">
-        <div th:if="${completionStatus}">
-            <form method="post">
-                <input type="hidden" name="employeeId" th:value="${employeeId}">
-                <input type="hidden" name="todaysDate" th:value="${todaysDate}">
-                <div class="btn-style">
-                    <button  type="submit" name="submit">Create A New Timesheet</button>
-                </div>
-            </form>
-        </div>
-        <div class="btn-style" th:unless="${completionStatus}">
-            <button><a href="/employee/timesheet">Edit Current Timesheet</a></button>
-        </div>
     </div>
 
+    <hr>
+    <p th:text="${thisWeekTimesheet}"></p>
     <p th:text="${lastWeekTimesheet}"></p>
 
 </div>

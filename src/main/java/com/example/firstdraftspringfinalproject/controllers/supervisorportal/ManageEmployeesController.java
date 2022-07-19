@@ -34,6 +34,9 @@ public class ManageEmployeesController {
     @GetMapping(value = "")
     public String displayManageEmployeeProfilesHome(Model model){
         model.addAttribute("employees", employeeRepository.findAll());
+        if (!timesheetRepository.findBySupervisorApprovalAndCompletionStatus(false, true).isEmpty()){
+            model.addAttribute("timesheetsForApproval", timesheetRepository.findBySupervisorApprovalAndCompletionStatus(false, true).size());
+        }
         return "supervisor/manageemployees";
     }
 

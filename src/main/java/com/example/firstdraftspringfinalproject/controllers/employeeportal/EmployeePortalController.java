@@ -39,16 +39,34 @@ public class EmployeePortalController {
             Employee employee = employeeRepository.findById(employeeId).get();
 
             LocalDate todaysDate = LocalDate.now();
+            GregorianCalendar thisWeeksStartDate = Timesheet.figureStartDateBasedOnTodaysDate(todaysDate);
 
             model.addAttribute("title", "Home");
             model.addAttribute("employeeName", employee.getFirstName());
 
-            //the following are hidden in the form to create or edit timesheet
-            model.addAttribute("todaysDate", todaysDate);
-            model.addAttribute("employeeId", employeeId);
-            model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
+            //if the employee has already completed a timesheet for this week notify them of the status or display the
+            //button with hidden form to create a new timesheet or link to edit current timesheet
+            if (timesheetRepository.findByEmployeeEmployeeIdAndStartDateAndCompletionStatus(employeeId, thisWeeksStartDate, true).isPresent()){
+                model.addAttribute("thisWeekTimesheetSubmissionMessage", "You have already submitted a timesheet for this week.");
+            }else{
+                //the following are hidden in the form to create or edit timesheet
+                model.addAttribute("todaysDate", todaysDate);
+                model.addAttribute("employeeId", employeeId);
+                model.addAttribute("completionStatus", employee.getCurrentTimesheetCompletionStatus());
+            }
 
-            //add a model attribute
+            //add a model attribute for message about this week's timesheet
+            Optional<Timesheet> thisWeeksTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndStartDate(employeeId, thisWeeksStartDate);
+            if(thisWeeksTimesheet.isPresent()){
+                String startDate = Timesheet.formatDates(thisWeeksTimesheet.get().getStartDate());
+
+                if(thisWeeksTimesheet.get().getSupervisorApproval()){
+                    model.addAttribute("thisWeekTimesheet", "Your timesheet for the week of "+startDate+ " has been approved!");
+                }else if (!thisWeeksTimesheet.get().getSupervisorApproval()){
+                    model.addAttribute("thisWeekTimesheet", "Your timesheet for the week of "+startDate+ " is awaiting approval.");
+                }
+            }
+            //add a model attribute for message about last week's timesheet
             GregorianCalendar lastWeeksStartDate = Timesheet.figureLastWeeksStartDateBasedOnTodaysDate(todaysDate);
             Optional<Timesheet> lastWeeksTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndStartDate(employeeId, lastWeeksStartDate);
             if(lastWeeksTimesheet.isPresent()){

@@ -49,8 +49,8 @@
                 <td th:text="${#calendars.format(timesheet.startDate, 'dd/MMM/yyyy')}"></td>
                 <td th:text="${#calendars.format(timesheet.dueDate, 'dd/MMM/yyyy')}"></td>
                 <td>
-                    <div th:if="${timesheet.supervisorApproval}"><p>awaiting approval</p></div>
-                    <div th:unless="${timesheet.supervisorApproval}"><p>approved</p></div>
+                    <div th:if="${timesheet.supervisorApproval}"><p>approved</p></div>
+                    <div th:unless="${timesheet.supervisorApproval}"><p>awaiting approval</p></div>
                 </td>
                 <td th:text="${timesheet.totalHours}"></td>
                 <td><a th:href="@{/supervisor/manageemployees/timesheets/detail(timesheetId=${timesheet.Id})}">details</a></td>

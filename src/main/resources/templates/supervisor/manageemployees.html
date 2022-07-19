@@ -25,11 +25,14 @@
             <li><a href="/supervisor/manageemployees/timesheets">Approve Timesheets</a></li>
             <li><a href="#edit">Edit An Employee Profile</a></li>
         </ol>
+    <hr>
 
-    <p>3 timesheets awaiting approval -  encase this in a th:if and link to /supervisor/manageemployees/timesheets ... results of timesheets awaiting approval</p>
+    <div th:if="${timesheetsForApproval}">
+        <p>There are <a th:href="@{/supervisor/manageemployees/timesheets}" th:text="${timesheetsForApproval+' timesheets'}"></a> awaiting approval.</p>
+    </div>
 
 
-    <table>
+    <table class="table-style1">
         <thead>
         <th>First Name</th>
         <th>Last Name</th>
@@ -46,7 +49,7 @@
             <td><a th:href="@{/supervisor/manageemployees/editEmployee(employeeId=${employee.employeeId})}">link here</a></td>
         </tr>
     </table>
-
+    <br>
     <a href="/supervisor/manageemployeeprofiles/newemployee">Add an Employee</a>
 </div>
 
