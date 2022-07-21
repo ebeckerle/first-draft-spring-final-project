@@ -4,6 +4,7 @@ import com.example.firstdraftspringfinalproject.models.Timesheet;
 
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -20,8 +21,10 @@ public class CreateEmployeeDTO {
     private String oneTimePassword;
 
 //    private Boolean supervisorAccess = false;
+    @Positive(message = "Please enter an eligible pay rate (dollars per hour). The the pay rate must be a positive number")
     private Integer payRate;
 //    private GregorianCalendar firstDateOfWork;
+    @Positive
     private Integer paidTimeOff;
 
     public String getFirstName() {

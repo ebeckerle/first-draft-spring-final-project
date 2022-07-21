@@ -14,21 +14,21 @@
 <div class="main-contents">
     <h1>Add a New Employee</h1>
     <form method="post">
-        <div class="form-group">
+        <div class="form-style1">
             <label>First Name:
                 <input th:field="${createEmployeeDTO.firstName}" class="form-control">
             </label>
             <p class="error" th:errors="${createEmployeeDTO.firstName}"></p>
         </div>
 
-        <div class="form-group">
+        <div class="form-style1">
             <label>Last Name:
                 <input th:field="${createEmployeeDTO.lastName}" class="form-control">
             </label>
             <p class="error" th:errors="${createEmployeeDTO.lastName}"></p>
         </div>
 
-        <div class="form-group">
+        <div class="form-style1">
             <label>Title:
                 <input th:field="${createEmployeeDTO.title}" class="form-control">
             </label>
@@ -42,7 +42,7 @@
 <!--            <p class="error" th:errors="${createEmployeeDTO.supervisorAccess}"></p>-->
 <!--        </div>-->
 
-        <div class="form-group">
+        <div class="form-style1">
             <label>Pay Rate:
                 <input th:field="${createEmployeeDTO.payRate}" class="form-control">
             </label>
@@ -56,7 +56,7 @@
 <!--            <p class="error" th:errors="${createEmployeeDTO.firstDateOfWork}"></p>-->
 <!--        </div>-->
 
-        <div class="form-group">
+        <div class="form-style1">
             <label>Paid Time Off:
                 <input th:field="${createEmployeeDTO.paidTimeOff}" class="form-control">
             </label>
@@ -67,7 +67,7 @@
         <input type="hidden" th:value="${oneTimePassword}" th:field="${createEmployeeDTO.oneTimePassword}">
         <p th:text="${oneTimePassword}"></p>
 
-        <div class="form-group">
+        <div class="form-style1">
             <input type="submit" value="Add" class="btn btn-success">
         </div>
     </form>

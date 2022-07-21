@@ -78,6 +78,20 @@ ul li {
     border-bottom: 1px solid #a9a9a9;
 }
 
+.form-style1 {
+    background-color: #ECECEC;
+    padding: 12px 8px 12px 8px;
+}
+
+.form-style1 label {
+
+}
+
+.form-style1 label input {
+    width: 100%;
+    /*margin: 2px 4px 2px 4px;*/
+}
+
 .btn-style button {
     border: none;
     background-color: #939799;
@@ -335,4 +349,67 @@ ul li {
 .edit-timesheet-table {
 
 }
+
+
+/* - SUPERVISOR PORTAL- */
+
+.body {
+    display: flex;
+    min-width: 100%;
+    justify-content: space-evenly;
+}
+
+.employee-dash {
+    border: 2px solid grey;
+    margin: 8px;
+    padding: 8px;
+}
+
+.right-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-dash {
+    border: 2px solid grey;
+    margin: 8px;
+    padding: 8px;
+}
+
+.project-dash p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.project-dash ol {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.project-dash ol li {
+    justify-content: space-evenly;
+    text-align: center;
+    /*background-color: red;*/
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.project-dash ol li a {
+    padding: 8px;
+    color: white;
+    width: 100%;
+}
+
+.shipment-dash {
+    border: 2px solid grey;
+    margin: 8px;
+    padding: 8px;
+}
+
+.shipment-dash p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
 

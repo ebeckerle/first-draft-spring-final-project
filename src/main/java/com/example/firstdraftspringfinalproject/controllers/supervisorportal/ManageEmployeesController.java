@@ -6,6 +6,7 @@ import com.example.firstdraftspringfinalproject.models.Employee;
 import com.example.firstdraftspringfinalproject.models.OtpGenerator;
 import com.example.firstdraftspringfinalproject.models.Timesheet;
 import com.example.firstdraftspringfinalproject.models.dto.CreateEmployeeDTO;
+import com.example.firstdraftspringfinalproject.models.dto.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,11 +56,24 @@ public class ManageEmployeesController {
     }
 
     @GetMapping("newemployee")
-    public String displayAddNewEmployeeForm(Model model){
+    public String displayAddNewEmployeeForm(HttpServletRequest request, Model model){
+
+        Map<Errors, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+        Errors errors = (Errors)inputFlashMap.get("errors");
+        model.addAttribute("errors", errors);
+
         model.addAttribute("title", "Add an Employee");
         model.addAttribute(new CreateEmployeeDTO());
         return "supervisor/newemployee";
     }
+
+//    @GetMapping("newemployee-error")
+//    public String displayAddNewEmployeeFormError(Model model){
+//        model.addAttribute("title", "Add an Employee");
+//        model.addAttribute(new CreateEmployeeDTO());
+//        System.out.println("in new employee error");
+//        return "supervisor/newemployee";
+//    }
 
     @PostMapping("newemployee")
     public RedirectView processAddNewEmployeeForm(@ModelAttribute @Valid CreateEmployeeDTO createEmployeeDTO,
@@ -67,7 +81,9 @@ public class ManageEmployeesController {
                                                   RedirectAttributes redirectAttributes){
         if (errors.hasErrors()){
             model.addAttribute("title", "Add an Employee");
-            return new RedirectView("supervisor/newemployee");
+            redirectAttributes.addFlashAttribute("errors", errors);
+            System.out.println("in the post mapping of new employee if errors statement");
+            return new RedirectView("/supervisor/manageemployees/newemployee", true);
         }
         OtpGenerator otpGenerator = new OtpGenerator();
         otpGenerator.setOtp(5);
@@ -87,7 +103,7 @@ public class ManageEmployeesController {
         redirectAttributes.addFlashAttribute("employeeFirstName", createEmployeeDTO.getFirstName());
         redirectAttributes.addFlashAttribute("employeeFirstTimePassword", createEmployeeDTO.getOneTimePassword());
 
-        return new RedirectView("/supervisor/manageemployeeprofiles/successNewEmployee", true);
+        return new RedirectView("/supervisor/manageemployees/successNewEmployee", true);
     }
 
     @GetMapping(value = "editEmployee")

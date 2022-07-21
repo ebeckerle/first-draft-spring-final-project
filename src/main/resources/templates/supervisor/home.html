@@ -10,14 +10,44 @@
 
 <div class="main-contents">
 
-    <h3 th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</h3>
-    <p th:text="${'Today is ' + today}">Today's Date</p>
-
-
-
-    <div th:if="${timesheetsForApproval}">
-        <p>There are <a th:href="@{/supervisor/manageemployees/timesheets}" th:text="${timesheetsForApproval+' timesheets'}"></a> awaiting approval.</p>
+    <div>
+        <h3 th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</h3>
+        <p th:text="${'Today is ' + today}">Today's Date</p>
     </div>
+
+    <div class="body">
+
+        <div class="employee-dash">
+            <p>employee</p>
+            <div th:if="${timesheetsForApproval}">
+                <p>There are <a th:href="@{/supervisor/manageemployees/timesheets}" th:text="${timesheetsForApproval+' timesheets'}"></a> awaiting approval.</p>
+            </div>
+        </div>
+
+        <div class="right-col">
+            <div class="project-dash">
+                <p>project</p>
+                <div th:each="color : ${styleColors}">
+                    <div th:style="'background-color: '+${color}">
+                        <ol th:each="project : ${projects}">
+                            <li><a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a></li>
+                        </ol>
+                    </div>
+            </div>
+            </div>
+            <div class="shipment-dash">
+                <p>shipment</p>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
 <!--    <h1>Upcoming</h1>-->
 <!--    <ol>-->
 <!--        <li><a href="/supervisor/manageprojects">Add a Project</a></li>-->

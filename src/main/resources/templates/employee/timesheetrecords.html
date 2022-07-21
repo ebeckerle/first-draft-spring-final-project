@@ -6,13 +6,61 @@
 
 <div th:replace="fragments :: header-nav-login"></div>
 
-<table>
-    <tr th:each="timesheet : ${timesheets}">
-<!--        <td th:text="${timesheet.timesheetId}"></td>-->
-        <td th:text="${#calendars.format(timesheet.payDay, 'dd/MMM/yyyy')}"></td>
-        <td th:text="${timesheet.supervisorApproval}"></td>
-    </tr>
-</table>
+<!--<table>-->
+<!--    <tr th:each="timesheet : ${timesheets}">-->
+<!--&lt;!&ndash;        <td th:text="${timesheet.timesheetId}"></td>&ndash;&gt;-->
+<!--        <td th:text="${#calendars.format(timesheet.payDay, 'dd/MMM/yyyy')}"></td>-->
+<!--        <td th:text="${timesheet.supervisorApproval}"></td>-->
+<!--    </tr>-->
+<!--</table>-->
+
+<div class="main-contents">
+
+    <h1 th:text="${employeeFirstName+'''s Timesheets'}">Employee Timesheets</h1>
+    <form th:action="@{/employee/timesheetrecords/results}" method = "post">
+
+        <ol>
+            <li><input type="radio" th:id="${all}" name="searchType" th:value="${all}" th:checked="${all == previousChoice}"><label th:for="${all}">View All</label></li>
+            <li><input type="radio" th:id="${approval}" name="searchType" th:value="${approval}" th:checked="${approval == previousChoice}"><label th:for="${approval}">View Timesheets Awaiting Approval</label></li>
+            <!--            <li><input type="radio" th:id="date" name="searchType" th:value="date"><label th:for="date">Search Timesheets by Date</label><input type="text" name="date"></li>-->
+        </ol>
+
+        <input type="submit" value="VIEW">
+
+    </form>
+    <hr>
+
+
+
+    <hr>
+
+    <div th:replace="supervisor/timesheets :: timesheet-table"></div>
+
+<!--    <table class="table-style1">-->
+<!--        <thead>-->
+<!--        <th>Employee</th>-->
+<!--        <th>Start Date</th>-->
+<!--        <th>Due Date</th>-->
+<!--        <th>Approval Status</th>-->
+<!--        <th>Total Hours</th>-->
+<!--        <th>View Details</th>-->
+<!--        </thead>-->
+<!--        <tr th:each="timesheet : ${timesheets}">-->
+<!--            <td class="style1-left-col" th:text="${timesheet.employee.getFirstName() + ' ' + timesheet.employee.getLastName()}"></td>-->
+<!--            <td th:text="${#calendars.format(timesheet.startDate, 'dd/MMM/yyyy')}"></td>-->
+<!--            <td th:text="${#calendars.format(timesheet.dueDate, 'dd/MMM/yyyy')}"></td>-->
+<!--            <td>-->
+<!--                <div th:if="${timesheet.supervisorApproval}"><p>approved</p></div>-->
+<!--                <div th:unless="${timesheet.supervisorApproval}"><p>awaiting approval</p></div>-->
+<!--            </td>-->
+<!--            <td th:text="${timesheet.totalHours}"></td>-->
+<!--            <td><a th:href="@{/supervisor/manageemployees/timesheets/detail(timesheetId=${timesheet.Id})}">details</a></td>-->
+<!--        </tr>-->
+<!--    </table>-->
+
+
+</div>
+
 
 
 
