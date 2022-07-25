@@ -58,9 +58,9 @@ public class ManageEmployeesController {
     @GetMapping("newemployee")
     public String displayAddNewEmployeeForm(HttpServletRequest request, Model model){
 
-        Map<Errors, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-        Errors errors = (Errors)inputFlashMap.get("errors");
-        model.addAttribute("errors", errors);
+//        Map<Errors, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+//        Errors errors = (Errors)inputFlashMap.get("errors");
+//        model.addAttribute("errors", errors);
 
         model.addAttribute("title", "Add an Employee");
         model.addAttribute(new CreateEmployeeDTO());

@@ -2,10 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 
 <head th:replace="fragments :: head"></head>
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Restoration Company</title>-->
-<!--</head>-->
+
 
 <body>
 <div th:replace="fragments :: header-nav"></div>
@@ -26,6 +23,10 @@
     <p>New Employee?  Register a username: </p>
     <button th:href="register"><a href="/register">Register</a></button>
 </div>
+
+<h1>JavaScript</h1>
+<button onclick="runDemo()">click</button>
+<p id="jsReturnList" th:data-list="${demoList}"></p>
 
 
 

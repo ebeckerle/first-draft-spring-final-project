@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -113,6 +115,14 @@ public class AuthenticationController {
     @GetMapping
     public String displayHomePage(Model model){
         model.addAttribute(new LoginFormDTO());
+
+        List<String> demoList = new ArrayList<>();
+        demoList.add("Java List 1");
+        demoList.add("Java List 2");
+        demoList.add("Java List 3");
+
+        model.addAttribute("demoList", demoList);
+
         return "index";
     }
 

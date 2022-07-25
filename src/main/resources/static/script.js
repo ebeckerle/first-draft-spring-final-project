@@ -1,7 +1,16 @@
-function runFormValidation(){
-    let userSelectedProject = document.querySelector("#jsLineEntry");
-    userSelectedProject.innerHTML = userSelectedProject.getAttribute("jsProject")
+function runDemo(){
+    let outputDataListElement = document.querySelector("#jsReturnList");
+        let list = outputDataListElement.getAttribute("data-list").split(",");
+        for(let item in list){
+            outputDataListElement.innerHTML += `<li>${list[item].replace("Java", "JavaScript").replace("[", "").replace("]", "")}</li>`;
+        }
 }
+
+
+//function runFormValidation(){
+//    let userSelectedProject = document.querySelector("#jsLineEntry");
+//    userSelectedProject.innerHTML = userSelectedProject.getAttribute("jsProject")
+//}
 
 
 
