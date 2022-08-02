@@ -1,5 +1,6 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
@@ -37,6 +38,8 @@ public class Employee {
     private Boolean currentTimesheetCompletionStatus = true;
     private Boolean supervisorAccess = false;
     private Integer payRate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private GregorianCalendar firstDateOfWork;
     private Integer paidTimeOff;
 

@@ -27,13 +27,9 @@
         <div class="right-col">
             <div class="project-dash">
                 <p>project</p>
-                <div th:each="color : ${styleColors}">
-                    <div th:style="'background-color: '+${color}">
                         <ol th:each="project : ${projects}">
                             <li><a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a></li>
                         </ol>
-                    </div>
-            </div>
             </div>
             <div class="shipment-dash">
                 <p>shipment</p>

@@ -390,7 +390,7 @@ ul li {
 .project-dash ol li {
     justify-content: space-evenly;
     text-align: center;
-    /*background-color: red;*/
+    background-color: #52C8E0;
     padding-top: 8px;
     padding-bottom: 8px;
 }
