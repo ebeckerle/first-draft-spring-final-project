@@ -163,4 +163,9 @@ public class AuthenticationController {
         request.getSession().invalidate();
         return "logout";
     }
+
+    @GetMapping("/restricted")
+    public String restricted(){
+        return "restricted";
+    }
 }
