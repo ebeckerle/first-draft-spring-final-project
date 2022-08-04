@@ -1,20 +1,15 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
-import com.example.firstdraftspringfinalproject.controllers.AbstractBaseController;
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
-import com.example.firstdraftspringfinalproject.models.Employee;
-import com.example.firstdraftspringfinalproject.models.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 

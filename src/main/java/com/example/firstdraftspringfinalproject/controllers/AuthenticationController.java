@@ -123,6 +123,15 @@ public class AuthenticationController {
 
         model.addAttribute("demoList", demoList);
 
+        Iterable<Employee> employees = employeeRepository.findAll();
+        List<String> data = new ArrayList<>();
+        for (Employee employee:
+             employees) {
+            data.add(employee.getFirstName());
+        }
+        model.addAttribute("data", data);
+
+
         return "index";
     }
 

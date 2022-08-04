@@ -1,13 +1,6 @@
 package com.example.firstdraftspringfinalproject.models;
 
-import com.example.firstdraftspringfinalproject.data.LineEntryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
@@ -331,6 +324,20 @@ public class Timesheet {
         }else{
             return todayGC;
         }
+    }
+
+    public Integer getTotalHoursByProject(Project project){
+        List<LineEntry> lineEntries = this.lineEntries;
+        //iterate thru an arraylist of line entries
+        Integer totalHoursForProject = 0;
+        for (LineEntry lineEntry : lineEntries){
+            Integer lineEntryTotal = 0;
+            if (lineEntry.getProjectWorkTypeCombo().getProject().equals(project)){
+                lineEntryTotal = lineEntry.getTotalHours();
+            }
+            totalHoursForProject +=lineEntryTotal;
+        }
+        return totalHoursForProject;
     }
 
 //    TODO - write a method that will total all of Day of week's hours for all line entries in timesheet
