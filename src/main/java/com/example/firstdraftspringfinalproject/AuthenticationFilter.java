@@ -49,7 +49,6 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
                              Object handler) throws IOException {
 
         if(isBlacklisted(request.getRequestURI())){
-            System.out.println("I am in the prehandle under the if blacklisted statement");
             return true;
         }
 

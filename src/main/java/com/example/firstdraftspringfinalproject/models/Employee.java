@@ -191,9 +191,17 @@ public class Employee {
         this.pwHash = encoder.encode(password);
     }
 
-//    public void resetOtpHashToNull() {
-//        this.otpHash = null;
-//    }
+    public Integer getTotalHoursWorkedToDate(){
+        List<Timesheet> timesheets = this.timesheets;
+        Integer totalHoursWorkedToDate = 0;
+        for (Timesheet timesheet:
+             timesheets) {
+            if(timesheet.getSupervisorApproval()){
+                totalHoursWorkedToDate += timesheet.getTotalHours();
+            }
+        }
+        return totalHoursWorkedToDate;
+    }
 
     //to String & Equals Methods
 

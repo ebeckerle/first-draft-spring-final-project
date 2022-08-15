@@ -280,6 +280,8 @@ public class TimesheetController {
         currentTimesheet.setTotalHours(totalHours);
         //set the completion Status to true
         currentTimesheet.setCompletionStatus(true);
+        // set the current payrate
+        currentTimesheet.setCurrentPayRate();
         //save the current timesheet
         timesheetRepository.save(currentTimesheet);
         //set the employee's current timesheet completion status to true

@@ -37,6 +37,7 @@ public class Timesheet {
     private Integer totalHours;
 
     private Integer totalPay;
+    private Integer currentPayRate;
 
 
 
@@ -193,6 +194,14 @@ public class Timesheet {
         this.totalHours = totalHours;
     }
 
+    public Integer getCurrentPayRate() {
+        return currentPayRate;
+    }
+
+    public void setCurrentPayRate() {
+        Employee employee = this.employee;
+        this.currentPayRate = employee.getPayRate();
+    }
 
     public boolean checkALineEntry(LineEntry newEntry){
         boolean doesLineEntryAlreadyExist = false;

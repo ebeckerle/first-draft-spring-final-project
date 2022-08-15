@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8">
+    <title th:text="${title}">Default Title</title>
+</head>
+<body>
+
+<div th:replace="fragments :: header-nav-login-sup"></div>
+
+<div class="main-contents">
+
+    <h1>Metrics Feature will go here</h1>
+
+    <form method="post">
+        <label>View Total Hours By:
+            <select>
+                <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
+            </select>
+        </label>
+
+        <button class="btn-style" name="total">View Total Hours</button>
+
+        <p>Or</p>
+
+
+        <label>View Hours Breakdown In Category:
+            <select onchange="viewSubOptions()">
+                <option value="" disabled selected id="noSelection"></option>
+                <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}" th:id="${xValue}"></option>
+<!--                <option id="employee" value="Employee">Employee</option>-->
+<!--                <option id="project" value="Project">Project</option>-->
+<!--                <option id="workType" value="Work Type">Work Type</option>-->
+<!--                <option id="payRate" value="Pay Rate">Pay Rate</option>-->
+            </select>
+        </label>
+
+        <div id="subOptionsEmployee" style="display: none;">
+            <label>View Total Hours For:
+                <select>
+                    <option th:each="employee : ${employees}" th:value="${employee}" th:text="${employee}"></option>
+                </select>
+            </label>
+            <label>Hours Broken down by:
+                <select>
+                    <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
+                </select>
+            </label>
+        </div>
+
+        <div id="subOptionsProject" style="display: none;">
+            <label>View Total Hours For:
+                <select>
+                    <option th:each="project : ${projects}" th:value="${project}" th:text="${project}"></option>
+                </select>
+            </label>
+            <label>Hours Broken down by:
+                <select>
+                    <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
+                </select>
+            </label>
+        </div>
+
+        <div id="subOptionsWorkType" style="display: none;">
+            <label>View Total Hours For:
+                <select>
+                    <option th:each="workType : ${workTypes}" th:value="${workType}" th:text="${workType}"></option>
+                </select>
+            </label>
+            <label>Hours Broken down by:
+                <select>
+                    <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
+                </select>
+            </label>
+        </div>
+
+        <div id="subOptionsPayRate" style="display: none;">
+            <label>View Total Hours For:
+                <select>
+                    <option th:each="payRate : ${payRates}" th:value="${payRate}" th:text="${payRate}"></option>
+                </select>
+            </label>
+            <label>Hours Broken down by:
+                <select>
+                    <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
+                </select>
+            </label>
+        </div>
+
+        <button class="btn-style" name="category">View Hours in Category</button>
+    </form>
+
+
+
+
+    <hr>
+    <h5>Deal with this shit later</h5>
+
+<!--    <div th:if="${chosenXvalue}">-->
+        <button onclick="runCharts()">click to run charts</button>
+        <button onclick="viewBarGraph()">click to view bar graph</button>
+        <button onclick="viewScatterPlotGraph()">click to view scatter plot graph</button>
+
+        <p id="chart" th:xyValues="${xyValues}"></p>
+
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+<!--    </div>-->
+
+
+
+
+</div>
+</body>
+</html>
