@@ -7,6 +7,7 @@ import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
 import com.example.firstdraftspringfinalproject.models.Employee;
 import com.example.firstdraftspringfinalproject.models.Project;
 import com.example.firstdraftspringfinalproject.models.Timesheet;
+import com.example.firstdraftspringfinalproject.models.WorkType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -123,9 +124,25 @@ public class MetricsController {
             model.addAttribute("title", xValue);
         }
         if (xValue.equals("WorkType")){
-
+            List<WorkType> workTypes = (List<WorkType>) workTypeRepository.findAll();
+            for (WorkType workType:
+                    workTypes){
+                Integer totalHoursForWorkType = 0;
+                for (Timesheet timesheet:
+                     timesheetRepository.findAll()) {
+                    totalHoursForWorkType += timesheet.getTotalHoursByWorkType(workType);
+                }
+                xyValues.put(workType.toStringWorkTypeCode(), totalHoursForWorkType);
+            }
         }
-
+        if (xValue.equals("PayRate")){
+            List<Integer> payRates = new ArrayList<>();
+            for (Timesheet timesheet:
+                 timesheetRepository.findAll()) {
+                //
+            }
+        }
+        model.addAttribute("xyValues", xyValues);
         return "supervisor/metrics";
     }
 

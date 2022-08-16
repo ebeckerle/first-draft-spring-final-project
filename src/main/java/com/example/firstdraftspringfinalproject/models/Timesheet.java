@@ -349,6 +349,20 @@ public class Timesheet {
         return totalHoursForProject;
     }
 
+    public Integer getTotalHoursByWorkType(WorkType workType){
+        List<LineEntry> lineEntries = this.lineEntries;
+        //iterate thru an arraylist of line entries
+        Integer totalHoursForWorkType = 0;
+        for (LineEntry lineEntry : lineEntries){
+            Integer lineEntryTotal = 0;
+            if (lineEntry.getProjectWorkTypeCombo().getWorkType().equals(workType)){
+                lineEntryTotal = lineEntry.getTotalHours();
+            }
+            totalHoursForWorkType +=lineEntryTotal;
+        }
+        return totalHoursForWorkType;
+    }
+
 //    TODO - write a method that will total all of Day of week's hours for all line entries in timesheet
 
 
