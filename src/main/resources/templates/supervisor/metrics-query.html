@@ -14,7 +14,7 @@
 
     <form method="post">
         <label>View Total Hours By:
-            <select>
+            <select name="xValue">
                 <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
             </select>
         </label>

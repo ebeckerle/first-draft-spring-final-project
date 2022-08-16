@@ -75,10 +75,10 @@ public class Metrics {
         this.xyValues = xyValues;
     }
 
-    public void setXyValuesWhenThereIsNoSecondaryCategory(){
-        String primaryCategory = this.primaryCategory.values();
-        if(this.primaryCategory.)
-    }
+//    public void setXyValuesWhenThereIsNoSecondaryCategory(){
+//        String primaryCategory = this.primaryCategory.values();
+//        if(this.primaryCategory.)
+//    }
 
     public void setXyValuesWhenThereIsASecondaryCategory(){
 
