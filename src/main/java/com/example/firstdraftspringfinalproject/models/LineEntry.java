@@ -1,12 +1,7 @@
 package com.example.firstdraftspringfinalproject.models;
 
-import java.time.DayOfWeek;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 
 @Entity
