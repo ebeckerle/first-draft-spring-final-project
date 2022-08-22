@@ -116,7 +116,7 @@ public class MetricsController {
                 Project project1 = project;
                 Integer totalHoursForProject1 = 0;
                 for (Timesheet timesheet:
-                        timesheetRepository.findAll()) {
+                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
                     totalHoursForProject1 += timesheet.getTotalHoursByProject(project1);
                 }
                 xyValues.put(project.getProjectName(), totalHoursForProject1);
@@ -129,7 +129,7 @@ public class MetricsController {
                     workTypes){
                 Integer totalHoursForWorkType = 0;
                 for (Timesheet timesheet:
-                     timesheetRepository.findAll()) {
+                     timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
                     totalHoursForWorkType += timesheet.getTotalHoursByWorkType(workType);
                 }
                 xyValues.put(workType.toStringWorkTypeCode(), totalHoursForWorkType);
@@ -138,8 +138,17 @@ public class MetricsController {
         if (xValue.equals("PayRate")){
             List<Integer> payRates = new ArrayList<>();
             for (Timesheet timesheet:
-                 timesheetRepository.findAll()) {
+                 timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
                 //
+                Integer payRate = timesheet.getCurrentPayRate();
+                if(payRates.contains(payRate)){
+                    Integer existingHourTotal = xyValues.get(String.valueOf(payRate));
+                    Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
+                    xyValues.replace(String.valueOf(payRate), newHourTotal);
+                }else{
+                    payRates.add(payRate);
+                    xyValues.put(String.valueOf(payRate), timesheet.getTotalHours());
+                }
             }
         }
         model.addAttribute("xyValues", xyValues);

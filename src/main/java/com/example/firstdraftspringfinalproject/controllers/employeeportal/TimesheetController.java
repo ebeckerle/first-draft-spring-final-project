@@ -276,6 +276,7 @@ public class TimesheetController {
         currentTimesheet.setTotalThursdayHours(thursdayTotal);
         currentTimesheet.setTotalFridayHours(fridayTotal);
         currentTimesheet.setTotalSaturdayHours(saturdayTotal);
+        currentTimesheet.setCurrentPayRate();
         //set the total hours
         currentTimesheet.setTotalHours(totalHours);
         //set the completion Status to true
