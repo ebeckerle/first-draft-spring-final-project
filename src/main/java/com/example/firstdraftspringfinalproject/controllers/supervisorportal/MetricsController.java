@@ -46,6 +46,13 @@ public class MetricsController {
         xValueChoices.add("PayRate");
         model.addAttribute("xValueChoices", xValueChoices);
 
+        List<String> chartCategories = new ArrayList<>();
+        chartCategories.add("Employee");
+        chartCategories.add("Project");
+        chartCategories.add("WorkType");
+        chartCategories.add("PayRate");
+        model.addAttribute("chartCategories", chartCategories);
+
         model.addAttribute("employees", employeeRepository.findAll());
         model.addAttribute("projects", projectRepository.findAll());
         model.addAttribute("workTypes", workTypeRepository.findAll());
@@ -152,21 +159,39 @@ public class MetricsController {
             }
         }
         model.addAttribute("xyValues", xyValues);
+
         return "supervisor/metrics";
     }
 
     @PostMapping(params="category")
-    public String processViewMetrics(@RequestParam String xValue,
+    public String processViewMetrics(@RequestParam String chartCategory,
                                      @RequestParam(required = false) String employee,
                                      @RequestParam(required = false) String project,
                                      @RequestParam(required = false) String workType,
-                                     @RequestParam(required = false) Integer payRate, Model model){
+                                     @RequestParam(required = false) Integer payRate,
+                                     @RequestParam String xChoice, Model model){
         HashMap<String, Integer> xyValues = new HashMap<>();
 
-        if (xValue.equals("Employee")){
-            model.addAttribute("chosenXvalue", xValue);
 
+        if (chartCategory.equals("Employee")){
+            model.addAttribute("chartCategory", chartCategory);
+            model.addAttribute("chartTopic", employee);
+            model.addAttribute("xValue", xChoice);
+        } else if (chartCategory.equals("Project")){
+            model.addAttribute("chartCategory", chartCategory);
+            model.addAttribute("chartTopic", project);
+            model.addAttribute("xValue", xChoice);
+
+        } else if (chartCategory.equals("WorkType")){
+            model.addAttribute("chartCategory", chartCategory);
+            model.addAttribute("chartTopic", workType);
+            model.addAttribute("xValue", xChoice);
+        } else if (chartCategory.equals("PayRate")){
+            model.addAttribute("chartCategory", chartCategory);
+            model.addAttribute("chartTopic", payRate);
+            model.addAttribute("xValue", xChoice);
         }
+
 
 
         return "supervisor/metrics";

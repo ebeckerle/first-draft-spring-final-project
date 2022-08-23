@@ -25,9 +25,9 @@
 
 
         <label>View Hours Breakdown In Category:
-            <select onchange="viewSubOptions()">
+            <select name="chartCategory" onchange="viewSubOptions()">
                 <option value="" disabled selected id="noSelection"></option>
-                <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}" th:id="${xValue}"></option>
+                <option th:each="chartCategory : ${chartCategories}" th:value="${chartCategory}" th:text="${chartCategory}" th:id="${chartCategory}"></option>
 <!--                <option id="employee" value="Employee">Employee</option>-->
 <!--                <option id="project" value="Project">Project</option>-->
 <!--                <option id="workType" value="Work Type">Work Type</option>-->
@@ -37,12 +37,13 @@
 
         <div id="subOptionsEmployee" style="display: none;">
             <label>View Total Hours For:
-                <select>
+                <select name="employee">
                     <option th:each="employee : ${employees}" th:value="${employee}" th:text="${employee}"></option>
                 </select>
             </label>
             <label>Hours Broken down by:
-                <select>
+                <select name="xChoice">
+                    <option value="" disabled selected id="noSelection"></option>
                     <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
                 </select>
             </label>
@@ -50,12 +51,13 @@
 
         <div id="subOptionsProject" style="display: none;">
             <label>View Total Hours For:
-                <select>
+                <select name="project">
                     <option th:each="project : ${projects}" th:value="${project}" th:text="${project}"></option>
                 </select>
             </label>
             <label>Hours Broken down by:
-                <select>
+                <select name="xChoice">
+                    <option value="" disabled selected id="noSelection"></option>
                     <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
                 </select>
             </label>
@@ -63,12 +65,13 @@
 
         <div id="subOptionsWorkType" style="display: none;">
             <label>View Total Hours For:
-                <select>
+                <select name="workType">
                     <option th:each="workType : ${workTypes}" th:value="${workType}" th:text="${workType}"></option>
                 </select>
             </label>
             <label>Hours Broken down by:
-                <select>
+                <select name="xChoice">
+                    <option value="" disabled selected id="noSelection"></option>
                     <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
                 </select>
             </label>
@@ -76,12 +79,13 @@
 
         <div id="subOptionsPayRate" style="display: none;">
             <label>View Total Hours For:
-                <select>
+                <select name="payRate">
                     <option th:each="payRate : ${payRates}" th:value="${payRate}" th:text="${payRate}"></option>
                 </select>
             </label>
             <label>Hours Broken down by:
-                <select>
+                <select name="xChoice">
+                    <option value="" disabled selected id="noSelection"></option>
                     <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
                 </select>
             </label>
