@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("supervisor/metrics")
@@ -177,6 +178,21 @@ public class MetricsController {
             model.addAttribute("chartCategory", chartCategory);
             model.addAttribute("chartTopic", employee);
             model.addAttribute("xValue", xChoice);
+            System.out.println(employee);
+            Employee employee1;
+            if (employeeRepository.findByFirstNameLastNameCombo(employee).isPresent()){
+                employee1 = employeeRepository.findByFirstNameLastNameCombo(employee).get();
+                //find Ari's timesheets that are approved
+                Iterable<Timesheet> employeesTimesheets = (Iterable<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employee1.getEmployeeId(), true, true);
+                for (Timesheet timesheet : employeesTimesheets){
+                    if(xChoice.equals("Project")){
+                        List<Project> projects = (List<Project>) projectRepository.findAll();
+                        timesheet.getTotalHoursByProject()
+                    }
+
+                }
+            }
+
         } else if (chartCategory.equals("Project")){
             model.addAttribute("chartCategory", chartCategory);
             model.addAttribute("chartTopic", project);
@@ -191,8 +207,6 @@ public class MetricsController {
             model.addAttribute("chartTopic", payRate);
             model.addAttribute("xValue", xChoice);
         }
-
-
 
         return "supervisor/metrics";
     }

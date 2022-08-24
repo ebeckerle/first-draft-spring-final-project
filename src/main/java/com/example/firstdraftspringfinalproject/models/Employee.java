@@ -23,6 +23,7 @@ public class Employee {
 
 //    @NotBlank(message = "Employee must have a last name.")
     private String lastName;
+    private String firstNameLastNameCombo;
     private String title;
     private String username;
 
@@ -61,6 +62,7 @@ public class Employee {
     public Employee (String firstName, String lastName, String title, Integer payRate, Integer paidTimeOff, String oneTimePassword) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.firstNameLastNameCombo = firstName + ' ' +lastName;
         this.title = title;
         this.payRate = payRate;
         this.paidTimeOff = paidTimeOff;
@@ -103,6 +105,14 @@ public class Employee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFirstNameLastNameCombo() {
+        return firstNameLastNameCombo;
+    }
+
+    public void setFirstNameLastNameCombo(String firstNameLastNameCombo) {
+        this.firstNameLastNameCombo = firstNameLastNameCombo;
     }
 
     public String getTitle() {

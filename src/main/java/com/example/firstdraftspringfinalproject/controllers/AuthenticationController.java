@@ -115,23 +115,6 @@ public class AuthenticationController {
     @GetMapping
     public String displayHomePage(Model model){
         model.addAttribute(new LoginFormDTO());
-
-        List<String> demoList = new ArrayList<>();
-        demoList.add("Java List 1");
-        demoList.add("Java List 2");
-        demoList.add("Java List 3");
-
-        model.addAttribute("demoList", demoList);
-
-        Iterable<Employee> employees = employeeRepository.findAll();
-        List<String> data = new ArrayList<>();
-        for (Employee employee:
-             employees) {
-            data.add(employee.getFirstName());
-        }
-        model.addAttribute("data", data);
-
-
         return "index";
     }
 
