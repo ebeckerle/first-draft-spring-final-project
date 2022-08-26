@@ -51,9 +51,10 @@ public class TimesheetController {
         Integer employeeId = (Integer) session.getAttribute("user");
 
         // find the current timesheet for correct employee
-        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+        Timesheet currentTimesheet = timesheets.get(0);
 
-        //display the Dates for this Timesheet
+                //display the Dates for this Timesheet
         String startDate = Timesheet.formatDates(currentTimesheet.getStartDate());
         String dueDate = Timesheet.formatDates(currentTimesheet.getDueDate());
         String payDay = Timesheet.formatDates(currentTimesheet.getPayDay());
@@ -117,7 +118,8 @@ public class TimesheetController {
     public String processCreateLineEntryForm(@RequestParam Integer employeeId, @RequestParam String project, @RequestParam String workType, @RequestParam String daysOfWeek, @RequestParam Integer hours){
 
         //find the current timesheet
-        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+        Timesheet currentTimesheet = timesheets.get(0);
 
         Integer workTypeId = WorkType.fromToStringToId(workType);
 
@@ -173,7 +175,8 @@ public class TimesheetController {
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
         // find the current timesheet for correct employee
-        Timesheet currentTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+        Timesheet currentTimesheet = timesheets.get(0);
         model.addAttribute("currentTimesheetId", currentTimesheet.getId());
         model.addAttribute("lineEntry", lineEntryRepository.findById(lineEntryId).get());
         return "employee/editlineentry";

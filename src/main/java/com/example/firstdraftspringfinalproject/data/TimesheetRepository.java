@@ -14,7 +14,7 @@ public interface TimesheetRepository extends CrudRepository <Timesheet, Integer>
 
     List<Timesheet> findByEmployeeEmployeeId(Integer employeeId);
 
-    Timesheet findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(Integer employeeId, Boolean completionStatus, Boolean supervisorApproval);
+    List<Timesheet> findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(Integer employeeId, Boolean completionStatus, Boolean supervisorApproval);
 
     Optional<Timesheet> findByEmployeeEmployeeIdAndStartDate(Integer employeeId, GregorianCalendar startDate);
 

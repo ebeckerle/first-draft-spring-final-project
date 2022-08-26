@@ -178,20 +178,29 @@ public class MetricsController {
             model.addAttribute("chartCategory", chartCategory);
             model.addAttribute("chartTopic", employee);
             model.addAttribute("xValue", xChoice);
-            System.out.println(employee);
             Employee employee1;
             if (employeeRepository.findByFirstNameLastNameCombo(employee).isPresent()){
                 employee1 = employeeRepository.findByFirstNameLastNameCombo(employee).get();
                 //find Ari's timesheets that are approved
-                Iterable<Timesheet> employeesTimesheets = (Iterable<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employee1.getEmployeeId(), true, true);
-                for (Timesheet timesheet : employeesTimesheets){
-                    if(xChoice.equals("Project")){
-                        List<Project> projects = (List<Project>) projectRepository.findAll();
-                        timesheet.getTotalHoursByProject()
+                List<Timesheet> employeesTimesheets = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employee1.getEmployeeId(), true, true);
+                if(xChoice.equals("Project")){
+                    List<Project> projects = (List<Project>) projectRepository.findAll();
+                    Integer totalHoursForX = 0;
+                    System.out.println(totalHoursForX);
+                    for (Project aProject:
+                            projects) {
+                        System.out.println(aProject);
+                        totalHoursForX = 0;
+                        for (Timesheet timesheet : employeesTimesheets){
+                            totalHoursForX += timesheet.getTotalHoursByProject(aProject);
+                            xyValues.put(aProject.toString(), totalHoursForX);
+                            System.out.println(xyValues);
+                        }
                     }
-
                 }
             }
+            System.out.println(xyValues);
+
 
         } else if (chartCategory.equals("Project")){
             model.addAttribute("chartCategory", chartCategory);
@@ -207,6 +216,8 @@ public class MetricsController {
             model.addAttribute("chartTopic", payRate);
             model.addAttribute("xValue", xChoice);
         }
+
+        model.addAttribute("xyValues", xyValues);
 
         return "supervisor/metrics";
     }
