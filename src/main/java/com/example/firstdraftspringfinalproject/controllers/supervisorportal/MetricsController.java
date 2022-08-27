@@ -171,8 +171,8 @@ public class MetricsController {
                                      @RequestParam(required = false) String workType,
                                      @RequestParam(required = false) Integer payRate,
                                      @RequestParam String xChoice, Model model){
-        HashMap<String, Integer> xyValues = new HashMap<>();
 
+        HashMap<String, Integer> xyValues = new HashMap<>();
 
         if (chartCategory.equals("Employee")){
             model.addAttribute("chartCategory", chartCategory);
@@ -186,26 +186,59 @@ public class MetricsController {
                 if(xChoice.equals("Project")){
                     List<Project> projects = (List<Project>) projectRepository.findAll();
                     Integer totalHoursForX = 0;
-                    System.out.println(totalHoursForX);
                     for (Project aProject:
                             projects) {
-                        System.out.println(aProject);
                         totalHoursForX = 0;
                         for (Timesheet timesheet : employeesTimesheets){
                             totalHoursForX += timesheet.getTotalHoursByProject(aProject);
                             xyValues.put(aProject.toString(), totalHoursForX);
-                            System.out.println(xyValues);
+                        }
+                    }
+                }
+                if(xChoice.equals("WorkType")){
+                    List<WorkType> workTypes = (List<WorkType>) workTypeRepository.findAll();
+                    Integer totalHoursForX = 0;
+                    for (WorkType aWorkType      :
+                            workTypes) {
+                        totalHoursForX = 0;
+                        for (Timesheet timesheet : employeesTimesheets){
+                            totalHoursForX += timesheet.getTotalHoursByWorkType(aWorkType);
+                            xyValues.put(aWorkType.toString(), totalHoursForX);
                         }
                     }
                 }
             }
-            System.out.println(xyValues);
-
 
         } else if (chartCategory.equals("Project")){
             model.addAttribute("chartCategory", chartCategory);
             model.addAttribute("chartTopic", project);
             model.addAttribute("xValue", xChoice);
+            Project project1 = projectRepository.findByProjectName(project);
+            //
+            List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
+            if(xChoice.equals("Employee")){
+                List<Employee> employees = (List<Employee>) employeeRepository.findAll();
+                Integer totalHoursForX = 0;
+                for (Employee aEmployee: employees) {
+                    totalHoursForX = 0;
+                    for (Timesheet timesheet : timesheets){
+                        totalHoursForX += timesheet.getTotalHoursByProject(project1);
+                        xyValues.put(aEmployee.toString(), totalHoursForX);
+                    }
+                }
+            }
+            if(xChoice.equals("WorkType")){
+                List<WorkType> workTypes = (List<WorkType>) workTypeRepository.findAll();
+                Integer totalHoursForX = 0;
+                for (WorkType aWorkType : workTypes) {
+                    totalHoursForX = 0;
+                    for (Timesheet timesheet : timesheets){
+                        totalHoursForX += timesheet.getTotalHoursByWorkType(aWorkType);
+                        xyValues.put(aWorkType.toString(), totalHoursForX);
+                    }
+                }
+            }
+
 
         } else if (chartCategory.equals("WorkType")){
             model.addAttribute("chartCategory", chartCategory);
