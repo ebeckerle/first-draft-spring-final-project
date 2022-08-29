@@ -4,10 +4,7 @@ import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
-import com.example.firstdraftspringfinalproject.models.Employee;
-import com.example.firstdraftspringfinalproject.models.Project;
-import com.example.firstdraftspringfinalproject.models.Timesheet;
-import com.example.firstdraftspringfinalproject.models.WorkType;
+import com.example.firstdraftspringfinalproject.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -108,58 +105,62 @@ public class MetricsController {
 
     @PostMapping(params="total")
     public String processViewMetrics(@RequestParam String xValue, Model model){
-        HashMap<String, Integer> xyValues = new HashMap<>();
-        if (xValue.equals("Employee")){
-            List<Employee>  employees = (List<Employee>) employeeRepository.findAll();
-            for (Employee employee:
-                 employees) {
-                xyValues.put(employee.getLastName(), employee.getTotalHoursWorkedToDate());
-            }
-            model.addAttribute("title", xValue);
-        }
-        if (xValue.equals("Project")){
-            List<Project>  projects = (List<Project>) projectRepository.findAll();
-            for (Project project:
-                    projects) {
-                Project project1 = project;
-                Integer totalHoursForProject1 = 0;
-                for (Timesheet timesheet:
-                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    totalHoursForProject1 += timesheet.getTotalHoursByProject(project1);
-                }
-                xyValues.put(project.getProjectName(), totalHoursForProject1);
-            }
-            model.addAttribute("title", xValue);
-        }
-        if (xValue.equals("WorkType")){
-            List<WorkType> workTypes = (List<WorkType>) workTypeRepository.findAll();
-            for (WorkType workType:
-                    workTypes){
-                Integer totalHoursForWorkType = 0;
-                for (Timesheet timesheet:
-                     timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    totalHoursForWorkType += timesheet.getTotalHoursByWorkType(workType);
-                }
-                xyValues.put(workType.toStringWorkTypeCode(), totalHoursForWorkType);
-            }
-        }
-        if (xValue.equals("PayRate")){
-            List<Integer> payRates = new ArrayList<>();
-            for (Timesheet timesheet:
-                 timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                //
-                Integer payRate = timesheet.getCurrentPayRate();
-                if(payRates.contains(payRate)){
-                    Integer existingHourTotal = xyValues.get(String.valueOf(payRate));
-                    Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
-                    xyValues.replace(String.valueOf(payRate), newHourTotal);
-                }else{
-                    payRates.add(payRate);
-                    xyValues.put(String.valueOf(payRate), timesheet.getTotalHours());
-                }
-            }
-        }
-        model.addAttribute("xyValues", xyValues);
+//        HashMap<String, Integer> xyValues = new HashMap<>();
+//        if (xValue.equals("Employee")){
+//            List<Employee>  employees = (List<Employee>) employeeRepository.findAll();
+//            for (Employee employee:
+//                 employees) {
+//                xyValues.put(employee.getLastName(), employee.getTotalHoursWorkedToDate());
+//            }
+//            model.addAttribute("title", xValue);
+//        }
+//        if (xValue.equals("Project")){
+//            List<Project>  projects = (List<Project>) projectRepository.findAll();
+//            for (Project project:
+//                    projects) {
+//                Project project1 = project;
+//                Integer totalHoursForProject1 = 0;
+//                for (Timesheet timesheet:
+//                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+//                    totalHoursForProject1 += timesheet.getTotalHoursByProject(project1);
+//                }
+//                xyValues.put(project.getProjectName(), totalHoursForProject1);
+//            }
+//            model.addAttribute("title", xValue);
+//        }
+//        if (xValue.equals("WorkType")){
+//            List<WorkType> workTypes = (List<WorkType>) workTypeRepository.findAll();
+//            for (WorkType workType:
+//                    workTypes){
+//                Integer totalHoursForWorkType = 0;
+//                for (Timesheet timesheet:
+//                     timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+//                    totalHoursForWorkType += timesheet.getTotalHoursByWorkType(workType);
+//                }
+//                xyValues.put(workType.toStringWorkTypeCode(), totalHoursForWorkType);
+//            }
+//        }
+//        if (xValue.equals("PayRate")){
+//            List<Integer> payRates = new ArrayList<>();
+//            for (Timesheet timesheet:
+//                 timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+//                //
+//                Integer payRate = timesheet.getCurrentPayRate();
+//                if(payRates.contains(payRate)){
+//                    Integer existingHourTotal = xyValues.get(String.valueOf(payRate));
+//                    Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
+//                    xyValues.replace(String.valueOf(payRate), newHourTotal);
+//                }else{
+//                    payRates.add(payRate);
+//                    xyValues.put(String.valueOf(payRate), timesheet.getTotalHours());
+//                }
+//            }
+//        }
+
+        Metrics newMetric = new Metrics(xValue);
+        newMetric.setXyValuesWhenThereIsNoSecondaryCategory();
+        model.addAttribute("xyValues", newMetric.getXyValues());
+        model.addAttribute("title", newMetric.getChartTitle());
 
         return "supervisor/metrics";
     }

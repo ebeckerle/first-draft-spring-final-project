@@ -3,9 +3,13 @@ package com.example.firstdraftspringfinalproject.models;
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
+import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class Metrics {
 
@@ -18,28 +22,55 @@ public class Metrics {
     @Autowired
     private ProjectRepository projectRepository;
 
-    private MetricsCategory primaryCategory;
+    @Autowired
+    private WorkTypeRepository workTypeRepository;
+
+//    private MetricsCategory primaryCategory;
+    private String primaryCategory;
     private Boolean containsSecondaryCategory;
     private String primaryCategorySubject;
-    private MetricsCategory secondaryCategory;
+//    private MetricsCategory secondaryCategory;
+    private String secondaryCategory;
+    private String chartTitle;
     private HashMap<String, Integer> xyValues;
 
-    public Metrics(MetricsCategory primaryCategory) {
+//    public Metrics(MetricsCategory primaryCategory) {
+//        this.primaryCategory = primaryCategory;
+//        this.containsSecondaryCategory = false;
+//    }
+    public Metrics(String primaryCategory) {
         this.primaryCategory = primaryCategory;
+        this.containsSecondaryCategory = false;
     }
 
-    public Metrics(MetricsCategory primaryCategory, Boolean containsSecondaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory) {
+//    public Metrics(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory) {
+//        this.primaryCategory = primaryCategory;
+//        this.containsSecondaryCategory = true;
+//        this.primaryCategorySubject = primaryCategorySubject;
+//        this.secondaryCategory = secondaryCategory;
+//    }
+    public Metrics(String primaryCategory, String primaryCategorySubject, String secondaryCategory) {
         this.primaryCategory = primaryCategory;
-        this.containsSecondaryCategory = containsSecondaryCategory;
+        this.containsSecondaryCategory = true;
         this.primaryCategorySubject = primaryCategorySubject;
         this.secondaryCategory = secondaryCategory;
     }
 
-    public MetricsCategory getPrimaryCategory() {
+    //Getter & Setters
+
+//    public MetricsCategory getPrimaryCategory() {
+//        return primaryCategory;
+//    }
+//
+//    public void setPrimaryCategory(MetricsCategory primaryCategory) {
+//        this.primaryCategory = primaryCategory;
+//    }
+
+    public String getPrimaryCategory() {
         return primaryCategory;
     }
 
-    public void setPrimaryCategory(MetricsCategory primaryCategory) {
+    public void setPrimaryCategory(String primaryCategory) {
         this.primaryCategory = primaryCategory;
     }
 
@@ -59,26 +90,88 @@ public class Metrics {
         this.primaryCategorySubject = primaryCategorySubject;
     }
 
-    public MetricsCategory getSecondaryCategory() {
+//    public MetricsCategory getSecondaryCategory() {
+//        return secondaryCategory;
+//    }
+//
+//    public void setSecondaryCategory(MetricsCategory secondaryCategory) {
+//        this.secondaryCategory = secondaryCategory;
+//    }
+
+    public String getSecondaryCategory() {
         return secondaryCategory;
     }
 
-    public void setSecondaryCategory(MetricsCategory secondaryCategory) {
+    public void setSecondaryCategory(String secondaryCategory) {
         this.secondaryCategory = secondaryCategory;
+    }
+
+    public String getChartTitle() {
+        return chartTitle;
+    }
+
+    public void setChartTitle(String chartTitle) {
+        this.chartTitle = chartTitle;
     }
 
     public HashMap<String, Integer> getXyValues() {
         return xyValues;
     }
 
-    public void setXyValues(HashMap<String, Integer> xyValues) {
+
+    public void setXyValuesWhenThereIsNoSecondaryCategory(){
+        HashMap<String, Integer> xyValues = new HashMap<>();
+        if(this.primaryCategory.equals("Employee")){
+            List<Employee> employees = (List<Employee>) employeeRepository.findAll();
+            for (Employee employee:
+                    employees) {
+                xyValues.put(employee.getLastName(), employee.getTotalHoursWorkedToDate());
+            }
+        }
+        if (this.primaryCategory.equals("Project")){
+            List<Project>  projects = (List<Project>) projectRepository.findAll();
+            for (Project project:
+                    projects) {
+                Project project1 = project;
+                Integer totalHoursForProject1 = 0;
+                for (Timesheet timesheet:
+                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+                    totalHoursForProject1 += timesheet.getTotalHoursByProject(project1);
+                }
+                xyValues.put(project.getProjectName(), totalHoursForProject1);
+            }
+        }
+        if (this.primaryCategory.equals("WorkType")){
+            List<WorkType> workTypes = (List<WorkType>) workTypeRepository.findAll();
+            for (WorkType workType:
+                    workTypes){
+                Integer totalHoursForWorkType = 0;
+                for (Timesheet timesheet:
+                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+                    totalHoursForWorkType += timesheet.getTotalHoursByWorkType(workType);
+                }
+                xyValues.put(workType.toStringWorkTypeCode(), totalHoursForWorkType);
+            }
+        }
+        if (this.primaryCategory.equals("PayRate")){
+            List<Integer> payRates = new ArrayList<>();
+            for (Timesheet timesheet:
+                    timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+                //
+                Integer payRate = timesheet.getCurrentPayRate();
+                if(payRates.contains(payRate)){
+                    Integer existingHourTotal = xyValues.get(String.valueOf(payRate));
+                    Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
+                    xyValues.replace(String.valueOf(payRate), newHourTotal);
+                }else{
+                    payRates.add(payRate);
+                    xyValues.put(String.valueOf(payRate), timesheet.getTotalHours());
+                }
+            }
+        }
+        this.chartTitle = primaryCategory;
         this.xyValues = xyValues;
     }
-
-//    public void setXyValuesWhenThereIsNoSecondaryCategory(){
-//        String primaryCategory = this.primaryCategory.values();
-//        if(this.primaryCategory.)
-//    }
 
     public void setXyValuesWhenThereIsASecondaryCategory(){
 

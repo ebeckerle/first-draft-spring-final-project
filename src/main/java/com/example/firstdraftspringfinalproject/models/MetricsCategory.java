@@ -2,8 +2,9 @@ package com.example.firstdraftspringfinalproject.models;
 
 public enum MetricsCategory {
 
-    PROJECT("Project"),
+
     EMPLOYEE("Employee"),
+    PROJECT("Project"),
     WORKTYPE("WorkType"),
     PAYRATE("PayRate");
 
