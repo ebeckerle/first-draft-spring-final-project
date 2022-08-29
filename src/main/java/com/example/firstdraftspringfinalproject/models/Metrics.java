@@ -38,9 +38,13 @@ public class Metrics {
 //        this.primaryCategory = primaryCategory;
 //        this.containsSecondaryCategory = false;
 //    }
-    public Metrics(String primaryCategory) {
+    public Metrics(String primaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
         this.primaryCategory = primaryCategory;
         this.containsSecondaryCategory = false;
+        this.employeeRepository = employeeRepository;
+        this.timesheetRepository = timesheetRepository;
+        this.projectRepository = projectRepository;
+        this.workTypeRepository = workTypeRepository;
     }
 
 //    public Metrics(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory) {

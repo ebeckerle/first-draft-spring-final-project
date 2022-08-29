@@ -105,6 +105,7 @@ public class MetricsController {
 
     @PostMapping(params="total")
     public String processViewMetrics(@RequestParam String xValue, Model model){
+        //TODO: this business logic has moved to the Metrics class - delete soon
 //        HashMap<String, Integer> xyValues = new HashMap<>();
 //        if (xValue.equals("Employee")){
 //            List<Employee>  employees = (List<Employee>) employeeRepository.findAll();
@@ -157,7 +158,7 @@ public class MetricsController {
 //            }
 //        }
 
-        Metrics newMetric = new Metrics(xValue);
+        Metrics newMetric = new Metrics(xValue, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
         newMetric.setXyValuesWhenThereIsNoSecondaryCategory();
         model.addAttribute("xyValues", newMetric.getXyValues());
         model.addAttribute("title", newMetric.getChartTitle());
