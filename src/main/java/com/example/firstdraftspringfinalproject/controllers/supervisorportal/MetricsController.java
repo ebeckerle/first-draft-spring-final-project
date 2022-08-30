@@ -1,9 +1,6 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
-import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
-import com.example.firstdraftspringfinalproject.data.ProjectRepository;
-import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
-import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
+import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +30,9 @@ public class MetricsController {
 
     @Autowired
     WorkTypeRepository workTypeRepository;
+
+    @Autowired
+    ProjectWorkTypeSetRepository projectWorkTypeSetRepository;
 
     @GetMapping
     public String displayMetricsHome(Model model){
@@ -220,23 +220,24 @@ public class MetricsController {
             List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
             if(xChoice.equals("Employee")){
                 List<Employee> employees = (List<Employee>) employeeRepository.findAll();
-                Integer totalHoursForX = 0;
                 for (Employee aEmployee: employees) {
-                    totalHoursForX = 0;
-                    for (Timesheet timesheet : timesheets){
+                    List<Timesheet> employeesTimesheets = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(aEmployee.getEmployeeId(), true, true);
+                    Integer totalHoursForX = 0;
+                    for (Timesheet timesheet : employeesTimesheets){
                         totalHoursForX += timesheet.getTotalHoursByProject(project1);
                         xyValues.put(aEmployee.toString(), totalHoursForX);
                     }
                 }
             }
             if(xChoice.equals("WorkType")){
-                List<WorkType> workTypes = (List<WorkType>) workTypeRepository.findAll();
-                Integer totalHoursForX = 0;
-                for (WorkType aWorkType : workTypes) {
-                    totalHoursForX = 0;
+                List<ProjectWorkTypeSet> projectWorkTypeSets = projectWorkTypeSetRepository.findByProject(project1);
+                for (ProjectWorkTypeSet projectWorkTypeSet:
+                        projectWorkTypeSets) {
+                    WorkType workType1 = projectWorkTypeSet.getWorkType();
+                    Integer totalHoursForX = 0;
                     for (Timesheet timesheet : timesheets){
-                        totalHoursForX += timesheet.getTotalHoursByWorkType(aWorkType);
-                        xyValues.put(aWorkType.toString(), totalHoursForX);
+                        totalHoursForX += timesheet.getTotalHoursByWorkType(workType1);
+                        xyValues.put(workType1.toString(), totalHoursForX);
                     }
                 }
             }
