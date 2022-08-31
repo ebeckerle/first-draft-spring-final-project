@@ -236,10 +236,20 @@ public class MetricsController {
                     WorkType workType1 = projectWorkTypeSet.getWorkType();
                     Integer totalHoursForX = 0;
                     for (Timesheet timesheet : timesheets){
-                        totalHoursForX += timesheet.getTotalHoursByWorkType(workType1);
-                        xyValues.put(workType1.toString(), totalHoursForX);
+                        List<LineEntry> lineEntries = timesheet.getLineEntries();
+                        for (LineEntry lineEntry:
+                                lineEntries) {
+                            Project project2 = lineEntry.getProjectWorkTypeCombo().getProject();
+                            if(project2.equals(project1)){
+                                totalHoursForX += lineEntry.getTotalHours();
+                                System.out.println(workType1.toString());
+                                System.out.println(totalHoursForX);
+                                xyValues.put(workType1.toString(), totalHoursForX);
+                            }
+                        }
                     }
                 }
+                System.out.println(xyValues);
             }
 
 
