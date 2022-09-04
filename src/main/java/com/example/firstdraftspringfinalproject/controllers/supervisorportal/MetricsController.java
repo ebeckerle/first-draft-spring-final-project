@@ -229,49 +229,25 @@ public class MetricsController {
                     }
                 }
             }
-//            if(xChoice.equals("WorkType")){
-//                List<ProjectWorkTypeSet> projectWorkTypeSets = projectWorkTypeSetRepository.findByProject(project1);
-//                for (ProjectWorkTypeSet projectWorkTypeSet:
-//                        projectWorkTypeSets) {
-//                    WorkType workType1 = projectWorkTypeSet.getWorkType();
-//                    Integer totalHoursForX = 0;
-//                    for (Timesheet timesheet : timesheets){
-//                        List<LineEntry> lineEntries = timesheet.getLineEntries();
-//                        for (LineEntry lineEntry:
-//                                lineEntries) {
-//                            Project project2 = lineEntry.getProjectWorkTypeCombo().getProject();
-//                            if(project2.equals(project1)){
-//                                totalHoursForX += lineEntry.getTotalHours();
-//                                System.out.println(workType1.toString());
-//                                System.out.println(totalHoursForX);
-//                                xyValues.put(workType1.toString(), totalHoursForX);
-//                            }
-//                        }
-//                    }
-//                }
-//                System.out.println(xyValues);
-//            }
-            if(xChoice.equals("WorkType")){
-                List<ProjectWorkTypeSet> projectWorkTypeSets = projectWorkTypeSetRepository.findByProject(project1);
-                for (Timesheet timesheet : timesheets){
+            if(xChoice.equals("WorkType")) {
+                for (Timesheet timesheet : timesheets) {
                     List<LineEntry> lineEntries = timesheet.getLineEntries();
-                    for (ProjectWorkTypeSet projectWorkTypeSet:
-                            projectWorkTypeSets) {
-                        WorkType workType1 = projectWorkTypeSet.getWorkType();
+                    for (LineEntry lineEntry :
+                            lineEntries) {
                         Integer totalHoursForX = 0;
-                        for (LineEntry lineEntry:
-                                lineEntries) {
-                            Project project2 = lineEntry.getProjectWorkTypeCombo().getProject();
-                            if(project2.equals(project1)){
+                        ProjectWorkTypeSet projectWorkTypeSet = lineEntry.getProjectWorkTypeCombo();
+                        if (projectWorkTypeSet.getProject().equals(project1)) {
+                            if (xyValues.containsKey(projectWorkTypeSet.getWorkType().toString())) {
+                                totalHoursForX += xyValues.get(projectWorkTypeSet.getWorkType().toString());
                                 totalHoursForX += lineEntry.getTotalHours();
-                                System.out.println(workType1.toString());
-                                System.out.println(totalHoursForX);
-                                xyValues.put(workType1.toString(), totalHoursForX);
+                                xyValues.replace(projectWorkTypeSet.getWorkType().toString(), totalHoursForX);
+                            } else {
+                                totalHoursForX += lineEntry.getTotalHours();
+                                xyValues.put(projectWorkTypeSet.getWorkType().toString(), totalHoursForX);
                             }
                         }
                     }
                 }
-                System.out.println(xyValues);
             }
 
         } else if (chartCategory.equals("WorkType")){
