@@ -161,7 +161,8 @@ public class MetricsController {
         Metrics newMetric = new Metrics(xValue, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
         newMetric.setXyValuesWhenThereIsNoSecondaryCategory();
         model.addAttribute("xyValues", newMetric.getXyValues());
-        model.addAttribute("title", newMetric.getChartTitle());
+        model.addAttribute("title", "Metrics");
+        model.addAttribute("chartTitle", "Total Hours by "+newMetric.getChartTitle());
 
         return "supervisor/metrics";
     }
@@ -175,15 +176,16 @@ public class MetricsController {
                                      @RequestParam String xChoice, Model model){
 
         HashMap<String, Integer> xyValues = new HashMap<>();
+        String chartTitle = "Chart Title";
 
         if (chartCategory.equals("Employee")){
             model.addAttribute("chartCategory", chartCategory);
             model.addAttribute("chartTopic", employee);
             model.addAttribute("xValue", xChoice);
+            chartTitle = employee + "'s Hours by "+xChoice;
             Employee employee1;
             if (employeeRepository.findByFirstNameLastNameCombo(employee).isPresent()){
                 employee1 = employeeRepository.findByFirstNameLastNameCombo(employee).get();
-                //find Ari's timesheets that are approved
                 List<Timesheet> employeesTimesheets = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employee1.getEmployeeId(), true, true);
                 if(xChoice.equals("Project")){
                     List<Project> projects = (List<Project>) projectRepository.findAll();
@@ -215,8 +217,9 @@ public class MetricsController {
             model.addAttribute("chartCategory", chartCategory);
             model.addAttribute("chartTopic", project);
             model.addAttribute("xValue", xChoice);
+            chartTitle = "Hours worked on " + project + " by "+xChoice;
+
             Project project1 = projectRepository.findByProjectName(project);
-            //
             List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
             if(xChoice.equals("Employee")){
                 List<Employee> employees = (List<Employee>) employeeRepository.findAll();
@@ -249,18 +252,45 @@ public class MetricsController {
                     }
                 }
             }
+            //this does not work right yet
+            if(xChoice.equals("PayRate")){
+                List<Integer> payRates = new ArrayList<>();
+                for (Timesheet timesheet:
+                        timesheets) {
+                    List<LineEntry> lineEntries = timesheet.getLineEntries();
+                    for (LineEntry lineEntry :
+                            lineEntries) {
+                        ProjectWorkTypeSet projectWorkTypeSet = lineEntry.getProjectWorkTypeCombo();
+                        if (projectWorkTypeSet.getProject().equals(project1)) {
+                            Integer payRate1 = timesheet.getCurrentPayRate();
+                            if (payRates.contains(payRate1)) {
+                                Integer existingHourTotal = xyValues.get(String.valueOf(payRate1));
+                                Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
+                                xyValues.replace(String.valueOf(payRate1), newHourTotal);
+                            } else {
+                                payRates.add(payRate1);
+                                xyValues.put(String.valueOf(payRate1), timesheet.getTotalHours());
+                            }
+                        }
+                    }
+                }
+            }
 
         } else if (chartCategory.equals("WorkType")){
             model.addAttribute("chartCategory", chartCategory);
             model.addAttribute("chartTopic", workType);
             model.addAttribute("xValue", xChoice);
+            chartTitle = "Hours worked in " + workType + " by "+xChoice;
         } else if (chartCategory.equals("PayRate")){
             model.addAttribute("chartCategory", chartCategory);
             model.addAttribute("chartTopic", payRate);
             model.addAttribute("xValue", xChoice);
+            chartTitle = "Hours worked compensated at" + payRate + "/ per hour by "+xChoice;
         }
 
         model.addAttribute("xyValues", xyValues);
+        model.addAttribute("chartTitle", chartTitle);
+        model.addAttribute("title", "Metrics");
 
         return "supervisor/metrics";
     }

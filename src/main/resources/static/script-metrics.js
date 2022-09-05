@@ -42,7 +42,9 @@ function viewBarGraph(){
     console.log("viewBarGraph")
 
     let chartDataElement = document.querySelector("#chart");
+    let chartTitleElement = document.querySelector("#chartTitle");
          let chartData = chartDataElement.getAttribute("xyValues").split(",");
+         let chartTitle = chartTitleElement.getAttribute("chartTitle");
 
         let xValues = [];
         let yValues = [];
@@ -70,7 +72,7 @@ function viewBarGraph(){
             legend: {display: false},
             title: {
               display: true,
-              text: "Will need to pass this text thru the Controller"
+              text: chartTitle
             }
           }
         });
@@ -80,7 +82,9 @@ function viewScatterPlotGraph(){
 
 
     let chartDataElement = document.querySelector("#chart");
+    let chartTitleElement = document.querySelector("#chartTitle");
          let chartData = chartDataElement.getAttribute("xyValues").split(",");
+         let chartTitle = chartTitleElement.getAttribute("chartTitle");
 
                  let xValues = [];
                  let yValues = [];
@@ -108,7 +112,7 @@ function viewScatterPlotGraph(){
                      legend: {display: false},
                      title: {
                        display: true,
-                       text: "Will need to pass this text thru the Controller"
+                       text: chartTitle
                      }
                    }
                  });
