@@ -229,6 +229,7 @@ public class MetricsController {
                     for (Timesheet timesheet : employeesTimesheets){
                         totalHoursForX += timesheet.getTotalHoursByProject(project1);
                         xyValues.put(aEmployee.toString(), totalHoursForX);
+                        System.out.println(xyValues);
                     }
                 }
             }
@@ -253,8 +254,31 @@ public class MetricsController {
                 }
             }
             //this does not work right yet
+//            if(xChoice.equals("PayRate")){
+//                List<Integer> payRates = new ArrayList<>();
+//                for (Timesheet timesheet:
+//                        timesheets) {
+//                    List<LineEntry> lineEntries = timesheet.getLineEntries();
+//                    for (LineEntry lineEntry :
+//                            lineEntries) {
+//                        ProjectWorkTypeSet projectWorkTypeSet = lineEntry.getProjectWorkTypeCombo();
+//                        if (projectWorkTypeSet.getProject().equals(project1)) {
+//                            Integer payRate1 = timesheet.getCurrentPayRate();
+//                            if (payRates.contains(payRate1)) {
+//                                Integer existingHourTotal = xyValues.get(String.valueOf(payRate1));
+//                                Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
+//                                xyValues.replace(String.valueOf(payRate1), newHourTotal);
+//                            } else {
+//                                System.out.println("$"+payRate1);
+//                                payRates.add(payRate1);
+//                                xyValues.put(String.valueOf(payRate1), timesheet.getTotalHours());
+//                            }
+//                        }
+//                    }
+//                }
+//            }
             if(xChoice.equals("PayRate")){
-                List<Integer> payRates = new ArrayList<>();
+                List<String> payRates = new ArrayList<>();
                 for (Timesheet timesheet:
                         timesheets) {
                     List<LineEntry> lineEntries = timesheet.getLineEntries();
@@ -262,14 +286,15 @@ public class MetricsController {
                             lineEntries) {
                         ProjectWorkTypeSet projectWorkTypeSet = lineEntry.getProjectWorkTypeCombo();
                         if (projectWorkTypeSet.getProject().equals(project1)) {
-                            Integer payRate1 = timesheet.getCurrentPayRate();
+                            String payRate1 = "$"+timesheet.getCurrentPayRate()+" per hour";
                             if (payRates.contains(payRate1)) {
-                                Integer existingHourTotal = xyValues.get(String.valueOf(payRate1));
-                                Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
-                                xyValues.replace(String.valueOf(payRate1), newHourTotal);
+                                Integer existingHourTotal = xyValues.get(payRate1);
+                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
+                                xyValues.replace(payRate1, newHourTotal);
                             } else {
+                                System.out.println("$"+payRate1);
                                 payRates.add(payRate1);
-                                xyValues.put(String.valueOf(payRate1), timesheet.getTotalHours());
+                                xyValues.put(payRate1, lineEntry.getTotalHours());
                             }
                         }
                     }
