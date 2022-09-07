@@ -253,30 +253,6 @@ public class MetricsController {
                     }
                 }
             }
-            //this does not work right yet
-//            if(xChoice.equals("PayRate")){
-//                List<Integer> payRates = new ArrayList<>();
-//                for (Timesheet timesheet:
-//                        timesheets) {
-//                    List<LineEntry> lineEntries = timesheet.getLineEntries();
-//                    for (LineEntry lineEntry :
-//                            lineEntries) {
-//                        ProjectWorkTypeSet projectWorkTypeSet = lineEntry.getProjectWorkTypeCombo();
-//                        if (projectWorkTypeSet.getProject().equals(project1)) {
-//                            Integer payRate1 = timesheet.getCurrentPayRate();
-//                            if (payRates.contains(payRate1)) {
-//                                Integer existingHourTotal = xyValues.get(String.valueOf(payRate1));
-//                                Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
-//                                xyValues.replace(String.valueOf(payRate1), newHourTotal);
-//                            } else {
-//                                System.out.println("$"+payRate1);
-//                                payRates.add(payRate1);
-//                                xyValues.put(String.valueOf(payRate1), timesheet.getTotalHours());
-//                            }
-//                        }
-//                    }
-//                }
-//            }
             if(xChoice.equals("PayRate")){
                 List<String> payRates = new ArrayList<>();
                 for (Timesheet timesheet:
@@ -306,6 +282,9 @@ public class MetricsController {
             model.addAttribute("chartTopic", workType);
             model.addAttribute("xValue", xChoice);
             chartTitle = "Hours worked in " + workType + " by "+xChoice;
+            if(xChoice.equals("Employee")){
+
+            }
         } else if (chartCategory.equals("PayRate")){
             model.addAttribute("chartCategory", chartCategory);
             model.addAttribute("chartTopic", payRate);
