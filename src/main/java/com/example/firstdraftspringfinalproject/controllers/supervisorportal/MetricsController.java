@@ -283,7 +283,40 @@ public class MetricsController {
             model.addAttribute("xValue", xChoice);
             chartTitle = "Hours worked in " + workType + " by "+xChoice;
             if(xChoice.equals("Employee")){
-
+                for (Timesheet timesheet:
+                     timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+                    for (LineEntry lineEntry:
+                         timesheet.getLineEntries()) {
+                        String workType1 = lineEntry.getProjectWorkTypeCombo().getWorkType().toString();
+                        if (workType.equals(workType1)){
+                            if (xyValues.containsKey(timesheet.getEmployee().toString())){
+                                Integer existingHourTotal = xyValues.get(timesheet.getEmployee().toString());
+                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
+                                xyValues.replace(timesheet.getEmployee().toString(), newHourTotal);
+                            }else{
+                                xyValues.put(timesheet.getEmployee().toString(), lineEntry.getTotalHours());
+                            }
+                        }
+                    }
+                }
+            }
+            if(xChoice.equals("Project")){
+                for (Timesheet timesheet:
+                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+                    for (LineEntry lineEntry:
+                         timesheet.getLineEntries()) {
+                        String workType1 = lineEntry.getProjectWorkTypeCombo().getWorkType().toString();
+                        if(workType.equals(workType1)){
+                            if (xyValues.containsKey(lineEntry.getProjectWorkTypeCombo().getProject().toString())){
+                                Integer existingHourTotal = xyValues.get(lineEntry.getProjectWorkTypeCombo().getProject().toString());
+                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
+                                xyValues.replace(lineEntry.getProjectWorkTypeCombo().getProject().toString(), newHourTotal);
+                            }else{
+                                xyValues.put(lineEntry.getProjectWorkTypeCombo().getProject().toString(), lineEntry.getTotalHours());
+                            }
+                        }
+                    }
+                }
             }
         } else if (chartCategory.equals("PayRate")){
             model.addAttribute("chartCategory", chartCategory);
