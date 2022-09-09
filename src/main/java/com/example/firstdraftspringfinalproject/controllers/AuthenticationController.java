@@ -115,6 +115,7 @@ public class AuthenticationController {
     @GetMapping
     public String displayHomePage(Model model){
         model.addAttribute(new LoginFormDTO());
+        model.addAttribute("title", "Restoration Company");
         return "index";
     }
 
@@ -151,8 +152,9 @@ public class AuthenticationController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    public String logout(HttpServletRequest request, Model model){
         request.getSession().invalidate();
+        model.addAttribute("title", "Logged Off");
         return "logout";
     }
 

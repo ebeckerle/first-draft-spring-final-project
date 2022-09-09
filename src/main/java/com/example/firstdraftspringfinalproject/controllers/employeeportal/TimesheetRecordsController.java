@@ -32,6 +32,8 @@ public class TimesheetRecordsController {
             model.addAttribute("employeeFirstName", employeeRepository.findById(employeeId).get().getFirstName());
         }
 
+        model.addAttribute("title", "Your Timesheets");
+
         return "employee/timesheetrecords";
     }
 }

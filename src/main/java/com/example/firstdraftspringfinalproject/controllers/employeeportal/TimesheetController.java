@@ -54,7 +54,7 @@ public class TimesheetController {
         ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
         Timesheet currentTimesheet = timesheets.get(0);
 
-                //display the Dates for this Timesheet
+        //display the Dates for this Timesheet
         String startDate = Timesheet.formatDates(currentTimesheet.getStartDate());
         String dueDate = Timesheet.formatDates(currentTimesheet.getDueDate());
         String payDay = Timesheet.formatDates(currentTimesheet.getPayDay());
@@ -104,7 +104,6 @@ public class TimesheetController {
         model.addAttribute("today", today);
 
         model.addAttribute("title", "Add hours to your Timesheet");
-        //not sure what to do with this
 
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
@@ -115,7 +114,11 @@ public class TimesheetController {
 
 
     @PostMapping("createlineentry")
-    public String processCreateLineEntryForm(@RequestParam Integer employeeId, @RequestParam String project, @RequestParam String workType, @RequestParam String daysOfWeek, @RequestParam Integer hours){
+    public String processCreateLineEntryForm(@RequestParam Integer employeeId,
+                                             @RequestParam String project,
+                                             @RequestParam String workType,
+                                             @RequestParam String daysOfWeek,
+                                             @RequestParam Integer hours, Model model){
 
         //find the current timesheet
         ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
@@ -164,6 +167,8 @@ public class TimesheetController {
 
         timesheetRepository.save(currentTimesheet);
 
+        model.addAttribute("title", "Create A Line Entry");
+
         return "redirect:";
     }
 
@@ -179,6 +184,7 @@ public class TimesheetController {
         Timesheet currentTimesheet = timesheets.get(0);
         model.addAttribute("currentTimesheetId", currentTimesheet.getId());
         model.addAttribute("lineEntry", lineEntryRepository.findById(lineEntryId).get());
+        model.addAttribute("title", "Edit Line Entry");
         return "employee/editlineentry";
 
     }
@@ -190,7 +196,7 @@ public class TimesheetController {
                                            @RequestParam(required = false) Integer wednesdayHours,
                                            @RequestParam(required = false) Integer thursdayHours,
                                            @RequestParam(required = false) Integer fridayHours,
-                                           @RequestParam(required = false) Integer saturdayHours){
+                                           @RequestParam(required = false) Integer saturdayHours, Model model){
         //get the current dayhour combo attached to line entry
         DaysOfWeekHoursSet currentDayHourCombo = lineEntryRepository.findById(lineEntryId).get().getDaysOfWeekHoursCombo();
         //get the current dayhour combo's id so we can delete it later
@@ -239,14 +245,14 @@ public class TimesheetController {
         currentTimesheet.getLineEntries().add(newEditedEntry);
         //save the current timesheet
         timesheetRepository.save(currentTimesheet);
-        //do we still need to delete dayhour combo???
-        System.out.println("we are in the edit method");
+
+        model.addAttribute("title", "Timesheet");
 
         return "redirect:/employee/timesheet";
     }
 
     @PostMapping(value = "editlineentry", params = "delete")
-    public String processEditLineEntryDelete(@RequestParam Integer lineEntryId, @RequestParam Integer currentTimesheetId){
+    public String processEditLineEntryDelete(@RequestParam Integer lineEntryId, @RequestParam Integer currentTimesheetId, Model model){
         //remove the lineEntry from the Current Timesheet's array list of line entries
         Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
 
@@ -254,7 +260,8 @@ public class TimesheetController {
 
         currentTimesheet.getLineEntries().remove(lineEntryToDelete);
         lineEntryRepository.deleteById(lineEntryId);
-        System.out.println("in delete method");
+
+        model.addAttribute("title", "Timesheet");
 
         return "redirect:/employee/timesheet";
     }
@@ -269,7 +276,7 @@ public class TimesheetController {
                                                @RequestParam Integer saturdayTotal,
                                                @RequestParam Integer totalHours,
                                                HttpServletRequest request,
-                                               RedirectAttributes redirectAttributes){
+                                               RedirectAttributes redirectAttributes, Model model){
         //grab the current timesheet
         Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
         //set the total of monday's hours, tuesdays hours, etc
@@ -299,6 +306,8 @@ public class TimesheetController {
         redirectAttributes.addFlashAttribute("timesheetStartDate", currentTimesheet.getStartDate());
         redirectAttributes.addFlashAttribute("timesheetTotalHours", currentTimesheet.getTotalHours());
         redirectAttributes.addFlashAttribute("timesheetPayDay", currentTimesheet.getPayDay());
+
+        model.addAttribute("title", "Success!");
 
         return new RedirectView("/employee/successSubmit", true);
     }

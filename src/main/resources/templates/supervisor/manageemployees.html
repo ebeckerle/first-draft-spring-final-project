@@ -23,7 +23,7 @@
             <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>
             <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>
             <li><a href="/supervisor/manageemployees/timesheets">Approve Timesheets</a></li>
-            <li><a href="#edit">Edit An Employee Profile</a></li>
+<!--            <li><a href="#edit">Edit An Employee Profile</a></li>-->
         </ol>
     <hr>
 
@@ -47,7 +47,7 @@
             <td th:text="${employee.lastName}"></td>
             <td th:text="${employee.title}"></td>
             <td th:text="${employee.currentTimesheetCompletionStatus}"></td>
-            <td><a th:href="@{/supervisor/manageemployees/editEmployee(employeeId=${employee.employeeId})}">link here</a></td>
+            <td><a th:href="@{/supervisor/manageemployees/editEmployee(employeeId=${employee.employeeId})}">edit</a></td>
         </tr>
     </table>
     <br>

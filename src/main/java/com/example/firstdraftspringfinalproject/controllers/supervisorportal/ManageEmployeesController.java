@@ -38,6 +38,7 @@ public class ManageEmployeesController {
         if (!timesheetRepository.findBySupervisorApprovalAndCompletionStatus(false, true).isEmpty()){
             model.addAttribute("timesheetsForApproval", timesheetRepository.findBySupervisorApprovalAndCompletionStatus(false, true).size());
         }
+        model.addAttribute("title", "Manage Employees");
         return "supervisor/manageemployees";
     }
 
@@ -52,28 +53,17 @@ public class ManageEmployeesController {
         model.addAttribute("employeeFirstTimePassword", employeeFirstTimePassword);
         model.addAttribute("successSubmit", "true");
         model.addAttribute("employees", employeeRepository.findAll());
+
+        model.addAttribute("title", "Manage Employees");
         return "supervisor/manageemployees";
     }
 
     @GetMapping("newemployee")
-    public String displayAddNewEmployeeForm(HttpServletRequest request, Model model){
-
-//        Map<Errors, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-//        Errors errors = (Errors)inputFlashMap.get("errors");
-//        model.addAttribute("errors", errors);
-
+    public String displayAddNewEmployeeForm(Model model){
         model.addAttribute("title", "Add an Employee");
         model.addAttribute(new CreateEmployeeDTO());
         return "supervisor/newemployee";
     }
-
-//    @GetMapping("newemployee-error")
-//    public String displayAddNewEmployeeFormError(Model model){
-//        model.addAttribute("title", "Add an Employee");
-//        model.addAttribute(new CreateEmployeeDTO());
-//        System.out.println("in new employee error");
-//        return "supervisor/newemployee";
-//    }
 
     @PostMapping("newemployee")
     public RedirectView processAddNewEmployeeForm(@ModelAttribute @Valid CreateEmployeeDTO createEmployeeDTO,
@@ -82,7 +72,6 @@ public class ManageEmployeesController {
         if (errors.hasErrors()){
             model.addAttribute("title", "Add an Employee");
             redirectAttributes.addFlashAttribute("errors", errors);
-            System.out.println("in the post mapping of new employee if errors statement");
             return new RedirectView("/supervisor/manageemployees/newemployee", true);
         }
         OtpGenerator otpGenerator = new OtpGenerator();
@@ -103,17 +92,21 @@ public class ManageEmployeesController {
         redirectAttributes.addFlashAttribute("employeeFirstName", createEmployeeDTO.getFirstName());
         redirectAttributes.addFlashAttribute("employeeFirstTimePassword", createEmployeeDTO.getOneTimePassword());
 
+        model.addAttribute("title", "Manage Employees");
+
         return new RedirectView("/supervisor/manageemployees/successNewEmployee", true);
     }
 
     @GetMapping(value = "editEmployee")
     public String displayEditEmployeeForm(Model model, @RequestParam Integer employeeId){
         model.addAttribute("employee", employeeRepository.findById(employeeId).get());
+        model.addAttribute("title", "Edit Employee Details");
         return "supervisor/editemployee";
     }
 
     @GetMapping(value = "retireemployee")
-    public String displayRetireEmployeeForm(){
+    public String displayRetireEmployeeForm(Model model){
+        model.addAttribute("title", "Retire An Employee");
         return "supervisor/retireemployee";
     }
 
@@ -122,6 +115,7 @@ public class ManageEmployeesController {
         model.addAttribute("all", "all");
         model.addAttribute("approval", "approval");
         model.addAttribute("previousChoice", "all");
+        model.addAttribute("title", "Employees' Timesheets");
         return "supervisor/timesheets";
     }
 
@@ -143,17 +137,20 @@ public class ManageEmployeesController {
         model.addAttribute("all", "all");
         model.addAttribute("approval", "approval");
         model.addAttribute("previousChoice", searchType);
+
+        model.addAttribute("title", "Employees' Timesheets");
         return "supervisor/timesheets";
     }
 
     @GetMapping(value="timesheets/detail")
     public String displayTimesheetDetail(@RequestParam Integer timesheetId, Model model){
         timesheetRepository.findById(timesheetId).ifPresent(timesheet -> model.addAttribute("timesheet", timesheet));
+        model.addAttribute("title", timesheetRepository.findById(timesheetId).get().getEmployee().getFirstName()+"'s Timesheet");
         return "supervisor/viewtimesheet";
     }
 
     @PostMapping(value="timesheets/approve")
-    public RedirectView processSubmitTimesheetForm(@RequestParam Integer timesheetId, RedirectAttributes redirectAttributes){
+    public RedirectView processSubmitTimesheetForm(@RequestParam Integer timesheetId, RedirectAttributes redirectAttributes, Model model){
         if (timesheetRepository.findById(timesheetId).isPresent()){
             Timesheet timesheet = timesheetRepository.findById(timesheetId).get();
             timesheet.setSupervisorApproval(true);
@@ -162,6 +159,8 @@ public class ManageEmployeesController {
             redirectAttributes.addFlashAttribute("timesheetEmployee", timesheet.getEmployee().getFirstName() + " " + timesheet.getEmployee().getLastName());
             redirectAttributes.addFlashAttribute("timesheetWeek", Timesheet.formatDates(timesheet.getStartDate()) + " - " + Timesheet.formatDates(timesheet.getDueDate()));
         }
+
+        model.addAttribute("title", "Success!");
         return new RedirectView("successfulapproval", true);
     }
 
@@ -177,6 +176,8 @@ public class ManageEmployeesController {
 
         model.addAttribute("all", "all");
         model.addAttribute("approval", "approval");
+
+        model.addAttribute("title", "Employees' Timesheets");
 
         return "supervisor/timesheets";
     }

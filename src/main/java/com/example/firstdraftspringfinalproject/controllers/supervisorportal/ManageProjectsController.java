@@ -20,6 +20,7 @@ public class ManageProjectsController {
     @GetMapping
     public String displayManageProjectsHome(Model model){
         model.addAttribute("projects", projectRepository.findAll());
+        model.addAttribute("title", "Manage Projects");
         return "supervisor/manageprojects";
     }
 
@@ -38,12 +39,14 @@ public class ManageProjectsController {
         }
         projectRepository.save(project);
         model.addAttribute("projects", projectRepository.findAll());
+        model.addAttribute("title", "Manage Projects");
         return "redirect:";
     }
 
     @GetMapping("projectdetails")
     public String displayProjectDetails(Model model, @RequestParam Integer projectId){
         model.addAttribute("project", projectRepository.findById(projectId).get());
+        model.addAttribute("title", "Project Details");
         return "supervisor/projectdetails";
     }
 

@@ -1,6 +1,5 @@
 package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 
-import com.example.firstdraftspringfinalproject.controllers.AuthenticationController;
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.*;
 import org.springframework.beans.factory.annotation.Autowired;

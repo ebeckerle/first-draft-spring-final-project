@@ -1,6 +1,7 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ManageShipmentsController {
 
     @GetMapping
-    public String displayManageShipments(){
+    public String displayManageShipments(Model model){
+        model.addAttribute("title", "Manage Shipments");
         return "supervisor/manageshipments";
     }
 

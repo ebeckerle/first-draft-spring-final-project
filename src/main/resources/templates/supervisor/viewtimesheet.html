@@ -14,8 +14,8 @@
 
     <div style="border: solid 2px black;">
         <p th:text="${timesheet.employee.firstName + ' ' + timesheet.employee.lastName}"></p>
-        <p th:text="${'Start Date ' + #calendars.format(timesheet.startDate, 'dd/MMM/yyyy')}"></p>
-        <p th:text="${'Due Date ' + #calendars.format(timesheet.startDate, 'dd/MMM/yyyy')}"></p>
+        <p th:text="${'Start Date : ' + #calendars.format(timesheet.startDate, 'dd/MMM/yyyy')}"></p>
+        <p th:text="${'Due Date : ' + #calendars.format(timesheet.dueDate, 'dd/MMM/yyyy')}"></p>
 
 
         <table class="timesheet">
@@ -168,10 +168,20 @@
 
     </div>
 
-    <form th:action="@{/supervisor/manageemployees/timesheets/approve}" method="post">
-        <input type="hidden" th:value="${timesheet.id}" name="timesheetId">
-        <input type="submit" value="Approve">
-    </form>
+
+    <div th:unless="${!timesheet.supervisorApproval}">
+        <p style="color: green;">Approved</p>
+    </div>
+
+    <div th:unless="${timesheet.supervisorApproval}">
+
+        <form th:action="@{/supervisor/manageemployees/timesheets/approve}" method="post">
+            <input type="hidden" th:value="${timesheet.id}" name="timesheetId">
+            <input type="submit" value="Approve">
+        </form>
+
+    </div>
+
 
 </div>
 
