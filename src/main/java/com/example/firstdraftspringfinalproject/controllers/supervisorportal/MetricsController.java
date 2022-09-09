@@ -268,7 +268,6 @@ public class MetricsController {
                                 Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
                                 xyValues.replace(payRate1, newHourTotal);
                             } else {
-                                System.out.println("$"+payRate1);
                                 payRates.add(payRate1);
                                 xyValues.put(payRate1, lineEntry.getTotalHours());
                             }
@@ -281,7 +280,7 @@ public class MetricsController {
             model.addAttribute("chartCategory", chartCategory);
             model.addAttribute("chartTopic", workType);
             model.addAttribute("xValue", xChoice);
-            chartTitle = "Hours worked in " + workType + " by "+xChoice;
+            chartTitle = "Hours worked in " + workType + ", by "+xChoice;
             if(xChoice.equals("Employee")){
                 for (Timesheet timesheet:
                      timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
@@ -318,11 +317,78 @@ public class MetricsController {
                     }
                 }
             }
+            if(xChoice.equals("PayRate")){
+                for (Timesheet timesheet:
+                     timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+                    for (LineEntry lineEntry:
+                            timesheet.getLineEntries()) {
+                        String workType1 = lineEntry.getProjectWorkTypeCombo().getWorkType().toString();
+                        if(workType.equals(workType1)){
+                            String payRate1 = "$"+timesheet.getCurrentPayRate()+" per hour";
+                            if (xyValues.containsKey(payRate1)) {
+                                Integer existingHourTotal = xyValues.get(payRate1);
+                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
+                                xyValues.replace(payRate1, newHourTotal);
+                            } else {
+                                xyValues.put(payRate1, lineEntry.getTotalHours());
+                            }
+                        }
+                    }
+                }
+            }
         } else if (chartCategory.equals("PayRate")){
             model.addAttribute("chartCategory", chartCategory);
             model.addAttribute("chartTopic", payRate);
             model.addAttribute("xValue", xChoice);
-            chartTitle = "Hours worked compensated at" + payRate + "/ per hour by "+xChoice;
+            chartTitle = "Hours worked compensated at $" + payRate + " / per hour by "+xChoice;
+            if(xChoice.equals("Employee")){
+                for (Timesheet timesheet:
+                     timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+                    if(payRate.equals(timesheet.getCurrentPayRate())){
+                        if(xyValues.containsKey(timesheet.getEmployee().toString())){
+                            Integer existingHourTotal = xyValues.get(timesheet.getEmployee().toString());
+                            Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
+                            xyValues.put(timesheet.getEmployee().toString(), newHourTotal);
+                        }else{
+                            xyValues.put(timesheet.getEmployee().toString(), timesheet.getTotalHours());
+                        }
+                    }
+                }
+            }
+            if(xChoice.equals("Project")){
+                for (Timesheet timesheet:
+                     timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+                    for (LineEntry lineEntry:
+                         timesheet.getLineEntries()) {
+                        if(payRate.equals(timesheet.getCurrentPayRate())){
+                            if(xyValues.containsKey(lineEntry.getProjectWorkTypeCombo().getProject().toString())){
+                                Integer existingHourTotal = xyValues.get(lineEntry.getProjectWorkTypeCombo().getProject().toString());
+                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
+                                xyValues.put(lineEntry.getProjectWorkTypeCombo().getProject().toString(), newHourTotal);
+                            }else{
+                                xyValues.put(lineEntry.getProjectWorkTypeCombo().getProject().toString(), lineEntry.getTotalHours());
+                            }
+                        }
+                    }
+                }
+            }
+            if(xChoice.equals("WorkType")){
+                for (Timesheet timesheet:
+                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
+                    for (LineEntry lineEntry:
+                            timesheet.getLineEntries()) {
+                        if(payRate.equals(timesheet.getCurrentPayRate())){
+                            if(xyValues.containsKey(lineEntry.getProjectWorkTypeCombo().getWorkType().toString())){
+                                Integer existingHourTotal = xyValues.get(lineEntry.getProjectWorkTypeCombo().getWorkType().toString());
+                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
+                                xyValues.put(lineEntry.getProjectWorkTypeCombo().getWorkType().toString(), newHourTotal);
+                            }else{
+                                xyValues.put(lineEntry.getProjectWorkTypeCombo().getWorkType().toString(), lineEntry.getTotalHours());
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         model.addAttribute("xyValues", xyValues);
