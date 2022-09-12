@@ -7,7 +7,6 @@ import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -140,13 +139,12 @@ public class Metrics {
             List<Project>  projects = (List<Project>) projectRepository.findAll();
             for (Project project:
                     projects) {
-                Project project1 = project;
-                Integer totalHoursForProject1 = 0;
+                Integer totalHoursForProject = 0;
                 for (Timesheet timesheet:
                         timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    totalHoursForProject1 += timesheet.getTotalHoursByProject(project1);
+                    totalHoursForProject += timesheet.getTotalHoursByProject(project);
                 }
-                xyValues.put(project.getProjectName(), totalHoursForProject1);
+                xyValues.put(project.getProjectName(), totalHoursForProject);
             }
         }
         if (this.primaryCategory.equals("WorkType")){
@@ -186,12 +184,9 @@ public class Metrics {
         String chartTitle = "Chart Title";
 
         if (this.primaryCategory.equals("Employee")){
-//            model.addAttribute("chartCategory", chartCategory);
-//            model.addAttribute("chartTopic", employee);
-//            model.addAttribute("xValue", xChoice);
             String employee = this.primaryCategorySubject;
             String xChoice = this.secondaryCategory;
-            this.chartTitle = this.primaryCategorySubject + "'s Hours by "+this.secondaryCategory;
+            chartTitle = this.primaryCategorySubject + "'s Hours by "+this.secondaryCategory;
             Employee employee1;
             if (employeeRepository.findByFirstNameLastNameCombo(employee).isPresent()){
                 employee1 = employeeRepository.findByFirstNameLastNameCombo(employee).get();
@@ -223,13 +218,9 @@ public class Metrics {
             }
 
         } else if (this.primaryCategory.equals("Project")){
-//            model.addAttribute("chartCategory", chartCategory);
-//            model.addAttribute("chartTopic", project);
-//            model.addAttribute("xValue", xChoice);
             String project = this.primaryCategorySubject;
             String xChoice = this.secondaryCategory;
-            this.chartTitle = "Hours worked on " + project + " by "+xChoice;
-
+            chartTitle = "Hours worked on " + project + " by "+xChoice;
             Project project1 = projectRepository.findByProjectName(project);
             List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
             if(xChoice.equals("Employee")){
@@ -240,7 +231,6 @@ public class Metrics {
                     for (Timesheet timesheet : employeesTimesheets){
                         totalHoursForX += timesheet.getTotalHoursByProject(project1);
                         xyValues.put(aEmployee.toString(), totalHoursForX);
-                        System.out.println(xyValues);
                     }
                 }
             }
@@ -288,12 +278,10 @@ public class Metrics {
             }
 
         } else if (this.primaryCategory.equals("WorkType")){
-//            model.addAttribute("chartCategory", chartCategory);
-//            model.addAttribute("chartTopic", workType);
-//            model.addAttribute("xValue", xChoice);
+
             String workType = this.primaryCategorySubject;
             String xChoice = this.secondaryCategory;
-            this.chartTitle = "Hours worked in " + workType + ", by "+xChoice;
+            chartTitle = "Hours worked in " + workType + ", by "+xChoice;
             if(xChoice.equals("Employee")){
                 for (Timesheet timesheet:
                         timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
@@ -350,16 +338,13 @@ public class Metrics {
                 }
             }
         } else if (this.primaryCategory.equals("PayRate")){
-//            model.addAttribute("chartCategory", chartCategory);
-//            model.addAttribute("chartTopic", payRate);
-//            model.addAttribute("xValue", xChoice);
             String payRate = this.primaryCategorySubject;
             String xChoice = this.secondaryCategory;
-            this.chartTitle = "Hours worked compensated at $" + payRate + " / per hour by "+xChoice;
+            chartTitle = "Hours worked compensated at $" + payRate + " / per hour by "+xChoice;
             if(xChoice.equals("Employee")){
                 for (Timesheet timesheet:
                         timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    if(payRate.equals(timesheet.getCurrentPayRate())){
+                    if(payRate.equals(timesheet.getCurrentPayRate().toString())){
                         if(xyValues.containsKey(timesheet.getEmployee().toString())){
                             Integer existingHourTotal = xyValues.get(timesheet.getEmployee().toString());
                             Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
@@ -375,7 +360,7 @@ public class Metrics {
                         timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
                     for (LineEntry lineEntry:
                             timesheet.getLineEntries()) {
-                        if(payRate.equals(timesheet.getCurrentPayRate())){
+                        if(payRate.equals(timesheet.getCurrentPayRate().toString())){
                             if(xyValues.containsKey(lineEntry.getProjectWorkTypeCombo().getProject().toString())){
                                 Integer existingHourTotal = xyValues.get(lineEntry.getProjectWorkTypeCombo().getProject().toString());
                                 Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
@@ -392,7 +377,7 @@ public class Metrics {
                         timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
                     for (LineEntry lineEntry:
                             timesheet.getLineEntries()) {
-                        if(payRate.equals(timesheet.getCurrentPayRate())){
+                        if(payRate.equals(timesheet.getCurrentPayRate().toString())){
                             if(xyValues.containsKey(lineEntry.getProjectWorkTypeCombo().getWorkType().toString())){
                                 Integer existingHourTotal = xyValues.get(lineEntry.getProjectWorkTypeCombo().getWorkType().toString());
                                 Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
@@ -405,5 +390,8 @@ public class Metrics {
                 }
             }
         }
+
+        this.chartTitle = chartTitle;
+        this.xyValues = xyValues;
     }
 }
