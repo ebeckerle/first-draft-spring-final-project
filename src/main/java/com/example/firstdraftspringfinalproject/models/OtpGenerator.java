@@ -7,24 +7,6 @@ public class OtpGenerator {
 
     private String otp;
 
-//    public static void main(String[] args){
-//        System.out.println(OtpGenerator.generateOtp(7));
-//
-//        System.out.println(generateOtpAlphaNumeric(5));
-//    }
-
-//    public static String generateOtp (Integer OtpLength){
-//        SplittableRandom splittableRandom = new SplittableRandom();
-//
-//        StringBuilder sb = new StringBuilder();
-//
-//        for (int i = 0; i < OtpLength ; i++){
-//            sb.append(splittableRandom.nextInt(0,10));
-//        }
-//
-//        return  sb.toString();
-//    }
-
     public void setOtp(int length){
         String Capital_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String Small_chars = "abcdefghijklmnopqrstuvwxyz";

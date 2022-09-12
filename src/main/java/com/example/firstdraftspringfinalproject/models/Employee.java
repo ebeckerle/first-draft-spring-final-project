@@ -18,10 +18,7 @@ public class Employee {
     @GeneratedValue
     private Integer employeeId;
 
-//    @NotBlank(message = "Employee must have a first name.")
     private String firstName;
-
-//    @NotBlank(message = "Employee must have a last name.")
     private String lastName;
     private String firstNameLastNameCombo;
     private String title;
@@ -47,18 +44,6 @@ public class Employee {
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    // Pay Rate?, eligible for benefits, remaining time off
-
-//    public Employee (String firstName, String lastName, String title, Boolean supervisorAccess, Integer payRate, GregorianCalendar firstDateOfWork, Integer paidTimeOff, String oneTimePassword) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.title = title;
-//        this.supervisorAccess = supervisorAccess;
-//        this.payRate = payRate;
-//        this.firstDateOfWork = firstDateOfWork;
-//        this.paidTimeOff = paidTimeOff;
-//        this.pwHash = encoder.encode(oneTimePassword);
-//    }
     public Employee (String firstName, String lastName, String title, Integer payRate, Integer paidTimeOff, String oneTimePassword) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -68,13 +53,6 @@ public class Employee {
         this.paidTimeOff = paidTimeOff;
         this.pwHash = encoder.encode(oneTimePassword);
     }
-//
-//    public Employee (String firstName, String lastName, String username, String password) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.username = username;
-//        this.pwHash = encoder.encode(password);
-//    }
 
     public Employee (String username, String password) {
         this.username = username;

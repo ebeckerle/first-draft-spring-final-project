@@ -14,11 +14,9 @@ public class ProjectWorkTypeSet {
     @GeneratedValue
     private Integer id;
 
-//    @NotNull
     @OneToOne
     private Project project;
 
-//    @NotNull
     @OneToOne
     private WorkType workType;
 

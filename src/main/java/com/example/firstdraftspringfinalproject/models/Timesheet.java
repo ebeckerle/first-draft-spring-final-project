@@ -22,11 +22,9 @@ public class Timesheet {
     private Boolean completionStatus;
     private Boolean supervisorApproval;
 
-//    @NotBlank(message = "There are no hours listed on your timesheet, you must add a line entry to submit a timesheet")
     @OneToMany(mappedBy = "timesheet", cascade = CascadeType.ALL)
     private List<LineEntry> lineEntries = new ArrayList<>();
 
-//    @Min(0) @Max(24)
     private Integer totalMondayHours;
     private Integer totalTuesdayHours;
     private Integer totalWednesdayHours;
@@ -362,9 +360,6 @@ public class Timesheet {
         }
         return totalHoursForWorkType;
     }
-
-//    TODO - write a method that will total all of Day of week's hours for all line entries in timesheet
-
 
 
 }

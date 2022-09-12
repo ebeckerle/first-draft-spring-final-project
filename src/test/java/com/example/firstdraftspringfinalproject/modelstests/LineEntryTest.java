@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject;
+package com.example.firstdraftspringfinalproject.modelstests;
 
 import com.example.firstdraftspringfinalproject.models.LineEntry;
 import com.example.firstdraftspringfinalproject.models.Project;

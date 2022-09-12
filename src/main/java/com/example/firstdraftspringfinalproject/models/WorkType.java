@@ -55,21 +55,6 @@ public class WorkType {
         return String.valueOf(getWorkTypeId());
     }
 
-//    public boolean equalsWorkTypes(WorkType aWorkType){
-//        if (aWorkType ==this){
-//            return true;
-//        }
-//        if (aWorkType ==null){
-//            return false;
-//        }
-//        if (aWorkType.getClass() != getClass()){
-//            return false;
-//        }
-//        WorkType theWorkType = (WorkType) aWorkType;
-//        return theWorkType.getWorkTypeId() == getWorkTypeId();
-//    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -22,11 +22,10 @@ public class Project {
     @Size(max=100, message = "Please provide a name for the project in less than 100 characters")
     private String projectName;
 
-    // Other fields we may want in the future:
-    // hoursQuoted, hoursBilled, contactInfo, etc.
-    // number of shipments upcoming
-    //shipment goal dates
-    //actual shipment dates
+    // TODO : Other fields we may want in the future:
+    //  hoursQuoted, hoursBilled, contactInfo, etc;
+    //  number of shipments upcoming;
+    //  shipment goal dates; actual shipment dates
 
     public Project (String projectCode, String projectName){
         this.projectCode = projectCode;
