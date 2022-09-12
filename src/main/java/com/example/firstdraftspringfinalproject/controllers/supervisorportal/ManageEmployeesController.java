@@ -8,6 +8,7 @@ import com.example.firstdraftspringfinalproject.models.Timesheet;
 import com.example.firstdraftspringfinalproject.models.dto.CreateEmployeeDTO;
 import com.example.firstdraftspringfinalproject.models.dto.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -18,9 +19,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.GregorianCalendar;
-import java.util.Map;
-import java.util.Optional;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.*;
 
 @Controller
 @RequestMapping("supervisor/manageemployees")
@@ -67,6 +68,7 @@ public class ManageEmployeesController {
 
     @PostMapping("newemployee")
     public RedirectView processAddNewEmployeeForm(@ModelAttribute @Valid CreateEmployeeDTO createEmployeeDTO,
+                                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
                                                   Errors errors, Model model,
                                                   RedirectAttributes redirectAttributes){
         if (errors.hasErrors()){
@@ -79,14 +81,19 @@ public class ManageEmployeesController {
         String oneTimePassword = otpGenerator.getOtp();
         createEmployeeDTO.setOneTimePassword(oneTimePassword);
 
+        //convert Date to a new GregorianCalendar date
+        int dayOfMonth = startDate.getDate();
+        int monthValue = startDate.getMonth();
+        int year = startDate.getYear();
+        GregorianCalendar startDateGC = new GregorianCalendar(year+1900, monthValue, dayOfMonth+1);
+
         Employee newEmployee = new Employee(createEmployeeDTO.getFirstName(),
                 createEmployeeDTO.getLastName(),
                 createEmployeeDTO.getTitle(),
                 createEmployeeDTO.getPayRate(),
                 createEmployeeDTO.getPaidTimeOff(),
                 createEmployeeDTO.getOneTimePassword());
-        System.out.println(createEmployeeDTO.getFirstName());
-        System.out.println(createEmployeeDTO.getOneTimePassword());
+        newEmployee.setFirstDateOfWork(startDateGC);
         employeeRepository.save(newEmployee);
 
         redirectAttributes.addFlashAttribute("employeeFirstName", createEmployeeDTO.getFirstName());
