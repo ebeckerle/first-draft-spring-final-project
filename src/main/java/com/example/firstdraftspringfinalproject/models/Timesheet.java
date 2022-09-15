@@ -8,7 +8,6 @@ import java.util.*;
 @Entity
 public class Timesheet {
 
-
     @ManyToOne
     private Employee employee;
 

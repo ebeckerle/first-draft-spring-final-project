@@ -28,10 +28,6 @@
             <select name="chartCategory" onchange="viewSubOptions()">
                 <option value="" disabled selected id="noSelection"></option>
                 <option th:each="chartCategory : ${chartCategories}" th:value="${chartCategory}" th:text="${chartCategory}" th:id="${chartCategory}"></option>
-<!--                <option id="employee" value="Employee">Employee</option>-->
-<!--                <option id="project" value="Project">Project</option>-->
-<!--                <option id="workType" value="Work Type">Work Type</option>-->
-<!--                <option id="payRate" value="Pay Rate">Pay Rate</option>-->
             </select>
         </label>
 

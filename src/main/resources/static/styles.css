@@ -92,7 +92,7 @@ ul li {
     /*margin: 2px 4px 2px 4px;*/
 }
 
-.btn-style button {
+.btn-style {
     border: none;
     background-color: #939799;
     color: white;
@@ -100,15 +100,16 @@ ul li {
     border-radius: 4px;
 }
 
-.btn-style button a {
+
+.btn-style a {
     color: white;
 }
 
-.btn-style button a:hover {
+.btn-style a:hover {
     color: white;
 }
 
-.btn-style button:hover {
+.btn-style:hover {
     border: none;
     background-color: #2243b6;
     color: white;
@@ -116,7 +117,7 @@ ul li {
     border-radius: 4px;
 }
 
-.btn-style button:active {
+.btn-style:active {
     border: none;
     background-color: #2243b6;
     color: white;

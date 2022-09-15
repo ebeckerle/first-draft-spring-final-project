@@ -40,13 +40,7 @@ public class MetricsController {
         xValueChoices.add("WorkType");
         xValueChoices.add("PayRate");
         model.addAttribute("xValueChoices", xValueChoices);
-
-        List<String> chartCategories = new ArrayList<>();
-        chartCategories.add("Employee");
-        chartCategories.add("Project");
-        chartCategories.add("WorkType");
-        chartCategories.add("PayRate");
-        model.addAttribute("chartCategories", chartCategories);
+        model.addAttribute("chartCategories", xValueChoices);
 
         model.addAttribute("employees", employeeRepository.findAll());
         model.addAttribute("projects", projectRepository.findAll());

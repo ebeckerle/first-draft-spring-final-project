@@ -11,7 +11,7 @@
 
 <div class="main-contents">
 
-    <div th:if="${successSubmit}">
+    <div th:if="${successSubmit}" class="success-submit">
         <p th:text="${'You have successfully created an Employee Profile for '+ employeeFirstName+'. '+ employeeFirstName
     +'''s first time passcode is : '+ employeeFirstTimePassword}"></p>
         <p>Please give the employee their first time passcode and tell them to use it register a unique username and password.</p>

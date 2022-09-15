@@ -15,6 +15,7 @@
 
 
   <h2 th:text="${chartTopic}"></h2>
+  <h2 th:text="${chartTitle}"></h2>
 
 
   <hr>
@@ -29,8 +30,10 @@
 
 
 
-  <button onclick="viewBarGraph()">click to view bar graph</button>
+  <button onclick="viewBarGraph()" class="btn-style">click to view bar graph</button>
 <!--  <button onclick="viewScatterPlotGraph()">click to view scatter plot graph</button>-->
+  <button onclick="viewPieGraph()" class="btn-style">click to view pie chart</button>
+  <button onclick="viewPolarAreaGraph()" class="btn-style">click to view polar area chart</button>
 
   <p id="chart" th:xyValues="${xyValues}"></p>
   <p id="chartTitle" th:chartTitle="${chartTitle}"></p>
