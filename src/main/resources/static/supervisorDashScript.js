@@ -1,7 +1,5 @@
 //runFunction();
 function runFunction(){
-    console.log("fox");
-
     let project1 = document.getElementById("1");
     project1.style.backgroundColor = "#245761";
     let project2 = document.getElementById("2");
@@ -10,9 +8,6 @@ function runFunction(){
     project3.style.backgroundColor = "#52C8E0";
     let project4 = document.getElementById("4");
     project4.style.backgroundColor = "#4AB2C7";
-
-    console.log("hey yo!");
-
 }
 
 window.addEventListener('load', function(){
