@@ -17,8 +17,6 @@
 
     <div class="body">
 
-<!--        <h1 id='trial'>&#8203;Trial</h1>-->
-<!--        <h1 id='trial'>Trial</h1>-->
 
         <div class="employee-dash">
             <p>employee</p>
@@ -30,8 +28,12 @@
         <div class="right-col">
             <div class="project-dash">
                 <p>project</p>
-                        <ol th:each="project : ${projects}">
-                            <li id='project'><a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a></li>
+                        <ol th:each="project,iterStat : ${projects}">
+                            <li th:id="${iterStat.count}">
+                                <a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a>
+<!--                                <p th:text="${projects[iterStat.index]}"></p>-->
+<!--                                <p th:text="${iterStat.count}"></p>-->
+                            </li>
                         </ol>
             </div>
             <div class="shipment-dash">
