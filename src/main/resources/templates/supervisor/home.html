@@ -17,6 +17,9 @@
 
     <div class="body">
 
+<!--        <h1 id='trial'>&#8203;Trial</h1>-->
+<!--        <h1 id='trial'>Trial</h1>-->
+
         <div class="employee-dash">
             <p>employee</p>
             <div th:if="${timesheetsForApproval}">
@@ -28,7 +31,7 @@
             <div class="project-dash">
                 <p>project</p>
                         <ol th:each="project : ${projects}">
-                            <li><a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a></li>
+                            <li id='project'><a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a></li>
                         </ol>
             </div>
             <div class="shipment-dash">
