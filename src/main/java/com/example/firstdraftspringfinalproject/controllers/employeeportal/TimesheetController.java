@@ -113,7 +113,7 @@ public class TimesheetController {
     }
 
 
-    @PostMapping("createlineentry")
+    @PostMapping("/createlineentry")
     public String processCreateLineEntryForm(@RequestParam Integer employeeId,
                                              @RequestParam String project,
                                              @RequestParam String workType,
