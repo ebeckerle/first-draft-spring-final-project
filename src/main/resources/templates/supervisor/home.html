@@ -21,7 +21,12 @@
         <div class="employee-dash">
             <p>employee</p>
             <div th:if="${timesheetsForApproval}">
-                <p>There are <a th:href="@{/supervisor/manageemployees/timesheets}" th:text="${timesheetsForApproval+' timesheets'}"></a> awaiting approval.</p>
+                <span>
+                    There are <form method="post" th:action="@{/supervisor/manageemployees/timesheets/results}" style="display: inline;">
+                    <input type="hidden" name="searchType" value="approval">
+                    <button class="btn-style" th:text="${timesheetsForApproval+' timesheets'}"></button>
+                    </form> awaiting approval.
+                </span>
             </div>
         </div>
 
@@ -31,8 +36,6 @@
                         <ol th:each="project,iterStat : ${projects}">
                             <li th:id="${iterStat.count}">
                                 <a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a>
-<!--                                <p th:text="${projects[iterStat.index]}"></p>-->
-<!--                                <p th:text="${iterStat.count}"></p>-->
                             </li>
                         </ol>
             </div>
@@ -44,36 +47,6 @@
     </div>
 
 
-
-
-
-
-
-<!--    <h1>Upcoming</h1>-->
-<!--    <ol>-->
-<!--        <li><a href="/supervisor/manageprojects">Add a Project</a></li>-->
-<!--        <li><a href="/supervisor/manageemployeeprofiles">Manage Employees</a></li>-->
-<!--        <li><a>Manage Incoming Shipments</a></li>-->
-<!--        <li><a>Current Bids/RFPs</a></li>-->
-<!--    </ol>-->
-
-
-<!--    <h1>Current</h1>-->
-<!--    <ol>-->
-<!--        <li><a>Approve Timesheets</a></li>-->
-<!--        <li><a>Manage Incoming Shipments</a></li>-->
-<!--        <li><a>Current Bids/RFPs</a></li>-->
-<!--    </ol>-->
-<!--    <ol th:each="project : ${projects}">-->
-<!--        <li><a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a></li>-->
-<!--    </ol>-->
-
-<!--    <h1>Outgoing</h1>-->
-<!--    <ol>-->
-<!--        <li><a href="/supervisor/manageprojects">Retire a Project</a></li>-->
-<!--        <li><a>View Metrics</a></li>-->
-<!--        <li><a>Review a Retired Project</a></li>-->
-<!--    </ol>-->
 
 </div>
 

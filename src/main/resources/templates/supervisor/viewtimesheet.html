@@ -177,7 +177,8 @@
 
         <form th:action="@{/supervisor/manageemployees/timesheets/approve}" method="post">
             <input type="hidden" th:value="${timesheet.id}" name="timesheetId">
-            <input type="submit" value="Approve">
+
+            <button class="btn-style">Approve</button>
         </form>
 
     </div>

@@ -84,37 +84,6 @@ function viewScatterPlotGraph(){
                  });
 
 
-// CODE TO CONVERT A HASH MAP TO CREATE AN OBJECT FOR A SCATTER PLOT
-//        let xyValues = [];
-//         for(let valueSet in chartData){
-//            let xy = chartData[valueSet].replace("{","").replace("}", "");
-//            let xyArray = xy.split("=");
-//            let xValue = xyArray[0];
-//            console.log(xValue);
-//            let yValue = xyArray[1];
-//            console.log(yValue);
-//            let xyPair = {x:xValue, y:yValue};
-//            xyValues.push(xyPair);
-//         }
-
-//        new Chart("myChart", {
-//          type: "scatter",
-//          data: {
-//            datasets: [{
-//              pointRadius: 4,
-//              pointBackgroundColor: "rgb(0,0,255)",
-//              data: xyValues
-//            }]
-//          },
-//          options: {
-//            legend: {display: false},
-//            scales: {
-//              xAxes: [{ticks: {min: 40, max:160}}],
-//              yAxes: [{ticks: {min: 6, max:16}}],
-//            }
-//          }
-//        });
-
 }
 
 function viewPieGraph(){
@@ -231,3 +200,8 @@ function viewSubOptions(){
         }
 
 }
+
+window.addEventListener('load', function(){
+    console.log("inside window event listener, on load");
+    viewBarGraph();
+});

@@ -28,7 +28,12 @@
     <hr>
 
     <div th:if="${timesheetsForApproval}">
-        <p>There are <a th:href="@{/supervisor/manageemployees/timesheets}" th:text="${timesheetsForApproval+' timesheets'}"></a> awaiting approval.</p>
+        <span>
+            There are <form method="post" th:action="@{/supervisor/manageemployees/timesheets/results}" style="display: inline;">
+            <input type="hidden" name="searchType" value="approval">
+            <button class="btn-style" th:text="${timesheetsForApproval+' timesheets'}"></button>
+            </form> awaiting approval.
+        </span>
     </div>
 
     <hr>
