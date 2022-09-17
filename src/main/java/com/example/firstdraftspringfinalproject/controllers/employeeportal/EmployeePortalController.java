@@ -114,7 +114,7 @@ public class EmployeePortalController {
 
 
     //lives at /employee, but renders employee>timesheet
-    @PostMapping
+    @PostMapping("/timesheet")
     public String createNewTimesheet(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate todaysDate, @RequestParam Integer employeeId, Model model){
 
 
@@ -138,7 +138,7 @@ public class EmployeePortalController {
 
 
             //display the Dates for this Timesheet
-            String startDate = newTimesheet.formatDates(newTimesheet.getStartDate());
+            String startDate = Timesheet.formatDates(newTimesheet.getStartDate());
             String dueDate = newTimesheet.formatDates(newTimesheet.getDueDate());
             String payDay = newTimesheet.formatDates(newTimesheet.getPayDay());
             LocalDate currentDate = LocalDate.now();

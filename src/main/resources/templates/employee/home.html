@@ -18,7 +18,7 @@
     <div th:unless="${thisWeekTimesheetSubmissionMessage}">
         <div th:unless="${successSubmit}">
             <div th:if="${completionStatus}">
-                <form method="post">
+                <form method="post" th:action="@{/employee/timesheet}">
                     <input type="hidden" name="employeeId" th:value="${employeeId}">
                     <input type="hidden" name="todaysDate" th:value="${todaysDate}">
                     <div>
