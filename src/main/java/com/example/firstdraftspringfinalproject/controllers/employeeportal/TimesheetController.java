@@ -87,48 +87,14 @@ public class TimesheetController {
         model.addAttribute("title", "Current Timesheet");
         model.addAttribute("currentTimesheet", currentTimesheet);
 
-                //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
+        //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
         model.addAttribute("projects", projectRepository.findAll());
         model.addAttribute("workTypes", workTypeRepository.findAll());
-
         model.addAttribute("daysOfWeek", DaysOfWeek.values());
-
-        //PROBABLY ALL REPEATS - DELETE SOON
-//        LocalDate currentDate = LocalDate.now();
-//        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
-//        model.addAttribute("today", today);
-//
-//        model.addAttribute("title", "Add hours to your Timesheet");
-//
-//        HttpSession session = request.getSession();
-//        Integer employeeId = (Integer) session.getAttribute("user");
-
         model.addAttribute("employeeId", employeeId);
 
         return "employee/timesheet";
     }
-
-//    @GetMapping("/createlineentry")
-//    public String displayCreateLineEntryForm(HttpServletRequest request, Model model){
-//
-//        //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
-//        model.addAttribute("projects", projectRepository.findAll());
-//        model.addAttribute("workTypes", workTypeRepository.findAll());
-//
-//        model.addAttribute("daysOfWeek", DaysOfWeek.values());
-//
-//        LocalDate currentDate = LocalDate.now();
-//        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
-//        model.addAttribute("today", today);
-//
-//        model.addAttribute("title", "Add hours to your Timesheet");
-//
-//        HttpSession session = request.getSession();
-//        Integer employeeId = (Integer) session.getAttribute("user");
-//        model.addAttribute("employeeId", employeeId);
-//
-//        return "employee/createlineentry";
-//    }
 
 
     @PostMapping("/createlineentry")
@@ -185,16 +151,6 @@ public class TimesheetController {
         currentTimesheet.getLineEntries().add(newEntry);
 
         timesheetRepository.save(currentTimesheet);
-
-//        model.addAttribute("title", "Create A Line Entry");
-        //Populate the Timesheet
-        // find the correct employee for the session
-//        HttpSession session = request.getSession();
-//        Integer employeeId = (Integer) session.getAttribute("user");
-
-        // find the current timesheet for correct employee
-//        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
-//        Timesheet currentTimesheet = timesheets.get(0);
 
         //display the Dates for this Timesheet
         String startDate = Timesheet.formatDates(currentTimesheet.getStartDate());
@@ -333,50 +289,5 @@ public class TimesheetController {
         return "redirect:/employee/timesheet";
     }
 
-//    @PostMapping
-//    public RedirectView processSubmitTimesheet(@RequestParam Integer currentTimesheetId,
-//                                               @RequestParam Integer mondayTotal,
-//                                               @RequestParam Integer tuesdayTotal,
-//                                               @RequestParam Integer wednesdayTotal,
-//                                               @RequestParam Integer thursdayTotal,
-//                                               @RequestParam Integer fridayTotal,
-//                                               @RequestParam Integer saturdayTotal,
-//                                               @RequestParam Integer totalHours,
-//                                               HttpServletRequest request,
-//                                               RedirectAttributes redirectAttributes, Model model){
-//        //grab the current timesheet
-//        Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
-//        //set the total of monday's hours, tuesdays hours, etc
-//        currentTimesheet.setTotalMondayHours(mondayTotal);
-//        currentTimesheet.setTotalTuesdayHours(tuesdayTotal);
-//        currentTimesheet.setTotalWednesdayHours(wednesdayTotal);
-//        currentTimesheet.setTotalThursdayHours(thursdayTotal);
-//        currentTimesheet.setTotalFridayHours(fridayTotal);
-//        currentTimesheet.setTotalSaturdayHours(saturdayTotal);
-//        currentTimesheet.setCurrentPayRate();
-//        //set the total hours
-//        currentTimesheet.setTotalHours(totalHours);
-//        //set the completion Status to true
-//        currentTimesheet.setCompletionStatus(true);
-//        // set the current payrate
-//        currentTimesheet.setCurrentPayRate();
-//        //save the current timesheet
-//        timesheetRepository.save(currentTimesheet);
-//        //set the employee's current timesheet completion status to true
-//        HttpSession session = request.getSession();
-//        Integer employeeId = (Integer) session.getAttribute("user");
-//        Employee loggedInEmployee = employeeRepository.findById(employeeId).get();
-//        loggedInEmployee.setCurrentTimesheetCompletionStatus(true);
-//        //save the employee
-//        employeeRepository.save(loggedInEmployee);
-//
-//        redirectAttributes.addFlashAttribute("timesheetStartDate", currentTimesheet.getStartDate());
-//        redirectAttributes.addFlashAttribute("timesheetTotalHours", currentTimesheet.getTotalHours());
-//        redirectAttributes.addFlashAttribute("timesheetPayDay", currentTimesheet.getPayDay());
-//
-//        model.addAttribute("title", "Success!");
-//
-//        return new RedirectView("/employee/successSubmit", true);
-//    }
 
 }

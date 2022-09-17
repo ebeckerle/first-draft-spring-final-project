@@ -154,7 +154,7 @@ public class EmployeePortalController {
         return "employee/timesheet";
     }
 
-
+    //form submit lives at employee/timesheet url (or employee/timesheet/createnewlineentry url), renders at employee/successSubmit url
     @PostMapping("/successSubmit")
     public RedirectView processSubmitTimesheet(@RequestParam Integer currentTimesheetId,
                                                @RequestParam Integer mondayTotal,
