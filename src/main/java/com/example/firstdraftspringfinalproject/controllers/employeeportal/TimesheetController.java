@@ -87,30 +87,48 @@ public class TimesheetController {
         model.addAttribute("title", "Current Timesheet");
         model.addAttribute("currentTimesheet", currentTimesheet);
 
-        return "employee/timesheet";
-    }
-
-    @GetMapping("/createlineentry")
-    public String displayCreateLineEntryForm(HttpServletRequest request, Model model){
-
-        //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
+                //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
         model.addAttribute("projects", projectRepository.findAll());
         model.addAttribute("workTypes", workTypeRepository.findAll());
 
         model.addAttribute("daysOfWeek", DaysOfWeek.values());
 
-        LocalDate currentDate = LocalDate.now();
-        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
-        model.addAttribute("today", today);
+        //PROBABLY ALL REPEATS - DELETE SOON
+//        LocalDate currentDate = LocalDate.now();
+//        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
+//        model.addAttribute("today", today);
+//
+//        model.addAttribute("title", "Add hours to your Timesheet");
+//
+//        HttpSession session = request.getSession();
+//        Integer employeeId = (Integer) session.getAttribute("user");
 
-        model.addAttribute("title", "Add hours to your Timesheet");
-
-        HttpSession session = request.getSession();
-        Integer employeeId = (Integer) session.getAttribute("user");
         model.addAttribute("employeeId", employeeId);
 
-        return "employee/createlineentry";
+        return "employee/timesheet";
     }
+
+//    @GetMapping("/createlineentry")
+//    public String displayCreateLineEntryForm(HttpServletRequest request, Model model){
+//
+//        //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
+//        model.addAttribute("projects", projectRepository.findAll());
+//        model.addAttribute("workTypes", workTypeRepository.findAll());
+//
+//        model.addAttribute("daysOfWeek", DaysOfWeek.values());
+//
+//        LocalDate currentDate = LocalDate.now();
+//        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
+//        model.addAttribute("today", today);
+//
+//        model.addAttribute("title", "Add hours to your Timesheet");
+//
+//        HttpSession session = request.getSession();
+//        Integer employeeId = (Integer) session.getAttribute("user");
+//        model.addAttribute("employeeId", employeeId);
+//
+//        return "employee/createlineentry";
+//    }
 
 
     @PostMapping("/createlineentry")
@@ -118,7 +136,8 @@ public class TimesheetController {
                                              @RequestParam String project,
                                              @RequestParam String workType,
                                              @RequestParam String daysOfWeek,
-                                             @RequestParam Integer hours, Model model){
+                                             @RequestParam Integer hours,
+                                             HttpServletRequest request, Model model){
 
         //find the current timesheet
         ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
@@ -167,9 +186,57 @@ public class TimesheetController {
 
         timesheetRepository.save(currentTimesheet);
 
-        model.addAttribute("title", "Create A Line Entry");
+//        model.addAttribute("title", "Create A Line Entry");
+        //Populate the Timesheet
+        // find the correct employee for the session
+//        HttpSession session = request.getSession();
+//        Integer employeeId = (Integer) session.getAttribute("user");
 
-        return "redirect:";
+        // find the current timesheet for correct employee
+//        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+//        Timesheet currentTimesheet = timesheets.get(0);
+
+        //display the Dates for this Timesheet
+        String startDate = Timesheet.formatDates(currentTimesheet.getStartDate());
+        String dueDate = Timesheet.formatDates(currentTimesheet.getDueDate());
+        String payDay = Timesheet.formatDates(currentTimesheet.getPayDay());
+        LocalDate currentDate = LocalDate.now();
+        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
+        model.addAttribute("today", today);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("dueDate", dueDate);
+        model.addAttribute("payDay", payDay);
+
+        //DISPLAY the necessary attributes for the timesheet table (the second table)
+        model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
+
+        //We need total hours worked on each individual day of the week and display them in the last row of the table
+        Integer mondayTotal = currentTimesheet.totalDayOfWeekHours("Monday");
+        Integer tuesdayTotal = currentTimesheet.totalDayOfWeekHours("Tuesday");
+        Integer wednesdayTotal = currentTimesheet.totalDayOfWeekHours("Wednesday");
+        Integer thursdayTotal = currentTimesheet.totalDayOfWeekHours("Thursday");
+        Integer fridayTotal = currentTimesheet.totalDayOfWeekHours("Friday");
+        Integer saturdayTotal = currentTimesheet.totalDayOfWeekHours("Saturday");
+        model.addAttribute("mondayTotal", mondayTotal);
+        model.addAttribute("tuesdayTotal", tuesdayTotal);
+        model.addAttribute("wednesdayTotal", wednesdayTotal);
+        model.addAttribute("thursdayTotal", thursdayTotal);
+        model.addAttribute("fridayTotal", fridayTotal);
+        model.addAttribute("saturdayTotal", saturdayTotal);
+
+        model.addAttribute("totalHoursForTheWeek", mondayTotal + tuesdayTotal + wednesdayTotal + thursdayTotal + fridayTotal + saturdayTotal);
+
+        model.addAttribute("title", "Current Timesheet");
+        model.addAttribute("currentTimesheet", currentTimesheet);
+
+        //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
+        model.addAttribute("projects", projectRepository.findAll());
+        model.addAttribute("workTypes", workTypeRepository.findAll());
+
+        model.addAttribute("daysOfWeek", DaysOfWeek.values());
+        model.addAttribute("employeeId", employeeId);
+
+        return "employee/timesheet";
     }
 
 

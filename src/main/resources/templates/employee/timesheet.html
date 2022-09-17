@@ -19,10 +19,44 @@
         </ul>
     </div>
 
-    <div class="line-entry-link">
-        <a href="/employee/timesheet/createlineentry">Add hours to your timesheet</a>
-<!--        <button href="/employee/timesheet/createlineentry">Add hours to your timesheet</button>-->
-    </div>
+    <table>
+        <form method="post" th:action="@{/employee/timesheet/createlineentry}">
+            <tr>
+                <th></th>
+                <th></th>
+                <th>
+                    <select name="daysOfWeek">
+                        <option th:each="day : ${daysOfWeek}" th:value="${day}" th:text="${day}">default day of the week</option>
+                    </select>
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+
+                <td>
+                    <select name="project">
+                        <option value="" disabled selected>Project</option>
+                        <option th:each="project : ${projects}" th:value="${project}" th:text="${project.toString()}">default project</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="workType">
+                        <option value="" disabled selected>Work Type</option>
+                        <option th:each="workType : ${workTypes}" th:value="${workType}" th:text="${workType.toString()}">default work type</option>
+                    </select>
+                </td>
+                <td><input type="number" min="0" max="24" placeholder="hours" name="hours"></td>
+                <input type="hidden" name="employeeId" th:value="${employeeId}">
+                <td><input type="submit" value="save" onclick="runFormValidation()"></td>
+            </tr>
+        </form>
+
+    </table>
+
+<!--    <div class="line-entry-link">-->
+<!--        <a href="/employee/timesheet/createlineentry">Add hours to your timesheet</a>-->
+<!--&lt;!&ndash;        <button href="/employee/timesheet/createlineentry">Add hours to your timesheet</button>&ndash;&gt;-->
+<!--    </div>-->
 
 
     <table class="timesheet">
@@ -192,7 +226,7 @@
         <p th:text="${totalHoursForTheWeek}">default total Hours</p>
     </div>
     <div class="line-entry-link" th:if="${totalHoursForTheWeek>0 and mondayTotal<18 and tuesdayTotal<18 and wednesdayTotal<18 and thursdayTotal<18 and fridayTotal<18 and saturdayTotal<18}">
-        <form method="post">
+        <form method="post" th:action="@{/employee/successSubmit}">
             <input type="hidden" name="currentTimesheetId" th:value="${currentTimesheet.getId()}">
             <input type="hidden" name="mondayTotal" th:value="${mondayTotal}">
             <input type="hidden" name="tuesdayTotal" th:value="${tuesdayTotal}">
