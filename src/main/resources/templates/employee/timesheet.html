@@ -47,16 +47,15 @@
                 </td>
                 <td><input type="number" min="0" max="24" placeholder="hours" name="hours"></td>
                 <input type="hidden" name="employeeId" th:value="${employeeId}">
-                <td><input type="submit" value="save" onclick="runFormValidation()"></td>
+                <td><button class="btn-style">Add Hours</button></td>
             </tr>
         </form>
 
     </table>
 
-<!--    <div class="line-entry-link">-->
-<!--        <a href="/employee/timesheet/createlineentry">Add hours to your timesheet</a>-->
-<!--&lt;!&ndash;        <button href="/employee/timesheet/createlineentry">Add hours to your timesheet</button>&ndash;&gt;-->
-<!--    </div>-->
+    <br>
+    <hr>
+    <br>
 
 
     <table class="timesheet">
@@ -142,13 +141,7 @@
                 <!--            DELETE ENTRY COLUMN-->
                 <td>
                    <a th:href="@{/employee/timesheet/editlineentry(lineEntryId=${lineEntry.getId()})}">edit</a>
-<!--                    <form method="post">-->
-<!--                        <input type="hidden" name="lineEntryId" th:value="${lineEntry.getId()}">-->
-<!--                        <input type="hidden" name="currentTimesheetId" th:value="${currentTimesheet.getId()}">-->
-<!--                        <button type="submit" name="submit">X</button>-->
-<!--                    </form>-->
                 </td>
-<!--                <td th:href="/employee/timesheet/deletelineentry">X</td>-->
             </tr>
         </th:block>
         <!--total row at bottom of table-->
@@ -222,8 +215,7 @@
     </div>
 
     <div>
-        <p>Total Hours for the Week</p>
-        <p th:text="${totalHoursForTheWeek}">default total Hours</p>
+        <p th:text="${'Total Hours for the Week: '+totalHoursForTheWeek}">default total Hours</p>
     </div>
     <div class="line-entry-link" th:if="${totalHoursForTheWeek>0 and mondayTotal<18 and tuesdayTotal<18 and wednesdayTotal<18 and thursdayTotal<18 and fridayTotal<18 and saturdayTotal<18}">
         <form method="post" th:action="@{/employee/successSubmit}">
