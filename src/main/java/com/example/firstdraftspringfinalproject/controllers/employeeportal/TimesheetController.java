@@ -333,50 +333,50 @@ public class TimesheetController {
         return "redirect:/employee/timesheet";
     }
 
-    @PostMapping
-    public RedirectView processSubmitTimesheet(@RequestParam Integer currentTimesheetId,
-                                               @RequestParam Integer mondayTotal,
-                                               @RequestParam Integer tuesdayTotal,
-                                               @RequestParam Integer wednesdayTotal,
-                                               @RequestParam Integer thursdayTotal,
-                                               @RequestParam Integer fridayTotal,
-                                               @RequestParam Integer saturdayTotal,
-                                               @RequestParam Integer totalHours,
-                                               HttpServletRequest request,
-                                               RedirectAttributes redirectAttributes, Model model){
-        //grab the current timesheet
-        Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
-        //set the total of monday's hours, tuesdays hours, etc
-        currentTimesheet.setTotalMondayHours(mondayTotal);
-        currentTimesheet.setTotalTuesdayHours(tuesdayTotal);
-        currentTimesheet.setTotalWednesdayHours(wednesdayTotal);
-        currentTimesheet.setTotalThursdayHours(thursdayTotal);
-        currentTimesheet.setTotalFridayHours(fridayTotal);
-        currentTimesheet.setTotalSaturdayHours(saturdayTotal);
-        currentTimesheet.setCurrentPayRate();
-        //set the total hours
-        currentTimesheet.setTotalHours(totalHours);
-        //set the completion Status to true
-        currentTimesheet.setCompletionStatus(true);
-        // set the current payrate
-        currentTimesheet.setCurrentPayRate();
-        //save the current timesheet
-        timesheetRepository.save(currentTimesheet);
-        //set the employee's current timesheet completion status to true
-        HttpSession session = request.getSession();
-        Integer employeeId = (Integer) session.getAttribute("user");
-        Employee loggedInEmployee = employeeRepository.findById(employeeId).get();
-        loggedInEmployee.setCurrentTimesheetCompletionStatus(true);
-        //save the employee
-        employeeRepository.save(loggedInEmployee);
-
-        redirectAttributes.addFlashAttribute("timesheetStartDate", currentTimesheet.getStartDate());
-        redirectAttributes.addFlashAttribute("timesheetTotalHours", currentTimesheet.getTotalHours());
-        redirectAttributes.addFlashAttribute("timesheetPayDay", currentTimesheet.getPayDay());
-
-        model.addAttribute("title", "Success!");
-
-        return new RedirectView("/employee/successSubmit", true);
-    }
+//    @PostMapping
+//    public RedirectView processSubmitTimesheet(@RequestParam Integer currentTimesheetId,
+//                                               @RequestParam Integer mondayTotal,
+//                                               @RequestParam Integer tuesdayTotal,
+//                                               @RequestParam Integer wednesdayTotal,
+//                                               @RequestParam Integer thursdayTotal,
+//                                               @RequestParam Integer fridayTotal,
+//                                               @RequestParam Integer saturdayTotal,
+//                                               @RequestParam Integer totalHours,
+//                                               HttpServletRequest request,
+//                                               RedirectAttributes redirectAttributes, Model model){
+//        //grab the current timesheet
+//        Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
+//        //set the total of monday's hours, tuesdays hours, etc
+//        currentTimesheet.setTotalMondayHours(mondayTotal);
+//        currentTimesheet.setTotalTuesdayHours(tuesdayTotal);
+//        currentTimesheet.setTotalWednesdayHours(wednesdayTotal);
+//        currentTimesheet.setTotalThursdayHours(thursdayTotal);
+//        currentTimesheet.setTotalFridayHours(fridayTotal);
+//        currentTimesheet.setTotalSaturdayHours(saturdayTotal);
+//        currentTimesheet.setCurrentPayRate();
+//        //set the total hours
+//        currentTimesheet.setTotalHours(totalHours);
+//        //set the completion Status to true
+//        currentTimesheet.setCompletionStatus(true);
+//        // set the current payrate
+//        currentTimesheet.setCurrentPayRate();
+//        //save the current timesheet
+//        timesheetRepository.save(currentTimesheet);
+//        //set the employee's current timesheet completion status to true
+//        HttpSession session = request.getSession();
+//        Integer employeeId = (Integer) session.getAttribute("user");
+//        Employee loggedInEmployee = employeeRepository.findById(employeeId).get();
+//        loggedInEmployee.setCurrentTimesheetCompletionStatus(true);
+//        //save the employee
+//        employeeRepository.save(loggedInEmployee);
+//
+//        redirectAttributes.addFlashAttribute("timesheetStartDate", currentTimesheet.getStartDate());
+//        redirectAttributes.addFlashAttribute("timesheetTotalHours", currentTimesheet.getTotalHours());
+//        redirectAttributes.addFlashAttribute("timesheetPayDay", currentTimesheet.getPayDay());
+//
+//        model.addAttribute("title", "Success!");
+//
+//        return new RedirectView("/employee/successSubmit", true);
+//    }
 
 }
