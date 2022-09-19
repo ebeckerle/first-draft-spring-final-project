@@ -214,7 +214,7 @@
         <p>You cannot work more than 18 hours in a 24 hour time period, please correct your timesheet before submitting.</p>
     </div>
 
-    <div>
+    <div th:if="${totalHoursForTheWeek}">
         <p th:text="${'Total Hours for the Week: '+totalHoursForTheWeek}">default total Hours</p>
     </div>
     <div class="line-entry-link" th:if="${totalHoursForTheWeek>0 and mondayTotal<18 and tuesdayTotal<18 and wednesdayTotal<18 and thursdayTotal<18 and fridayTotal<18 and saturdayTotal<18}">

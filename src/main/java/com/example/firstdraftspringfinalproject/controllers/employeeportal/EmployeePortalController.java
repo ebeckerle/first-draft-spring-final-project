@@ -29,6 +29,12 @@ public class EmployeePortalController {
     @Autowired
     private TimesheetRepository timesheetRepository;
 
+    @Autowired
+    private ProjectRepository projectRepository;
+
+    @Autowired
+    private WorkTypeRepository workTypeRepository;
+
     //lives at /employee, renders employee>home.html
     @GetMapping
     public String displayEmployeeWelcome(HttpServletRequest request, Model model){
@@ -60,11 +66,12 @@ public class EmployeePortalController {
             Optional<Timesheet> thisWeeksTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndStartDate(employeeId, thisWeeksStartDate);
             if(thisWeeksTimesheet.isPresent()){
                 String startDate = Timesheet.formatDates(thisWeeksTimesheet.get().getStartDate());
-
-                if(thisWeeksTimesheet.get().getSupervisorApproval()){
-                    model.addAttribute("thisWeekTimesheet", "Your timesheet for the week of "+startDate+ " has been approved!");
-                }else if (!thisWeeksTimesheet.get().getSupervisorApproval()){
-                    model.addAttribute("thisWeekTimesheet", "Your timesheet for the week of "+startDate+ " is awaiting approval.");
+                if(thisWeeksTimesheet.get().getCompletionStatus()){
+                    if(thisWeeksTimesheet.get().getSupervisorApproval()){
+                        model.addAttribute("thisWeekTimesheet", "Your timesheet for the week of "+startDate+ " has been approved!");
+                    }else if (!thisWeeksTimesheet.get().getSupervisorApproval()){
+                        model.addAttribute("thisWeekTimesheet", "Your timesheet for the week of "+startDate+ " is awaiting approval.");
+                    }
                 }
             }
             //add a model attribute for message about last week's timesheet
@@ -139,8 +146,8 @@ public class EmployeePortalController {
 
             //display the Dates for this Timesheet
             String startDate = Timesheet.formatDates(newTimesheet.getStartDate());
-            String dueDate = newTimesheet.formatDates(newTimesheet.getDueDate());
-            String payDay = newTimesheet.formatDates(newTimesheet.getPayDay());
+            String dueDate = Timesheet.formatDates(newTimesheet.getDueDate());
+            String payDay = Timesheet.formatDates(newTimesheet.getPayDay());
             LocalDate currentDate = LocalDate.now();
             String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
             model.addAttribute("today", today);
@@ -149,6 +156,12 @@ public class EmployeePortalController {
             model.addAttribute("payDay", payDay);
 
             model.addAttribute("title", "Timesheet");
+
+            //display the model attributes for the line entry Table Form (the 1st one)
+            model.addAttribute("projects", projectRepository.findAll());
+            model.addAttribute("workTypes", workTypeRepository.findAll());
+            model.addAttribute("daysOfWeek", DaysOfWeek.values());
+            model.addAttribute("employeeId", employeeId);
         }
 
         return "employee/timesheet";
