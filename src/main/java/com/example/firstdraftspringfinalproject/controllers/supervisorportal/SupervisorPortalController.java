@@ -31,7 +31,7 @@ public class SupervisorPortalController {
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
         if (employeeRepository.findById(employeeId).isPresent()){
-            model.addAttribute("title", employeeRepository.findById(employeeId).get().getFirstName()+"'s Portal");
+//            model.addAttribute("title", employeeRepository.findById(employeeId).get().getFirstName()+"'s Portal");
             model.addAttribute("employeeName", employeeRepository.findById(employeeId).get().getFirstName());
         }
 
@@ -43,6 +43,8 @@ public class SupervisorPortalController {
         String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
         model.addAttribute("today", today);
         model.addAttribute("projects", projectRepository.findAll());
+
+        model.addAttribute("title", "Supervisor Portal");
 
         return "supervisor/home";
     }

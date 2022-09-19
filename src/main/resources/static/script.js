@@ -1,9 +1,12 @@
-function runDemo(){
-
-    let chartDataElement = document.querySelector("#chart");
-         let chartData = chartDataElement.getAttribute("xyValues").split(",");
-
-}
+window.addEventListener('load', function(){
+    console.log("inside window event listener, on load");
+    if(document.title == "Supervisor Portal") {
+        console.log("Title is Supervisor Portal")
+        runFunction();
+    }else{
+        console.log("not here")
+    }
+});
 
 
 //function runFormValidation(){

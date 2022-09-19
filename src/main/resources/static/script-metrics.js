@@ -201,7 +201,7 @@ function viewSubOptions(){
 
 }
 
-window.addEventListener('load', function(){
-    console.log("inside window event listener, on load");
-    viewBarGraph();
-});
+//window.addEventListener('load', function(){
+//    console.log("inside window event listener, on load");
+//    viewBarGraph();
+//});

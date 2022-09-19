@@ -10,7 +10,12 @@ function runFunction(){
     project4.style.backgroundColor = "#4AB2C7";
 }
 
-window.addEventListener('load', function(){
-    console.log("inside window event listener, on load");
-    runFunction();
-});
+//window.addEventListener('load', function(){
+//    console.log("inside window event listener, on load");
+//    if(document.title == "Supervisor Portal") {
+//        console.log("Title is Supervisor Portal")
+//        runFunction();
+//    }else{
+//        console.log("not here")
+//    }
+//});

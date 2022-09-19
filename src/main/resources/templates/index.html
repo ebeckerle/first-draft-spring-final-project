@@ -9,11 +9,11 @@
 <div  class="log-in">
     <form method="post">
         <div>
-            <label th:for="username">Username: <input type="text" th:field="${loginFormDTO.username}"></label>
+            <label th:for="username">Username: <input type="text" autocomplete="username" th:field="${loginFormDTO.username}"></label>
             <p class="error" th:errors="${loginFormDTO.username}"></p>
         </div>
         <div>
-            <label>Password: <input type="password" th:field="${loginFormDTO.password}"></label>
+            <label>Password: <input type="password" autocomplete="current-password" th:field="${loginFormDTO.password}"></label>
             <p class="error" th:errors="${loginFormDTO.password}"></p>
         </div>
         <div>
