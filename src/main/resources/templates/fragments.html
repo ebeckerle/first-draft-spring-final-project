@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/ ">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">-->
-<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>-->
+    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">-->
+    <!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>-->
 
     <script
             src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
@@ -21,46 +22,49 @@
 <body>
 
 <!--Header Fragment if not logged in-->
-    <div th:fragment="header-nav">
-        <a href="/"><header>Restoration Company</header></a>
-    </div>
+<div th:fragment="header-nav">
+    <a href="/">
+        <header>Restoration Company</header>
+    </a>
+</div>
 
 <!--Header Fragment when employee logged in-->
-    <div th:fragment="header-nav-login">
-        <div class="header-nav-login">
+<div th:fragment="header-nav-login">
+    <div class="header-nav-login">
+        <header>Restoration Company</header>
+        <!--            <div class="drop-down">-->
+        <!--                <button class="drop-down-btn">=</button>-->
+        <nav>
+            <ol>
+                <li class="nav-link"><a href="/employee">My Homepage</a></li>
+                <li class="nav-link"><a href="/employee/timesheetrecords">Timesheets</a></li>
+                <li class="nav-link"><a href="/logout">Log Off</a></li>
+            </ol>
+        </nav>
+        <!--            </div>-->
+    </div>
+</div>
+
+<!--Header Fragment when supervisor logged in-->
+<div th:fragment="header-nav-login-sup">
+    <div class="header-nav-login">
+        <a href="/supervisor">
             <header>Restoration Company</header>
-<!--            <div class="drop-down">-->
-<!--                <button class="drop-down-btn">=</button>-->
-                <nav>
-                    <ol>
-                        <li class="nav-link"><a href="/employee">My Homepage</a></li>
-                        <li class="nav-link"><a href="/employee/timesheetrecords">Timesheets</a></li>
-                        <li class="nav-link"><a href="/logout">Log Off</a></li>
-                    </ol>
-                </nav>
-<!--            </div>-->
-        </div>
+        </a>
+
+        <nav>
+            <ol>
+                <li class="nav-link"><a href="/supervisor">Dashboard</a></li>
+                <li class="nav-link"><a href="/supervisor/manageprojects">Projects</a></li>
+                <li class="nav-link"><a href="/supervisor/manageemployees">Employees</a></li>
+                <li class="nav-link"><a href="/supervisor/manageshipments">Shipments</a></li>
+                <li class="nav-link"><a href="/supervisor/metrics">Metrics</a></li>
+                <li class="nav-link"><a href="/logout">Log Off</a></li>
+            </ol>
+        </nav>
+
     </div>
-
-    <!--Header Fragment when supervisor logged in-->
-    <div th:fragment="header-nav-login-sup">
-        <div class="header-nav-login">
-            <a href="/supervisor"><header>Restoration Company</header></a>
-
-            <nav>
-                <ol>
-                    <li class="nav-link"><a href="/supervisor">Dashboard</a></li>
-                    <li class="nav-link"><a href="/supervisor/manageprojects">Projects</a></li>
-                    <li class="nav-link"><a href="/supervisor/manageemployees">Employees</a></li>
-                    <li class="nav-link"><a href="/supervisor/manageshipments">Shipments</a></li>
-                    <li class="nav-link"><a href="/supervisor/metrics">Metrics</a></li>
-                    <li class="nav-link"><a href="/logout">Log Off</a></li>
-                </ol>
-            </nav>
-
-        </div>
-    </div>
-
+</div>
 
 
 </body>
