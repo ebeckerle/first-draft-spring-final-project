@@ -7,8 +7,6 @@ function runCharts(){
 
 function viewBarGraph(){
 
-    console.log("viewBarGraph")
-
     let chartDataElement = document.querySelector("#chart");
     let chartTitleElement = document.querySelector("#chartTitle");
          let chartData = chartDataElement.getAttribute("xyValues").split(",");
@@ -201,7 +199,3 @@ function viewSubOptions(){
 
 }
 
-//window.addEventListener('load', function(){
-//    console.log("inside window event listener, on load");
-//    viewBarGraph();
-//});

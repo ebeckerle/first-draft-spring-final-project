@@ -1,10 +1,10 @@
 window.addEventListener('load', function(){
     console.log("inside window event listener, on load");
     if(document.title == "Supervisor Portal") {
-        console.log("Title is Supervisor Portal")
-        runFunction();
-    }else{
-        console.log("not here")
+        runDashboardFunction();
+    }
+    if(document.title == "Metrics"){
+        viewBarGraph();
     }
 });
 
