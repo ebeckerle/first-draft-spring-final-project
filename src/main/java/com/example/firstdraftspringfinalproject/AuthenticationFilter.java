@@ -59,19 +59,22 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
 
         //Authorization - if the user is logged in and trying to access a restricted page
         if(isGreylisted(request.getRequestURI())){
-            if (!employee.getSupervisorAccess()){
-                response.sendRedirect("/restricted");
-                return true;
+            if (employee != null) {
+                if (!employee.getSupervisorAccess()) {
+                    response.sendRedirect("/restricted");
+                    return true;
+                }
             }
         }
 
         // The user is logged in
         if (employee != null) {
             return true;
+        }else{
+            // The user is NOT logged in
+            response.sendRedirect("/");
         }
 
-        // The user is NOT logged in
-        response.sendRedirect("/");
         return false;
     }
 
