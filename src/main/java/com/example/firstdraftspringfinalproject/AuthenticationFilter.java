@@ -52,8 +52,6 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
             return true;
         }
 
-
-
         HttpSession session = request.getSession();
         Employee employee = authenticationController.getEmployeeFromSession(session);
 
