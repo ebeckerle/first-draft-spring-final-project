@@ -1,11 +1,22 @@
 window.addEventListener('load', function(){
     console.log("inside window event listener, on load");
+
+    //
     if(document.title == "Supervisor Portal") {
         runDashboardFunction();
     }
     if(document.title == "Metrics"){
         viewBarGraph();
     }
+
+    //allows for header when employee portal logged in to mobile friendly
+    let toggleButton = document.getElementsByClassName('toggle-button')[0]
+    let navbarLinks = document.getElementsByClassName('nav-bar-links')[0]
+    toggleButton.addEventListener('click', () => {
+        navbarLinks.classList.toggle('active')
+    })
+
+
 });
 
 
