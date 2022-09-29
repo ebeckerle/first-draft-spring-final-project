@@ -8,6 +8,17 @@ window.addEventListener('load', function(){
     if(document.title == "Metrics"){
         viewBarGraph();
     }
+    if(document.title == "Timesheet"){
+        let form = document.getElementById("create-line-entry");
+        form.addEventListener("submit", function(event){
+        let hours = document.querySelector("input[name=hours]");
+            if (hours.value >= 18 || hours.value <= 0){
+                alert("You can only work between 1 to 18 hours");
+                event.preventDefault();
+            }
+        });
+    }
+
 
     //allows for header when employee portal logged in to mobile friendly
     let toggleButton = document.getElementsByClassName('toggle-button')[0]
@@ -26,13 +37,3 @@ window.addEventListener('load', function(){
 
 
 
-//window.addEventListener("load", function()){
-//    let form = document.querySelector("form");
-//    form.addEventListener("submit", function(event){
-//        let hours = document.querySelector("input[name=hours]");
-//        if (hours.value >= 24 || hours.value <= 0){
-//            alert("you can only work between 1 to 24 hours");
-//            event.preventDefault();
-//        }
-//    })
-//}
