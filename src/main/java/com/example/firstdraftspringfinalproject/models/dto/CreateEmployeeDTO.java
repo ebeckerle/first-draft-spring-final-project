@@ -18,7 +18,7 @@ public class CreateEmployeeDTO {
 
     private String oneTimePassword;
 
-//    private Boolean supervisorAccess = false;
+    private Boolean supervisorAccess = false;
 
     @Positive(message = "Please enter an eligible pay rate (dollars per hour). The the pay rate must be a positive number")
     private Integer payRate;
@@ -78,5 +78,13 @@ public class CreateEmployeeDTO {
 
     public void setPaidTimeOff(Integer paidTimeOff) {
         this.paidTimeOff = paidTimeOff;
+    }
+
+    public Boolean getSupervisorAccess() {
+        return supervisorAccess;
+    }
+
+    public void setSupervisorAccess(Boolean supervisorAccess) {
+        this.supervisorAccess = supervisorAccess;
     }
 }

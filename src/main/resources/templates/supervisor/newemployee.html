@@ -35,12 +35,15 @@
             <p class="error" th:errors="${createEmployeeDTO.title}"></p>
         </div>
 
-<!--        <div class="form-group">-->
-<!--            <label>Supervisor Access?:-->
-<!--                <input type="radio" th:value="${supervisorAccess}" th:field="${createEmployeeDTO.supervisorAccess}" class="form-control"/>-->
-<!--            </label>-->
-<!--            <p class="error" th:errors="${createEmployeeDTO.supervisorAccess}"></p>-->
-<!--        </div>-->
+        <div class="form-style1">
+            <label style="padding-bottom: 4px;">Supervisor Access?</label>
+            <br>
+                <input type="radio" id="yes" th:value="${true}" th:field="${createEmployeeDTO.supervisorAccess}" class="form-control"/>
+                <label for="yes">yes</label>
+                <input type="radio" id="no" th:value="${false}" th:field="${createEmployeeDTO.supervisorAccess}" class="form-control"/>
+                <label for="no">no</label>
+            <p class="error" th:errors="${createEmployeeDTO.supervisorAccess}"></p>
+        </div>
 
         <div class="form-style1">
             <label>Pay Rate:
@@ -49,7 +52,7 @@
             <p class="error" th:errors="${createEmployeeDTO.payRate}"></p>
         </div>
 
-        <div class="form-group">
+        <div class="form-style1">
             <label>First Date of Work:
                 <input type="date" class="form-control" name="startDate" th:value="${startDate}">
             </label>
