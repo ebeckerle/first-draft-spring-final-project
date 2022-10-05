@@ -27,6 +27,8 @@ window.addEventListener('load', function(){
         navbarLinks.classList.toggle('active')
     })
 
+
+
 });
 
 

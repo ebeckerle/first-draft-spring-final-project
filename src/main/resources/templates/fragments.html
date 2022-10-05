@@ -14,6 +14,7 @@
 
     <title th:text="${title}"></title>
     <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/styles-dash.css}"/>
     <script th:src="@{/script.js}"></script>
     <script th:src="@{/script-metrics.js}"></script>
     <script th:src="@{/script-dash.js}"></script>
@@ -61,7 +62,16 @@
             <ol>
                 <li class="nav-link"><a href="/supervisor">Dashboard</a></li>
                 <li class="nav-link"><a href="/supervisor/manageprojects">Projects</a></li>
-                <li class="nav-link"><a href="/supervisor/manageemployees">Employees</a></li>
+                <li class="nav-link">
+                    <a href="/supervisor/manageemployees">Employees</a>                </li>
+                    <ol class="subMenu-employees">
+                        <li><a href="/supervisor/manageemployees">View All</a></li>
+                        <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>
+                        <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>
+                        <li><a href="/supervisor/manageemployees/timesheets">Timesheets</a></li>
+                    </ol>
+
+
                 <li class="nav-link"><a href="/supervisor/manageshipments">Shipments</a></li>
                 <li class="nav-link"><a href="/supervisor/metrics">Metrics</a></li>
                 <li class="nav-link"><a href="/logout">Log Off</a></li>
