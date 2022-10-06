@@ -19,7 +19,6 @@ window.addEventListener('load', function(){
         });
     }
 
-
     //allows for header when employee portal logged in to mobile friendly
     let toggleButton = document.getElementsByClassName('toggle-button')[0]
     let navbarLinks = document.getElementsByClassName('nav-bar-links')[0]
@@ -29,13 +28,8 @@ window.addEventListener('load', function(){
 
 
 
+
 });
-
-
-//function runFormValidation(){
-//    let userSelectedProject = document.querySelector("#jsLineEntry");
-//    userSelectedProject.innerHTML = userSelectedProject.getAttribute("jsProject")
-//}
 
 
 

@@ -62,15 +62,15 @@
             <ol>
                 <li class="nav-link"><a href="/supervisor">Dashboard</a></li>
                 <li class="nav-link"><a href="/supervisor/manageprojects">Projects</a></li>
-                <li class="nav-link">
-                    <a href="/supervisor/manageemployees">Employees</a>                </li>
-                    <ol class="subMenu-employees">
-                        <li><a href="/supervisor/manageemployees">View All</a></li>
-                        <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>
-                        <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>
-                        <li><a href="/supervisor/manageemployees/timesheets">Timesheets</a></li>
-                    </ol>
-
+                <li class="nav-link" onmouseenter="displaySubMenu('employees')" onmouseleave="hideSubMenu('employees')">
+                    <a href="/supervisor/manageemployees">Employees</a>
+<!--                    <ol class="subMenu-employees" id="subMenu">-->
+<!--                        <li><a href="/supervisor/manageemployees">View All</a></li>-->
+<!--                        <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>-->
+<!--                        <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>-->
+<!--                        <li><a href="/supervisor/manageemployees/timesheets">Timesheets</a></li>-->
+<!--                    </ol>-->
+                </li>
 
                 <li class="nav-link"><a href="/supervisor/manageshipments">Shipments</a></li>
                 <li class="nav-link"><a href="/supervisor/metrics">Metrics</a></li>
@@ -79,6 +79,12 @@
         </nav>
 
     </div>
+    <ol id="subMenu-employees" class="subMenu">
+        <li><a href="/supervisor/manageemployees">View All</a></li>
+        <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>
+        <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>
+        <li><a href="/supervisor/manageemployees/timesheets">Timesheets</a></li>
+    </ol>
 </div>
 
 

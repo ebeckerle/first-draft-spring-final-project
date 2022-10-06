@@ -9,3 +9,19 @@ function runDashboardFunction(){
     project4.style.backgroundColor = "#4AB2C7";
 }
 
+function displaySubMenu(menu){
+    console.log(menu);
+    if(menu == "employees"){
+        let subMenu = document.getElementById("subMenu-employees");
+        subMenu.style.display = "flex";
+    }
+    console.log("fox");
+
+}
+
+function hideSubMenu(menu){
+    if(menu == "employees"){
+        let subMenu = document.getElementById("subMenu-employees");
+        subMenu.style.display = "flex";
+    }
+}
