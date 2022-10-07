@@ -13,7 +13,7 @@ function displaySubMenu(menu){
     console.log(menu);
     if(menu == "employees"){
         let subMenu = document.getElementById("subMenu-employees");
-        subMenu.style.display = "flex";
+        subMenu.style.display = "block";
     }
     console.log("fox");
 
@@ -22,6 +22,6 @@ function displaySubMenu(menu){
 function hideSubMenu(menu){
     if(menu == "employees"){
         let subMenu = document.getElementById("subMenu-employees");
-        subMenu.style.display = "flex";
+        subMenu.style.display = "block";
     }
 }

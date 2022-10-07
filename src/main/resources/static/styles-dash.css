@@ -1,3 +1,192 @@
+/* - HEADER & NAV BAR AFTER USER LOGS IN- */
+
+.header-nav-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333333;
+    box-sizing: border-box;
+}
+
+.header-nav-login nav {
+    height: 100%;
+    margin-right: 8px;
+}
+
+
+.header-nav-login ol{
+    margin: 0;
+    height: 100%;
+}
+
+.header-nav-login ol li {
+    /*display: inline;*/
+    padding: 18px 8px 18px 8px;
+    /*min-height: 100%;*/
+}
+
+.header-nav-login ol li:hover {
+    background-color: grey;
+    padding: 18px 8px 18px 8px;
+    min-height: 100%;
+}
+
+.header-nav-login ol li a {
+    color: white;
+}
+
+.header-nav-login ol li a:hover {
+    color: black;
+}
+
+.nav-link {
+    display: inline;
+    min-height: 100%;
+}
+
+/* - drop down menu - mobile friendly - */
+.toggle-button {
+    position: absolute;
+    top: .75rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+}
+
+.toggle-button .bar {
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+@media (max-width: 800px) {
+    .header-nav-login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #333333;
+        box-sizing: border-box;
+    }
+
+    .header-nav-login nav {
+        margin-right: 8px;
+    }
+
+    .header-nav-login ol{
+        margin: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-nav-login ol li {
+        min-width: 100%
+        align-items: center;
+    }
+
+    .header-nav-login ol li:hover {
+        align-items: center;
+    }
+
+    .header-nav-login ol li a {
+        text-align: center;
+        color: white;
+    }
+
+    .header-nav-login ol li a:hover {
+        text-align: center;
+        color: black;
+        background-color: grey;
+    }
+
+    .toggle-button {
+        display: flex;
+    }
+
+    .nav-bar-links.active {
+        display:flex;
+    }
+}
+
+/*.subMenuDiv {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+}*/
+
 .subMenu {
     display: none;
+}
+
+.subMenu li {
+    /*display: none;*/
+    display: block;
+    background-color: grey;
+}
+
+
+/* - SUPERVISOR PORTAL DASHBOARD - */
+
+.body {
+    display: flex;
+    min-width: 100%;
+    justify-content: space-evenly;
+}
+
+.employee-dash {
+    border: 2px solid grey;
+    margin: 8px;
+    padding: 8px;
+}
+
+.right-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-dash {
+    border: 2px solid grey;
+    margin: 8px;
+    padding: 8px;
+}
+
+.project-dash p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.project-dash ol {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.project-dash ol li {
+    justify-content: space-evenly;
+    text-align: center;
+    background-color: #52C8E0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.project-dash ol li a {
+    padding: 8px;
+    color: white;
+    width: 100%;
+}
+
+.shipment-dash {
+    border: 2px solid grey;
+    margin: 8px;
+    padding: 8px;
+}
+
+.shipment-dash p {
+    margin-top: 2px;
+    margin-bottom: 2px;
 }

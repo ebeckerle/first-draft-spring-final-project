@@ -62,29 +62,50 @@
             <ol>
                 <li class="nav-link"><a href="/supervisor">Dashboard</a></li>
                 <li class="nav-link"><a href="/supervisor/manageprojects">Projects</a></li>
-                <li class="nav-link" onmouseenter="displaySubMenu('employees')" onmouseleave="hideSubMenu('employees')">
-                    <a href="/supervisor/manageemployees">Employees</a>
-<!--                    <ol class="subMenu-employees" id="subMenu">-->
-<!--                        <li><a href="/supervisor/manageemployees">View All</a></li>-->
-<!--                        <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>-->
-<!--                        <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>-->
-<!--                        <li><a href="/supervisor/manageemployees/timesheets">Timesheets</a></li>-->
-<!--                    </ol>-->
-                </li>
+                <div class="subMenuDiv">
+                    <li class="nav-link" onmouseenter="displaySubMenu('employees')" onmouseleave="hideSubMenu('employees')">
+                        <a href="/supervisor/manageemployees">Employees</a>
+                        <!--                    <span class="subMenuDiv" onmouseenter="displaySubMenu('employees')" onmouseleave="hideSubMenu('employees')" style="display: inline;">-->
+                        <ol id="subMenu-employees" class="subMenu" onmouseenter="displaySubMenu('employees')" onmouseleave="hideSubMenu('employees')" style="display: inline;">
+                            <li><a href="/supervisor/manageemployees">View All</a></li>
+                            <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>
+                            <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>
+                            <li><a href="/supervisor/manageemployees/timesheets">Timesheets</a></li>
+                        </ol>
+                        <!--                    </span>-->
+                    </li>
+                </div>
+
 
                 <li class="nav-link"><a href="/supervisor/manageshipments">Shipments</a></li>
                 <li class="nav-link"><a href="/supervisor/metrics">Metrics</a></li>
                 <li class="nav-link"><a href="/logout">Log Off</a></li>
             </ol>
-        </nav>
 
+<!--            <ol id="subMenu-employees" class="subMenu" onmouseenter="displaySubMenu('employees')" onmouseleave="hideSubMenu('employees')">-->
+<!--                <li><a href="/supervisor/manageemployees">View All</a></li>-->
+<!--                <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>-->
+<!--                <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>-->
+<!--                <li><a href="/supervisor/manageemployees/timesheets">Timesheets</a></li>-->
+<!--            </ol>-->
+        </nav>
+<!--        <ol id="subMenu-employees" class="subMenu">-->
+<!--            <li><a href="/supervisor/manageemployees">View All</a></li>-->
+<!--            <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>-->
+<!--            <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>-->
+<!--            <li><a href="/supervisor/manageemployees/timesheets">Timesheets</a></li>-->
+<!--        </ol>-->
     </div>
-    <ol id="subMenu-employees" class="subMenu">
-        <li><a href="/supervisor/manageemployees">View All</a></li>
-        <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>
-        <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>
-        <li><a href="/supervisor/manageemployees/timesheets">Timesheets</a></li>
-    </ol>
+<!--    <div class="subMenuDiv">-->
+<!--            <ol id="subMenu-employees" class="subMenu" onmouseenter="displaySubMenu('employees')" onmouseleave="hideSubMenu('employees')">-->
+<!--                <li><a href="/supervisor/manageemployees">View All</a></li>-->
+<!--                <li><a href="/supervisor/manageemployees/newemployee">Add an Employee</a></li>-->
+<!--                <li><a href="/supervisor/manageemployees/retireemployee">Retire an Employee</a></li>-->
+<!--                <li><a href="/supervisor/manageemployees/timesheets">Timesheets</a></li>-->
+<!--            </ol>-->
+<!--    </div>-->
+
+
 </div>
 
 
