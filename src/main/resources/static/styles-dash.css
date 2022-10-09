@@ -1,7 +1,10 @@
 /* - HEADER & NAV BAR AFTER USER LOGS IN- */
 
 .header-nav-login {
-    display: flex;
+    /*display: flex;*/
+    display: grid;
+    grid-template-columns: 30% 70% ;
+    grid-template-rows: auto auto;
     justify-content: space-between;
     align-items: center;
     background-color: #333333;
@@ -14,14 +17,17 @@
 }
 
 
-.header-nav-login ol{
+.header-nav-login .main-menu{
     margin: 0;
     height: 100%;
+    display: grid;
+    grid-template-columns: 16% 16% 16% 16% 16% 16%;
+    align-items: center;
 }
 
 .header-nav-login ol li {
     /*display: inline;*/
-    padding: 18px 8px 18px 8px;
+    /*padding: 18px 8px 18px 8px;*/
     /*min-height: 100%;*/
 }
 
@@ -41,7 +47,12 @@
 
 .nav-link {
     display: inline;
+    /*display: inline-block;*/
+    /*display: block;*/
+    /*display: flex;*/
     min-height: 100%;
+    padding: 18px 8px 18px 8px;
+    text-align: center;
 }
 
 /* - drop down menu - mobile friendly - */
@@ -119,14 +130,30 @@
     box-sizing: border-box;
 }*/
 
+
+.subMenus{
+    background-color: white;
+    display: grid;
+    grid-template-columns: 16% 16% 16% 16% 16% 16%;
+}
+
 .subMenu {
     display: none;
+    /*flex-direction: column;*/
 }
 
 .subMenu li {
     /*display: none;*/
     display: block;
     background-color: grey;
+}
+
+.nav-link .subMenu {
+
+}
+
+#subMenu-employees {
+
 }
 
 
