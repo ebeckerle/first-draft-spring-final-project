@@ -22,7 +22,7 @@
     height: 100%;
     display: grid;
     grid-template-columns: 16% 16% 16% 16% 16% 16%;
-    align-items: center;
+    /*align-items: center;*/
 }
 
 .header-nav-login ol li {
@@ -154,6 +154,11 @@
 
 #subMenu-employees {
 
+}
+
+.subMenuDiv {
+    display: grid;
+    grid-template-columns: 30% 70%;
 }
 
 
