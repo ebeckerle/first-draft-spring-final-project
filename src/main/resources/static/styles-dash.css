@@ -146,6 +146,19 @@
     /*display: none;*/
     display: block;
     background-color: grey;
+    padding: px 8px 10px 8px;
+}
+
+.subMenu li a {
+    color: black;
+}
+
+.subMenu li:hover {
+    background-color: #333333;
+}
+
+.subMenu li a:hover {
+    color: white;
 }
 
 .nav-link .subMenu {
