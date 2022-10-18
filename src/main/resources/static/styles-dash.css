@@ -146,7 +146,7 @@
     /*display: none;*/
     display: block;
     background-color: grey;
-    padding: px 8px 10px 8px;
+    padding: 8px;
 }
 
 .subMenu li a {
