@@ -1,5 +1,6 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
+import com.example.firstdraftspringfinalproject.models.DaysOfWeekHoursSet;
 import com.example.firstdraftspringfinalproject.models.LineEntry;
 import com.example.firstdraftspringfinalproject.models.Project;
 import com.example.firstdraftspringfinalproject.models.WorkType;
@@ -14,45 +15,30 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class LineEntryTest {
 
-//    @Test
-//    public void testSetTotalHoursInLineEntry(){
-//        Project pIasc = new Project("IASC", "Iowa State Capitol");
-//        WorkType wT101 = new WorkType(101, "Inventory");
-//        HashMap<String, Integer> dayOfWeekAndHours = new HashMap<>();
-//        dayOfWeekAndHours.put("MONDAY", 8);
-//        dayOfWeekAndHours.put("TUESDAY", 8);
-//        dayOfWeekAndHours.put("WEDNESDAY", 8);
-//        LineEntry lineEntry = new LineEntry(pIasc, wT101, dayOfWeekAndHours);
-//
-//        Integer expected = 24;
-//        lineEntry.setTotalHoursInLineEntry();
-//        Integer actual = lineEntry.getTotalHoursInLineEntry();
-//        assertEquals(expected, actual);
-//    }
-//
-//    @Test
-//    public void testSetHashmapKeyValuePairIntoDayOfWeekAndHoursMap(){
-//        //when the day of week already has hours
-//        Project pIasc = new Project("IASC", "Iowa State Capitol");
-//        WorkType wT101 = new WorkType(101, "Inventory");
-//        HashMap<String, Integer> dayOfWeekAndHours = new HashMap<>();
-//        dayOfWeekAndHours.put("MONDAY", 8);
-//        dayOfWeekAndHours.put("TUESDAY", 8);
-//        dayOfWeekAndHours.put("WEDNESDAY", 8);
-//        LineEntry newLineEntry = new LineEntry(pIasc, wT101, dayOfWeekAndHours);
-//        newLineEntry.setHashmapKeyValuePairIntoDayOfWeekAndHoursMap("WEDNESDAY", 2);
-////        setHashmapKeyValuePairIntoDayOfWeekAndHoursMap(String dayOfWeek, Integer hours)
-//        Integer actual = newLineEntry.getDayOfWeekAndHours().get("WEDNESDAY");
-//        Integer expected = 10;
-//
-//        assertEquals(expected, actual);
-//
-//
-//    }
-//
+
 //    @Test
 //    public void testTests(){
 //        String string = "N";
 //        assertEquals("N", string);
 //    }
+
+    @Test
+    public void testUpdateALineEntry(){
+        String string = "N";
+        assertEquals("N", string);
+
+        //    public DaysOfWeekHoursSet updateALineEntry(DaysOfWeekHoursSet dayHourCombo1, DaysOfWeekHoursSet dayHourCombo2){
+//
+//        Integer newMondayTotal = dayHourCombo1.getMondayHours() + dayHourCombo2.getMondayHours();
+//        Integer newTuesdayTotal = dayHourCombo1.getTuesdayHours() + dayHourCombo2.getTuesdayHours();
+//        Integer newWednesdayTotal = dayHourCombo1.getWednesdayHours() + dayHourCombo2.getWednesdayHours();
+//        Integer newThursdayTotal = dayHourCombo1.getThursdayHours() + dayHourCombo2.getThursdayHours();
+//        Integer newFridayTotal = dayHourCombo1.getFridayHours() + dayHourCombo2.getFridayHours();
+//        Integer newSaturdayTotal = dayHourCombo1.getSaturdayHours() + dayHourCombo2.getSaturdayHours();
+//
+//        DaysOfWeekHoursSet dayHourCombo3 = new DaysOfWeekHoursSet(newMondayTotal, newTuesdayTotal, newWednesdayTotal, newThursdayTotal, newFridayTotal, newSaturdayTotal);
+//        return dayHourCombo3;
+//    }
+    }
+
 }
