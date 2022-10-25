@@ -1,6 +1,9 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
+import com.example.firstdraftspringfinalproject.models.Employee;
+import com.example.firstdraftspringfinalproject.models.Project;
 import com.example.firstdraftspringfinalproject.models.Timesheet;
+import com.example.firstdraftspringfinalproject.models.WorkType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,6 +14,16 @@ public class EmployeeTest {
 
     @Test
     public void testGetCurrentTimesheet(){
+
+        //TODO: move all of these variables for the tests out of this method and some where DRYer
+        Employee practiceEmployee = new Employee("Elizabeth", "Beckerle");
+        Project pIasc = new Project("IASC", "Iowa State Capitol");
+        WorkType wT101 = new WorkType(101, "Inventory");
+        WorkType wT102 = new WorkType(102, "Cut and Process Rough Parts");
+
+        Employee testEmployee = new Employee("Testey", "McTesterson", "The Testiest", 23, 80, "LgI6M");
+        Timesheet testTimesheet1 = new Timesheet(testEmployee);
+
         assertEquals(3, 3);
     }
 

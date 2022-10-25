@@ -45,12 +45,6 @@ public class WorkType {
         return Integer.valueOf(workingString);
     }
 
-    public static String toStringWorkTypes(WorkType aWorkType){
-        String workTypeId;
-        workTypeId = String.valueOf(aWorkType.getWorkTypeId());
-        return  workTypeId + " - " + aWorkType.getWorkDescription();
-    }
-
     public String toStringWorkTypeCode(){
         return String.valueOf(getWorkTypeId());
     }
