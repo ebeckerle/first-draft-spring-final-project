@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class WorkTypeTest {
 
 
-    @Before
-    public void createTestWorkTypes(){
+//    @Before
+//    public void createTestWorkTypes(){
         WorkType wT101 = new WorkType(101, "Inventory");
         WorkType wT102 = new WorkType(102, "Cut and Process Rough Parts");
         WorkType wT103 = new WorkType(103, "CNC Machining");
@@ -27,11 +27,14 @@ public class WorkTypeTest {
         WorkType wT502 = new WorkType(502, "Puddy Glazing");
         WorkType wT503 = new WorkType(503, "Packaging - Sash");
         WorkType wT504 = new WorkType(504, "Packaging - Lineal");
-    }
+//    }
 
     @Test
     public void testFromToStringToId(){
-        assertEquals(3, 3);
+        String actualToString = wT101.toString();
+        Integer actual = WorkType.fromToStringToId(actualToString);
+
+        assertEquals(101, actual);
     }
 //    public static Integer fromToStringToId(String workTypeString){
 //        String workingString =  "" + workTypeString.charAt(0) + "" + workTypeString.charAt(1) + "" + workTypeString.charAt(2);
