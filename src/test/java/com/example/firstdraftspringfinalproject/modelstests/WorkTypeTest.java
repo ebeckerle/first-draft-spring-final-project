@@ -44,7 +44,8 @@ public class WorkTypeTest {
 
     @Test
     public void testToStringWorkTypeCode(){
-        assertEquals(3, 3);
+        String actual = wT101.toStringWorkTypeCode();
+        assertEquals("101", actual);
     }
 //    public String toStringWorkTypeCode(){
 //        return String.valueOf(getWorkTypeId());
