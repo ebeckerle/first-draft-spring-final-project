@@ -1,6 +1,5 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
-import com.example.firstdraftspringfinalproject.models.DaysOfWeekHoursSet;
 import com.example.firstdraftspringfinalproject.models.LineEntry;
 import com.example.firstdraftspringfinalproject.models.Project;
 import com.example.firstdraftspringfinalproject.models.WorkType;
@@ -22,8 +21,15 @@ public class LineEntryTest {
 //        assertEquals("N", string);
 //    }
 
+
+
     @Test
     public void testUpdateALineEntry(){
+
+        DaysOfWeekHoursSet dayWkHrSetTest = new DaysOfWeekHoursSet();
+        dayWkHrSetTest.
+
+
         String string = "N";
         assertEquals("N", string);
 
