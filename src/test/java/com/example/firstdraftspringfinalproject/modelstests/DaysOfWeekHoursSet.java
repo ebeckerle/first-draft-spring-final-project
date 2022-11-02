@@ -11,8 +11,8 @@ public class DaysOfWeekHoursSet {
 
     @Test
     public void testConstructorWith2params(){
-        DaysOfWeekHoursSet test = new DaysOfWeekHoursSet("weDnesday", 2);
-        System.out.println(test);
+//        DaysOfWeekHoursSet test = new DaysOfWeekHoursSet("weDnesday", 2);
+//        System.out.println(test);
         assertEquals(3, 3);
     }
 

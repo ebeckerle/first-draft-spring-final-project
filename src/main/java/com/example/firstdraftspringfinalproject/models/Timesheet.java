@@ -15,6 +15,7 @@ public class Timesheet {
     @GeneratedValue
     private Integer timesheetId;
 
+    //Start Dates are Mondays, due dates are the following Mondays, and payDays are the Fridays following the due date.
     private GregorianCalendar startDate;
     private GregorianCalendar dueDate;
     private GregorianCalendar payDay;

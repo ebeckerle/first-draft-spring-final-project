@@ -3,7 +3,10 @@ package com.example.firstdraftspringfinalproject.modelstests;
 import com.example.firstdraftspringfinalproject.models.*;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +22,33 @@ public class TimesheetTest {
 
     @Test
     public void testSetDates(){
-        assertEquals(3, 3);
+
+        Timesheet testTimesheet = new Timesheet(practiceEmployee);
+
+        GregorianCalendar startDateGC = new GregorianCalendar(2022, Calendar.OCTOBER, 31);
+        testTimesheet.setDates(startDateGC);
+
+        GregorianCalendar expectedDueDate = new GregorianCalendar(2022, Calendar.NOVEMBER, 7);
+        GregorianCalendar expectedPayDay = new GregorianCalendar(2022, Calendar.NOVEMBER, 11);
+
+        assertEquals(expectedDueDate, testTimesheet.getDueDate());
+        assertEquals(expectedPayDay, testTimesheet.getPayDay());
+
+//        public void setDates(GregorianCalendar startDate) {
+//
+//            this.startDate = startDate;
+//            int yearOfStart = startDate.get(Calendar.YEAR);
+//            int monthOfStart = startDate.get(Calendar.MONTH);
+//            int dateOfStart = startDate.get(Calendar.DATE);
+//
+//            GregorianCalendar dueDate = new GregorianCalendar(yearOfStart, monthOfStart, dateOfStart);
+//            dueDate.add(Calendar.DATE, 7);
+//            this.dueDate = dueDate;
+//
+//            GregorianCalendar payDay = new GregorianCalendar(yearOfStart, monthOfStart, dateOfStart);
+//            payDay.add(Calendar.DATE, 11);
+//            this.payDay = payDay;
+//        }
     }
 
     @Test

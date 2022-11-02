@@ -27,11 +27,11 @@ public class LineEntryTest {
     public void testUpdateALineEntry(){
 
         DaysOfWeekHoursSet dayWkHrSetTest = new DaysOfWeekHoursSet();
-        dayWkHrSetTest.
+//        dayWkHrSetTest
 
 
-        String string = "N";
-        assertEquals("N", string);
+//        String string = "N";
+//        assertEquals("N", string);
 
         //    public DaysOfWeekHoursSet updateALineEntry(DaysOfWeekHoursSet dayHourCombo1, DaysOfWeekHoursSet dayHourCombo2){
 //
