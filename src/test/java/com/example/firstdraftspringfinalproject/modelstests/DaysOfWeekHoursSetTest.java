@@ -1,19 +1,16 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
+import com.example.firstdraftspringfinalproject.models.DaysOfWeekHoursSet;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DaysOfWeekHoursSet {
-
-
-
+public class DaysOfWeekHoursSetTest {
 
     @Test
     public void testConstructorWith2params(){
-//        DaysOfWeekHoursSet test = new DaysOfWeekHoursSet("weDnesday", 2);
-//        System.out.println(test);
-        assertEquals(3, 3);
+        DaysOfWeekHoursSet test = new DaysOfWeekHoursSet("weDnesday", 2);
+        assertEquals(2, test.getWednesdayHours());
     }
 
 //    public DaysOfWeekHoursSet(String dayOfWeek, Integer hours){

@@ -1,5 +1,6 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
+import com.example.firstdraftspringfinalproject.models.DaysOfWeekHoursSet;
 import com.example.firstdraftspringfinalproject.models.LineEntry;
 import com.example.firstdraftspringfinalproject.models.Project;
 import com.example.firstdraftspringfinalproject.models.WorkType;

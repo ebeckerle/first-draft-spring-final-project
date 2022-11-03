@@ -127,14 +127,14 @@ public class Timesheet {
         this.lineEntries = lineEntries;
     }
 
-    public Boolean checkALineEntryAlreadyExists(LineEntry lineEntry){
-
-        if (this.lineEntries.contains(lineEntry)){
-            return true;
-        }else {
-            return false;
-        }
-    }
+//    public Boolean checkALineEntryAlreadyExists(LineEntry lineEntry){
+//
+//        if (this.lineEntries.contains(lineEntry)){
+//            return true;
+//        }else {
+//            return false;
+//        }
+//    }
 
     public Integer getTotalMondayHours() {
         return totalMondayHours;
