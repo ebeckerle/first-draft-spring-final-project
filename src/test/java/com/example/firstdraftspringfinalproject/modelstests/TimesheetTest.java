@@ -110,9 +110,9 @@ public class TimesheetTest {
     @Test
     public void testGetLineEntryWithMatchingProjectWorkType(){
 
-//        testTimesheet1.getLineEntries().add(lineEntry1);
-//
-//        assertEquals(lineEntry1, testTimesheet1.getLineEntryWithMatchingProjectWorkType(pWT1));
+        testTimesheet1.getLineEntries().add(lineEntry1);
+
+        assertEquals(lineEntry1, testTimesheet1.getLineEntryWithMatchingProjectWorkType(pWT1));
 
 //        public LineEntry getLineEntryWithMatchingProjectWorkType(ProjectWorkTypeSet projectWorkTypeSet){
 //            for (LineEntry lineEntry:
@@ -129,16 +129,16 @@ public class TimesheetTest {
     @Test
     public void testTotalDayOfWeekHours(){
 
-//        testTimesheet1.getLineEntries().add(lineEntry1);
-//        testTimesheet1.getLineEntries().add(lineEntry2);
-//        testTimesheet1.getLineEntries().add(lineEntry3);
-//
-//        assertEquals(1, testTimesheet1.totalDayOfWeekHours("Monday"));
-//        assertEquals(1, testTimesheet1.totalDayOfWeekHours("Tuesday"));
-//        assertEquals(7, testTimesheet1.totalDayOfWeekHours("Wednesday"));
-//        assertEquals(0, testTimesheet1.totalDayOfWeekHours("Thursday"));
-//        assertEquals(8, testTimesheet1.totalDayOfWeekHours("Friday"));
-//        assertEquals(0, testTimesheet1.totalDayOfWeekHours("Saturday"));
+        testTimesheet1.getLineEntries().add(lineEntry1);
+        testTimesheet1.getLineEntries().add(lineEntry2);
+        testTimesheet1.getLineEntries().add(lineEntry3);
+
+        assertEquals(1, testTimesheet1.totalDayOfWeekHours("Monday"));
+        assertEquals(1, testTimesheet1.totalDayOfWeekHours("Tuesday"));
+        assertEquals(7, testTimesheet1.totalDayOfWeekHours("Wednesday"));
+        assertEquals(0, testTimesheet1.totalDayOfWeekHours("Thursday"));
+        assertEquals(8, testTimesheet1.totalDayOfWeekHours("Friday"));
+        assertEquals(0, testTimesheet1.totalDayOfWeekHours("Saturday"));
 
 //        public Integer totalDayOfWeekHours(String dayOfWeek){
 //            Integer totalHours = 0;
