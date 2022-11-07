@@ -265,7 +265,7 @@ public class Timesheet {
     }
 
     public static String formatDates(GregorianCalendar date){
-        return date.get(Calendar.MONTH)+1 + "/" + date.get(Calendar.DATE) + "/" + date.get(Calendar.YEAR);
+        return date.get(Calendar.MONTH) + "/" + date.get(Calendar.DATE) + "/" + date.get(Calendar.YEAR);
     }
 
     public static GregorianCalendar figureStartDateBasedOnTodaysDate(LocalDate todaysDate){
@@ -274,7 +274,7 @@ public class Timesheet {
         int monthValue = todaysDate.getMonthValue();
         int year = todaysDate.getYear();
         DayOfWeek dayOfWeek = todaysDate.getDayOfWeek();
-        GregorianCalendar todayGC = new GregorianCalendar(year, monthValue-1, dayOfMonth);
+        GregorianCalendar todayGC = new GregorianCalendar(year, monthValue, dayOfMonth);
         //cycle thru days of the week (DayOfWeek Enum int values) to then reset (using add() method) the date back to the appropriate Monday
         if (dayOfWeek.getValue()== 2){
             todayGC.add(Calendar.DATE, -1);

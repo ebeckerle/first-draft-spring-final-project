@@ -4,6 +4,7 @@ import com.example.firstdraftspringfinalproject.models.*;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Time;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -179,12 +180,61 @@ public class TimesheetTest {
 
     @Test
     public void testFormatDates(){
-        assertEquals(3, 3);
+
+        GregorianCalendar date = new GregorianCalendar(2022, 2, 4);
+        String expected = Timesheet.formatDates(date);
+        System.out.println(expected);
+        assertEquals(expected, "2/4/2022");
+
+//        public static String formatDates(GregorianCalendar date){
+//            return date.get(Calendar.MONTH) + "/" + date.get(Calendar.DATE) + "/" + date.get(Calendar.YEAR);
+//        }
     }
 
     @Test
     public void testFigureStartDateBasedOnTodaysDate(){
-        assertEquals(3, 3);
+
+        LocalDate today = LocalDate.now();
+        GregorianCalendar startDateExpected = Timesheet.figureStartDateBasedOnTodaysDate(today);
+        GregorianCalendar startDateActual = Timesheet.figureStartDateBasedOnTodaysDate(today);
+
+        System.out.println(Timesheet.formatDates(startDateExpected));
+
+        //TODO : wrong ?????
+        assertEquals(startDateExpected.getClass(), startDateActual.getClass());
+        assertEquals(startDateExpected, startDateActual);
+
+//        public static GregorianCalendar figureStartDateBasedOnTodaysDate(LocalDate todaysDate){
+//            //convert LocalDate to a new Gregorian Calendar Date
+//            int dayOfMonth = todaysDate.getDayOfMonth();
+//            int monthValue = todaysDate.getMonthValue();
+//            int year = todaysDate.getYear();
+//            DayOfWeek dayOfWeek = todaysDate.getDayOfWeek();
+//            GregorianCalendar todayGC = new GregorianCalendar(year, monthValue-1, dayOfMonth);
+//            //cycle thru days of the week (DayOfWeek Enum int values) to then reset (using add() method) the date back to the appropriate Monday
+//            if (dayOfWeek.getValue()== 2){
+//                todayGC.add(Calendar.DATE, -1);
+//                return todayGC;
+//            }else if (dayOfWeek.getValue()==3){
+//                todayGC.add(Calendar.DATE, -2);
+//                return todayGC;
+//            }else if (dayOfWeek.getValue()==4){
+//                todayGC.add(Calendar.DATE, -3);
+//                return todayGC;
+//            }else if (dayOfWeek.getValue()==5){
+//                todayGC.add(Calendar.DATE, -4);
+//                return todayGC;
+//            }else if (dayOfWeek.getValue()==6){
+//                todayGC.add(Calendar.DATE, -5);
+//                return todayGC;
+//            }else if (dayOfWeek.getValue()==7){
+//                todayGC.add(Calendar.DATE, -6);
+//                return todayGC;
+//            }else{
+//                return todayGC;
+//            }
+//        }
+
     }
 
     @Test
