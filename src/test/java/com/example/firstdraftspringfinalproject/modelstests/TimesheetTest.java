@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,11 +15,13 @@ public class TimesheetTest {
 
     Employee practiceEmployee = new Employee("Elizabeth", "Beckerle");
     Project pIasc = new Project("IASC", "Iowa State Capitol");
+    Project pNam = new Project("NAM", "Nelson Atkins Museum");
     WorkType wT101 = new WorkType(101, "Inventory");
     WorkType wT102 = new WorkType(102, "Cut and Process Rough Parts");
     Timesheet testTimesheet1 = new Timesheet(practiceEmployee);
     ProjectWorkTypeSet pWT1 = new ProjectWorkTypeSet(pIasc, wT101);
     ProjectWorkTypeSet pWT2 = new ProjectWorkTypeSet(pIasc, wT102);
+    ProjectWorkTypeSet pWT3 = new ProjectWorkTypeSet(pNam, wT102);
     DaysOfWeekHoursSet dWkHr1 = new DaysOfWeekHoursSet(0, 0, 4,0,0,0);
     DaysOfWeekHoursSet dWkHr2 = new DaysOfWeekHoursSet(0,0,0,0,4,0);
     DaysOfWeekHoursSet dWkHr3 = new DaysOfWeekHoursSet(1,1,3,0,4,0);
@@ -30,6 +29,7 @@ public class TimesheetTest {
     LineEntry lineEntry1 = new LineEntry(pWT1, dWkHr1, testTimesheet1);
     LineEntry lineEntry2 = new LineEntry(pWT1, dWkHr2, testTimesheet1);
     LineEntry lineEntry3 = new LineEntry(pWT2, dWkHr3, testTimesheet1);
+    LineEntry lineEntry4 = new LineEntry(pWT3, dWkHr3, testTimesheet1);
 
 
     @Test
@@ -244,11 +244,40 @@ public class TimesheetTest {
 
     @Test
     public void testGetTotalHoursByProject(){
-        assertEquals(3, 3);
+
+        //TODO - had to change the Project Class's equals method to get this test to pass because my test project
+        // objects do not have an auto-generated ID - what to do?
+
+        testTimesheet1.getLineEntries().add(lineEntry1);
+        testTimesheet1.getLineEntries().add(lineEntry2);
+        testTimesheet1.getLineEntries().add(lineEntry3);
+        testTimesheet1.getLineEntries().add(lineEntry4);
+
+        System.out.println(testTimesheet1.getTotalHoursByProject(pIasc));
+
+        assertEquals(17, testTimesheet1.getTotalHoursByProject(pIasc));
+        assertEquals(9, testTimesheet1.getTotalHoursByProject(pNam));
+
+//        public Integer getTotalHoursByProject(Project project){
+//            List<LineEntry> lineEntries = this.lineEntries;
+//            //iterate thru an arraylist of line entries
+//            Integer totalHoursForProject = 0;
+//            for (LineEntry lineEntry : lineEntries){
+//                Integer lineEntryTotal = 0;
+//                if (lineEntry.getProjectWorkTypeCombo().getProject().equals(project)){
+//                    lineEntryTotal = lineEntry.getTotalHours();
+//                }
+//                totalHoursForProject +=lineEntryTotal;
+//            }
+//            return totalHoursForProject;
+//        }
     }
 
     @Test
     public void testGetTotalHoursByWorkType(){
+
+
+
         assertEquals(3, 3);
     }
 
