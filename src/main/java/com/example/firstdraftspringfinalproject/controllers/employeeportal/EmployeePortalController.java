@@ -176,7 +176,6 @@ public class EmployeePortalController {
                                                @RequestParam Integer thursdayTotal,
                                                @RequestParam Integer fridayTotal,
                                                @RequestParam Integer saturdayTotal,
-                                               @RequestParam Integer totalHours,
                                                HttpServletRequest request,
                                                RedirectAttributes redirectAttributes, Model model){
         //grab the current timesheet
@@ -188,13 +187,12 @@ public class EmployeePortalController {
         currentTimesheet.setTotalThursdayHours(thursdayTotal);
         currentTimesheet.setTotalFridayHours(fridayTotal);
         currentTimesheet.setTotalSaturdayHours(saturdayTotal);
-        currentTimesheet.setCurrentPayRate();
-        //set the total hours
-        currentTimesheet.setTotalHours(totalHours);
-        //set the completion Status to true
-        currentTimesheet.setCompletionStatus(true);
         // set the current payrate
         currentTimesheet.setCurrentPayRate();
+        //set the total hours
+        currentTimesheet.setTotalHours();
+        //set the completion Status to true
+        currentTimesheet.setCompletionStatus(true);
         //save the current timesheet
         timesheetRepository.save(currentTimesheet);
         //set the employee's current timesheet completion status to true

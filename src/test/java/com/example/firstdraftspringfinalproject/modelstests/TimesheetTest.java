@@ -79,6 +79,21 @@ public class TimesheetTest {
     }
 
     @Test
+    public void testSetTotalHours(){
+
+        //TODO Next!!!!!
+        assertEquals(3,3);
+//        public void setTotalHours() {
+//            Integer totalHours = 0;
+//            for (LineEntry lineEntry:
+//                    this.lineEntries) {
+//                totalHours += lineEntry.getTotalHours();
+//            }
+//            this.totalHours = totalHours;
+//        }
+    }
+
+    @Test
     public void testCheckALineEntryForFalse(){
 
         assertFalse(testTimesheet1.checkALineEntry(lineEntry1));
@@ -177,6 +192,7 @@ public class TimesheetTest {
 //            return totalHours;
 //        }
     }
+
 
     @Test
     public void testFormatDates(){

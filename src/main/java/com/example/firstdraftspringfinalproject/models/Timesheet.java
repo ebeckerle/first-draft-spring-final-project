@@ -188,7 +188,12 @@ public class Timesheet {
         return totalHours;
     }
 
-    public void setTotalHours(Integer totalHours) {
+    public void setTotalHours() {
+        Integer totalHours = 0;
+        for (LineEntry lineEntry:
+                this.lineEntries) {
+            totalHours += lineEntry.getTotalHours();
+        }
         this.totalHours = totalHours;
     }
 
