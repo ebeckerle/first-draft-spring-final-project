@@ -276,9 +276,28 @@ public class TimesheetTest {
     @Test
     public void testGetTotalHoursByWorkType(){
 
+        testTimesheet1.getLineEntries().add(lineEntry1);
+        testTimesheet1.getLineEntries().add(lineEntry2);
+        testTimesheet1.getLineEntries().add(lineEntry3);
+        testTimesheet1.getLineEntries().add(lineEntry4);
 
 
-        assertEquals(3, 3);
+        assertEquals(8, testTimesheet1.getTotalHoursByWorkType(wT101));
+        assertEquals(18, testTimesheet1.getTotalHoursByWorkType(wT102));
+
+//        public Integer getTotalHoursByWorkType(WorkType workType){
+//            List<LineEntry> lineEntries = this.lineEntries;
+//            //iterate thru an arraylist of line entries
+//            Integer totalHoursForWorkType = 0;
+//            for (LineEntry lineEntry : lineEntries){
+//                Integer lineEntryTotal = 0;
+//                if (lineEntry.getProjectWorkTypeCombo().getWorkType().equals(workType)){
+//                    lineEntryTotal = lineEntry.getTotalHours();
+//                }
+//                totalHoursForWorkType +=lineEntryTotal;
+//            }
+//            return totalHoursForWorkType;
+//        }
     }
 
 
