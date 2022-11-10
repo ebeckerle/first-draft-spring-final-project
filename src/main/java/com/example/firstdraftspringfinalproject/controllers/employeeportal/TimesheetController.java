@@ -136,7 +136,7 @@ public class TimesheetController {
             LineEntry existingLineEntry = lineEntryRepository.findByProjectWorkTypeComboAndTimesheet(projectWorkTypeCombo, currentTimesheet);
 
             // if so, update that line entry,
-            DaysOfWeekHoursSet newCombinedDaysOfWeekHoursCombo = newEntry.updateALineEntry(daysOfWeekHoursCombo, existingLineEntry.getDaysOfWeekHoursCombo());
+            DaysOfWeekHoursSet newCombinedDaysOfWeekHoursCombo = LineEntry.updateALineEntry(daysOfWeekHoursCombo, existingLineEntry.getDaysOfWeekHoursCombo());
             daysOfWeekHoursSetRepository.save(newCombinedDaysOfWeekHoursCombo);
             newEntry.setDaysOfWeekHoursCombo(newCombinedDaysOfWeekHoursCombo);
 

@@ -89,7 +89,7 @@ public class LineEntry {
     }
 
 
-    public DaysOfWeekHoursSet updateALineEntry(DaysOfWeekHoursSet dayHourCombo1, DaysOfWeekHoursSet dayHourCombo2){
+    public static DaysOfWeekHoursSet updateALineEntry(DaysOfWeekHoursSet dayHourCombo1, DaysOfWeekHoursSet dayHourCombo2){
 
         Integer newMondayTotal = dayHourCombo1.getMondayHours() + dayHourCombo2.getMondayHours();
         Integer newTuesdayTotal = dayHourCombo1.getTuesdayHours() + dayHourCombo2.getTuesdayHours();

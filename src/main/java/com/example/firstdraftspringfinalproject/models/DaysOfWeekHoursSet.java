@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class DaysOfWeekHoursSet {
@@ -101,5 +102,19 @@ public class DaysOfWeekHoursSet {
 
     public Integer getTotalHours(){
         return this.mondayHours + this.tuesdayHours + this.wednesdayHours + this.thursdayHours + this.fridayHours + this.saturdayHours;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DaysOfWeekHoursSet that = (DaysOfWeekHoursSet) o;
+        return Objects.equals(mondayHours, that.mondayHours) && Objects.equals(tuesdayHours, that.tuesdayHours) && Objects.equals(wednesdayHours, that.wednesdayHours) && Objects.equals(thursdayHours, that.thursdayHours) && Objects.equals(fridayHours, that.fridayHours) && Objects.equals(saturdayHours, that.saturdayHours);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mondayHours, tuesdayHours, wednesdayHours, thursdayHours, fridayHours, saturdayHours);
     }
 }
