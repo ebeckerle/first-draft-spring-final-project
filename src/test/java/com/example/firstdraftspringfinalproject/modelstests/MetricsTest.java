@@ -24,7 +24,7 @@ public class MetricsTest {
     }
 
     @Test
-    public void test(){
+    public void testSetXyValuesWhenThereIsNoSecondaryCategory(){
 
         assertEquals("101", "102");
 
