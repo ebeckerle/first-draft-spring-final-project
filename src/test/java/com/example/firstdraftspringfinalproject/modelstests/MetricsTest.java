@@ -1,21 +1,37 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
-import com.example.firstdraftspringfinalproject.models.Employee;
-import com.example.firstdraftspringfinalproject.models.Project;
-import com.example.firstdraftspringfinalproject.models.Timesheet;
-import com.example.firstdraftspringfinalproject.models.WorkType;
+import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
+import com.example.firstdraftspringfinalproject.data.ProjectRepository;
+import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
+import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
+import com.example.firstdraftspringfinalproject.models.*;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MetricsTest {
 
 
+    @Autowired
+    EmployeeRepository employeeRepository;
 
+    @Autowired
+    TimesheetRepository timesheetRepository;
+
+    @Autowired
+    ProjectRepository projectRepository;
+
+    @Autowired
+    WorkTypeRepository workTypeRepository;
+
+//    Metrics testMetricsObj1 = new Metrics("Employee", employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+
+    Metrics testMetricsObj2 = new Metrics("WorkType", "Project", "Notre Dame Cathedral", employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
 
     @Test
     public void test(){
@@ -26,7 +42,11 @@ public class MetricsTest {
     @Test
     public void testSetXyValuesWhenThereIsNoSecondaryCategory(){
 
-        assertEquals("101", "102");
+        Metrics testMetricsObj1 = new Metrics("Employee", employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+        testMetricsObj1.setXyValuesWhenThereIsNoSecondaryCategory();
+        assertFalse(testMetricsObj1.getContainsSecondaryCategory());
+        assertFalse(testMetricsObj1.getXyValues().isEmpty());
+//        assertEquals("101", "102");
 
 //        public void setXyValuesWhenThereIsNoSecondaryCategory(){
 //            HashMap<String, Integer> xyValues = new HashMap<>();
