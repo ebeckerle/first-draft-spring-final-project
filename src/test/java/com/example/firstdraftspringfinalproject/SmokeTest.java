@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 @SpringBootTest
-public class ProjectTest {
+public class SmokeTest {
 
     @Autowired
     private AuthenticationController authenticationController;
