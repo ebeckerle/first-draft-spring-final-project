@@ -23,6 +23,8 @@ public class Project {
     private String projectName;
 
     // TODO : Other fields we may want in the future:
+
+    private Contact contactInfo;
     //  hoursQuoted, hoursBilled, contactInfo, etc;
     //  number of shipments upcoming;
     //  shipment goal dates; actual shipment dates
