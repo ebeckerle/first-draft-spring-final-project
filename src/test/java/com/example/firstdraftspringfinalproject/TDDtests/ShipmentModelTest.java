@@ -21,13 +21,16 @@ public class ShipmentModelTest {
     // -
 
 
-    // TODO: POSSIBLE FIELDS
-    private String name;
-    //should have an ENUM: ShipmentTypes ; OUT, IN
-    private ShipmentTypes type;
-    private Date outgoingDate; //should be null if
-    private Date incomingDate;
-    private Project project;
+//    // TODO: POSSIBLE FIELDS
+//    private String name;
+//    //should have an ENUM: ShipmentTypes ; OUT, IN
+//    private ShipmentTypes type;
+//    private Date outgoingDate; //should be null if
+//    private Date incomingDate;
+//    private Project project;
+//    private Integer palletCount;
+//    private Integer productCount;
+
 
     // update Project Class:
 

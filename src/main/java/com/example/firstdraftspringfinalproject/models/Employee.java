@@ -39,14 +39,14 @@ public class Employee {
     private GregorianCalendar firstDateOfWork;
     private Integer paidTimeOff;
 
-    private String email;
-    private String address;
+    private Contact contactInfo;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Employee (String firstName, String lastName, String title, Integer payRate, Integer paidTimeOff, String oneTimePassword) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.contactInfo = new Contact(firstName, lastName);
         this.firstNameLastNameCombo = firstName + ' ' +lastName;
         this.title = title;
         this.payRate = payRate;
