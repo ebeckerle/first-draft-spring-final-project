@@ -3,9 +3,12 @@ package com.example.firstdraftspringfinalproject.TDDtests;
 import com.example.firstdraftspringfinalproject.models.Contact;
 import com.example.firstdraftspringfinalproject.models.Employee;
 import com.example.firstdraftspringfinalproject.models.Pallet;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ShipmentModelTest {
 
@@ -50,6 +53,38 @@ public class ShipmentModelTest {
 
     // update Project Class:
 
+    @Test
+    public void testConstructorOne(){
+        assertEquals("102", "102");
+
+    }
+
+    @Test
+    public void testAddAPallet(){
+        assertEquals("102", "102");
+//        public void addAPallet(Pallet pallet) {
+//            this.pallets.add(pallet);
+//        }
+
+    }
+
+    @Test
+    public void testRemoveAPallet(){
+        assertEquals("102", "102");
+//        public void removeAPallet(Pallet pallet) {
+//            this.pallets.remove(pallet);
+//        }
+    }
+
+    @Test
+    public void testCalculatePalletCount(){
+        assertEquals("102", "102");
+//        public void calculatePalletCount() {
+//            int palletCount = 0;
+//            palletCount = this.pallets.size();
+//            this.palletCount = palletCount;
+//        }
+    }
 
 
 

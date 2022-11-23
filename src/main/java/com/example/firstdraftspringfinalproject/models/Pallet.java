@@ -17,6 +17,7 @@ public class Pallet {
 
     private ArrayList<String> productType;
     private HashMap<String, Integer> productCount;
+    private Integer totalCount;
     private Integer weight;
 
     public Pallet(ArrayList<String> productType, HashMap<String, Integer> productCount, Integer weight){
@@ -47,6 +48,18 @@ public class Pallet {
 
     public void setProductCount(HashMap<String, Integer> productCount) {
         this.productCount = productCount;
+    }
+
+    public Integer getTotalCount() {
+        return totalCount;
+    }
+
+    public void calculateTotalCount() {
+        for (:
+             ) {
+            
+        }
+        this.totalCount = totalCount;
     }
 
     public Integer getWeight() {
