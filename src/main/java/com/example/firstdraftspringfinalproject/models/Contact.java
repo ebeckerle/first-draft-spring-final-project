@@ -93,8 +93,14 @@ public class Contact {
         return email;
     }
 
-    public void setEmail(ArrayList<String> email) {
-        this.email = email;
+    public void setAnEmail(String email) {
+        if(this.email == null){
+            this.email = new ArrayList<>();
+            this.email.add(email);
+        }else{
+            this.email.add(email);
+        }
+
     }
 
     public ArrayList<PhoneNumber> getPhoneNumbers() {
