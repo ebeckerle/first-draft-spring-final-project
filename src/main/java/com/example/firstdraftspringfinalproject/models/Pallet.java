@@ -15,15 +15,20 @@ public class Pallet {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    private ArrayList<String> productType;
-    private HashMap<String, Integer> productCount;
-    private Integer totalCount;
-    private Integer weight;
+    private ArrayList<ProductType> productType = new ArrayList<>();
+    private HashMap<ProductType, Integer> productTypeAndCount = new HashMap<>();
+    private Integer totalCount = 0;
+    private Integer weight = 0;
 
-    public Pallet(ArrayList<String> productType, HashMap<String, Integer> productCount, Integer weight){
+    public Pallet(ArrayList<ProductType> productType, HashMap<ProductType, Integer> productCount, Integer weight){
         this.productType = productType;
-        this.productCount = productCount;
+        this.productTypeAndCount = productCount;
         this.weight = weight;
+    }
+
+    public Pallet(ProductType productType, Integer productCount){
+            this.productType.add(productType);
+            this.productTypeAndCount.put(productType, productCount);
     }
 
     public Pallet() {
@@ -34,32 +39,50 @@ public class Pallet {
         return id;
     }
 
-    public ArrayList<String> getProductType() {
+    public ArrayList<ProductType> getProductType() {
         return productType;
     }
 
-    public void setProductType(ArrayList<String> productType) {
-        this.productType = productType;
+    public void setAProduct(ProductType productType, Integer productCount) {
+        if(!this.productType.contains(productType)){
+            this.productType.add(productType);
+        }
+        if(this.productTypeAndCount.containsKey(productType)){
+            Integer oldProductCount = this.productTypeAndCount.get(productType);
+            Integer newProductCount = productCount + oldProductCount;
+            this.productTypeAndCount.remove(productType);
+            this.productTypeAndCount.put(productType, newProductCount);
+        }else{
+            this.productTypeAndCount.put(productType, productCount);
+        }
     }
 
-    public HashMap<String, Integer> getProductCount() {
-        return productCount;
+//    public void setAProductType(ArrayList<String> productType) {
+//        this.productType = productType;
+//    }
+
+    public HashMap<ProductType, Integer> getProductTypeAndCount() {
+        return productTypeAndCount;
     }
 
-    public void setProductCount(HashMap<String, Integer> productCount) {
-        this.productCount = productCount;
+    public void setProductCount(HashMap<ProductType, Integer> productCount) {
+        this.productTypeAndCount = productCount;
     }
 
     public Integer getTotalCount() {
         return totalCount;
     }
 
-    public void calculateTotalCount() {
-        for (:
-             ) {
-            
+    //TODO NEXT!!!!
+    public int calculateTotalCountForProductType(ProductType productType) {
+        int totalCountForAProductType=0;
+        for (ProductType type:
+             this.productTypeAndCount.keySet()) {
+            if(type.equals(productType)){
+                totalCountForAProductType=this.productTypeAndCount.get(type);
+            }
         }
-        this.totalCount = totalCount;
+        return totalCountForAProductType;
     }
 
     public Integer getWeight() {

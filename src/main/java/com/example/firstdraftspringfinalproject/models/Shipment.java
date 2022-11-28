@@ -2,11 +2,10 @@ package com.example.firstdraftspringfinalproject.models;
 
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 @Entity
 public class Shipment {
@@ -22,17 +21,23 @@ public class Shipment {
     //OUTGOING Fields
     private Date outgoingDateScheduled; //should be null if incoming
     private Date outgoingDateActual;
+    @ManyToOne
+    @JoinColumn(name = "ship_out_sign_off_employee_id")
     private Employee shipOutSignOff;
 
     //INCOMING Fields
     private Date incomingDate;
     private Date inventoriedDate;
+    @ManyToOne
+    @JoinColumn(name = "inventoried_sign_off_employee_id")
     private Employee inventoriedSignOff;
 
     private ArrayList<Pallet> pallets = new ArrayList<Pallet>();
     private Integer palletCount;
-    private Integer productCount;
+    private HashMap<String, Integer> productTypeAndCount;
     private String comments;
+    @ManyToOne
+    @JoinColumn(name = "carrier_id")
     private Contact carrier;
 
     public Shipment(String name, Project project, ShipmentType type) {
@@ -155,11 +160,12 @@ public class Shipment {
         this.productCount = productCount;
     }
 
+    //TODO NEXT!!!!
     public void calculateProductCount() {
         Integer productCount = 0;
         for (Pallet pallet:
              this.pallets) {
-            Integer count = pallet.getProductCount().values();
+            Integer count = pallet.getProductTypeAndCount().values();
             productCount += ;
         }
         productCount;
