@@ -1,12 +1,12 @@
 package com.example.firstdraftspringfinalproject.TDDtests;
 
-import com.example.firstdraftspringfinalproject.models.Contact;
-import com.example.firstdraftspringfinalproject.models.Employee;
-import com.example.firstdraftspringfinalproject.models.Pallet;
+import com.example.firstdraftspringfinalproject.models.*;
+import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -55,8 +55,15 @@ public class ShipmentModelTest {
 
     @Test
     public void testConstructorOne(){
-        assertEquals("102", "102");
+        Project pNam = new Project("NAM", "Nelson Atkins Museum");
+        Shipment testShipmentOne = new Shipment("PhaseII - NAM", pNam, ShipmentType.OUTGOING);
 
+        assertEquals("102", "102");
+//    public Shipment(String name, Project project, ShipmentType type) {
+//            this.name = name;
+//            this.project = project;
+//            this.type = type;
+//        }
     }
 
     @Test
@@ -85,6 +92,34 @@ public class ShipmentModelTest {
 //            this.palletCount = palletCount;
 //        }
     }
+
+    //TODO TEST NEXT!!!!
+
+    @Test
+    public void testCalculateProductTypesAndCounts(){
+        assertEquals("102", "102");
+//    public void calculateProductTypesAndCounts() {
+//        HashMap<ProductType, Integer> productTypeAndCount = new HashMap<>();
+//        for (Pallet pallet:
+//                this.pallets) {
+//            for (ProductType product :
+//                    pallet.getProductTypeAndCount().keySet()) {
+//                if(productTypeAndCount.containsKey(product)){
+//                    //find the count and add to
+//                    Integer oldProductCount = productTypeAndCount.get(product);
+//                    Integer newProductCount = pallet.getProductTypeAndCount().get(product) + oldProductCount;
+//                    productTypeAndCount.remove(product);
+//                    productTypeAndCount.put(product, newProductCount);
+//                }else{
+//                    productTypeAndCount.put(product, pallet.getProductTypeAndCount().get(product));
+//                }
+//            }
+//
+//        }
+//        this.productTypeAndCount = productTypeAndCount;
+//    }
+    }
+
 
 
 

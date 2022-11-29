@@ -15,6 +15,8 @@ public class Shipment {
     private Integer id;
 
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "project_project_id")
     private Project project;
     private ShipmentType type;
 
@@ -34,7 +36,7 @@ public class Shipment {
 
     private ArrayList<Pallet> pallets = new ArrayList<Pallet>();
     private Integer palletCount;
-    private HashMap<String, Integer> productTypeAndCount;
+    private HashMap<ProductType, Integer> productTypeAndCount;
     private String comments;
     @ManyToOne
     @JoinColumn(name = "carrier_id")
@@ -152,23 +154,33 @@ public class Shipment {
         this.palletCount = palletCount;
     }
 
-    public Integer getProductCount() {
-        return productCount;
+    public HashMap<ProductType, Integer> getProductTypeAndCount() {
+        return productTypeAndCount;
     }
 
-    public void setProductCount(Integer productCount) {
-        this.productCount = productCount;
+    public void setProductTypeAndCount(HashMap<ProductType, Integer> productTypeAndCount) {
+        this.productTypeAndCount = productTypeAndCount;
     }
 
-    //TODO NEXT!!!!
-    public void calculateProductCount() {
-        Integer productCount = 0;
+    public void calculateProductTypesAndCounts() {
+        HashMap<ProductType, Integer> productTypeAndCount = new HashMap<>();
         for (Pallet pallet:
              this.pallets) {
-            Integer count = pallet.getProductTypeAndCount().values();
-            productCount += ;
+            for (ProductType product :
+                 pallet.getProductTypeAndCount().keySet()) {
+                if(productTypeAndCount.containsKey(product)){
+                    //find the count and add to
+                    Integer oldProductCount = productTypeAndCount.get(product);
+                    Integer newProductCount = pallet.getProductTypeAndCount().get(product) + oldProductCount;
+                    productTypeAndCount.remove(product);
+                    productTypeAndCount.put(product, newProductCount);
+                }else{
+                    productTypeAndCount.put(product, pallet.getProductTypeAndCount().get(product));
+                }
+            }
+
         }
-        productCount;
+        this.productTypeAndCount = productTypeAndCount;
     }
 
     public String getComments() {
