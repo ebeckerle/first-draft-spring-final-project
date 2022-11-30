@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.models;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public class Shipment {
     private Employee inventoriedSignOff;
 
     private ArrayList<Pallet> pallets = new ArrayList<Pallet>();
-    private Integer palletCount;
+    private Integer palletCount = 0;
     private HashMap<ProductType, Integer> productTypeAndCount;
     private String comments;
     @ManyToOne
@@ -46,6 +47,18 @@ public class Shipment {
         this.name = name;
         this.project = project;
         this.type = type;
+        if(type.equals(ShipmentType.INCOMING)){
+            this.incomingDate = new Date();
+            this.outgoingDateScheduled = null;
+            this.outgoingDateActual = null;
+            this.shipOutSignOff = null;
+        }
+        if(type.equals(ShipmentType.OUTGOING)){
+            this.outgoingDateScheduled = new Date();
+            this.incomingDate = null;
+            this.inventoriedDate = null;
+            this.inventoriedSignOff = null;
+        }
     }
 
     public Shipment() {
@@ -138,10 +151,14 @@ public class Shipment {
 
     public void addAPallet(Pallet pallet) {
         this.pallets.add(pallet);
+        this.palletCount += 1;
     }
 
     public void removeAPallet(Pallet pallet) {
-        this.pallets.remove(pallet);
+        if(this.pallets.contains(pallet)){
+            this.pallets.remove(pallet);
+            this.palletCount += -1;
+        }
     }
 
     public Integer getPalletCount() {

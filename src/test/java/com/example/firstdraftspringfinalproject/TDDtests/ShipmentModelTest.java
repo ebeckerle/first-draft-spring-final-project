@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static java.util.Objects.isNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ShipmentModelTest {
 
@@ -53,22 +54,42 @@ public class ShipmentModelTest {
 
     // update Project Class:
 
+    private Project pNam = new Project("NAM", "Nelson Atkins Museum");
+    private  Shipment testShipmentOne = new Shipment("PhaseII - NAM", pNam, ShipmentType.OUTGOING);
+    private ProductType testProductTypeOne = new ProductType("Wooden Window Sash", "double-hung, six over one");
+    private ProductType testProductTypeTwo = new ProductType("Steel Window Sash", "casement, 1 lite");
+    private Pallet testPalletOne = new Pallet(testProductTypeOne, 5);
+    private Pallet testPalletTwo = new Pallet(testProductTypeTwo, 100);
+
+    //TODO: TESTS
     @Test
     public void testConstructorOne(){
-        Project pNam = new Project("NAM", "Nelson Atkins Museum");
-        Shipment testShipmentOne = new Shipment("PhaseII - NAM", pNam, ShipmentType.OUTGOING);
+        assertFalse(isNull(testShipmentOne));
+        assertNull(testShipmentOne.getIncomingDate());
+        assertFalse(isNull(testShipmentOne.getOutgoingDateScheduled()));
+        System.out.println(testShipmentOne.getOutgoingDateScheduled().toString());
 
-        assertEquals("102", "102");
 //    public Shipment(String name, Project project, ShipmentType type) {
 //            this.name = name;
 //            this.project = project;
 //            this.type = type;
+//        if(type.equals(ShipmentType.INCOMING)){
+//            this.outgoingDateScheduled = null;
+//            this.outgoingDateActual = null;
+//            this.shipOutSignOff = null;
+//        }
+//        if(type.equals(ShipmentType.OUTGOING)){
+//            this.incomingDate = null;
+//            this.inventoriedDate = null;
+//            this.inventoriedSignOff = null;
+//        }
 //        }
     }
 
     @Test
     public void testAddAPallet(){
-        assertEquals("102", "102");
+        testShipmentOne.addAPallet(testPalletOne);
+        assertEquals(testPalletOne, testShipmentOne.getPallets().get(0));
 //        public void addAPallet(Pallet pallet) {
 //            this.pallets.add(pallet);
 //        }
@@ -77,7 +98,12 @@ public class ShipmentModelTest {
 
     @Test
     public void testRemoveAPallet(){
-        assertEquals("102", "102");
+        testShipmentOne.addAPallet(testPalletOne);
+        testShipmentOne.addAPallet(testPalletTwo);
+        assertEquals(2, testShipmentOne.getPalletCount());
+        testShipmentOne.removeAPallet(testPalletOne);
+        assertEquals(1, testShipmentOne.getPalletCount());
+
 //        public void removeAPallet(Pallet pallet) {
 //            this.pallets.remove(pallet);
 //        }
@@ -85,7 +111,10 @@ public class ShipmentModelTest {
 
     @Test
     public void testCalculatePalletCount(){
-        assertEquals("102", "102");
+        testShipmentOne.addAPallet(testPalletOne);
+        testShipmentOne.addAPallet(testPalletTwo);
+        testShipmentOne.calculatePalletCount();
+        assertEquals(2, testShipmentOne.getPalletCount());
 //        public void calculatePalletCount() {
 //            int palletCount = 0;
 //            palletCount = this.pallets.size();
@@ -97,7 +126,11 @@ public class ShipmentModelTest {
 
     @Test
     public void testCalculateProductTypesAndCounts(){
-        assertEquals("102", "102");
+        testPalletOne.setAProduct(testProductTypeTwo, 33);
+        testShipmentOne.addAPallet(testPalletOne);
+        testShipmentOne.addAPallet(testPalletTwo);
+        testShipmentOne.calculateProductTypesAndCounts();
+        assertEquals(133, testShipmentOne.getProductTypeAndCount().get(testProductTypeTwo));
 //    public void calculateProductTypesAndCounts() {
 //        HashMap<ProductType, Integer> productTypeAndCount = new HashMap<>();
 //        for (Pallet pallet:
