@@ -3,10 +3,7 @@ package com.example.firstdraftspringfinalproject.models;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -39,7 +36,11 @@ public class Employee {
     private GregorianCalendar firstDateOfWork;
     private Integer paidTimeOff;
 
+    @OneToOne
     private Contact contactInfo;
+
+    @OneToOne
+    private Contact emergencyContact;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 

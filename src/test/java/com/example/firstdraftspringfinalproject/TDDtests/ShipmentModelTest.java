@@ -61,7 +61,7 @@ public class ShipmentModelTest {
     private Pallet testPalletOne = new Pallet(testProductTypeOne, 5);
     private Pallet testPalletTwo = new Pallet(testProductTypeTwo, 100);
 
-    //TODO: TESTS
+
     @Test
     public void testConstructorOne(){
         assertFalse(isNull(testShipmentOne));
@@ -122,7 +122,6 @@ public class ShipmentModelTest {
 //        }
     }
 
-    //TODO TEST NEXT!!!!
 
     @Test
     public void testCalculateProductTypesAndCounts(){

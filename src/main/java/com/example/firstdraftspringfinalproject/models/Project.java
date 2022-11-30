@@ -1,8 +1,6 @@
 package com.example.firstdraftspringfinalproject.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -24,7 +22,17 @@ public class Project {
 
     // TODO : Other fields we may want in the future:
 
+    @OneToOne
+    @JoinColumn(name = "contact_info_id")
     private Contact contactInfo;
+
+    public Contact getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(Contact contactInfo) {
+        this.contactInfo = contactInfo;
+    }
     //  hoursQuoted, hoursBilled, contactInfo, etc;
     //  number of shipments upcoming;
     //  shipment goal dates; actual shipment dates

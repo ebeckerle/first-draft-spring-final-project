@@ -24,10 +24,10 @@ public class Contact {
     @Size(min = 5, max = 5, message = "ZipCode must be 5 characters")
     private String zipcode;
 
-    @OneToMany
-    private ArrayList<String> email;
+//    @OneToMany
+    private ArrayList<String> email = new ArrayList<>();
 
-    @OneToMany
+//    @OneToMany
     private ArrayList<PhoneNumber> phoneNumbers;
 
     public Contact(String firstName, String lastName, String addressLineOne, String city, String state, String zipcode, String email, String phoneNumber){
@@ -37,7 +37,6 @@ public class Contact {
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
-        this.email = new ArrayList<>();
         this.email.add(email);
         this.phoneNumbers = new ArrayList<>();
         this.phoneNumbers.add(new PhoneNumber(phoneNumber));
@@ -100,7 +99,6 @@ public class Contact {
         }else{
             this.email.add(email);
         }
-
     }
 
     public ArrayList<PhoneNumber> getPhoneNumbers() {

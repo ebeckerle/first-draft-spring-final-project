@@ -15,4 +15,14 @@ public class ManageShipmentsController {
         return "supervisor/manageshipments";
     }
 
+    @GetMapping("/addIncoming")
+    public String displayAddAnIncomingShipment(Model model){
+        return "supervisor/newshipment";
+    }
+
+    @GetMapping("/addOutgoing")
+    public String displayAddAnOutgoingShipment(Model model){
+        return "supervisor/newshipment";
+    }
+
 }
