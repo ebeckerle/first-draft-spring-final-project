@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -18,6 +19,11 @@ public class ManageShipmentsController {
     @GetMapping("/addIncoming")
     public String displayAddAnIncomingShipment(Model model){
         return "supervisor/newshipment";
+    }
+
+    @PostMapping("/addIncoming")
+    public String processAddAnIncomingShipment(Model model){
+        return "supervisor/manageshipments";
     }
 
     @GetMapping("/addOutgoing")
