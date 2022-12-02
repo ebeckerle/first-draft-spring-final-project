@@ -10,6 +10,25 @@
 
 <div class="main-contents">
     <p>new shipment form here</p>
+    <form method="post">
+
+        <div class="form-style1">
+            <label>Name:
+                <input th:field="${project.projectCode}">
+            </label>
+            <p class="error" th:errors="${project.projectCode}"></p>
+        </div>
+
+        <label>Project:
+            <select name="project">
+                <option th:each="project : ${projects}" th:value="${project}" th:text="${project}"></option>
+            </select>
+        </label>
+
+        <div class="form-style1">
+            <input type="submit" value="Add" class="btn btn-success">
+        </div>
+    </form>
 </div>
 
 </body>

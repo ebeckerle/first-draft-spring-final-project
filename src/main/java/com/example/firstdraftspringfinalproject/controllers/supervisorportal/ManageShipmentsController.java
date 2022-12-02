@@ -1,5 +1,8 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
+import com.example.firstdraftspringfinalproject.data.ProjectRepository;
+import com.example.firstdraftspringfinalproject.models.Shipment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("supervisor/manageshipments")
 public class ManageShipmentsController {
 
+    @Autowired
+    private ProjectRepository projectRepository;
+
     @GetMapping
     public String displayManageShipments(Model model){
         model.addAttribute("title", "Manage Shipments");
@@ -18,6 +24,8 @@ public class ManageShipmentsController {
 
     @GetMapping("/addIncoming")
     public String displayAddAnIncomingShipment(Model model){
+        model.addAttribute(new Shipment());
+        model.addAttribute("projects", projectRepository.findAll());
         return "supervisor/newshipment";
     }
 
