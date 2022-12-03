@@ -18,6 +18,9 @@ window.addEventListener('load', function(){
             }
         });
     }
+    if(document.title == "Manage Shipments"){
+        viewCalendar();
+    }
 
     //allows for header when employee portal logged in to mobile friendly
     let toggleButton = document.getElementsByClassName('toggle-button')[0]

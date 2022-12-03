@@ -14,16 +14,19 @@
 
         <div class="form-style1">
             <label>Name:
-                <input th:field="${project.projectCode}">
+                <input th:field="${shipment.name}">
             </label>
-            <p class="error" th:errors="${project.projectCode}"></p>
+            <p class="error" th:errors="${shipment.name}"></p>
         </div>
 
-        <label>Project:
+        <div class="form-style1">
+            <label>Project:
             <select name="project">
                 <option th:each="project : ${projects}" th:value="${project}" th:text="${project}"></option>
             </select>
         </label>
+            <a href="/supervisor/manageprojects/newproject">Add A New Project</a>
+        </div>
 
         <div class="form-style1">
             <input type="submit" value="Add" class="btn btn-success">
