@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 
 function viewCalendar(){
     document.getElementById("calendar").innerHTML = `
