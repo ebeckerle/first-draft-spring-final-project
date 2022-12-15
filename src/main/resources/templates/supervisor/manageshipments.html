@@ -13,6 +13,44 @@
     <p>Shipments Feature will go here</p>
 
     <div id="calendar">
+        <!-- Parent container for the calendar month -->
+        <div class="calendar-month">
+            <!-- The calendar header -->
+            <section class="calendar-month-header">
+                <!-- Month name -->
+                <div
+                        id="selected-month"
+                        class="calendar-month-header-selected-month"
+                >
+                    Current Month
+                </div>
+                <!-- Pagination -->
+                <div class="calendar-month-header-selectors">
+                    <span id="previous-month-selector"> </span>
+                    <span id="present-month-selector"></span>
+                    <span id="next-month-selector"> </span>
+                </div>
+            </section>
+
+            <table>
+                <!-- Calendar grid header -->
+                <thead id="days-of-week" class="day-of-week">
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+                </thead>
+                <!-- Calendar grid -->
+                <tbody id="calendar-body">
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
     <a href="/supervisor/manageshipments/addIncoming">Create an Incoming Shipment</a>

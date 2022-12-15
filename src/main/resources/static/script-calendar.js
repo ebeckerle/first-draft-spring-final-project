@@ -1,60 +1,12 @@
 
-function viewCalendar(calendarBody, currentMonth){
-
-  document.getElementById("calendar").innerHTML = `
-  <!-- Parent container for the calendar month -->
-  <div class="calendar-month">
-      <!-- The calendar header -->
-      <section class="calendar-month-header">
-        <!-- Month name -->
-        <div
-          id="selected-month"
-          class="calendar-month-header-selected-month"
-        >
-          ${currentMonth}
-        </div>
-        <!-- Pagination -->
-        <div class="calendar-month-header-selectors">
-          <span id="previous-month-selector"> </span>
-          <span id="present-month-selector">${currentMonth}</span>
-          <span id="next-month-selector"> </span>
-        </div>
-      </section>
-
-      <table>
-          <!-- Calendar grid header -->
-          <thead id="days-of-week" class="day-of-week">
-              <tr>
-                  <th>Sun</th>
-                  <th>Mon</th>
-                  <th>Tue</th>
-                  <th>Wed</th>
-                  <th>Thu</th>
-                  <th>Fri</th>
-                  <th>Sat</th>
-              </tr>
-          </thead>
-          <!-- Calendar grid -->
-          <!--<tbody id="calendar-body">-->
-            ${calendarBody}
-            <!--</tbody>-->
-      </table>
-
-      </div>
-      `;
-}
-
 function createCalendar(month, year){
   let firstDay = (new Date(year, month)).getDay();
   let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-
-  // let tbl = document.getElementById("calendar-body"); // body of the calendar
-  // console.log(tbl);
-  let tbl = document.createElement("tbody"); // body of the calendar
+  let tbl = document.getElementById("calendar-body"); // body of the calendar
   console.log(tbl);
-
-
+  // let tbl = document.createElement("tbody"); // body of the calendar
+  // console.log(tbl);
 
   // clearing all previous cells
   // tbl.innerHTML = "";
@@ -99,6 +51,10 @@ function createCalendar(month, year){
       tbl.appendChild(row); // appending each row into calendar body.
   }
 
-  return tbl;
+  console.log(tbl);
+
+  let displayMonth = new Intl.DateTimeFormat("en-US", { month: "long" }).format(month);
+
+  document.getElementById("selected-month").innerHTML = displayMonth;
 
 }
