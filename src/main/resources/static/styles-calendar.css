@@ -1,4 +1,78 @@
 body {
+  font-family: sans-serif;
+  font-weight: 100;
+    --grey-100: #e4e9f0;
+    --grey-200: #cfd7e3;
+    --grey-300: #b5c0cd;
+    --grey-800: #3e4e63;
+    --grid-gap: 1px;
+    --day-label-size: 20px;
+}
+
+
+ol,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+  .calendar-month {
+    /* position: relative; */
+    /* Color of the day cell borders */
+    background-color: var(--grey-200);
+    border: solid 1px var(--grey-200);
+  }
+
+  /* Month indicator and selectors positioning */
+  .calendar-month-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px;
+  }
+
+  /* Month indicator */
+  .calendar-month-header-selected-month {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  /* Month selectors positioning */
+  .calendar-month-header-selectors {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80px;
+  }
+
+  .calendar-month-header-selectors > * {
+    cursor: pointer;
+  }
+
+  /* | Mon | Tue | Wed | Thu | Fri | Sat | Sun | */
+  .day-of-week {
+    color: var(--grey-800);
+    font-size: 18px;
+    background-color: #fff;
+    padding-bottom: 5px;
+    padding-top: 10px;
+  }
+
+  /*Elizabeth Added CSS*/
+
+table {
+  margin-right: 0;
+  width: 100%;
+}
+
+#calendar-body tr td {
+  text-align: center;
+}
+
+/*
+
+body {
   --grey-100: #e4e9f0;
   --grey-200: #cfd7e3;
   --grey-300: #b5c0cd;
@@ -9,13 +83,13 @@ body {
 
 .calendar-month {
   position: relative;
-  /* Color of the day cell borders */
+  /* Color of the day cell borders *//*
   background-color: var(--grey-200);
   border: solid 1px var(--grey-200);
 }
 
 
-/* Month indicator and selectors positioning */
+/* Month indicator and selectors positioning *//*
 .calendar-month-header {
   display: flex;
   justify-content: space-between;
@@ -24,14 +98,14 @@ body {
 }
 
 
-/* Month indicator */
+/* Month indicator *//*
 .calendar-month-header-selected-month {
   font-size: 24px;
   font-weight: 600;
 }
 
 
-/* Month selectors positioning */
+/* Month selectors positioning *//*
 .calendar-month-header-selectors {
   display: flex;
   align-items: center;
@@ -45,7 +119,7 @@ body {
 }
 
 
-/* | Mon | Tue | Wed | Thu | Fri | Sat | Sun | */
+/* | Mon | Tue | Wed | Thu | Fri | Sat | Sun | *//*
 .day-of-week {
   color: var(--grey-800);
   font-size: 18px;
@@ -57,14 +131,14 @@ body {
 
 .day-of-week,
 .days-grid {
-  /* 7 equal columns for weekdays and days cells */
+  /* 7 equal columns for weekdays and days cells *//*
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
 
 
 .day-of-week > * {
-  /* Position the weekday label within the cell */
+  /* Position the weekday label within the cell *//*
   text-align: right;
   padding-right: 5px;
 }
@@ -73,7 +147,7 @@ body {
 .days-grid {
   height: 100%;
   position: relative;
-  /* Show border between the days */
+  /* Show border between the days *//*
   grid-column-gap: var(--grid-gap);
   grid-row-gap: var(--grid-gap);
   border-top: solid 1px var(--grey-200);
@@ -89,6 +163,7 @@ body {
 }
 
 /* Position the day label within the day cell */
+/*
 .calendar-day > span {
   display: flex;
   justify-content: center;
@@ -98,3 +173,6 @@ body {
   width: var(--day-label-size);
   height: var(--day-label-size);
 }
+
+
+*/

@@ -1,5 +1,5 @@
 
-function createCalendar(month, year){
+function createCalendar(today, month, year){
   let firstDay = (new Date(year, month)).getDay();
   let daysInMonth = 32 - new Date(year, month, 32).getDate();
 

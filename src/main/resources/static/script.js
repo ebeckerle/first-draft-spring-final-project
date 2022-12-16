@@ -29,7 +29,7 @@ window.addEventListener('load', function(){
         let monthAndYear = document.getElementById("monthAndYear");
 
         console.log(today);
-        createCalendar(currentMonth, currentYear);
+        createCalendar(today, currentMonth, currentYear);
     }
 
     //allows for header when employee portal logged in to mobile friendly
