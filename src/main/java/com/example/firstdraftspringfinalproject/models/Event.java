@@ -60,6 +60,22 @@ public class Event {
         this.endDate = endDate;
     }
 
+    public Calendar getCalStartDate() {
+        return calStartDate;
+    }
+
+    public void setCalStartDate(Calendar calStartDate) {
+        this.calStartDate = calStartDate;
+    }
+
+    public Calendar getCalEndDate() {
+        return calEndDate;
+    }
+
+    public void setCalEndDate(Calendar calEndDate) {
+        this.calEndDate = calEndDate;
+    }
+
     public String getName() {
         return name;
     }

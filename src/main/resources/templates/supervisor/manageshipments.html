@@ -21,8 +21,8 @@
     <ol id="event-data" th:each="event,iterStat : ${currentMonthEvents}">
         <li th:id="${iterStat.count}">
             <p th:id="eventName + ${iterStat.count}" th:eventName="${event.getName()}"></p>
-            <p th:id="startDate + ${iterStat.count}" th:eventStart="${event.getStartDate()}"></p>
-            <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getEndDate()}"></p>
+            <p th:id="startDate + ${iterStat.count}" th:eventStart="${event.getCalStartDate()}"></p>
+            <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getCalEndDate()}"></p>
         </li>
     </ol>
 <!--    FIX THIS - TODO-->
