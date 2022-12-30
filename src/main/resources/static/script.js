@@ -29,7 +29,9 @@ window.addEventListener('load', function(){
         let monthAndYear = document.getElementById("monthAndYear");
 
         console.log(today);
-        createCalendar(today, currentMonth, currentYear);
+//        console.log(loadEventData());
+        let eventData = loadEventData();
+        createCalendar(today, currentMonth, currentYear, eventData);
     }
 
     //allows for header when employee portal logged in to mobile friendly

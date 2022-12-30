@@ -12,6 +12,23 @@
 
     <p>Shipments Feature will go here</p>
 
+<!--    <ol th:each="project,iterStat : ${projects}">-->
+<!--        <li th:id="${iterStat.count}">-->
+<!--            <a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a>-->
+<!--        </li>-->
+<!--    </ol>-->
+
+    <ol id="event-data" th:each="event,iterStat : ${currentMonthEvents}">
+        <li th:id="${iterStat.count}">
+            <p th:id="eventName + ${iterStat.count}" th:eventName="${event.getName()}"></p>
+            <p th:id="startDate + ${iterStat.count}" th:eventStart="${event.getStartDate()}"></p>
+            <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getEndDate()}"></p>
+        </li>
+    </ol>
+<!--    FIX THIS - TODO-->
+    <p id="eventTotal" th:value="eventTotal" th:text="${eventTotal}"></p>
+
+
     <div id="calendar">
         <!-- Parent container for the calendar month -->
         <div class="calendar-month">
@@ -47,6 +64,7 @@
                 </thead>
                 <!-- Calendar grid -->
                 <tbody id="calendar-body">
+
                 </tbody>
             </table>
         </div>

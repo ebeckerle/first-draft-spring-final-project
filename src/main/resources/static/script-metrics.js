@@ -9,12 +9,12 @@ function viewBarGraph(){
 
     let chartDataElement = document.querySelector("#chart");
     let chartTitleElement = document.querySelector("#chartTitle");
-         let chartData = chartDataElement.getAttribute("xyValues").split(",");
-         let chartTitle = chartTitleElement.getAttribute("chartTitle");
+    let chartData = chartDataElement.getAttribute("xyValues").split(",");
+    let chartTitle = chartTitleElement.getAttribute("chartTitle");
 
-        let xValues = [];
-        let yValues = [];
-        let barColors = ["#245761", "#3B90A1","#52C8E0","#4AB2C7", "#5233BD", "#58D4ED", "#2B31A1", "#4D80F0","#2D73A6", "#4B7EB8", "#384DA6", "#6A5DF0", "#5D37A1", "#9646C2", "#75D8F5", "#7AE0F5", "#1C52BD"];
+    let xValues = [];
+    let yValues = [];
+    let barColors = ["#245761", "#3B90A1","#52C8E0","#4AB2C7", "#5233BD", "#58D4ED", "#2B31A1", "#4D80F0","#2D73A6", "#4B7EB8", "#384DA6", "#6A5DF0", "#5D37A1", "#9646C2", "#75D8F5", "#7AE0F5", "#1C52BD"];
 
         for(let valueSet in chartData){
            let xy = chartData[valueSet].replace("{","").replace("}", "");
