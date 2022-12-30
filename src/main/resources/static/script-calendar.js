@@ -16,6 +16,13 @@ function createCalendar(today, month, year, eventData){
   // selectYear.value = year;
   // selectMonth.value = month;
 
+  // Event Data
+              for(let i = 0; i < eventData.length; i++){
+                console.log(eventData[i]);
+                console.log(eventData[i].name);
+                console.log(typeof eventData[i].startDate);
+              }
+
   // creating all cells
   let date = 1;
   for (let i = 0; i < 6; i++) {
@@ -36,6 +43,9 @@ function createCalendar(today, month, year, eventData){
 
           else {
               let cell = document.createElement("td");
+//              for(let i = 0; i < eventData.length; i++){
+//                console.log(eventData[i]);
+//              }
               if(date === 1 || date === 10 || date === 15){
                 let cellText = document.createTextNode(date + "event");
                 cell.appendChild(cellText);
@@ -72,7 +82,7 @@ function createCalendar(today, month, year, eventData){
 
 function loadEventData(){
     let eventCount = document.getElementById("eventTotal").innerHTML;
-        console.log(eventCount);
+//        console.log(eventCount);
 
         class Event {
             constructor(name, startDate, endDate) {
@@ -85,20 +95,22 @@ function loadEventData(){
         let arrayOfEvents = [];
 
         for(let i = 1; i <= eventCount; i++){
-            console.log("#eventName"+i)
+//            console.log("#eventName"+i)
             let eventNameElement = document.querySelector("#eventName"+i);
             let eventName = eventNameElement.getAttribute("eventName");
-            console.log(eventName);
+//            console.log(eventName);
             let eventStartDateElement = document.querySelector("#startDate"+i);
             let eventStart = eventStartDateElement.getAttribute("eventStart");
-            console.log(eventStart);
+            let eventStartDate = new Date(eventStart);
+            console.log(eventStartDate);
+            console.log(eventStartDate.getFullYear());
             let eventEndDateElement = document.querySelector("#endDate"+i);
             let eventEnd = eventEndDateElement.getAttribute("eventEnd");
-            console.log(eventEnd);
+            console.log("event end: " + eventEnd);
             let event = new Event(eventName, eventStart, eventEnd);
             arrayOfEvents.push(event);
         }
-        console.log(arrayOfEvents);
+//        console.log(arrayOfEvents);
 
     return arrayOfEvents;
 }

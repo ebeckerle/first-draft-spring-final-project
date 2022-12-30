@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -18,11 +19,21 @@ public class Event {
 
     Date endDate;
 
+    Calendar calStartDate;
+
+    Calendar calEndDate;
+
     String name;
 
     public Event(Date startDate, Date endDate, String name) {
         this.startDate = startDate;
         this.endDate = endDate;
+        this.name = name;
+    }
+
+    public Event(Calendar calStartDate, Calendar calEndDate, String name) {
+        this.calStartDate = calStartDate;
+        this.calEndDate = calEndDate;
         this.name = name;
     }
 
