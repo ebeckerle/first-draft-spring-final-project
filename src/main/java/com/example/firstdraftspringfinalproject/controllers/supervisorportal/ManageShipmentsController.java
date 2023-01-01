@@ -30,6 +30,11 @@ public class ManageShipmentsController {
 //        Date dec10 = new Date(2022, 11, 10);
 //        Date dec15 = new Date(2022, 11, 15);
 
+        Calendar calFeb4 = Calendar.getInstance();
+        calFeb4.set(Calendar.YEAR, 2022);
+        calFeb4.set(Calendar.MONTH, Calendar.FEBRUARY);
+        calFeb4.set(Calendar.DAY_OF_MONTH, 4);
+
         Calendar calDec01 = Calendar.getInstance();
         calDec01.set(Calendar.YEAR, 2022);
         calDec01.set(Calendar.MONTH, Calendar.DECEMBER);
@@ -44,7 +49,7 @@ public class ManageShipmentsController {
         calDec15.set(Calendar.YEAR, 2022);
         calDec15.set(Calendar.MONTH, Calendar.DECEMBER);
         calDec15.set(Calendar.DAY_OF_MONTH, 15);
-        Event foxBirthday = new Event(calDec01, calDec01, "Fox's Birthday");
+        Event foxBirthday = new Event(calDec01, calFeb4, "Fox's Birthday");
         Event maggieBirthday = new Event(calDec01, calDec10, "Maggie's Birthday");
         Event maddyBirthday = new Event(calDec15, calDec15, "Maddy Brithday");
 //        Event foxBirthday = new Event(dec1, dec1, "Fox's Birthday");

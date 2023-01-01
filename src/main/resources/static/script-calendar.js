@@ -99,15 +99,30 @@ function loadEventData(){
             let eventNameElement = document.querySelector("#eventName"+i);
             let eventName = eventNameElement.getAttribute("eventName");
 //            console.log(eventName);
+
             let eventStartDateElement = document.querySelector("#startDate"+i);
             let eventStart = eventStartDateElement.getAttribute("eventStart");
-            let eventStartDate = new Date(eventStart);
+
+            let yearStart = Number(eventStart.slice((eventStart.indexOf(",YEAR=")+6),(eventStart.indexOf(",YEAR=")+10)));
+            let monthStart = Number(eventStart.slice((eventStart.indexOf(",MONTH=")+7),eventStart.indexOf(",WEEK_OF_YEAR=")));
+            let dateStart = Number(eventStart.slice((eventStart.indexOf(",DAY_OF_MONTH=")+14),(eventStart.indexOf(",DAY_OF_YEAR="))));
+            let eventStartDate = new Date(yearStart, monthStart, dateStart);
             console.log(eventStartDate);
             console.log(eventStartDate.getFullYear());
+
             let eventEndDateElement = document.querySelector("#endDate"+i);
             let eventEnd = eventEndDateElement.getAttribute("eventEnd");
-            console.log("event end: " + eventEnd);
-            let event = new Event(eventName, eventStart, eventEnd);
+            let year = Number(eventEnd.slice((eventEnd.indexOf(",YEAR=")+6),(eventEnd.indexOf(",YEAR=")+10)));
+            let month = Number(eventEnd.slice((eventEnd.indexOf(",MONTH=")+7),eventEnd.indexOf(",WEEK_OF_YEAR=")));
+            let date = Number(eventEnd.slice((eventEnd.indexOf(",DAY_OF_MONTH=")+14),(eventEnd.indexOf(",DAY_OF_YEAR="))));
+//            console.log(year);
+//            console.log(month);
+//            console.log(date);
+            let eventEndDate = new Date(year, month, date);
+            console.log(eventEndDate);
+            console.log(eventEndDate.getFullYear());
+
+            let event = new Event(eventName, eventStartDate, eventEndDate);
             arrayOfEvents.push(event);
         }
 //        console.log(arrayOfEvents);
