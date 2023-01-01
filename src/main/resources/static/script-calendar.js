@@ -16,11 +16,13 @@ function createCalendar(today, month, year, eventData){
   // selectYear.value = year;
   // selectMonth.value = month;
 
-  // Event Data
+  // Event Data  - THE NEXT TODO -
               for(let i = 0; i < eventData.length; i++){
-                console.log(eventData[i]);
-                console.log(eventData[i].name);
-                console.log(typeof eventData[i].startDate);
+//                console.log(eventData[i]);
+//                console.log(eventData[i].name);
+//                console.log(typeof eventData[i].startDate);
+//                console.log("Start Date: "+eventData[i].startDate.getDate());
+//                console.log("Type of Start Date: "+typeof eventData[i].startDate.getDate());
               }
 
   // creating all cells
@@ -43,20 +45,34 @@ function createCalendar(today, month, year, eventData){
 
           else {
               let cell = document.createElement("td");
-//              for(let i = 0; i < eventData.length; i++){
+              for(let i = 0; i < eventData.length; i++){
 //                console.log(eventData[i]);
-//              }
-              if(date === 1 || date === 10 || date === 15){
-                let cellText = document.createTextNode(date + "event");
-                cell.appendChild(cellText);
-                row.appendChild(cell);
-                date++;
-              }else{
-                 let cellText = document.createTextNode(date);
-                 cell.appendChild(cellText);
-                 row.appendChild(cell);
-                 date++;
+                let startDateDayOfMonth = eventData[i].startDate.getDate();
+                let eventName = eventData[i].name;
+//                console.log(eventData[i].startDate.getDate());
+                  if(date === startDateDayOfMonth){
+                    let cellText = document.createTextNode(date + " - "+eventName);
+                    cell.appendChild(cellText);
+                    row.appendChild(cell);
+                    date++;
+                  }else{
+                     let cellText = document.createTextNode(date);
+                     cell.appendChild(cellText);
+                     row.appendChild(cell);
+                     date++;
+                  }
               }
+//              if(date === 1 || date === 10 || date === 15){
+//                let cellText = document.createTextNode(date + "event");
+//                cell.appendChild(cellText);
+//                row.appendChild(cell);
+//                date++;
+//              }else{
+//                 let cellText = document.createTextNode(date);
+//                 cell.appendChild(cellText);
+//                 row.appendChild(cell);
+//                 date++;
+//              }
 
 //              if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
 //                  cell.classList.add("bg-info");
