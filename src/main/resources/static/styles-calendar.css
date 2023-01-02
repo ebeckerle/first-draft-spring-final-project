@@ -64,10 +64,24 @@ li {
 table {
   margin-right: 0;
   width: 100%;
+  table-layout: fixed;
 }
 
-#calendar-body tr td {
+/*#calendar-body tr td {
   text-align: center;
+}*/
+
+.cal-day {
+    min-height: 100px;
+    max-width: 100px;
+    text-overflow: ellipsis;
+    border: 1px solid white;
+    text-align: right;
+    padding: 4px;
+}
+
+.cal-week {
+    height: 100px;
 }
 
 /*

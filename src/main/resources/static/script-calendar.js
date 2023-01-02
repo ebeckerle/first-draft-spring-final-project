@@ -21,6 +21,7 @@ function createCalendar(today, month, year, eventData){
   for (let i = 0; i < 6; i++) {
       // creates a table row
       let row = document.createElement("tr");
+      row.classList.add("cal-week");
 
       //creating individual cells, filing them up with data.
       for (let j = 0; j < 7; j++) {
@@ -44,6 +45,7 @@ function createCalendar(today, month, year, eventData){
               } // color today's date
               cell.appendChild(cellText);
               cell.setAttribute('id', 'date-'+date);
+              cell.classList.add("cal-day");
               row.appendChild(cell);
               date++;
           }
@@ -100,14 +102,18 @@ function loadEventData(){
 }
 
 
-function populateCalendarWithEvents(todayDate, eventData){
-
+function populateCalendarWithEvents(calendarDate, eventData){
+    let currentMonth = calendarDate.getMonth();
+    console.log(currentMonth);
     for(let i = 0; i < eventData.length; i++){
         //if current month is the same month as the date's start date / end date
-        let startDateDayOfMonth = eventData[i].startDate.getDate();
-        let eventName = eventData[i].name;
-        let day = document.getElementById('date-'+startDateDayOfMonth);
-        console.log(day);
-        day.innerHTML=startDateDayOfMonth + "<div>"+eventName+"</div>";
+        let eventMonth = eventData[i].startDate.getMonth();
+        if(currentMonth == eventMonth){
+            let startDateDayOfMonth = eventData[i].startDate.getDate();
+            let eventName = eventData[i].name;
+            let day = document.getElementById('date-'+startDateDayOfMonth);
+            day.innerHTML=startDateDayOfMonth + "<div>"+eventName+"</div>";
+        }
+
     }
 }
