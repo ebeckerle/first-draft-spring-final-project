@@ -16,15 +16,6 @@ function createCalendar(today, month, year, eventData){
   // selectYear.value = year;
   // selectMonth.value = month;
 
-  // Event Data  - THE NEXT TODO -
-              for(let i = 0; i < eventData.length; i++){
-//                console.log(eventData[i]);
-//                console.log(eventData[i].name);
-//                console.log(typeof eventData[i].startDate);
-//                console.log("Start Date: "+eventData[i].startDate.getDate());
-//                console.log("Type of Start Date: "+typeof eventData[i].startDate.getDate());
-              }
-
   // creating all cells
   let date = 1;
   for (let i = 0; i < 6; i++) {
@@ -45,41 +36,16 @@ function createCalendar(today, month, year, eventData){
 
           else {
               let cell = document.createElement("td");
-              for(let i = 0; i < eventData.length; i++){
-//                console.log(eventData[i]);
-                let startDateDayOfMonth = eventData[i].startDate.getDate();
-                let eventName = eventData[i].name;
-//                console.log(eventData[i].startDate.getDate());
-                  if(date === startDateDayOfMonth){
-                    let cellText = document.createTextNode(date + " - "+eventName);
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
-                    date++;
-                  }else{
-                     let cellText = document.createTextNode(date);
-                     cell.appendChild(cellText);
-                     row.appendChild(cell);
-                     date++;
-                  }
-              }
-//              if(date === 1 || date === 10 || date === 15){
-//                let cellText = document.createTextNode(date + "event");
-//                cell.appendChild(cellText);
-//                row.appendChild(cell);
-//                date++;
-//              }else{
-//                 let cellText = document.createTextNode(date);
-//                 cell.appendChild(cellText);
-//                 row.appendChild(cell);
-//                 date++;
-//              }
-
-//              if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
-//                  cell.classList.add("bg-info");
-//              } // color today's date
-//              cell.appendChild(cellText);
-//              row.appendChild(cell);
-//              date++;
+              let cellText = document.createTextNode(date);
+              if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                  cell.classList.add("bg-info");
+                  console.log("bg-info");
+                  console.log("bg-info");
+              } // color today's date
+              cell.appendChild(cellText);
+              cell.setAttribute('id', 'date-'+date);
+              row.appendChild(cell);
+              date++;
           }
 
 
@@ -88,10 +54,7 @@ function createCalendar(today, month, year, eventData){
       tbl.appendChild(row); // appending each row into calendar body.
   }
 
-  console.log(tbl);
-
-  let displayMonth = new Intl.DateTimeFormat("en-US", { month: "long" }).format(month);
-
+  let displayMonth = new Intl.DateTimeFormat("en-US", { month: "long" }).format(today);
   document.getElementById("selected-month").innerHTML = displayMonth;
 
 }
@@ -111,10 +74,8 @@ function loadEventData(){
         let arrayOfEvents = [];
 
         for(let i = 1; i <= eventCount; i++){
-//            console.log("#eventName"+i)
             let eventNameElement = document.querySelector("#eventName"+i);
             let eventName = eventNameElement.getAttribute("eventName");
-//            console.log(eventName);
 
             let eventStartDateElement = document.querySelector("#startDate"+i);
             let eventStart = eventStartDateElement.getAttribute("eventStart");
@@ -131,9 +92,7 @@ function loadEventData(){
             let year = Number(eventEnd.slice((eventEnd.indexOf(",YEAR=")+6),(eventEnd.indexOf(",YEAR=")+10)));
             let month = Number(eventEnd.slice((eventEnd.indexOf(",MONTH=")+7),eventEnd.indexOf(",WEEK_OF_YEAR=")));
             let date = Number(eventEnd.slice((eventEnd.indexOf(",DAY_OF_MONTH=")+14),(eventEnd.indexOf(",DAY_OF_YEAR="))));
-//            console.log(year);
-//            console.log(month);
-//            console.log(date);
+
             let eventEndDate = new Date(year, month, date);
             console.log(eventEndDate);
             console.log(eventEndDate.getFullYear());
@@ -141,7 +100,19 @@ function loadEventData(){
             let event = new Event(eventName, eventStartDate, eventEndDate);
             arrayOfEvents.push(event);
         }
-//        console.log(arrayOfEvents);
 
     return arrayOfEvents;
+}
+
+
+function populateCalendarWithEvents(todayDate, eventData){
+
+    for(let i = 0; i < eventData.length; i++){
+        //if current month is the same month as the date's start date / end date
+        let startDateDayOfMonth = eventData[i].startDate.getDate();
+        let eventName = eventData[i].name;
+        let day = document.getElementById('date-'+startDateDayOfMonth);
+        console.log(day);
+        day.innerHTML=startDateDayOfMonth + "<div>"+eventName+"</div>";
+    }
 }

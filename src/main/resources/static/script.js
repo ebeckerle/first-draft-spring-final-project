@@ -21,6 +21,7 @@ window.addEventListener('load', function(){
     if(document.title == "Manage Shipments"){
         let today = new Date();
         let currentMonth = today.getMonth();
+        console.log(currentMonth);
         let currentYear = today.getFullYear();
         let selectYear = document.getElementById("year");
         let selectMonth = document.getElementById("month");
@@ -29,9 +30,9 @@ window.addEventListener('load', function(){
         let monthAndYear = document.getElementById("monthAndYear");
 
         console.log(today);
-//        console.log(loadEventData());
         let eventData = loadEventData();
         createCalendar(today, currentMonth, currentYear, eventData);
+        populateCalendarWithEvents(eventData);
     }
 
     //allows for header when employee portal logged in to mobile friendly
