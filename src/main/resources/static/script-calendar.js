@@ -61,7 +61,6 @@ function createCalendar(today, month, year, eventData){
 
 function loadEventData(){
     let eventCount = document.getElementById("eventTotal").innerHTML;
-//        console.log(eventCount);
 
         class Event {
             constructor(name, startDate, endDate) {
@@ -84,8 +83,6 @@ function loadEventData(){
             let monthStart = Number(eventStart.slice((eventStart.indexOf(",MONTH=")+7),eventStart.indexOf(",WEEK_OF_YEAR=")));
             let dateStart = Number(eventStart.slice((eventStart.indexOf(",DAY_OF_MONTH=")+14),(eventStart.indexOf(",DAY_OF_YEAR="))));
             let eventStartDate = new Date(yearStart, monthStart, dateStart);
-            console.log(eventStartDate);
-            console.log(eventStartDate.getFullYear());
 
             let eventEndDateElement = document.querySelector("#endDate"+i);
             let eventEnd = eventEndDateElement.getAttribute("eventEnd");
@@ -94,8 +91,6 @@ function loadEventData(){
             let date = Number(eventEnd.slice((eventEnd.indexOf(",DAY_OF_MONTH=")+14),(eventEnd.indexOf(",DAY_OF_YEAR="))));
 
             let eventEndDate = new Date(year, month, date);
-            console.log(eventEndDate);
-            console.log(eventEndDate.getFullYear());
 
             let event = new Event(eventName, eventStartDate, eventEndDate);
             arrayOfEvents.push(event);

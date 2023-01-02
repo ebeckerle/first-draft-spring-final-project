@@ -32,7 +32,7 @@ window.addEventListener('load', function(){
         console.log(today);
         let eventData = loadEventData();
         createCalendar(today, currentMonth, currentYear, eventData);
-        populateCalendarWithEvents(eventData);
+        populateCalendarWithEvents(today, eventData);
     }
 
     //allows for header when employee portal logged in to mobile friendly
