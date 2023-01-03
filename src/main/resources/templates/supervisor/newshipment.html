@@ -29,6 +29,28 @@
         </div>
 
         <div class="form-style1">
+            <label>Type:
+                <select name="type">
+                    <option th:each="shipmentType : ${shipmentTypes}" th:value="${shipmentType}" th:text="${shipmentType}" th:id="${shipmentType}"></option>
+                </select>
+            </label>
+        </div>
+
+<!--        <div id="subOptionsIncoming" style="display: none;">-->
+<!--            <label>View Total Hours For:-->
+<!--                <select name="employee">-->
+<!--                    <option th:each="employee : ${employees}" th:value="${employee}" th:text="${employee}"></option>-->
+<!--                </select>-->
+<!--            </label>-->
+<!--            <label>Hours Broken down by:-->
+<!--                <select name="xChoice">-->
+<!--                    <option value="" disabled selected id="noSelection"></option>-->
+<!--                    <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>-->
+<!--                </select>-->
+<!--            </label>-->
+<!--        </div>-->
+
+        <div class="form-style1">
             <input type="submit" value="Add" class="btn btn-success">
         </div>
     </form>

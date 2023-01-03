@@ -21,7 +21,6 @@ window.addEventListener('load', function(){
     if(document.title == "Manage Shipments"){
         let today = new Date();
         let currentMonth = today.getMonth();
-        console.log(currentMonth);
         let currentYear = today.getFullYear();
         let selectYear = document.getElementById("year");
         let selectMonth = document.getElementById("month");
@@ -29,7 +28,6 @@ window.addEventListener('load', function(){
         let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         let monthAndYear = document.getElementById("monthAndYear");
 
-        console.log(today);
         let eventData = loadEventData();
         createCalendar(today, currentMonth, currentYear, eventData);
         populateCalendarWithEvents(today, eventData);

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import static java.util.Objects.isNull;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertFalse;
 
 public class ContactModelTest {
 
@@ -52,7 +54,7 @@ public class ContactModelTest {
         assertEquals("555", testContactThree.getPhoneNumbers().get(0).getAreaCode());
         assertEquals("111", testContactThree.getPhoneNumbers().get(0).getExchangeCode());
         assertEquals("4444", testContactThree.getPhoneNumbers().get(0).getLineNumber());
-        assertTrue(isNull(testContactThree.getEmail()));
+        assertTrue(testContactThree.getEmail().isEmpty());
     }
 
     @Test

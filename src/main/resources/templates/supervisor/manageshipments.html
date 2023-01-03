@@ -12,21 +12,15 @@
 
     <p>Shipments Feature will go here</p>
 
-<!--    <ol th:each="project,iterStat : ${projects}">-->
-<!--        <li th:id="${iterStat.count}">-->
-<!--            <a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a>-->
-<!--        </li>-->
-<!--    </ol>-->
-
-    <ol id="event-data" th:each="event,iterStat : ${currentMonthEvents}">
+    <ol id="event-data" th:each="event,iterStat : ${currentMonthEvents}" style="display: none;">
         <li th:id="${iterStat.count}">
             <p th:id="eventName + ${iterStat.count}" th:eventName="${event.getName()}"></p>
             <p th:id="startDate + ${iterStat.count}" th:eventStart="${event.getCalStartDate()}"></p>
             <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getCalEndDate()}"></p>
         </li>
     </ol>
-<!--    FIX THIS - TODO-->
-    <p id="eventTotal" th:value="eventTotal" th:text="${eventTotal}"></p>
+
+    <p id="eventTotal" th:value="eventTotal" th:text="${eventTotal}" style="display: none;"></p>
 
 
     <div id="calendar">
@@ -71,9 +65,9 @@
 
     </div>
 
-    <a href="/supervisor/manageshipments/addIncoming">Create an Incoming Shipment</a>
+    <a href="/supervisor/manageshipments/addShipment">Create an Incoming Shipment</a>
     <br>
-    <a href="/supervisor/manageshipments/addOutgoing">Create an Outgoing Shipment</a>
+    <a href="/supervisor/manageshipments/addShipment">Create an Outgoing Shipment</a>
 
 </div>
 

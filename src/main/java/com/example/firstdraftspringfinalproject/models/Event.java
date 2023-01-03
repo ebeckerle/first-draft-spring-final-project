@@ -14,13 +14,10 @@ public class Event {
     @Id
     Integer id;
 
-
     Date startDate;
-
     Date endDate;
 
     Calendar calStartDate;
-
     Calendar calEndDate;
 
     String name;

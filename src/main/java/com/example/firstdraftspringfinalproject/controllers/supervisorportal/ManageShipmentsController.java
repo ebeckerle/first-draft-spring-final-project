@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.models.Event;
 import com.example.firstdraftspringfinalproject.models.Shipment;
+import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 @Controller
 @RequestMapping("supervisor/manageshipments")
@@ -25,10 +25,9 @@ public class ManageShipmentsController {
     public String displayManageShipments(Model model){
         model.addAttribute("title", "Manage Shipments");
 
+        //TODO - delete following after having added shipments / events to the database
+
         ArrayList<Event> currentMonthEvents = new ArrayList<>();
-//        Date dec1 = new Date(2022, 11, 01);
-//        Date dec10 = new Date(2022, 11, 10);
-//        Date dec15 = new Date(2022, 11, 15);
 
         Calendar calFeb4 = Calendar.getInstance();
         calFeb4.set(Calendar.YEAR, 2022);
@@ -52,32 +51,35 @@ public class ManageShipmentsController {
         Event foxBirthday = new Event(calDec01, calFeb4, "Fox's Birthday");
         Event maggieBirthday = new Event(calDec01, calDec10, "Maggie's Birthday");
         Event maddyBirthday = new Event(calDec15, calDec15, "Maddy Brithday");
-//        Event foxBirthday = new Event(dec1, dec1, "Fox's Birthday");
-//        Event maggieBirthday = new Event(dec1, dec10, "Maggie's Birthday");
-//        Event maddyBirthday = new Event(dec15, dec15, "Maddy Brithday");
         currentMonthEvents.add(foxBirthday);
         currentMonthEvents.add(maggieBirthday);
         currentMonthEvents.add(maddyBirthday);
         model.addAttribute("currentMonthEvents", currentMonthEvents);
         model.addAttribute("eventTotal", 3);
+
+
         return "supervisor/manageshipments";
     }
 
-    @GetMapping("/addIncoming")
+    @GetMapping("/addShipment")
     public String displayAddAnIncomingShipment(Model model){
         model.addAttribute(new Shipment());
+        ArrayList<ShipmentType> shipmentTypes = new ArrayList<>();
+        shipmentTypes.add(ShipmentType.INCOMING);
+        shipmentTypes.add(ShipmentType.OUTGOING);
+        model.addAttribute("shipmentTypes", shipmentTypes);
         model.addAttribute("projects", projectRepository.findAll());
         return "supervisor/newshipment";
     }
 
-    @PostMapping("/addIncoming")
+    @PostMapping("/addShipment")
     public String processAddAnIncomingShipment(Model model){
         return "supervisor/manageshipments";
     }
 
-    @GetMapping("/addOutgoing")
-    public String displayAddAnOutgoingShipment(Model model){
-        return "supervisor/newshipment";
-    }
+//    @GetMapping("/addOutgoing")
+//    public String displayAddAnOutgoingShipment(Model model){
+//        return "supervisor/newshipment";
+//    }
 
 }

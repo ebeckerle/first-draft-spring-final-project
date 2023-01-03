@@ -1,4 +1,6 @@
 function runDashboardFunction(){
+
+//TODO - use for loop to make this code more sustainable -
     let project1 = document.getElementById("1");
     project1.style.backgroundColor = "#245761";
     let project2 = document.getElementById("2");
