@@ -1,5 +1,7 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import com.example.firstdraftspringfinalproject.models.enums.ContactType;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,10 +15,13 @@ public class Contact {
     @GeneratedValue
     private Integer id;
 
+    private ContactType contactType;
+
 //    @NotNull
 //    @NotBlank
     private String firstName;
     private String lastName;
+    private String companyName;
     private String addressLineOne;
     private String city;
     private String state;

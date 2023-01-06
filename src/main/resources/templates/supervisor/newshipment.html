@@ -38,30 +38,39 @@
         </div>
 
         <div id="subOptionsIncoming" style="display: none;">
-            <label>View Total Hours For:
-<!--                <select name="employee">-->
-<!--                    <option th:each="employee : ${employees}" th:value="${employee}" th:text="${employee}"></option>-->
-<!--                </select>-->
+            <label>Expected Arrival Date:
+                <input type="date" class="form-control" name="incomingDate" th:value="${incomingDate}">
             </label>
-            <label>Hours Broken down by:
-<!--                <select name="xChoice">-->
-<!--                    <option value="" disabled selected id="noSelection"></option>-->
-<!--                    <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>-->
-<!--                </select>-->
+            <label>Carrier:
+                <select name="carrier" onchange="addANewCarrier()">
+                    <option value="" disabled selected id="noSelection"></option>
+                    <option th:each="carrier : ${carriers}"
+                            th:value="${carrier}"
+                            th:text="${carrier}"
+                            th:id="${carrier}"></option>
+                    <option value="newCarrier">Add A New Carrier</option>
+                </select>
+                <option type="text" class="form-control" name="carrier" th:value="${carrier}">
             </label>
         </div>
 
-        <div id="subOptionsOutgoing" style="display: none;">
-            <label>View Total Hours For:
-                <select name="employee">
-                    <option th:each="employee : ${employees}" th:value="${employee}" th:text="${employee}"></option>
-                </select>
-            </label>
-            <label>Hours Broken down by:
-                <select name="xChoice">
-                    <option value="" disabled selected id="noSelection"></option>
-                    <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
-                </select>
+        <div id="addNewCarrier" class="form-style1">
+<!--            required-->
+            <label>Company Name:</label>
+<!--            not required-->
+            <label>First Name:</label>
+            <label>Last Name:</label>
+            <label>Address:</label>
+            <label>City:</label>
+            <label>State:</label>
+            <label>ZipCode:</label>
+            <label>Email:</label>
+            <label>Phone Number:</label>
+        </div>
+
+        <div class="form-style1" id="subOptionsOutgoing" style="display: none;">
+            <label>Schedule Outgoing Date:
+                <input type="date" class="form-control" name="outgoingDateScheduled" th:value="${outgoingDateScheduled}">
             </label>
         </div>
 
