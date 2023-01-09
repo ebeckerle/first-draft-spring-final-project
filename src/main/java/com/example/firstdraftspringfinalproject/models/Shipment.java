@@ -26,15 +26,20 @@ public class Shipment {
     private ShipmentType type;
 
     //OUTGOING Fields
-    private Date outgoingDateScheduled; //should be null if incoming
-    private Date outgoingDateActual;
+    @OneToOne
+    private Event outgoingDateScheduled; //should be null if incoming
+    @OneToOne
+    @JoinColumn(name = "outgoing_date_actual_id")
+    private Event outgoingDateActual;
     @ManyToOne
     @JoinColumn(name = "ship_out_sign_off_employee_id")
     private Employee shipOutSignOff;
 
     //INCOMING Fields
-    private Date incomingDate;
-    private Date inventoriedDate;
+    @OneToOne
+    private Event incomingDate;
+    @OneToOne
+    private Event inventoriedDate;
     @ManyToOne
     @JoinColumn(name = "inventoried_sign_off_employee_id")
     private Employee inventoriedSignOff;
@@ -52,13 +57,13 @@ public class Shipment {
         this.project = project;
         this.type = type;
         if(type.equals(ShipmentType.INCOMING)){
-            this.incomingDate = new Date();
+            this.incomingDate = new Event();
             this.outgoingDateScheduled = null;
             this.outgoingDateActual = null;
             this.shipOutSignOff = null;
         }
         if(type.equals(ShipmentType.OUTGOING)){
-            this.outgoingDateScheduled = new Date();
+            this.outgoingDateScheduled = new Event();
             this.incomingDate = null;
             this.inventoriedDate = null;
             this.inventoriedSignOff = null;
@@ -97,19 +102,19 @@ public class Shipment {
         this.type = type;
     }
 
-    public Date getOutgoingDateScheduled() {
+    public Event getOutgoingDateScheduled() {
         return outgoingDateScheduled;
     }
 
-    public void setOutgoingDateScheduled(Date outgoingDateScheduled) {
+    public void setOutgoingDateScheduled(Event outgoingDateScheduled) {
         this.outgoingDateScheduled = outgoingDateScheduled;
     }
 
-    public Date getOutgoingDateActual() {
+    public Event getOutgoingDateActual() {
         return outgoingDateActual;
     }
 
-    public void setOutgoingDateActual(Date outgoingDateActual) {
+    public void setOutgoingDateActual(Event outgoingDateActual) {
         this.outgoingDateActual = outgoingDateActual;
     }
 
@@ -121,19 +126,19 @@ public class Shipment {
         this.shipOutSignOff = shipOutSignOff;
     }
 
-    public Date getIncomingDate() {
+    public Event getIncomingDate() {
         return incomingDate;
     }
 
-    public void setIncomingDate(Date incomingDate) {
+    public void setIncomingDate(Event incomingDate) {
         this.incomingDate = incomingDate;
     }
 
-    public Date getInventoriedDate() {
+    public Event getInventoriedDate() {
         return inventoriedDate;
     }
 
-    public void setInventoriedDate(Date inventoriedDate) {
+    public void setInventoriedDate(Event inventoriedDate) {
         this.inventoriedDate = inventoriedDate;
     }
 

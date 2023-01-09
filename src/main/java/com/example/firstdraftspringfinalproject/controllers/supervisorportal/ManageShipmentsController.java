@@ -1,6 +1,8 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
+import com.example.firstdraftspringfinalproject.data.EventRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
+import com.example.firstdraftspringfinalproject.data.ShipmentRepository;
 import com.example.firstdraftspringfinalproject.models.Event;
 import com.example.firstdraftspringfinalproject.models.Shipment;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
@@ -22,6 +24,12 @@ public class ManageShipmentsController {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
+    private ShipmentRepository shipmentRepository;
 
     @GetMapping
     public String displayManageShipments(Model model){
@@ -87,6 +95,7 @@ public class ManageShipmentsController {
     public String processAddAnIncomingShipment(Model model,
                                                @ModelAttribute @Valid Shipment newShipment,
                                                Errors errors,
+                                               @RequestParam(required = false)
                                                @RequestParam(required = false) String companyName,
                                                @RequestParam(required = false) String firstName,
                                                @RequestParam(required = false) String lastName,
@@ -109,7 +118,14 @@ public class ManageShipmentsController {
             model.addAttribute("projects", projectRepository.findAll());
             return "supervisor/newshipment";
         }
-        //if the new shipment is Incoming
+        if(newShipment.getType() == ShipmentType.INCOMING){
+            System.out.println("incoming");
+
+        }
+        //if the new shipment is Incoming, appropriately set the
+
+        //bound fields: name, project, type.
+
 
 
         return "supervisor/manageshipments";

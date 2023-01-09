@@ -21,7 +21,7 @@
 
         <div class="form-style1">
             <label>Project:
-            <select name="project">
+            <select name="project" th:field="${shipment.project}">
                 <option value="" disabled selected id="noSelection"></option>
                 <option th:each="project : ${projects}" th:value="${project}" th:text="${project}"></option>
             </select>
