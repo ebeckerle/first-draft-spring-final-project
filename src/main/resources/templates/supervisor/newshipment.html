@@ -22,9 +22,12 @@
         <div class="form-style1">
             <label>Project:
             <select name="project">
+                <option value="" disabled selected id="noSelection"></option>
                 <option th:each="project : ${projects}" th:value="${project}" th:text="${project}"></option>
             </select>
         </label>
+            <p class="error" th:errors="${shipment.project}"></p>
+            <br>
             <a href="/supervisor/manageprojects/newproject">Add A New Project</a>
         </div>
 
@@ -35,6 +38,7 @@
                     <option th:each="shipmentType : ${shipmentTypes}" th:value="${shipmentType}" th:text="${shipmentType}" th:id="${shipmentType}"></option>
                 </select>
             </label>
+            <p class="error" th:errors="${shipment.shipmentType}"></p>
         </div>
 
         <div id="subOptionsIncoming" style="display: none;"  class="form-style1">

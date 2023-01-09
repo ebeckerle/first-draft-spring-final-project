@@ -7,11 +7,12 @@ import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -58,6 +59,11 @@ public class ManageShipmentsController {
         model.addAttribute("currentMonthEvents", currentMonthEvents);
         model.addAttribute("eventTotal", 3);
 
+        //TODO - coming from "Add an INcoming Shipment" link will take you to the AddShipment Form with the Type
+        // pre-populated with "INCOMING" in the shipment type field., and vice-versa for outgoing.
+
+        //TODO - display a list view vs. calendar view of shipments?  or just both to start, and then we can add the
+        // toggle feature
 
         return "supervisor/manageshipments";
     }
@@ -67,6 +73,7 @@ public class ManageShipmentsController {
         model.addAttribute("title", "Add Shipment");
 
         model.addAttribute(new Shipment());
+        //TODO - has to be a cleaner way to have an arraylist of my Shipment Types...
         ArrayList<ShipmentType> shipmentTypes = new ArrayList<>();
         shipmentTypes.add(ShipmentType.INCOMING);
         shipmentTypes.add(ShipmentType.OUTGOING);
@@ -78,6 +85,8 @@ public class ManageShipmentsController {
 
     @PostMapping("/addShipment")
     public String processAddAnIncomingShipment(Model model,
+                                               @ModelAttribute @Valid Shipment newShipment,
+                                               Errors errors,
                                                @RequestParam(required = false) String companyName,
                                                @RequestParam(required = false) String firstName,
                                                @RequestParam(required = false) String lastName,
@@ -88,7 +97,21 @@ public class ManageShipmentsController {
                                                @RequestParam(required = false) String email,
                                                @RequestParam(required = false) String phoneNumber){
 
-        System.out.println(companyName);
+        if (errors.hasErrors()){
+            model.addAttribute("title", "Add Shipment");
+
+            model.addAttribute(new Shipment());
+            //TODO - has to be a cleaner way to have an arraylist of my Shipment Types...
+            ArrayList<ShipmentType> shipmentTypes = new ArrayList<>();
+            shipmentTypes.add(ShipmentType.INCOMING);
+            shipmentTypes.add(ShipmentType.OUTGOING);
+            model.addAttribute("shipmentTypes", shipmentTypes);
+            model.addAttribute("projects", projectRepository.findAll());
+            return "supervisor/newshipment";
+        }
+        //if the new shipment is Incoming
+
+
         return "supervisor/manageshipments";
     }
 

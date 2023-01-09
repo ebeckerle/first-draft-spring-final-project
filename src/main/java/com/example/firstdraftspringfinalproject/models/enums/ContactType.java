@@ -6,6 +6,7 @@ public enum ContactType {
     GENERAL("General"),
     CARRIER("Carrier"),
     COLLEAGUE("Colleague"),
+    PROJECTCONTACT("Project Contact"),
     EMERGENCYCONTACT("Emergency Contact"),
     EMPLOYEE("Employee");
 
