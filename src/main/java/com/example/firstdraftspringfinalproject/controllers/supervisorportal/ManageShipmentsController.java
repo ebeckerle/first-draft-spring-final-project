@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 import com.example.firstdraftspringfinalproject.data.EventRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.ShipmentRepository;
+import com.example.firstdraftspringfinalproject.models.Contact;
 import com.example.firstdraftspringfinalproject.models.Event;
 import com.example.firstdraftspringfinalproject.models.Shipment;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
@@ -131,10 +132,23 @@ public class ManageShipmentsController {
             System.out.println(incomingDateParam.toString());
             //convert Date object to Calendar Object and create a new Event object?, the event Name will be
             // Shipment Name for now?
+            Calendar incomingCal = Calendar.getInstance(); //move this businessey out of here?
+            incomingCal.setTime(incomingDateParam);
+            Event incomingDate = new Event(incomingCal, incomingCal, newShipment.getName());
 
             //if the new shipment is Incoming and required a new contact for the Carrier,
             // create a new contact, and set the carrier to the new contact
-            //save the new shipment to the repository
+            if(companyName != null){
+                Contact carrierContact = new Contact(companyName);
+                newShipment.setCarrier(carrierContact);
+                //more if statements for if the remainder of contact info is included?
+            }else{
+                //should have a param that is a selected contact, find the contact in the repo and set it for the shipment
+            }
+            System.out.println("incoming date"+newShipment.getIncomingDate().getStartDate());
+            System.out.println("contact"+newShipment.getCarrier().toString());
+            //TODO - save the new shipment to the repository
+
         }
 
         //if the new shipment is Outgoing, appropriately set the incoming date

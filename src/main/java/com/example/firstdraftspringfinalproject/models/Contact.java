@@ -139,4 +139,10 @@ public class Contact {
     public void setPhoneNumbers(ArrayList<PhoneNumber> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
     }
+
+
+    @Override
+    public String toString() {
+        return companyName;
+    }
 }
