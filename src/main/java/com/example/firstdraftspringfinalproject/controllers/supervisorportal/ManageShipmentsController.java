@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -63,17 +64,31 @@ public class ManageShipmentsController {
 
     @GetMapping("/addShipment")
     public String displayAddAnIncomingShipment(Model model){
+        model.addAttribute("title", "Add Shipment");
+
         model.addAttribute(new Shipment());
         ArrayList<ShipmentType> shipmentTypes = new ArrayList<>();
         shipmentTypes.add(ShipmentType.INCOMING);
         shipmentTypes.add(ShipmentType.OUTGOING);
         model.addAttribute("shipmentTypes", shipmentTypes);
         model.addAttribute("projects", projectRepository.findAll());
+
         return "supervisor/newshipment";
     }
 
     @PostMapping("/addShipment")
-    public String processAddAnIncomingShipment(Model model){
+    public String processAddAnIncomingShipment(Model model,
+                                               @RequestParam(required = false) String companyName,
+                                               @RequestParam(required = false) String firstName,
+                                               @RequestParam(required = false) String lastName,
+                                               @RequestParam(required = false) String address,
+                                               @RequestParam(required = false) String city,
+                                               @RequestParam(required = false) String state,
+                                               @RequestParam(required = false) String zipCode,
+                                               @RequestParam(required = false) String email,
+                                               @RequestParam(required = false) String phoneNumber){
+
+        System.out.println(companyName);
         return "supervisor/manageshipments";
     }
 

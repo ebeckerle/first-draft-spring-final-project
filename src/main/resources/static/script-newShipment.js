@@ -10,5 +10,13 @@ function viewSubOptionsForShipmentType(){
 
         }
 
+}
 
+function addANewContactForCarrier(){
+
+    if (document.getElementById("newCarrier").selected){
+        document.getElementById("addNewCarrier").style.display = "block";
+    }else{
+        document.getElementById("addNewCarrier").style.display = "none";
+    }
 }

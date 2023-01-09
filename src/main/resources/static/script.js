@@ -33,15 +33,36 @@ window.addEventListener('load', function(){
         populateCalendarWithEvents(today, eventData);
     }
 
+//TODO - this is not working - trying to front end validate so that the user cannot
+//TODO - submit a new shipment incoming with a new carrier WITHOUT a company name
+    if(document.title == "Add Shipment"){
+            console.log("in add shipment load")
+            let form = document.getElementById("addShipmentForm");
+            console.log(form);
+            form.addEventListener("submit", function(event){
+
+//                let carrierCompanyNameField = document.getElementById("companyName");
+//                let carrierCompanyNameField = document.querySelector("input[name=companyName]").value;
+
+                    if (document.getElementById("INCOMING").selected  && document.getElementById("newCarrier").selected){
+                                     alert("A company name for your new carrier is required.");
+                                     event.preventDefault();
+                                }
+//                if (document.getElementById("INCOMING").selected &&
+//                document.getElementById("newCarrier").selected
+//                && carrierCompanyNameField == null){
+//                     alert("A company name for your new carrier is required.");
+//                     event.preventDefault();
+//                }
+            });
+        }
+
     //allows for header when employee portal logged in to mobile friendly
     let toggleButton = document.getElementsByClassName('toggle-button')[0]
     let navbarLinks = document.getElementsByClassName('nav-bar-links')[0]
     toggleButton.addEventListener('click', () => {
         navbarLinks.classList.toggle('active')
     })
-
-
-
 
 });
 

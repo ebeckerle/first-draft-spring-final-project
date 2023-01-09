@@ -35,9 +35,11 @@ public class Contact {
 //    @OneToMany
     private ArrayList<PhoneNumber> phoneNumbers;
 
-    public Contact(String firstName, String lastName, String addressLineOne, String city, String state, String zipcode, String email, String phoneNumber){
+    public Contact(ContactType contactType, String firstName, String lastName, String companyName, String addressLineOne, String city, String state, String zipcode, String email, String phoneNumber){
+        this.contactType = contactType;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.companyName = companyName;
         this.addressLineOne = addressLineOne;
         this.city = city;
         this.state = state;
@@ -47,17 +49,25 @@ public class Contact {
         this.phoneNumbers.add(new PhoneNumber(phoneNumber));
     }
 
-    public Contact(String firstName, String lastName){
+    //Constructor for New Employees
+    public Contact(ContactType contactType, String firstName, String lastName){
+        this.contactType = contactType;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     //Constructor for Emergency Contacts
-    public Contact(String firstName, String lastName, String phoneNumber){
+    public Contact(ContactType contactType, String firstName, String lastName, String phoneNumber){
+        this.contactType = contactType;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumbers = new ArrayList<>();
         this.phoneNumbers.add(new PhoneNumber(phoneNumber));
+    }
+
+    //Constructor for Carriers
+    public Contact(String companyName){
+        this.companyName = companyName;
     }
 
     public Contact() {
@@ -65,6 +75,14 @@ public class Contact {
 
     public Integer getId() {
         return id;
+    }
+
+    public ContactType getContactType() {
+        return contactType;
+    }
+
+    public void setContactType(ContactType contactType) {
+        this.contactType = contactType;
     }
 
     public String getFirstName() {
@@ -81,6 +99,14 @@ public class Contact {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getAddressLineOne() {

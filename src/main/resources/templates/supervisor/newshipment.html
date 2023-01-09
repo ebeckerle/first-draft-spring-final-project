@@ -10,7 +10,7 @@
 
 <div class="main-contents">
     <p>new shipment form here</p>
-    <form method="post">
+    <form method="post" id="addShipmentForm">
 
         <div class="form-style1">
             <label>Name:
@@ -37,26 +37,27 @@
             </label>
         </div>
 
-        <div id="subOptionsIncoming" style="display: none;">
+        <div id="subOptionsIncoming" style="display: none;"  class="form-style1">
             <label>Expected Arrival Date:
                 <input type="date" class="form-control" name="incomingDate" th:value="${incomingDate}">
             </label>
             <label>Carrier:
-                <select name="carrier" onchange="addANewCarrier()">
+                <select name="carrier" onchange="addANewContactForCarrier()">
                     <option value="" disabled selected id="noSelection"></option>
                     <option th:each="carrier : ${carriers}"
                             th:value="${carrier}"
                             th:text="${carrier}"
                             th:id="${carrier}"></option>
-                    <option value="newCarrier">Add A New Carrier</option>
+                    <option value="newCarrier" id="newCarrier" class="form-control">Add A New Carrier</option>
                 </select>
-                <option type="text" class="form-control" name="carrier" th:value="${carrier}">
             </label>
         </div>
 
-        <div id="addNewCarrier" class="form-style1">
+        <div id="addNewCarrier" class="form-style1" style="display: none;">
 <!--            required-->
-            <label>Company Name:</label>
+            <label>Company Name:
+                <input type="text" name="companyName" class="form-control" id="companyName">
+            </label>
 <!--            not required-->
             <label>First Name:</label>
             <label>Last Name:</label>
@@ -74,9 +75,14 @@
             </label>
         </div>
 
+<!--        <div class="form-style1">-->
+<!--            <input type="submit" value="Add" class="btn btn-success">-->
+<!--        </div>-->
+
         <div class="form-style1">
-            <input type="submit" value="Add" class="btn btn-success">
+            <button>Add</button>
         </div>
+
     </form>
 </div>
 

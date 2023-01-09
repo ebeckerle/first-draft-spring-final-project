@@ -1,7 +1,7 @@
 package com.example.firstdraftspringfinalproject.TDDtests;
 
 import com.example.firstdraftspringfinalproject.models.Contact;
-import org.junit.Before;
+import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.junit.jupiter.api.Test;
 
 import static java.util.Objects.isNull;
@@ -12,15 +12,17 @@ import static org.testng.AssertJUnit.assertFalse;
 public class ContactModelTest {
 
 
-    private Contact testContactOne = new Contact("Testey",
+    private Contact testContactOne = new Contact(ContactType.GENERAL,
+            "Testey",
             "McTesterson",
+            "Test Co.",
             "134 Arroyo Drive" ,
             "New York", "NY", "64110",
             "testing@test.com", "5555550000");
 
-    private Contact testContactTwo = new Contact("Testerina", "Test");
+    private Contact testContactTwo = new Contact(ContactType.GENERAL, "Testerina", "Test");
 
-    private Contact testContactThree = new Contact("Tester", "Testerson", "5551114444");
+    private Contact testContactThree = new Contact(ContactType.GENERAL, "Tester", "Testerson", "5551114444");
 
 
 

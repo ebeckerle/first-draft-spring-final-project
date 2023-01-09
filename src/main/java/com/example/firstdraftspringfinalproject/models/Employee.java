@@ -1,5 +1,6 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -47,7 +48,7 @@ public class Employee {
     public Employee (String firstName, String lastName, String title, Integer payRate, Integer paidTimeOff, String oneTimePassword) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.contactInfo = new Contact(firstName, lastName);
+        this.contactInfo = new Contact(ContactType.EMPLOYEE, firstName, lastName);
         this.firstNameLastNameCombo = firstName + ' ' +lastName;
         this.title = title;
         this.payRate = payRate;

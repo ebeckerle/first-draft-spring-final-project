@@ -4,9 +4,10 @@ public enum ContactType {
 
 
     GENERAL("General"),
-    CARRIER("Carrier");
+    CARRIER("Carrier"),
+    COLLEAGUE("Colleague"),
+    EMERGENCYCONTACT("Emergency Contact"),
     EMPLOYEE("Employee");
-    EMERGENCYCONTACT("Emergency Contact");
 
     private final String displayName;
 
