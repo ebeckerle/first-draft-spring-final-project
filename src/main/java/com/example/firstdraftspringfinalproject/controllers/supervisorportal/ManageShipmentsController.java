@@ -98,8 +98,8 @@ public class ManageShipmentsController {
     public String processAddAnIncomingShipment(Model model,
                                                @ModelAttribute @Valid Shipment newShipment,
                                                Errors errors,
-                                               @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date incomingDate,
-                                               @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date outgoingDateScheduled,
+                                               @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date incomingDateParam,
+                                               @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date outgoingDateScheduledParam,
                                                @RequestParam(required = false) String companyName,
                                                @RequestParam(required = false) String firstName,
                                                @RequestParam(required = false) String lastName,
@@ -128,7 +128,10 @@ public class ManageShipmentsController {
         //if the new shipment is Incoming, appropriately set the incoming date
         if(newShipment.getType() == ShipmentType.INCOMING){
             System.out.println("incoming");
-            System.out.println(incomingDate.toString());
+            System.out.println(incomingDateParam.toString());
+            //convert Date object to Calendar Object and create a new Event object?, the event Name will be
+            // Shipment Name for now?
+
             //if the new shipment is Incoming and required a new contact for the Carrier,
             // create a new contact, and set the carrier to the new contact
             //save the new shipment to the repository
@@ -137,7 +140,7 @@ public class ManageShipmentsController {
         //if the new shipment is Outgoing, appropriately set the incoming date
         if(newShipment.getType() == ShipmentType.OUTGOING){
             System.out.println("outgoing");
-            System.out.println(outgoingDateScheduled.toString());
+            System.out.println(outgoingDateScheduledParam.toString());
             //save the new shipment to the repository
         }
 

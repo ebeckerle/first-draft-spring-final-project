@@ -21,9 +21,9 @@
 
         <div class="form-style1">
             <label>Project:
-            <select name="project" th:field="${shipment.project}">
-                <option value="" disabled selected></option>
-                <option th:each="project : ${projects}" th:value="${project}" th:text="${project}"></option>
+            <select th:field="${shipment.project}">
+                <option value="" disabled selected>Project</option>
+                <option th:each="project : ${projects}" th:value="${project.projectId}" th:text="${project.toString()}"></option>
             </select>
         </label>
             <p class="error" th:errors="${shipment.project}"></p>
@@ -43,7 +43,7 @@
 
         <div id="subOptionsIncoming" style="display: none;"  class="form-style1">
             <label>Expected Arrival Date:
-                <input type="date" class="form-control" name="incomingDate" th:value="${incomingDate}">
+                <input type="date" class="form-control" name="incomingDateParam" value="${incomingDateParam}">
             </label>
             <label>Carrier:
                 <select name="carrier" onchange="addANewContactForCarrier()">
@@ -75,7 +75,7 @@
 
         <div class="form-style1" id="subOptionsOutgoing" style="display: none;">
             <label>Schedule Outgoing Date:
-                <input type="date" class="form-control" name="outgoingDateScheduled" th:value="${outgoingDateScheduled}">
+                <input type="date" class="form-control" name="outgoingDateScheduledParam" value="${outgoingDateScheduledParam}">
             </label>
         </div>
 
