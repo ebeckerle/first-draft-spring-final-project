@@ -141,6 +141,8 @@ public class ManageShipmentsController {
         if(newShipment.getType() == ShipmentType.OUTGOING){
             System.out.println("outgoing");
             System.out.println(outgoingDateScheduledParam.toString());
+            //convert Date object to Calendar Object and create a new Event object?, the event Name will be
+            // Shipment Name for now?
             //save the new shipment to the repository
         }
 
