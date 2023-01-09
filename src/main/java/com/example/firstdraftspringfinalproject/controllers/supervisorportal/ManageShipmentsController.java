@@ -7,6 +7,7 @@ import com.example.firstdraftspringfinalproject.models.Event;
 import com.example.firstdraftspringfinalproject.models.Shipment;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,8 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 @Controller
 @RequestMapping("supervisor/manageshipments")
@@ -95,7 +98,8 @@ public class ManageShipmentsController {
     public String processAddAnIncomingShipment(Model model,
                                                @ModelAttribute @Valid Shipment newShipment,
                                                Errors errors,
-                                               @RequestParam(required = false)
+                                               @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date incomingDate,
+                                               @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date outgoingDateScheduled,
                                                @RequestParam(required = false) String companyName,
                                                @RequestParam(required = false) String firstName,
                                                @RequestParam(required = false) String lastName,
@@ -109,6 +113,8 @@ public class ManageShipmentsController {
         if (errors.hasErrors()){
             model.addAttribute("title", "Add Shipment");
 
+            System.out.println("had errors");
+            System.out.println(errors);
             model.addAttribute(new Shipment());
             //TODO - has to be a cleaner way to have an arraylist of my Shipment Types...
             ArrayList<ShipmentType> shipmentTypes = new ArrayList<>();
@@ -118,11 +124,24 @@ public class ManageShipmentsController {
             model.addAttribute("projects", projectRepository.findAll());
             return "supervisor/newshipment";
         }
+
+        //if the new shipment is Incoming, appropriately set the incoming date
         if(newShipment.getType() == ShipmentType.INCOMING){
             System.out.println("incoming");
-
+            System.out.println(incomingDate.toString());
+            //if the new shipment is Incoming and required a new contact for the Carrier,
+            // create a new contact, and set the carrier to the new contact
+            //save the new shipment to the repository
         }
-        //if the new shipment is Incoming, appropriately set the
+
+        //if the new shipment is Outgoing, appropriately set the incoming date
+        if(newShipment.getType() == ShipmentType.OUTGOING){
+            System.out.println("outgoing");
+            System.out.println(outgoingDateScheduled.toString());
+            //save the new shipment to the repository
+        }
+
+
 
         //bound fields: name, project, type.
 

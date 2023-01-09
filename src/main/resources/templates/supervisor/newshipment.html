@@ -22,7 +22,7 @@
         <div class="form-style1">
             <label>Project:
             <select name="project" th:field="${shipment.project}">
-                <option value="" disabled selected id="noSelection"></option>
+                <option value="" disabled selected></option>
                 <option th:each="project : ${projects}" th:value="${project}" th:text="${project}"></option>
             </select>
         </label>
@@ -38,7 +38,7 @@
                     <option th:each="shipmentType : ${shipmentTypes}" th:value="${shipmentType}" th:text="${shipmentType}" th:id="${shipmentType}"></option>
                 </select>
             </label>
-            <p class="error" th:errors="${shipment.shipmentType}"></p>
+            <p class="error" th:errors="${shipment.type}"></p>
         </div>
 
         <div id="subOptionsIncoming" style="display: none;"  class="form-style1">

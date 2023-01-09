@@ -4,6 +4,7 @@ import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,11 +19,11 @@ public class Shipment {
 
     @NotBlank(message = "Shipment must have a name.")
     private String name;
-    @NotBlank(message = "Shipment must be connected to a Project.")
+    @NotNull(message = "Shipment must be connected to a Project.")
     @ManyToOne
     @JoinColumn(name = "project_project_id")
     private Project project;
-    @NotBlank(message = "Shipment must be Incoming or Outgoing.")
+    @NotNull(message = "Shipment must be Incoming or Outgoing.")
     private ShipmentType type;
 
     //OUTGOING Fields
