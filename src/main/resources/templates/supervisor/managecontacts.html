@@ -35,6 +35,16 @@
             <h5>Add a Contact</h5>
             <form method="post" th:action="@{/supervisor/managecontacts/addcontact}">
                 <div class="form-style1">
+                    <label>Type:
+                        <select th:field="${contact.contactType}">
+                            <option value="" disabled selected>type</option>
+                            <option th:each="contactType : ${contactTypes}" th:value="${contactType}" th:text="${contactType}"></option>
+                        </select>
+                    </label>
+                    <p class="error" th:errors="${contact.contactType}"></p>
+                </div>
+
+                <div class="form-style1">
                     <label>Company Name</label>:
                         <input th:field="${contact.companyName}">
                     </label>

@@ -2,6 +2,7 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.ContactRepository;
 import com.example.firstdraftspringfinalproject.models.Contact;
+import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,7 @@ public class ManageContactsController {
     public String displayManageContactsHome(Model model){
         model.addAttribute("title", "Manage Contacts");
         model.addAttribute("contacts", contactRepository.findAll());
-        model.addAttribute("contactTypes", )
+        model.addAttribute("contactTypes", ContactType.getList());
 
         model.addAttribute(new Contact());
 
@@ -51,6 +52,7 @@ public class ManageContactsController {
         //repopulate the display
         model.addAttribute("title", "Manage Contacts");
         model.addAttribute("contacts", contactRepository.findAll());
+        model.addAttribute("contactTypes", ContactType.getList());
 
         model.addAttribute(new Contact());
 

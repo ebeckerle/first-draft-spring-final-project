@@ -1,5 +1,7 @@
 package com.example.firstdraftspringfinalproject.models.enums;
 
+import java.util.ArrayList;
+
 public enum ContactType {
 
 
@@ -18,5 +20,16 @@ public enum ContactType {
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    public static ArrayList<ContactType> getList(){
+        ArrayList<ContactType> list = new ArrayList<>();
+        list.add(GENERAL);
+        list.add(CARRIER);
+        list.add(COLLEAGUE);
+        list.add(PROJECTCONTACT);
+        list.add(EMERGENCYCONTACT);
+        list.add(EMPLOYEE);
+        return list;
     }
 }
