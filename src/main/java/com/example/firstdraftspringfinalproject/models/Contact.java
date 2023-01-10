@@ -4,7 +4,6 @@ import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 
@@ -15,15 +14,18 @@ public class Contact {
     @GeneratedValue
     private Integer id;
 
+    @NotBlank(message = "Contact Type is required.")
     private ContactType contactType;
 
-//    @NotNull
-//    @NotBlank
     private String firstName;
     private String lastName;
+    @NotBlank(message = "Company Name is required.")
     private String companyName;
+    @Size(max = 80)
     private String addressLineOne;
+    @Size(max = 60)
     private String city;
+    @Size(max = 2)
     private String state;
 
     @Size(min = 5, max = 5, message = "ZipCode must be 5 characters")
@@ -117,7 +119,29 @@ public class Contact {
         this.addressLineOne = addressLineOne;
     }
 
+    public String getCity() {
+        return city;
+    }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
 
     public ArrayList<String> getEmail() {
         return email;

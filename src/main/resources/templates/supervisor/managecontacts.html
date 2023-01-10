@@ -41,10 +41,53 @@
                     <p class="error" th:errors="${contact.companyName}"></p>
                 </div>
                 <div class="form-style1">
+                    <label>First Name</label>:
+                    <input th:field="${contact.firstName}">
+                    </label>
+                    <p class="error" th:errors="${contact.firstName}"></p>
+                </div>
+                <div class="form-style1">
                     <label>Last Name</label>:
                     <input th:field="${contact.lastName}">
                     </label>
                     <p class="error" th:errors="${contact.lastName}"></p>
+                </div>
+                <div class="form-style1">
+                    <label>Address</label>:
+                    <input th:field="${contact.addressLineOne}">
+                    </label>
+                    <p class="error" th:errors="${contact.addressLineOne}"></p>
+                </div>
+                <div class="form-style1">
+                    <label>City</label>:
+                    <input th:field="${contact.city}">
+                    </label>
+                    <p class="error" th:errors="${contact.city}"></p>
+                </div>
+                <div class="form-style1">
+                    <label>State</label>:
+                    <input th:field="${contact.state}">
+                    </label>
+                    <p class="error" th:errors="${contact.state}"></p>
+                </div>
+                <div class="form-style1">
+                    <label>ZipCode</label>:
+                    <input th:field="${contact.zipcode}">
+                    </label>
+                    <p class="error" th:errors="${contact.zipcode}"></p>
+                </div>
+                <div class="form-style1">
+                    <label>email</label>:
+                    <input name="contactEmail">
+                    </label>
+                    <input type="radio"><label>Add a Second Email</label>
+                </div>
+
+                <div class="form-style1">
+                    <label>Phone Number</label>:
+                    <input name="contactEmail">
+                    </label>
+                    <input type="radio" name="secondEmail" onchange="viewSecondEmailForm()"><label>Add a Second Phone Number</label>
                 </div>
             </form>
             <br>
