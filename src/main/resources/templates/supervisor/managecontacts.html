@@ -37,7 +37,7 @@
                 <div class="form-style1">
                     <label>Type:
                         <select th:field="${contact.contactType}">
-                            <option value="" disabled selected>type</option>
+                            <option value="">type</option>
                             <option th:each="contactType : ${contactTypes}" th:value="${contactType}" th:text="${contactType}"></option>
                         </select>
                     </label>
