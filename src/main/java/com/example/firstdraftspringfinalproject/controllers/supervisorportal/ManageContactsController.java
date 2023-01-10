@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -31,10 +28,23 @@ public class ManageContactsController {
     }
 
     @PostMapping("/addcontact")
-    public String processAddContactForm(@ModelAttribute @Valid Contact newContact, Model model, Errors errors){
+    public String processAddContactForm(@ModelAttribute @Valid Contact newContact, Model model, Errors errors,
+                                        @RequestParam(required = false) String contactEmail,
+                                        @RequestParam(required = false) String secondEmail,
+                                        @RequestParam(required = false) String phoneNumber,
+                                        @RequestParam(required = false) String secondPhoneNumber
+                                        ){
         if(errors.hasErrors()){
             return "supervisor/managecontacts";
         }
+
+        if(!contactEmail.isBlank()){
+            System.out.println(contactEmail);
+        }
+        //
+
+
+        //repopulate the display
         model.addAttribute("title", "Manage Contacts");
         model.addAttribute("contacts", contactRepository.findAll());
 
