@@ -21,6 +21,7 @@ public class ManageContactsController {
     public String displayManageContactsHome(Model model){
         model.addAttribute("title", "Manage Contacts");
         model.addAttribute("contacts", contactRepository.findAll());
+        model.addAttribute("contactTypes", )
 
         model.addAttribute(new Contact());
 
@@ -37,7 +38,10 @@ public class ManageContactsController {
         if(errors.hasErrors()){
             return "supervisor/managecontacts";
         }
-
+        System.out.println(newContact.getId());
+        System.out.println(newContact.getContactType());
+        System.out.println(newContact.getCompanyName());
+        System.out.println(newContact.getFirstName());
         if(!contactEmail.isBlank()){
             System.out.println(contactEmail);
         }
