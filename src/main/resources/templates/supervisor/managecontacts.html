@@ -90,8 +90,9 @@
                     <label>email</label>:
                     <input name="contactEmail">
                     </label>
-                    <input type="radio"  name="secondEmail" onchange="viewSecondEmailForm()"><label>Add a Second Email</label>
+                    <input type="radio"  name="secondEmail" oninput="viewSecondEmailForm();" id="addEmail"><label>Add a Second Email</label>
                 </div>
+<!--                This appears if Second Email is checked-->
                 <div class="form-style1" id="secondEmail" style="display: none;">
                     <label>email</label>:
                     <input name="secondEmail">
@@ -102,7 +103,14 @@
                     <label>Phone Number</label>:
                     <input name="contactEmail">
                     </label>
-                    <input type="radio" name="secondPhoneNumber" onchange="viewSecondPhoneNumberForm()"><label>Add a Second Phone Number</label>
+                    <input type="radio" name="secondPhoneNumber" onchange="viewSecondPhoneNumberForm()" id="addPhoneNumber"><label>Add a Second Phone Number</label>
+                </div>
+
+<!--                This appears if Second phone number is checked-->
+                <div class="form-style1" id="secondPhoneNumber" style="display: none;">
+                    <label>phone number</label>:
+                    <input name="secondEmail">
+                    </label>
                 </div>
             </form>
             <br>
