@@ -74,23 +74,28 @@
                     </label>
                     <p class="error" th:errors="${contact.city}"></p>
                 </div>
+<!--                State   -->
                 <div class="form-style1">
                     <label>State</label>:
                     <input th:field="${contact.state}">
                     </label>
                     <p class="error" th:errors="${contact.state}"></p>
                 </div>
+
+<!--                ZipCode   -->
                 <div class="form-style1">
                     <label>ZipCode</label>:
                     <input th:field="${contact.zipcode}">
                     </label>
                     <p class="error" th:errors="${contact.zipcode}"></p>
                 </div>
+
+<!--                Email   -->
                 <div class="form-style1">
                     <label>email</label>:
                     <input name="contactEmail">
                     </label>
-                    <input type="radio"  name="secondEmail" oninput="viewSecondEmailForm();" id="addEmail"><label>Add a Second Email</label>
+                    <input type="radio"  name="secondEmail" onclick="viewSecondEmailForm();" id="addEmail"><label>Add a Second Email</label>
                 </div>
 <!--                This appears if Second Email is checked-->
                 <div class="form-style1" id="secondEmail" style="display: none;">
@@ -103,7 +108,7 @@
                     <label>Phone Number</label>:
                     <input name="contactEmail">
                     </label>
-                    <input type="radio" name="secondPhoneNumber" onchange="viewSecondPhoneNumberForm()" id="addPhoneNumber"><label>Add a Second Phone Number</label>
+                    <input type="radio" name="secondPhoneNumber" onclick="viewSecondPhoneNumberForm()" id="addPhoneNumber"><label>Add a Second Phone Number</label>
                 </div>
 
 <!--                This appears if Second phone number is checked-->
@@ -112,6 +117,8 @@
                     <input name="secondEmail">
                     </label>
                 </div>
+
+                <button class="btn-style" name="submit">Add Contact</button>
             </form>
             <br>
         </div>
