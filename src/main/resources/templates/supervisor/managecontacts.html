@@ -84,7 +84,7 @@
                         <option value="">state</option>
                         <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>
                     </select>
-<!--                    <input th:field="${contact.state}">-->
+<!--                    <input type="text" oninput="runStateAutoFill()"th:field="${contact.state}">-->
                     </label>
                     <p class="error" th:errors="${contact.state}"></p>
                 </div>
