@@ -7,7 +7,9 @@ function runAddContactFormValidation(){
 
 
 function runStateAutoFill(){
-
+    let input = document.querySelector("input[name='state']");
+    console.log(input);
+    console.log(input.value);
 }
 
 
