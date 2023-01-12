@@ -7,9 +7,17 @@ function runAddContactFormValidation(){
 
 
 function runStateAutoFill(){
-    let input = document.querySelector("input[name='state']");
+//TODO  - send 2 array lists - one full name and one postal codes (or maybe a Hashmap?) from the Java.
+//TODO  -Make the select option invisible, but change the selection with the JavaScript?
+    let input = document.querySelector("input[name='stateInput']").value;
     console.log(input);
-    console.log(input.value);
+    let states = ["AL", "AK"];
+    let autofillState = "";
+    for(let i=0; i<states.length; i++){
+        if(states[i].charAt(0) == input.charAt(0)){
+            console.log("working");
+        }
+    }
 }
 
 

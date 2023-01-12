@@ -80,7 +80,7 @@
 <!--                State   -->
                 <div class="form-style1">
                     <label>State</label>
-                    <input type="text" name="state" oninput="runStateAutoFill()">
+                    <input type="text" name="stateInput" oninput="runStateAutoFill()">
                     <select th:field="${contact.state}">
                         <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>
                     </select>
