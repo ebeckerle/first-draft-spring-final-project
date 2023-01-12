@@ -1,6 +1,7 @@
 package com.example.firstdraftspringfinalproject.models;
 
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
+import com.example.firstdraftspringfinalproject.models.interfaces.ContactConstants;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -8,7 +9,7 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 
 @Entity
-public class Contact {
+public class Contact implements ContactConstants {
 
     @Id
     @GeneratedValue
@@ -36,6 +37,8 @@ public class Contact {
 
 //    @OneToMany
     private ArrayList<PhoneNumber> phoneNumbers;
+
+    public final static ArrayList<String> allStatesPostalCodes = ContactConstants.populateAllStatesArrayList();
 
     public Contact(ContactType contactType, String firstName, String lastName, String companyName, String addressLineOne, String city, String state, String zipcode, String email, String phoneNumber){
         this.contactType = contactType;

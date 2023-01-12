@@ -23,6 +23,7 @@ public class ManageContactsController {
         model.addAttribute("title", "Manage Contacts");
         model.addAttribute("contacts", contactRepository.findAll());
         model.addAttribute("contactTypes", ContactType.getList());
+        model.addAttribute("states", Contact.allStatesPostalCodes);
 
         model.addAttribute(new Contact());
 

@@ -68,16 +68,23 @@
                     </label>
                     <p class="error" th:errors="${contact.addressLineOne}"></p>
                 </div>
+
+<!--                City   -->
                 <div class="form-style1">
                     <label>City</label>:
                     <input th:field="${contact.city}">
                     </label>
                     <p class="error" th:errors="${contact.city}"></p>
                 </div>
+
 <!--                State   -->
                 <div class="form-style1">
-                    <label>State</label>:
-                    <input th:field="${contact.state}">
+                    <label>State</label>
+                    <select th:field="${contact.state}">
+                        <option value="">state</option>
+                        <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>
+                    </select>
+<!--                    <input th:field="${contact.state}">-->
                     </label>
                     <p class="error" th:errors="${contact.state}"></p>
                 </div>
@@ -105,20 +112,20 @@
                 </div>
 
                 <div class="form-style1">
-                    <label>Phone Number</label>:
-                    <input name="contactEmail">
+                    <label for="phoneNumber">Phone Number</label>:
+                    <input type="tel" id="phoneNumber" name="contactPhoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
                     </label>
-                    <input type="radio" name="secondPhoneNumber" onclick="viewSecondPhoneNumberForm()" id="addPhoneNumber"><label>Add a Second Phone Number</label>
+                    <input type="radio" onclick="viewSecondPhoneNumberForm()" id="addPhoneNumber"><label>Add a Second Phone Number</label>
                 </div>
 
 <!--                This appears if Second phone number is checked-->
                 <div class="form-style1" id="secondPhoneNumber" style="display: none;">
                     <label>phone number</label>:
-                    <input name="secondEmail">
+                    <input name="secondPhoneNumber">
                     </label>
                 </div>
 
-                <button class="btn-style" name="submit">Add Contact</button>
+                <button class="btn-style" name="submit" onclick="runAddContactFormValidation()">Add Contact</button>
             </form>
             <br>
         </div>
