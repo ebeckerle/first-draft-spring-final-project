@@ -37,7 +37,7 @@
                 <div class="form-style1">
                     <label>Type:
                         <select th:field="${contact.contactType}">
-                            <option value="">type</option>
+                            <option value=""></option>
                             <option th:each="contactType : ${contactTypes}" th:value="${contactType}" th:text="${contactType}"></option>
                         </select>
                     </label>
@@ -82,9 +82,7 @@
                     <label>State</label>
                     <input type="text" name="stateInput" oninput="runStateAutoFill()" id="stateInput" list="statesList">
                     <datalist id="statesList">
-<!--                        <option value="AL">Alaska</option>-->
-<!--                        <option value="DE">Delaware</option>-->
-                        <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>
+                        <option th:each="state : ${states}" th:value="${state.key}" th:text="${state.value}"></option>
                     </datalist>
 <!--                    <select th:field="${contact.state}">-->
 <!--                        <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>-->

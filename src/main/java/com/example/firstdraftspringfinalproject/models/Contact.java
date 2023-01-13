@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Entity
 public class Contact implements ContactConstants {
@@ -38,7 +39,7 @@ public class Contact implements ContactConstants {
 //    @OneToMany
     private ArrayList<PhoneNumber> phoneNumbers;
 
-    public final static ArrayList<String> allStatesPostalCodes = ContactConstants.populateAllStatesArrayList();
+    public final static HashMap<String, String> allStatesPostalCodes = ContactConstants.populateAllStatesHashMap();
 
     public Contact(ContactType contactType, String firstName, String lastName, String companyName, String addressLineOne, String city, String state, String zipcode, String email, String phoneNumber){
         this.contactType = contactType;
