@@ -11,11 +11,13 @@ function runStateAutoFill(){
 //TODO  -Make the select option invisible, but change the selection with the JavaScript?
     let input = document.querySelector("input[name='stateInput']").value;
     console.log(input);
-    let states = ["AL", "AK"];
+    let states = ["AL", "AK", "AR"];
     let autofillState = "";
     for(let i=0; i<states.length; i++){
         if(states[i].charAt(0) == input.charAt(0)){
             console.log("working");
+
+//            if(states[i].charAt(1) == input.charAt(1))
         }
     }
 }
