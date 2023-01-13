@@ -50,10 +50,10 @@ public class ManageContactsController {
             System.out.println(" in the if errors has errors...");
             return "supervisor/managecontacts";
         }
-        System.out.println(newContact.getId());
-        System.out.println(newContact.getContactType());
-        System.out.println(newContact.getCompanyName());
-        System.out.println(newContact.getFirstName());
+        System.out.println("id:"+newContact.getId());
+        System.out.println("type:"+newContact.getContactType());
+        System.out.println("co name:"+newContact.getCompanyName());
+        System.out.println("firstname:"+newContact.getFirstName());
         if(!contactEmail.isBlank()){
             System.out.println(contactEmail);
         }

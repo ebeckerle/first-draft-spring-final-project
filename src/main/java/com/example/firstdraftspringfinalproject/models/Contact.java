@@ -21,7 +21,7 @@ public class Contact implements ContactConstants {
 
     private String firstName;
     private String lastName;
-    @NotBlank(message = "Company Name is required.")
+//    @NotBlank(message = "Company Name is required.")
     private String companyName;
     @Size(max = 80)
     private String addressLineOne;
