@@ -38,6 +38,16 @@ public class ManageContactsController {
                                         @RequestParam(required = false) String secondPhoneNumber
                                         ){
         if(errors.hasErrors()){
+            model.addAttribute("title", "Manage Contacts");
+            model.addAttribute("contacts", contactRepository.findAll());
+            model.addAttribute("contactTypes", ContactType.getList());
+            model.addAttribute("states", Contact.allStatesPostalCodes);
+
+            model.addAttribute(new Contact());
+
+            model.addAttribute(newContact);
+
+            System.out.println(" in the if errors has errors...");
             return "supervisor/managecontacts";
         }
         System.out.println(newContact.getId());

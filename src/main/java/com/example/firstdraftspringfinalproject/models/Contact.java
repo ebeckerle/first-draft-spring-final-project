@@ -16,7 +16,7 @@ public class Contact implements ContactConstants {
     @GeneratedValue
     private Integer id;
 
-    @NotBlank(message = "Contact Type is required.")
+//    @NotBlank(message = "Contact Type is required.")
     private ContactType contactType;
 
     private String firstName;
@@ -30,7 +30,7 @@ public class Contact implements ContactConstants {
     @Size(max = 2)
     private String state;
 
-    @Size(min = 5, max = 5, message = "ZipCode must be 5 characters")
+//    @Size(min = 5, max = 5, message = "ZipCode must be 5 characters")
     private String zipcode;
 
 //    @OneToMany
@@ -41,7 +41,11 @@ public class Contact implements ContactConstants {
 
     public final static HashMap<String, String> allStatesPostalCodes = ContactConstants.populateAllStatesHashMap();
 
-    public Contact(ContactType contactType, String firstName, String lastName, String companyName, String addressLineOne, String city, String state, String zipcode, String email, String phoneNumber){
+    public Contact(ContactType contactType, String firstName, String lastName,
+                   String companyName,
+                   String addressLineOne, String city, String state,
+                   String zipcode,
+                   String email, String phoneNumber){
         this.contactType = contactType;
         this.firstName = firstName;
         this.lastName = lastName;
