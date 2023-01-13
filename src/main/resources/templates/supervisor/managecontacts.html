@@ -80,10 +80,15 @@
 <!--                State   -->
                 <div class="form-style1">
                     <label>State</label>
-                    <input type="text" name="stateInput" oninput="runStateAutoFill()">
-                    <select th:field="${contact.state}">
+                    <input type="text" name="stateInput" oninput="runStateAutoFill()" id="stateInput" list="statesList">
+                    <datalist id="statesList">
+<!--                        <option value="AL">Alaska</option>-->
+<!--                        <option value="DE">Delaware</option>-->
                         <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>
-                    </select>
+                    </datalist>
+<!--                    <select th:field="${contact.state}">-->
+<!--                        <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>-->
+<!--                    </select>-->
 <!--                    <input type="text" oninput="runStateAutoFill()" th:field="${contact.state}">-->
                     </label>
                     <p class="error" th:errors="${contact.state}"></p>

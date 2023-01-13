@@ -11,16 +11,30 @@ function runStateAutoFill(){
 //TODO  -Make the select option invisible, but change the selection with the JavaScript?
     let input = document.querySelector("input[name='stateInput']").value;
     console.log(input);
-    let states = ["AL", "AK", "AR"];
+    let states = ["AL", "AK", "AR", "AZ"];
     let autofillState = "";
-    for(let i=0; i<states.length; i++){
-        if(states[i].charAt(0) == input.charAt(0)){
-            console.log("working");
-
-//            if(states[i].charAt(1) == input.charAt(1))
+    console.log(typeof input);
+    console.log(input.length);
+    console.log(typeof input.length);
+    if(input.length == 1){
+        for(let i=0; i<states.length; i++){
+            if(states[i].charAt(0) == input.charAt(0)){
+                console.log("working");
+                document.getElementById("stateInput").value = states[i];
+                break;
+            }
+        }
+    }else if (input.length == 2){
+        console.log("input greater than one character")
+        for(let i=0; i<states.length; i++){
+            if(states[i].charAt(0) == input.charAt(0) && states[i].charAt(1) == input.charAt(1)){
+            document.getElementById("stateInput").value = states[i];
+            break;
+            }
         }
     }
 }
+
 
 
 //TODO - DRY out - these 6 functions could maybe be 3?? - click and unclick radio button to show a second form input

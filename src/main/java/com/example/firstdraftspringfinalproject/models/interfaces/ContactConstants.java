@@ -1,10 +1,11 @@
 package com.example.firstdraftspringfinalproject.models.interfaces;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface ContactConstants {
 
-    static ArrayList<String> populateAllStatesArrayList(){
+    static HashMap<String, String> populateAllStatesHashMap(){
         String AL = "AL";
         String AK = "AK";
         String AZ = "AZ";
@@ -17,11 +18,15 @@ public interface ContactConstants {
         String GA = "GA";
         String HI = "HI";
         String ID = "ID";
-        ArrayList<String> allStatesPostalCodes = new ArrayList<>();
-        allStatesPostalCodes.add(AL);
-        allStatesPostalCodes.add(AK);
-        allStatesPostalCodes.add(AZ);
-        allStatesPostalCodes.add(AR);
+        HashMap<String, String> allStatesPostalCodes = new HashMap<>();
+        allStatesPostalCodes.put(AL, "Alabama");
+        allStatesPostalCodes.put(AK, "Alaska");
+        allStatesPostalCodes.put(AZ, "Arizona");
+        allStatesPostalCodes.put(AR, "Arkansas");
+        allStatesPostalCodes.put(CA, "California");
+        allStatesPostalCodes.put(CO, "Colorado");
+        allStatesPostalCodes.put(CT, "Connecticut");
+        allStatesPostalCodes.put(DE, "Delaware");
         return allStatesPostalCodes;
     }
 
