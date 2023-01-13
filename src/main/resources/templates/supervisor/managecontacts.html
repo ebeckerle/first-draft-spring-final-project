@@ -35,8 +35,8 @@
             <h5>Add a Contact</h5>
             <form method="post" th:action="@{/supervisor/managecontacts/addcontact}">
                 <div class="form-style1">
-                    <label>Type:
-                        <select th:field="${contact.contactType}">
+                    <label>Type: <span class="req-asterisk">*</span>
+                        <select th:field="${contact.contactType}" name="contactType" id="contactType">
                             <option value=""></option>
                             <option th:each="contactType : ${contactTypes}" th:value="${contactType}" th:text="${contactType}"></option>
                         </select>
@@ -44,24 +44,31 @@
                     <p class="error" th:errors="${contact.contactType}"></p>
                 </div>
 
+<!--                Company Name - REQUIRED  -->
                 <div class="form-style1">
-                    <label>Company Name</label>:
+                    <label>Company Name: <span class="req-asterisk">*</span>
                         <input th:field="${contact.companyName}">
                     </label>
                     <p class="error" th:errors="${contact.companyName}"></p>
                 </div>
+
+<!--                First Name   -->
                 <div class="form-style1">
                     <label>First Name</label>:
                     <input th:field="${contact.firstName}">
                     </label>
                     <p class="error" th:errors="${contact.firstName}"></p>
                 </div>
+
+<!--                Last Name   -->
                 <div class="form-style1">
                     <label>Last Name</label>:
                     <input th:field="${contact.lastName}">
                     </label>
                     <p class="error" th:errors="${contact.lastName}"></p>
                 </div>
+
+<!--                Address line one   -->
                 <div class="form-style1">
                     <label>Address</label>:
                     <input th:field="${contact.addressLineOne}">
@@ -127,6 +134,8 @@
                     <input name="secondPhoneNumber">
                     </label>
                 </div>
+
+                <p class="req-asterisk">* required</p>
 
                 <button class="btn-style" name="submit" onclick="runAddContactFormValidation()">Add Contact</button>
             </form>

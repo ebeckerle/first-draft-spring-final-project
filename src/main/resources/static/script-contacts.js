@@ -1,7 +1,16 @@
 function runAddContactFormValidation(){
-    //need to validate -  a type is chosen
+    //TODO - Front End need to validate
+    //-  a contact type is chosen
+    let contactType = document.querySelector("select[name='contactType']").value;
+    console.log(contactType);
+    if(contactType == "" || contactType == null){
+        console.log("this works");
+    }
+    // - a company name is chosen
     // -if there is something in the ZipCode it is 5 digits
-    // -
+    // -if there is something in the state is two alpha characters
+    // -if there is something in the email it is in the following format myemail@email.com
+    // - if there is something in the phone number it is 10 digits
 
 }
 
