@@ -5,6 +5,7 @@ import com.example.firstdraftspringfinalproject.models.interfaces.ContactConstan
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,12 +17,13 @@ public class Contact implements ContactConstants {
     @GeneratedValue
     private Integer id;
 
-//    @NotBlank(message = "Contact Type is required.")
+//    @NotNull(message = "Contact Type is required.")
     private ContactType contactType;
 
     private String firstName;
     private String lastName;
 //    @NotBlank(message = "Company Name is required.")
+    @Size(max = 60)
     private String companyName;
     @Size(max = 80)
     private String addressLineOne;
