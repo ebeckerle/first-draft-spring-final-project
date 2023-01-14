@@ -2,15 +2,25 @@ function runAddContactFormValidation(){
     //TODO - Front End need to validate
     //-  a contact type is chosen
     let contactType = document.querySelector("select[name='contactType']").value;
+    let companyName = document.querySelector("input[name='companyName']").value;
+
     console.log(contactType);
     if(contactType == "" || contactType == null){
         console.log("this works");
+        alert("Please chose a contact type");
+        event.preventDefault();
     }
     // - a company name is chosen
+    if(companyName == "" || companyName == null){
+        alert("Company Name is required.");
+        event.preventDefault();
+    }
+
     // -if there is something in the ZipCode it is 5 digits
     // -if there is something in the state is two alpha characters
     // -if there is something in the email it is in the following format myemail@email.com
     // - if there is something in the phone number it is 10 digits
+
 
 }
 
