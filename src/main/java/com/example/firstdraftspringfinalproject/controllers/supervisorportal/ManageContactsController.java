@@ -31,11 +31,11 @@ public class ManageContactsController {
     }
 
     @PostMapping("/addcontact")
-    public String processAddContactForm(@ModelAttribute @Valid Contact newContact, Model model, Errors errors,
-                                        @RequestParam(required = false) String contactEmail,
-                                        @RequestParam(required = false) String secondEmail,
-                                        @RequestParam(required = false) String phoneNumber,
-                                        @RequestParam(required = false) String secondPhoneNumber
+    public String processAddContactForm(@ModelAttribute @Valid Contact newContact, Model model, Errors errors
+//                                        @RequestParam(required = false) String contactEmail,
+//                                        @RequestParam(required = false) String secondEmail,
+//                                        @RequestParam(required = false) String phoneNumber,
+//                                        @RequestParam(required = false) String secondPhoneNumber
                                         ){
         if(errors.hasErrors()){
             model.addAttribute("title", "Manage Contacts");
@@ -54,9 +54,9 @@ public class ManageContactsController {
         System.out.println("type:"+newContact.getContactType());
         System.out.println("co name:"+newContact.getCompanyName());
         System.out.println("firstname:"+newContact.getFirstName());
-        if(!contactEmail.isBlank()){
-            System.out.println(contactEmail);
-        }
+//        if(!contactEmail.isBlank()){
+//            System.out.println(contactEmail);
+//        }
         //
 
 

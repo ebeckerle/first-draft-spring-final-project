@@ -52,88 +52,88 @@
                     <p class="error" th:errors="${contact.companyName}"></p>
                 </div>
 
-<!--                First Name   -->
-                <div class="form-style1">
-                    <label>First Name</label>:
-                    <input th:field="${contact.firstName}">
-                    </label>
-                    <p class="error" th:errors="${contact.firstName}"></p>
-                </div>
+<!--&lt;!&ndash;                First Name   &ndash;&gt;-->
+<!--                <div class="form-style1">-->
+<!--                    <label>First Name</label>:-->
+<!--                    <input th:field="${contact.firstName}">-->
+<!--                    </label>-->
+<!--                    <p class="error" th:errors="${contact.firstName}"></p>-->
+<!--                </div>-->
 
-<!--                Last Name   -->
-                <div class="form-style1">
-                    <label>Last Name</label>:
-                    <input th:field="${contact.lastName}">
-                    </label>
-                    <p class="error" th:errors="${contact.lastName}"></p>
-                </div>
+<!--&lt;!&ndash;                Last Name   &ndash;&gt;-->
+<!--                <div class="form-style1">-->
+<!--                    <label>Last Name</label>:-->
+<!--                    <input th:field="${contact.lastName}">-->
+<!--                    </label>-->
+<!--                    <p class="error" th:errors="${contact.lastName}"></p>-->
+<!--                </div>-->
 
-<!--                Address line one   -->
-                <div class="form-style1">
-                    <label>Address</label>:
-                    <input th:field="${contact.addressLineOne}">
-                    </label>
-                    <p class="error" th:errors="${contact.addressLineOne}"></p>
-                </div>
+<!--&lt;!&ndash;                Address line one   &ndash;&gt;-->
+<!--                <div class="form-style1">-->
+<!--                    <label>Address</label>:-->
+<!--                    <input th:field="${contact.addressLineOne}">-->
+<!--                    </label>-->
+<!--                    <p class="error" th:errors="${contact.addressLineOne}"></p>-->
+<!--                </div>-->
 
-<!--                City   -->
-                <div class="form-style1">
-                    <label>City</label>:
-                    <input th:field="${contact.city}">
-                    </label>
-                    <p class="error" th:errors="${contact.city}"></p>
-                </div>
+<!--&lt;!&ndash;                City   &ndash;&gt;-->
+<!--                <div class="form-style1">-->
+<!--                    <label>City</label>:-->
+<!--                    <input th:field="${contact.city}">-->
+<!--                    </label>-->
+<!--                    <p class="error" th:errors="${contact.city}"></p>-->
+<!--                </div>-->
 
-<!--                State   -->
-                <div class="form-style1">
-                    <label>State</label>
-                    <input type="text" name="stateInput" oninput="runStateAutoFill()" id="stateInput" list="statesList">
-                    <datalist id="statesList">
-                        <option th:each="state : ${states}" th:value="${state.key}" th:text="${state.value}"></option>
-                    </datalist>
-<!--                    <select th:field="${contact.state}">-->
-<!--                        <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>-->
-<!--                    </select>-->
-<!--                    <input type="text" oninput="runStateAutoFill()" th:field="${contact.state}">-->
-                    </label>
-                    <p class="error" th:errors="${contact.state}"></p>
-                </div>
+<!--&lt;!&ndash;                State   &ndash;&gt;-->
+<!--                <div class="form-style1">-->
+<!--                    <label>State</label>-->
+<!--                    <input type="text" name="stateInput" oninput="runStateAutoFill()" id="stateInput" list="statesList">-->
+<!--                    <datalist id="statesList">-->
+<!--                        <option th:each="state : ${states}" th:value="${state.key}" th:text="${state.value}"></option>-->
+<!--                    </datalist>-->
+<!--&lt;!&ndash;                    <select th:field="${contact.state}">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </select>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="text" oninput="runStateAutoFill()" th:field="${contact.state}">&ndash;&gt;-->
+<!--                    </label>-->
+<!--                    <p class="error" th:errors="${contact.state}"></p>-->
+<!--                </div>-->
 
-<!--                ZipCode   -->
-                <div class="form-style1">
-                    <label>ZipCode</label>:
-                    <input th:field="${contact.zipcode}">
-                    </label>
-                    <p class="error" th:errors="${contact.zipcode}"></p>
-                </div>
+<!--&lt;!&ndash;                ZipCode   &ndash;&gt;-->
+<!--                <div class="form-style1">-->
+<!--                    <label>ZipCode</label>:-->
+<!--                    <input th:field="${contact.zipcode}">-->
+<!--                    </label>-->
+<!--                    <p class="error" th:errors="${contact.zipcode}"></p>-->
+<!--                </div>-->
 
-<!--                Email   -->
-                <div class="form-style1">
-                    <label>email</label>:
-                    <input name="contactEmail">
-                    </label>
-                    <input type="radio"  name="secondEmail" onclick="viewSecondEmailForm();" id="addEmail"><label>Add a Second Email</label>
-                </div>
-<!--                This appears if Second Email is checked-->
-                <div class="form-style1" id="secondEmail" style="display: none;">
-                    <label>email</label>:
-                    <input name="secondEmail">
-                    </label>
-                </div>
+<!--&lt;!&ndash;                Email   &ndash;&gt;-->
+<!--                <div class="form-style1">-->
+<!--                    <label>email</label>:-->
+<!--                    <input name="contactEmail">-->
+<!--                    </label>-->
+<!--                    <input type="radio"  name="secondEmail" onclick="viewSecondEmailForm();" id="addEmail"><label>Add a Second Email</label>-->
+<!--                </div>-->
+<!--&lt;!&ndash;                This appears if Second Email is checked&ndash;&gt;-->
+<!--                <div class="form-style1" id="secondEmail" style="display: none;">-->
+<!--                    <label>email</label>:-->
+<!--                    <input name="secondEmail">-->
+<!--                    </label>-->
+<!--                </div>-->
 
-                <div class="form-style1">
-                    <label for="phoneNumber">Phone Number</label>:
-                    <input type="tel" id="phoneNumber" name="contactPhoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-                    </label>
-                    <input type="radio" onclick="viewSecondPhoneNumberForm()" id="addPhoneNumber"><label>Add a Second Phone Number</label>
-                </div>
+<!--                <div class="form-style1">-->
+<!--                    <label for="phoneNumber">Phone Number</label>:-->
+<!--                    <input type="tel" id="phoneNumber" name="contactPhoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">-->
+<!--                    </label>-->
+<!--                    <input type="radio" onclick="viewSecondPhoneNumberForm()" id="addPhoneNumber"><label>Add a Second Phone Number</label>-->
+<!--                </div>-->
 
-<!--                This appears if Second phone number is checked-->
-                <div class="form-style1" id="secondPhoneNumber" style="display: none;">
-                    <label>phone number</label>:
-                    <input name="secondPhoneNumber">
-                    </label>
-                </div>
+<!--&lt;!&ndash;                This appears if Second phone number is checked&ndash;&gt;-->
+<!--                <div class="form-style1" id="secondPhoneNumber" style="display: none;">-->
+<!--                    <label>phone number</label>:-->
+<!--                    <input name="secondPhoneNumber">-->
+<!--                    </label>-->
+<!--                </div>-->
 
                 <p class="req-asterisk">* required</p>
 

@@ -17,29 +17,29 @@ public class Contact implements ContactConstants {
     @GeneratedValue
     private Integer id;
 
-//    @NotNull(message = "Contact Type is required.")
+    @NotNull(message = "Contact Type is required.")
     private ContactType contactType;
 
     private String firstName;
     private String lastName;
-//    @NotBlank(message = "Company Name is required.")
+    @NotBlank(message = "Company Name is required.")
     @Size(max = 60)
     private String companyName;
-    @Size(max = 80)
-    private String addressLineOne;
-    @Size(max = 60)
-    private String city;
-    @Size(max = 2)
-    private String state;
+//    @Size(max = 80)
+//    private String addressLineOne;
+//    @Size(max = 60)
+//    private String city;
+//    @Size(max = 2)
+//    private String state;
 
-//    @Size(min = 5, max = 5, message = "ZipCode must be 5 characters")
-    private String zipcode;
-
-//    @OneToMany
-    private ArrayList<String> email = new ArrayList<>();
-
-//    @OneToMany
-    private ArrayList<PhoneNumber> phoneNumbers;
+////    @Size(min = 5, max = 5, message = "ZipCode must be 5 characters")
+//    private String zipcode;
+//
+////    @OneToMany
+//    private ArrayList<String> email = new ArrayList<>();
+//
+////    @OneToMany
+//    private ArrayList<PhoneNumber> phoneNumbers;
 
     public final static HashMap<String, String> allStatesPostalCodes = ContactConstants.populateAllStatesHashMap();
 
@@ -52,13 +52,13 @@ public class Contact implements ContactConstants {
         this.firstName = firstName;
         this.lastName = lastName;
         this.companyName = companyName;
-        this.addressLineOne = addressLineOne;
-        this.city = city;
-        this.state = state;
-        this.zipcode = zipcode;
-        this.email.add(email);
-        this.phoneNumbers = new ArrayList<>();
-        this.phoneNumbers.add(new PhoneNumber(phoneNumber));
+//        this.addressLineOne = addressLineOne;
+//        this.city = city;
+//        this.state = state;
+//        this.zipcode = zipcode;
+//        this.email.add(email);
+//        this.phoneNumbers = new ArrayList<>();
+//        this.phoneNumbers.add(new PhoneNumber(phoneNumber));
     }
 
     //Constructor for New Employees
@@ -73,8 +73,8 @@ public class Contact implements ContactConstants {
         this.contactType = contactType;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumbers = new ArrayList<>();
-        this.phoneNumbers.add(new PhoneNumber(phoneNumber));
+//        this.phoneNumbers = new ArrayList<>();
+//        this.phoneNumbers.add(new PhoneNumber(phoneNumber));
     }
 
     //Constructor for Carriers
@@ -121,58 +121,58 @@ public class Contact implements ContactConstants {
         this.companyName = companyName;
     }
 
-    public String getAddressLineOne() {
-        return addressLineOne;
-    }
+//    public String getAddressLineOne() {
+//        return addressLineOne;
+//    }
+//
+//    public void setAddressLineOne(String addressLineOne) {
+//        this.addressLineOne = addressLineOne;
+//    }
+//
+//    public String getCity() {
+//        return city;
+//    }
+//
+//    public void setCity(String city) {
+//        this.city = city;
+//    }
+//
+//    public String getState() {
+//        return state;
+//    }
+//
+//    public void setState(String state) {
+//        this.state = state;
+//    }
+//
+//    public String getZipcode() {
+//        return zipcode;
+//    }
+//
+//    public void setZipcode(String zipcode) {
+//        this.zipcode = zipcode;
+//    }
+//
+//    public ArrayList<String> getEmail() {
+//        return email;
+//    }
 
-    public void setAddressLineOne(String addressLineOne) {
-        this.addressLineOne = addressLineOne;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public ArrayList<String> getEmail() {
-        return email;
-    }
-
-    public void setAnEmail(String email) {
-        if(this.email == null){
-            this.email = new ArrayList<>();
-            this.email.add(email);
-        }else{
-            this.email.add(email);
-        }
-    }
-
-    public ArrayList<PhoneNumber> getPhoneNumbers() {
-        return phoneNumbers;
-    }
-
-    public void setPhoneNumbers(ArrayList<PhoneNumber> phoneNumbers) {
-        this.phoneNumbers = phoneNumbers;
-    }
+//    public void setAnEmail(String email) {
+//        if(this.email == null){
+//            this.email = new ArrayList<>();
+//            this.email.add(email);
+//        }else{
+//            this.email.add(email);
+//        }
+//    }
+//
+//    public ArrayList<PhoneNumber> getPhoneNumbers() {
+//        return phoneNumbers;
+//    }
+//
+//    public void setPhoneNumbers(ArrayList<PhoneNumber> phoneNumbers) {
+//        this.phoneNumbers = phoneNumbers;
+//    }
 
 
     @Override
