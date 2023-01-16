@@ -23,7 +23,7 @@ public class Contact implements ContactConstants {
     private String firstName;
     private String lastName;
     @NotBlank(message = "Company Name is required.")
-    @Size(max = 60)
+    @Size(max = 60, message = "Must be under 60 characters")
     private String companyName;
     @Size(max = 80)
     private String addressLineOne;

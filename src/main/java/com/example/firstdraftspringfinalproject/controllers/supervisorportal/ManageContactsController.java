@@ -52,6 +52,7 @@ public class ManageContactsController {
         System.out.println("type:"+newContact.getContactType());
         System.out.println("co name:"+newContact.getCompanyName());
         System.out.println("firstname:"+newContact.getFirstName());
+        System.out.println("zipcode:"+newContact.getZipcode());
 //        if(!contactEmail.isBlank()){
 //            System.out.println(contactEmail);
 //        }

@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.models;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -28,6 +29,7 @@ public class Shipment {
 
     //OUTGOING Fields
     @OneToOne
+//    @Valid
     private Event outgoingDateScheduled; //should be null if incoming
     @OneToOne
     @JoinColumn(name = "outgoing_date_actual_id")

@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -20,6 +21,7 @@ public class Event {
     Calendar calStartDate;
     Calendar calEndDate;
 
+//    @Size(max = 80)
     String name;
 
     public Event(Date startDate, Date endDate, String name) {
