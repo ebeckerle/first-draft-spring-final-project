@@ -59,6 +59,8 @@ public class ManageContactsController {
             if(!secondEmail.isBlank()){
                 System.out.println("2nd contact email is completed");
                 newContact.setAnEmail(secondEmail);
+            }
+
         }
         //
 
