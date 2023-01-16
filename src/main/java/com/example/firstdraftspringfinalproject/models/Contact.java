@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Entity
 public class Contact implements ContactConstants {
@@ -27,22 +28,23 @@ public class Contact implements ContactConstants {
     @NotBlank(message = "Company Name is required.")
     @Size(max = 60, message = "Must be under 60 characters")
     private String companyName;
-    @Size(max = 80)
+    @Size(max = 80, message = "Must be under 80 characters")
     private String addressLineOne;
-    @Size(max = 60)
+    @Size(max = 60, message = "Must be under 60 characters")
     private String city;
-    @Size(max = 2)
+    @Size(max = 2, message = "Must be 2 characters")
     private String state;
 
     @Size(max = 5, message = "ZipCode must be 5 characters")
     private String zipcode;
 
-    @OneToMany
-    private ArrayList<String> email = new ArrayList<>();
+    @ElementCollection
+//    @OneToMany(cascade = CascadeType.ALL)
+    private List<String> email = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @Valid
-    private ArrayList<PhoneNumber> phoneNumbers;
+    private List<PhoneNumber> phoneNumbers;
 
     public final static HashMap<String, String> allStatesPostalCodes = ContactConstants.populateAllStatesHashMap();
 
@@ -158,7 +160,7 @@ public class Contact implements ContactConstants {
         this.zipcode = zipcode;
     }
 
-    public ArrayList<String> getEmail() {
+    public List<String> getEmail() {
         return email;
     }
 
@@ -173,7 +175,7 @@ public class Contact implements ContactConstants {
         }
     }
 
-    public ArrayList<PhoneNumber> getPhoneNumbers() {
+    public List<PhoneNumber> getPhoneNumbers() {
         return phoneNumbers;
     }
 

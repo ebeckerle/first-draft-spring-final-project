@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 @Entity
 public class Shipment {
@@ -50,7 +51,7 @@ public class Shipment {
     private Employee inventoriedSignOff;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private ArrayList<Pallet> pallets = new ArrayList<Pallet>();
+    private List<Pallet> pallets = new ArrayList<Pallet>();
     private Integer palletCount = 0;
     private HashMap<ProductType, Integer> productTypeAndCount;
     private String comments;
@@ -156,7 +157,7 @@ public class Shipment {
         this.inventoriedSignOff = inventoriedSignOff;
     }
 
-    public ArrayList<Pallet> getPallets() {
+    public List<Pallet> getPallets() {
         return pallets;
     }
 
