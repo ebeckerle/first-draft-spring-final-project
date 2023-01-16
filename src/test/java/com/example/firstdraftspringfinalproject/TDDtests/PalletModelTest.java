@@ -13,8 +13,6 @@ public class PalletModelTest {
     private Pallet testPallet = new Pallet(testProductTypeOne, 5);
 
 
-
-    //TODO NEXT!!!! - TEST these!!!
     @Test
     public void testSetAProduct(){
         testPallet.setAProduct(testProductTypeTwo, 3);

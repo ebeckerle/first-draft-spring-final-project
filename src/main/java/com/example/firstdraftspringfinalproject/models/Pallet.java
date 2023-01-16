@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.models;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Entity
 public class Pallet {
@@ -15,7 +16,8 @@ public class Pallet {
     @ManyToOne
 //    @JoinColumn(name = "shipment_id")
     private Shipment shipment;
-    private ArrayList<ProductType> productType = new ArrayList<>();
+    @ManyToMany
+    private List<ProductType> productType = new ArrayList<>();
     private HashMap<ProductType, Integer> productTypeAndCount = new HashMap<>();
     private Integer totalCount = 0;
     private Integer weight = 0;
@@ -47,7 +49,7 @@ public class Pallet {
         this.shipment = shipment;
     }
 
-    public ArrayList<ProductType> getProductType() {
+    public List<ProductType> getProductType() {
         return productType;
     }
 
