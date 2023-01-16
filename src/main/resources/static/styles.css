@@ -266,6 +266,10 @@ ul li {
     color: red;
 }
 
+.error {
+    color: red;
+}
+
 .edit-timesheet-table {
 
 }

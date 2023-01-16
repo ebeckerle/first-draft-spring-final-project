@@ -31,19 +31,17 @@ public class ManageContactsController {
     }
 
     @PostMapping("/addcontact")
-    public String processAddContactForm(@ModelAttribute @Valid Contact newContact, Model model, Errors errors
-//                                        @RequestParam(required = false) String contactEmail,
-//                                        @RequestParam(required = false) String secondEmail,
-//                                        @RequestParam(required = false) String phoneNumber,
-//                                        @RequestParam(required = false) String secondPhoneNumber
+    public String processAddContactForm(@ModelAttribute @Valid Contact newContact, Errors errors, Model model,
+                                        @RequestParam(required = false) String contactEmail,
+                                        @RequestParam(required = false) String secondEmail,
+                                        @RequestParam(required = false) String phoneNumber,
+                                        @RequestParam(required = false) String secondPhoneNumber
                                         ){
         if(errors.hasErrors()){
             model.addAttribute("title", "Manage Contacts");
             model.addAttribute("contacts", contactRepository.findAll());
             model.addAttribute("contactTypes", ContactType.getList());
             model.addAttribute("states", Contact.allStatesPostalCodes);
-
-            model.addAttribute(new Contact());
 
             model.addAttribute(newContact);
 
