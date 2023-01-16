@@ -48,14 +48,18 @@ public class ManageContactsController {
             System.out.println(" in the if errors has errors...");
             return "supervisor/managecontacts";
         }
-        System.out.println("id:"+newContact.getId());
-        System.out.println("type:"+newContact.getContactType());
-        System.out.println("co name:"+newContact.getCompanyName());
-        System.out.println("firstname:"+newContact.getFirstName());
-        System.out.println("zipcode:"+newContact.getZipcode());
-//        if(!contactEmail.isBlank()){
-//            System.out.println(contactEmail);
-//        }
+//        System.out.println("id:"+newContact.getId());
+//        System.out.println("type:"+newContact.getContactType());
+//        System.out.println("co name:"+newContact.getCompanyName());
+//        System.out.println("firstname:"+newContact.getFirstName());
+//        System.out.println("zipcode:"+newContact.getZipcode());
+        if(!contactEmail.isBlank()){
+            System.out.println("contact email is completed");
+            newContact.setAnEmail(contactEmail);
+            if(!secondEmail.isBlank()){
+                System.out.println("2nd contact email is completed");
+                newContact.setAnEmail(secondEmail);
+        }
         //
 
 
