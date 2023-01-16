@@ -1,9 +1,6 @@
 package com.example.firstdraftspringfinalproject.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,6 +12,9 @@ public class Pallet {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @ManyToOne
+//    @JoinColumn(name = "shipment_id")
+    private Shipment shipment;
     private ArrayList<ProductType> productType = new ArrayList<>();
     private HashMap<ProductType, Integer> productTypeAndCount = new HashMap<>();
     private Integer totalCount = 0;
@@ -37,6 +37,14 @@ public class Pallet {
 
     public Integer getId() {
         return id;
+    }
+
+    public Shipment getShipment() {
+        return shipment;
+    }
+
+    public void setShipment(Shipment shipment) {
+        this.shipment = shipment;
     }
 
     public ArrayList<ProductType> getProductType() {

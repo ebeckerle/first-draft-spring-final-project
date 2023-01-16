@@ -4,6 +4,8 @@ import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import com.example.firstdraftspringfinalproject.models.interfaces.ContactConstants;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,10 +37,11 @@ public class Contact implements ContactConstants {
     @Size(max = 5, message = "ZipCode must be 5 characters")
     private String zipcode;
 
-//    @OneToMany
+    @OneToMany
     private ArrayList<String> email = new ArrayList<>();
 
-//    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @Valid
     private ArrayList<PhoneNumber> phoneNumbers;
 
     public final static HashMap<String, String> allStatesPostalCodes = ContactConstants.populateAllStatesHashMap();
@@ -48,7 +51,7 @@ public class Contact implements ContactConstants {
                    @Size(max = 60) String companyName,
                    String addressLineOne, String city, String state,
                    String zipcode,
-                   String email, String phoneNumber){
+                   @Email String email, String phoneNumber){
         this.contactType = contactType;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -159,12 +162,14 @@ public class Contact implements ContactConstants {
         return email;
     }
 
-    public void setAnEmail(String email) {
-        if(this.email == null){
-            this.email = new ArrayList<>();
-            this.email.add(email);
-        }else{
-            this.email.add(email);
+    public void setAnEmail(@Email String email) {
+        if (email.contains("@") && email.contains(".")){
+            if(this.email == null){
+                this.email = new ArrayList<>();
+                this.email.add(email);
+            }else{
+                this.email.add(email);
+            }
         }
     }
 

@@ -69,5 +69,9 @@ public class ContactModelTest {
         testContactTwo.setAnEmail("ilovetesting@test.com");
         assertFalse(isNull(testContactTwo.getEmail()));
         assertEquals("ilovetesting@test.com", testContactTwo.getEmail().get(0));
+
+        testContactOne.setAnEmail("ilovetddtestcom");
+        assertFalse(testContactOne.getEmail().contains("ilovetddtestcom"));
+
     }
 }

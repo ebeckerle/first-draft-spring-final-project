@@ -1,6 +1,7 @@
 package com.example.firstdraftspringfinalproject.models;
 
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -29,6 +30,7 @@ public class Shipment {
 
     //OUTGOING Fields
     @OneToOne
+//    @OneToOne(cascade = CascadeType.ALL)
 //    @Valid
     private Event outgoingDateScheduled; //should be null if incoming
     @OneToOne
@@ -47,6 +49,7 @@ public class Shipment {
     @JoinColumn(name = "inventoried_sign_off_employee_id")
     private Employee inventoriedSignOff;
 
+    @OneToMany(cascade = CascadeType.ALL)
     private ArrayList<Pallet> pallets = new ArrayList<Pallet>();
     private Integer palletCount = 0;
     private HashMap<ProductType, Integer> productTypeAndCount;

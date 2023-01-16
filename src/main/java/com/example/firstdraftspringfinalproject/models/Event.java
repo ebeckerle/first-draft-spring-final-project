@@ -21,7 +21,7 @@ public class Event {
     Calendar calStartDate;
     Calendar calEndDate;
 
-//    @Size(max = 80)
+    @Size(max = 80)
     String name;
 
     public Event(Date startDate, Date endDate, String name) {

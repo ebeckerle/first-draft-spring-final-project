@@ -1,10 +1,25 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.Size;
+
+@Entity
 public class PhoneNumber {
 
+    @GeneratedValue
+    @Id
+    private Integer id;
+
+
     private String countryCode;
+
+    @Size(min=3, max = 3)
     private String areaCode;
+    @Size(min=3, max = 3)
     private String exchangeCode;
+    @Size(min=4, max = 4)
     private String lineNumber;
     private String extension;
 
