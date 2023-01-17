@@ -27,6 +27,18 @@ public interface ContactConstants {
         allStatesPostalCodes.put(CO, "Colorado");
         allStatesPostalCodes.put(CT, "Connecticut");
         allStatesPostalCodes.put(DE, "Delaware");
+        allStatesPostalCodes.put(FL, "Florida");
+        allStatesPostalCodes.put(GA, "Georgia");
+        allStatesPostalCodes.put(HI, "Hawaii");
+        allStatesPostalCodes.put(ID, "Idaho");
+        allStatesPostalCodes.put("IL", "Illinois");
+        allStatesPostalCodes.put("IN", "Indiana");
+        allStatesPostalCodes.put("IA", "Iowa");
+        allStatesPostalCodes.put("KS", "Kansas");
+        allStatesPostalCodes.put("KY", "Kentucky");
+        allStatesPostalCodes.put("LA", "Louisiana");
+        allStatesPostalCodes.put("ME", "Maine");
+        allStatesPostalCodes.put("MD", "Maryland");
         return allStatesPostalCodes;
     }
 
