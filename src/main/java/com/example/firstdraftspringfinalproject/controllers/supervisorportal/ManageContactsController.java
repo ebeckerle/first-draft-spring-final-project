@@ -53,6 +53,7 @@ public class ManageContactsController {
 //        System.out.println("co name:"+newContact.getCompanyName());
 //        System.out.println("firstname:"+newContact.getFirstName());
 //        System.out.println("zipcode:"+newContact.getZipcode());
+        System.out.println("contact phone number:"+phoneNumber);
         if(!contactEmail.isBlank()){
             System.out.println("contact email is completed");
             newContact.setAnEmail(contactEmail);

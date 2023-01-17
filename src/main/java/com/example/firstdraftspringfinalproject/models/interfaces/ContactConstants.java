@@ -47,6 +47,7 @@ public interface ContactConstants {
         allStatesPostalCodes.put("MT", "Montana");
         allStatesPostalCodes.put("NE", "Nebraska");
         allStatesPostalCodes.put("NV", "Nevada");
+
         return allStatesPostalCodes;
     }
 
