@@ -1,8 +1,11 @@
 package com.example.firstdraftspringfinalproject.TDDtests;
 
 import com.example.firstdraftspringfinalproject.models.Contact;
+import com.example.firstdraftspringfinalproject.models.PhoneNumber;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static java.util.Objects.isNull;
 import static org.junit.jupiter.api.Assertions.*;
@@ -74,4 +77,20 @@ public class ContactModelTest {
         assertFalse(testContactOne.getEmail().contains("ilovetddtestcom"));
 
     }
+
+    //TODO -
+    @Test
+    public void testSetAPhoneNumber(){
+
+    }
+
+//    public void setAPhoneNumber(PhoneNumber phoneNumber){
+//        if(this.phoneNumbers == null){
+//            this.phoneNumbers = new ArrayList<>();
+//            this.phoneNumbers.add(phoneNumber);
+//        }else{
+//            this.phoneNumbers.add(phoneNumber);
+//        }
+//    }
+
 }

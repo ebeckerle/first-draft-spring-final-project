@@ -67,10 +67,11 @@ public class ManageContactsController {
         if(!phoneNumber.isBlank()){
             System.out.println("phonenumber is completed");
             PhoneNumber firstPhoneNumber = new PhoneNumber(phoneNumber);
-            newContact.set(firstPhoneNumber);
-            if(!secondEmail.isBlank()){
-                System.out.println("2nd contact email is completed");
-                newContact.setAnEmail(secondEmail);
+            newContact.setAPhoneNumber(firstPhoneNumber);
+            if(!secondPhoneNumber.isBlank()){
+                PhoneNumber phoneNumber2 = new PhoneNumber(secondPhoneNumber);
+                newContact.setAPhoneNumber(phoneNumber2);
+                System.out.println("2nd phone number is completed: "+phoneNumber2);
             }
         }
 
