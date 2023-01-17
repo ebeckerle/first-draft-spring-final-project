@@ -39,6 +39,14 @@ public interface ContactConstants {
         allStatesPostalCodes.put("LA", "Louisiana");
         allStatesPostalCodes.put("ME", "Maine");
         allStatesPostalCodes.put("MD", "Maryland");
+        allStatesPostalCodes.put("MA", "Massachusetts");
+        allStatesPostalCodes.put("MI", "Michigan");
+        allStatesPostalCodes.put("MN", "Minnesota");
+        allStatesPostalCodes.put("MS", "Mississippi");
+        allStatesPostalCodes.put("MO", "Missouri");
+        allStatesPostalCodes.put("MT", "Montana");
+        allStatesPostalCodes.put("NE", "Nebraska");
+        allStatesPostalCodes.put("NV", "Nevada");
         return allStatesPostalCodes;
     }
 
