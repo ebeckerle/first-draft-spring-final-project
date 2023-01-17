@@ -23,6 +23,9 @@ public class PhoneNumber {
     private String lineNumber;
     private String extension;
 
+    public PhoneNumber() {
+    }
+
     public PhoneNumber(String phoneNumber10digit){
         this.countryCode = "+1";
         this.areaCode = phoneNumber10digit.substring(0,3);
@@ -30,7 +33,6 @@ public class PhoneNumber {
         this.lineNumber = phoneNumber10digit.substring(6,10);
 
     }
-
 
 
     public String getCountryCode() {

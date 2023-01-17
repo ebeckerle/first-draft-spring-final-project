@@ -2,6 +2,7 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.ContactRepository;
 import com.example.firstdraftspringfinalproject.models.Contact;
+import com.example.firstdraftspringfinalproject.models.PhoneNumber;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,8 +62,18 @@ public class ManageContactsController {
                 System.out.println("2nd contact email is completed");
                 newContact.setAnEmail(secondEmail);
             }
-
         }
+
+        if(!phoneNumber.isBlank()){
+            System.out.println("phonenumber is completed");
+            PhoneNumber firstPhoneNumber = new PhoneNumber(phoneNumber);
+            newContact.set(firstPhoneNumber);
+            if(!secondEmail.isBlank()){
+                System.out.println("2nd contact email is completed");
+                newContact.setAnEmail(secondEmail);
+            }
+        }
+
         //
 
 

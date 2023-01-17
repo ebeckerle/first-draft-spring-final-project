@@ -43,8 +43,7 @@ public class Contact implements ContactConstants {
     private List<String> email = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
-    @Valid
-    private List<PhoneNumber> phoneNumbers;
+    private List<@Valid PhoneNumber> phoneNumbers;
 
     public final static HashMap<String, String> allStatesPostalCodes = ContactConstants.populateAllStatesHashMap();
 
@@ -181,6 +180,15 @@ public class Contact implements ContactConstants {
 
     public void setPhoneNumbers(ArrayList<PhoneNumber> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
+    }
+
+    public void setAPhoneNumber(PhoneNumber phoneNumber){
+        if(this.phoneNumbers == null){
+            this.phoneNumbers = new ArrayList<>();
+            this.phoneNumbers.add(phoneNumber);
+        }else{
+            this.phoneNumbers.add(phoneNumber);
+        }
     }
 
 
