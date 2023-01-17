@@ -25,7 +25,7 @@ public class Contact implements ContactConstants {
 
     private String firstName;
     private String lastName;
-    @NotBlank(message = "Company Name is required.")
+//    @NotBlank(message = "Company Name is required.")
     @Size(max = 60, message = "Must be under 60 characters")
     private String companyName;
     @Size(max = 80, message = "Must be under 80 characters")
@@ -48,7 +48,7 @@ public class Contact implements ContactConstants {
     public final static HashMap<String, String> allStatesPostalCodes = ContactConstants.populateAllStatesHashMap();
 
     public Contact(ContactType contactType, String firstName, String lastName,
-                   @NotBlank(message = "Company Name is required.")
+//                   @NotBlank(message = "Company Name is required.")
                    @Size(max = 60) String companyName,
                    String addressLineOne, String city, String state,
                    String zipcode,
@@ -72,6 +72,14 @@ public class Contact implements ContactConstants {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public Contact(String companyName, ContactType contactType, String firstName, String lastName){
+        this.companyName = companyName;
+        this.contactType = contactType;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
 
     //Constructor for Emergency Contacts
     public Contact(ContactType contactType, String firstName, String lastName, String phoneNumber){

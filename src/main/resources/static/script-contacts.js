@@ -20,6 +20,7 @@ function runAddContactFormValidation(){
     // -if there is something in the state is two alpha characters
     // -if there is something in the email it is in the following format myemail@email.com
     // - if there is something in the phone number it is 10 digits
+    // TODO  - if they have completed they second email/phone number slot and left the first blank, the second will not be saved - prevent default message
 
 
 }

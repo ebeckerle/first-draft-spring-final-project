@@ -1,5 +1,6 @@
 package com.example.firstdraftspringfinalproject.models.dto;
 
+import com.example.firstdraftspringfinalproject.models.Contact;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
