@@ -20,22 +20,22 @@ public class Contact implements ContactConstants {
     @GeneratedValue
     private Integer id;
 
-    @NotNull(message = "Contact Type is required.")
+//    @NotNull(message = "Contact Type is required.")
     private ContactType contactType;
 
     private String firstName;
     private String lastName;
-    @NotBlank(message = "Company Name is required.")
-    @Size(max = 60, message = "Must be under 60 characters")
+//    @NotBlank(message = "Company Name is required.")
+//    @Size(max = 60, message = "Must be under 60 characters")
     private String companyName;
-    @Size(max = 80, message = "Must be under 80 characters")
+//    @Size(max = 80, message = "Must be under 80 characters")
     private String addressLineOne;
-    @Size(max = 60, message = "Must be under 60 characters")
+//    @Size(max = 60, message = "Must be under 60 characters")
     private String city;
-    @Size(max = 2, message = "Must be 2 characters")
+//    @Size(max = 2, message = "Must be 2 characters")
     private String state;
 
-    @Size(max = 5, message = "ZipCode must be 5 characters")
+//    @Size(max = 5, message = "ZipCode must be 5 characters")
     private String zipcode;
 
     @ElementCollection

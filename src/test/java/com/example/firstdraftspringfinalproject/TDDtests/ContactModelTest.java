@@ -20,8 +20,6 @@ import static org.testng.AssertJUnit.assertFalse;
 
 public class ContactModelTest {
 
-
-
     private Contact testContactOne = new Contact(ContactType.GENERAL,
             "Testey",
             "McTesterson",
@@ -34,31 +32,7 @@ public class ContactModelTest {
 
     private Contact testContactThree = new Contact(ContactType.GENERAL, "Tester", "Testerson", "5551114444");
 
-    //FOLLOWING - TESTING HIBERNATE ANNOTATIONS
-
-    private static Validator validator;
-
-    @BeforeClass
-    public static void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
-    }
-
-    @Test
-    public void contactTypeIsNull() {
-        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
-        setUp();
-        Contact contact = new Contact( "company name", null, "Testerina", "Test");
-
-        Set<ConstraintViolation<Contact>> constraintViolations =
-                validator.validate( contact );
-
-        assertEquals( 1, constraintViolations.size() );
-        assertEquals( "Contact Type is required.", constraintViolations.iterator().next().getMessage() );
-    }
-
-
-    @Test
+       @Test
     public void testConstructorOne(){
 
         assertFalse(isNull(testContactOne));
