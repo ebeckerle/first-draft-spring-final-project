@@ -19,8 +19,8 @@ public interface ContactConstants {
         allStatesPostalCodes.put("AK", "Alaska");
         allStatesPostalCodes.put("AZ", "Arizona");
         allStatesPostalCodes.put("AR", "Arkansas");
-        allStatesPostalCodes.put(CA, "California");
-        allStatesPostalCodes.put(CO, "Colorado");
+        allStatesPostalCodes.put("CA", "California");
+        allStatesPostalCodes.put("CO", "Colorado");
         allStatesPostalCodes.put(CT, "Connecticut");
         allStatesPostalCodes.put(DE, "Delaware");
         allStatesPostalCodes.put(FL, "Florida");
