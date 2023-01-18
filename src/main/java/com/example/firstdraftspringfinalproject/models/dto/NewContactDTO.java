@@ -97,4 +97,101 @@ public class NewContactDTO {
         this.email1 = email1;
         this.phoneNumber1 = phoneNumber1;
     }
+
+
+    public ContactType getContactType() {
+        return contactType;
+    }
+
+    public void setContactType(ContactType contactType) {
+        this.contactType = contactType;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getAddressLineOne() {
+        return addressLineOne;
+    }
+
+    public void setAddressLineOne(String addressLineOne) {
+        this.addressLineOne = addressLineOne;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getEmail1() {
+        return email1;
+    }
+
+    public void setEmail1(String email1) {
+        this.email1 = email1;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public void setEmail2(String email2) {
+        this.email2 = email2;
+    }
+
+    public PhoneNumber getPhoneNumber1() {
+        return phoneNumber1;
+    }
+
+    public void setPhoneNumber1(PhoneNumber phoneNumber1) {
+        this.phoneNumber1 = phoneNumber1;
+    }
+
+    public PhoneNumber getPhoneNumber2() {
+        return phoneNumber2;
+    }
+
+    public void setPhoneNumber2(PhoneNumber phoneNumber2) {
+        this.phoneNumber2 = phoneNumber2;
+    }
 }
