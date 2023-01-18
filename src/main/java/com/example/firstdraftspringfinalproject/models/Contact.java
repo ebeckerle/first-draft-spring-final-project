@@ -68,6 +68,7 @@ public class Contact implements ContactConstants {
 
     //Constructor for New Employees
     public Contact(ContactType contactType, String firstName, String lastName){
+        this.companyName = "Company";
         this.contactType = contactType;
         this.firstName = firstName;
         this.lastName = lastName;
