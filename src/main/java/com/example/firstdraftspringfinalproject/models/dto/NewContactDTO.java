@@ -45,7 +45,7 @@ public class NewContactDTO {
     @Valid
     private PhoneNumber phoneNumber2;
 
-
+//Have the constructors just for the testing????
 
     public NewContactDTO(ContactType contactType, String firstName, String lastName,
                          String companyName, String addressLineOne, String city,
