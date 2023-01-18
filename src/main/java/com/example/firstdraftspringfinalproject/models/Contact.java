@@ -45,7 +45,7 @@ public class Contact implements ContactConstants {
     @OneToMany(cascade = CascadeType.ALL)
     private List<@Valid PhoneNumber> phoneNumbers;
 
-    public final static HashMap<String, String> allStatesPostalCodes = ContactConstants.populateAllStatesHashMap();
+    public final static HashMap<String, String> ALLSTATESPOSTALCODES = ContactConstants.populateAllStatesHashMap();
 
     public Contact(ContactType contactType, String firstName, String lastName,
 //                   @NotBlank(message = "Company Name is required.")
