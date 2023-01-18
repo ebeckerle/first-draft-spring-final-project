@@ -61,6 +61,6 @@ public class NewContactDTO {
         this.companyName = companyName;
     }
 
-    public NewContactDTO();
+
 
 }
