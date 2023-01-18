@@ -47,6 +47,13 @@ public interface ContactConstants {
         allStatesPostalCodes.put("MT", "Montana");
         allStatesPostalCodes.put("NE", "Nebraska");
         allStatesPostalCodes.put("NV", "Nevada");
+        allStatesPostalCodes.put("NH", "New Hampshire");
+        allStatesPostalCodes.put("NM", "New Mexico");
+        allStatesPostalCodes.put("NY", "New York");
+        allStatesPostalCodes.put("NC", "North Carolina");
+        allStatesPostalCodes.put("ND", "North Dakota");
+        allStatesPostalCodes.put("OH", "Ohio");
+        allStatesPostalCodes.put("OK", "Oklahoma");
 
         return allStatesPostalCodes;
     }
