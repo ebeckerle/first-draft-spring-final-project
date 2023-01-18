@@ -4,6 +4,7 @@ import com.example.firstdraftspringfinalproject.models.PhoneNumber;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -34,11 +35,14 @@ public class NewContactDTO {
     @Size(max = 5, message = "ZipCode must be 5 characters")
     private String zipcode;
 
+    @Email
     private String email1;
+    @Email
     private String email2;
 
     @Valid
     private PhoneNumber phoneNumber1;
+    @Valid
     private PhoneNumber phoneNumber2;
 
 
@@ -61,6 +65,36 @@ public class NewContactDTO {
         this.companyName = companyName;
     }
 
+    public NewContactDTO(ContactType contactType, String firstName, String lastName,
+                         String companyName, String addressLineOne, String city, String state,
+                         String zipcode, String email1, String email2,
+                         PhoneNumber phoneNumber1, PhoneNumber phoneNumber2) {
+        this.contactType = contactType;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.companyName = companyName;
+        this.addressLineOne = addressLineOne;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.email1 = email1;
+        this.email2 = email2;
+        this.phoneNumber1 = phoneNumber1;
+        this.phoneNumber2 = phoneNumber2;
+    }
 
-
+    public NewContactDTO(ContactType contactType, String firstName, String lastName,
+                         String companyName, String addressLineOne, String city, String state,
+                         String zipcode, String email1, PhoneNumber phoneNumber1) {
+        this.contactType = contactType;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.companyName = companyName;
+        this.addressLineOne = addressLineOne;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.email1 = email1;
+        this.phoneNumber1 = phoneNumber1;
+    }
 }
