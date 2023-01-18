@@ -54,7 +54,10 @@ public interface ContactConstants {
         allStatesPostalCodes.put("ND", "North Dakota");
         allStatesPostalCodes.put("OH", "Ohio");
         allStatesPostalCodes.put("OK", "Oklahoma");
-
+        allStatesPostalCodes.put("OR", "Oregon");
+        allStatesPostalCodes.put("PA", "Pennsylvania");
+        allStatesPostalCodes.put("RI", "Rhode Island");
+        allStatesPostalCodes.put("SC", "South Carolina");
         return allStatesPostalCodes;
     }
 
