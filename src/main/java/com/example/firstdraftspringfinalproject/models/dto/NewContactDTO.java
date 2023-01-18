@@ -45,7 +45,7 @@ public class NewContactDTO {
     @Valid
     private PhoneNumber phoneNumber2;
 
-//Have the constructors just for the testing????
+//TODO - Have the constructors just for the testing???? but wanted to test the validation annotations, not sure how else to do without constructors??
 
     public NewContactDTO(ContactType contactType, String firstName, String lastName,
                          String companyName, String addressLineOne, String city,
