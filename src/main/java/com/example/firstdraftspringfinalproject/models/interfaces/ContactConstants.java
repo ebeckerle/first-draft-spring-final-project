@@ -58,6 +58,10 @@ public interface ContactConstants {
         allStatesPostalCodes.put("PA", "Pennsylvania");
         allStatesPostalCodes.put("RI", "Rhode Island");
         allStatesPostalCodes.put("SC", "South Carolina");
+        allStatesPostalCodes.put("SD", "South Dakota");
+        allStatesPostalCodes.put("TN", "Tennessee");
+        allStatesPostalCodes.put("TX", "Texas");
+        allStatesPostalCodes.put("UT", "Utah");
         return allStatesPostalCodes;
     }
 
