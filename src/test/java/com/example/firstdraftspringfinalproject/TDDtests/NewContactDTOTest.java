@@ -30,9 +30,9 @@ public class NewContactDTOTest {
     public void contactTypeIsNull() {
         //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
         setUp();
-        NewContactDTO contact = new Contact( "company name", null, "Testerina", "Test");
+        NewContactDTO contact = new NewContactDTO(null, "company name");
 
-        Set<ConstraintViolation<Contact>> constraintViolations =
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
 
         assertEquals( 1, constraintViolations.size() );

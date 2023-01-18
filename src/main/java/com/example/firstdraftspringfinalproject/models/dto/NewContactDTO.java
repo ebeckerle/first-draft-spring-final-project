@@ -34,8 +34,33 @@ public class NewContactDTO {
     @Size(max = 5, message = "ZipCode must be 5 characters")
     private String zipcode;
 
-    private List<String> email = new ArrayList<>();
+    private String email1;
+    private String email2;
 
-    private List<@Valid PhoneNumber> phoneNumbers;
+    @Valid
+    private PhoneNumber phoneNumber1;
+    private PhoneNumber phoneNumber2;
+
+
+
+    public NewContactDTO(ContactType contactType, String firstName, String lastName,
+                         String companyName, String addressLineOne, String city,
+                         String state, String zipcode) {
+        this.contactType = contactType;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.companyName = companyName;
+        this.addressLineOne = addressLineOne;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+    }
+
+    public NewContactDTO(ContactType contactType, String companyName) {
+        this.contactType = contactType;
+        this.companyName = companyName;
+    }
+
+    public NewContactDTO();
 
 }
