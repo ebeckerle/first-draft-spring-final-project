@@ -62,6 +62,12 @@ public interface ContactConstants {
         allStatesPostalCodes.put("TN", "Tennessee");
         allStatesPostalCodes.put("TX", "Texas");
         allStatesPostalCodes.put("UT", "Utah");
+        allStatesPostalCodes.put("VT", "Vermont");
+        allStatesPostalCodes.put("VA", "Virginia");
+        allStatesPostalCodes.put("WA", "Washington");
+        allStatesPostalCodes.put("WV", "West Virginia");
+        allStatesPostalCodes.put("WI", "Wisconsin");
+        allStatesPostalCodes.put("WY", "Wyoming");
         return allStatesPostalCodes;
     }
 
