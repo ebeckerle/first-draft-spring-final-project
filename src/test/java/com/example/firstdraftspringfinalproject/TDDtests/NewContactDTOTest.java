@@ -68,4 +68,32 @@ public class NewContactDTOTest {
         assertEquals( "Must be under 40 characters", constraintViolations.iterator().next().getMessage() );
     }
 
+    @Test
+    public void companyNameIsBlank() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                "Last Name", "", "Address Line One", "City", "ST", "12345");
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+        assertEquals( "Company Name is required.", constraintViolations.iterator().next().getMessage() );
+    }
+
+    @Test
+    public void companyNameIsTooLong() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                "Last Name", "", "Address Line One", "City", "ST", "12345");
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+        assertEquals( "Company Name is required.", constraintViolations.iterator().next().getMessage() );
+    }
+
 }
