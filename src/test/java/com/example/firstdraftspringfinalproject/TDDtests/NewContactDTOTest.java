@@ -98,4 +98,36 @@ public class NewContactDTOTest {
         assertEquals( "Must be under 60 characters", constraintViolations.iterator().next().getMessage() );
     }
 
+    @Test
+    public void AddressLineOneIsTooLong() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                "Last Name", "Company Name",
+                "This Address Line ONe must be only eighty characters so don't make it too long with lots of characters; Address Line One",
+                "City", "ST", "12345");
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+        assertEquals( "Must be under 80 characters", constraintViolations.iterator().next().getMessage() );
+    }
+
+    @Test
+    public void CityIsTooLong() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                "Last Name", "Company Name",
+                "Address Line One",
+                "This CIty must be only eighty characters so don't make it too long with lots of characters; Address Line One", "ST", "12345");
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+        assertEquals( "Must be under 60 characters", constraintViolations.iterator().next().getMessage() );
+    }
+
 }
