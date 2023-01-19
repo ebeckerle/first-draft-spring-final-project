@@ -54,4 +54,18 @@ public class NewContactDTOTest {
         assertEquals( "Must be under 40 characters", constraintViolations.iterator().next().getMessage() );
     }
 
+    @Test
+    public void lastNameIsTooLong() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                "this last name must be more than 40 characters", "company name", "Address Line One", "City", "ST", "12345");
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+        assertEquals( "Must be under 40 characters", constraintViolations.iterator().next().getMessage() );
+    }
+
 }
