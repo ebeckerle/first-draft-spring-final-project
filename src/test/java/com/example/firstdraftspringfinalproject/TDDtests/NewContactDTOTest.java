@@ -2,6 +2,7 @@ package com.example.firstdraftspringfinalproject.TDDtests;
 
 import com.example.firstdraftspringfinalproject.models.Contact;
 import com.example.firstdraftspringfinalproject.models.dto.NewContactDTO;
+import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
@@ -38,4 +39,19 @@ public class NewContactDTOTest {
         assertEquals( 1, constraintViolations.size() );
         assertEquals( "Contact Type is required.", constraintViolations.iterator().next().getMessage() );
     }
+
+    @Test
+    public void firstNameIsTooLong() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "this first name must be more than 40 characters",
+                "LastName", "company name", "Address Line One", "City", "ST", "12345");
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+        assertEquals( "Must be under 40 characters", constraintViolations.iterator().next().getMessage() );
+    }
+
 }
