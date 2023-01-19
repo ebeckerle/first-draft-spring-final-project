@@ -87,13 +87,15 @@ public class NewContactDTOTest {
         //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
         setUp();
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
-                "Last Name", "", "Address Line One", "City", "ST", "12345");
+                "Last Name",
+                "This company name must be only 60 characters so don't make it too long with lots of characters",
+                "Address Line One", "City", "ST", "12345");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
 
         assertEquals( 1, constraintViolations.size() );
-        assertEquals( "Company Name is required.", constraintViolations.iterator().next().getMessage() );
+        assertEquals( "Must be under 60 characters", constraintViolations.iterator().next().getMessage() );
     }
 
 }
