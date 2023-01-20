@@ -180,4 +180,21 @@ public class NewContactDTOTest {
 //        assertEquals( "ZipCode must be 5 characters", constraintViolations.iterator().next().getMessage() );
     }
 
+    @Test
+    public void optionalZipcodeCustomConstraint() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        PhoneNumber phoneNumber = new PhoneNumber("3143303181");
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                "Last Name", "Company Name",
+                "Address Line One",
+                "City", "ST", "123", "email@email.com", phoneNumber);
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+        assertEquals( "Zipcode is optional bu tmust be 5 digits", constraintViolations.iterator().next().getMessage() );
+    }
+
 }

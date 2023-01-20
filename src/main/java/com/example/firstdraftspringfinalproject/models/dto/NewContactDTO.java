@@ -1,6 +1,7 @@
 package com.example.firstdraftspringfinalproject.models.dto;
 
 import com.example.firstdraftspringfinalproject.models.PhoneNumber;
+import com.example.firstdraftspringfinalproject.models.constraints.OptionalZipcode;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 
 import javax.validation.Valid;
@@ -33,6 +34,7 @@ public class NewContactDTO {
     private String state;
 
     @Size(max = 5, message = "ZipCode must be 5 characters")
+    @OptionalZipcode
     private String zipcode;
 
     @Email
