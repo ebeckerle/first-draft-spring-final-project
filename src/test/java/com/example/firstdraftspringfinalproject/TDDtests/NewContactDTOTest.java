@@ -146,4 +146,20 @@ public class NewContactDTOTest {
         assertEquals( "Must be 2 characters", constraintViolations.iterator().next().getMessage() );
     }
 
+    @Test
+    public void ZipCodeIsTooLong() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                "Last Name", "Company Name",
+                "Address Line One",
+                "City", "ST", "123456");
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+        assertEquals( "ZipCode must be 5 characters", constraintViolations.iterator().next().getMessage() );
+    }
+
 }
