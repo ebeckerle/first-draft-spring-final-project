@@ -1,6 +1,7 @@
 package com.example.firstdraftspringfinalproject.TDDtests;
 
 import com.example.firstdraftspringfinalproject.models.Contact;
+import com.example.firstdraftspringfinalproject.models.PhoneNumber;
 import com.example.firstdraftspringfinalproject.models.dto.NewContactDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.junit.BeforeClass;
@@ -160,6 +161,23 @@ public class NewContactDTOTest {
 
         assertEquals( 1, constraintViolations.size() );
         assertEquals( "ZipCode must be 5 characters", constraintViolations.iterator().next().getMessage() );
+    }
+
+    @Test
+    public void emailNotInEmailFormat() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        PhoneNumber phoneNumber = new PhoneNumber("3143303181");
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                "Last Name", "Company Name",
+                "Address Line One",
+                "City", "ST", "12345", "email", phoneNumber);
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+//        assertEquals( "ZipCode must be 5 characters", constraintViolations.iterator().next().getMessage() );
     }
 
 }
