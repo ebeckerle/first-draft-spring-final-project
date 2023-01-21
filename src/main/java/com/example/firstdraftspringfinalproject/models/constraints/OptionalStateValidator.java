@@ -23,7 +23,6 @@ public class OptionalStateValidator implements ConstraintValidator<OptionalState
             if(state.equals(stateCode.getKey())){
                 return true;
             }
-            
         }
         return false;
     }

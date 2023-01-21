@@ -205,7 +205,7 @@ public class NewContactDTOTest {
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "Address Line One",
-                "City", "S", "123", "email@email.com", phoneNumber);
+                "City", "S", "12345", "email@email.com", phoneNumber);
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
