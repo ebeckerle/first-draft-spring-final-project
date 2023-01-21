@@ -4,6 +4,7 @@ import com.example.firstdraftspringfinalproject.models.interfaces.ContactConstan
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Map;
 
 public class OptionalStateValidator implements ConstraintValidator<OptionalState, String> {
 
@@ -17,8 +18,11 @@ public class OptionalStateValidator implements ConstraintValidator<OptionalState
         if(state == null || state.equals("")){
             return true;
         }
-        for (ContactConstants.populateAllStatesHashMap():
-             ) {
+        for (Map.Entry<String, String> stateCode :
+                ContactConstants.populateAllStatesHashMap().entrySet()) {
+            if(state.equals(stateCode.getKey())){
+                return true;
+            }
             
         }
         return false;
