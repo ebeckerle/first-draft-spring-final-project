@@ -16,7 +16,6 @@ import java.util.List;
 public class NewContactDTO {
 
 
-    //TODO??? -
     @NotNull(message = "Contact Type is required.")
     private ContactType contactType;
 
