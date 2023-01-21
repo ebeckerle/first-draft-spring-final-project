@@ -1,9 +1,10 @@
 package com.example.firstdraftspringfinalproject.models.constraints;
 
+import javax.validation.Payload;
+
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
-import javax.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 
@@ -14,12 +15,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Constraint(validatedBy = OptionalZipcodeValidator.class)
 @Documented
-public @interface OptionalZipcode {
+public @interface OptionalState {
 
-    String message() default "Zipcode is optional bu tmust be 5 digits";
+    String message() default "State must be left blank or be a valid two character postal code";
 
     Class<?>[] groups() default { };
 
     Class<? extends Payload>[] payload() default {};
-
 }
