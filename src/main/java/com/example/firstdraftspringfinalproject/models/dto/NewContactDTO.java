@@ -101,6 +101,8 @@ public class NewContactDTO {
         this.phoneNumber1 = phoneNumber1;
     }
 
+    public NewContactDTO(){}
+
 
     public ContactType getContactType() {
         return contactType;

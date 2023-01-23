@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 import com.example.firstdraftspringfinalproject.data.ContactRepository;
 import com.example.firstdraftspringfinalproject.models.Contact;
 import com.example.firstdraftspringfinalproject.models.PhoneNumber;
+import com.example.firstdraftspringfinalproject.models.dto.NewContactDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,13 +27,13 @@ public class ManageContactsController {
         model.addAttribute("contactTypes", ContactType.getList());
         model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
 
-        model.addAttribute(new Contact());
+        model.addAttribute(new NewContactDTO());
 
         return "supervisor/managecontacts";
     }
 
     @PostMapping("/addcontact")
-    public String processAddContactForm(@ModelAttribute @Valid Contact newContact, Errors errors, Model model
+    public String processAddContactForm(@ModelAttribute @Valid NewContactDTO newContact, Errors errors, Model model
 //                                        @RequestParam(required = false) String contactEmail,
 //                                        @RequestParam(required = false) String secondEmail,
 //                                        @RequestParam(required = false) String phoneNumber,
