@@ -36,58 +36,58 @@
             <form method="post" th:action="@{/supervisor/managecontacts/addcontact}">
                 <div class="form-style1">
                     <label>Type: <span class="req-asterisk">*</span>
-                        <select th:field="${contact.contactType}" name="contactType" id="contactType">
+                        <select th:field="${newContactDTO.contactType}" name="contactType" id="contactType">
                             <option value=""></option>
                             <option th:each="contactType : ${contactTypes}" th:value="${contactType}" th:text="${contactType}"></option>
                         </select>
                     </label>
-                    <p class="error" th:errors="${contact.contactType}"></p>
+                    <p class="error" th:errors="${newContactDTO.contactType}"></p>
                 </div>
 
 <!--                Company Name - REQUIRED  -->
                 <div class="form-style1">
                     <label>Company Name: <span class="req-asterisk">*</span>
-                        <input name="companyName" th:field="${contact.companyName}">
+                        <input name="companyName" th:field="${newContactDTO.companyName}">
                     </label>
-                    <p class="error" th:errors="${contact.companyName}"></p>
+                    <p class="error" th:errors="${newContactDTO.companyName}"></p>
                 </div>
 
 <!--                First Name   -->
                 <div class="form-style1">
                     <label>First Name</label>:
-                    <input th:field="${contact.firstName}">
+                    <input th:field="${newContactDTO.firstName}">
                     </label>
-                    <p class="error" th:errors="${contact.firstName}"></p>
+                    <p class="error" th:errors="${newContactDTO.firstName}"></p>
                 </div>
 
 <!--                Last Name   -->
                 <div class="form-style1">
                     <label>Last Name</label>:
-                    <input th:field="${contact.lastName}">
+                    <input th:field="${newContactDTO.lastName}">
                     </label>
-                    <p class="error" th:errors="${contact.lastName}"></p>
+                    <p class="error" th:errors="${newContactDTO.lastName}"></p>
                 </div>
 
 <!--                Address line one   -->
                 <div class="form-style1">
                     <label>Address</label>:
-                    <input th:field="${contact.addressLineOne}">
+                    <input th:field="${newContactDTO.addressLineOne}">
                     </label>
-                    <p class="error" th:errors="${contact.addressLineOne}"></p>
+                    <p class="error" th:errors="${newContactDTO.addressLineOne}"></p>
                 </div>
 
 <!--                City   -->
                 <div class="form-style1">
                     <label>City</label>:
-                    <input th:field="${contact.city}">
+                    <input th:field="${newContactDTO.city}">
                     </label>
-                    <p class="error" th:errors="${contact.city}"></p>
+                    <p class="error" th:errors="${newContactDTO.city}"></p>
                 </div>
 
 <!--                State   -->
                 <div class="form-style1">
                     <label>State</label>
-                    <input type="text" name="stateInput" oninput="runStateAutoFill()" id="stateInput" list="statesList">
+                    <input type="text" name="stateInput" oninput="runStateAutoFill()" id="stateInput" list="statesList" th:field="${newContactDTO.state}">
                     <datalist id="statesList">
                         <option th:each="state : ${states}" th:value="${state.key}" th:text="${state.value}"></option>
                     </datalist>
@@ -96,34 +96,36 @@
 <!--                    </select>-->
 <!--                    <input type="text" oninput="runStateAutoFill()" th:field="${contact.state}">-->
                     </label>
-                    <p class="error" th:errors="${contact.state}"></p>
+                    <p class="error" th:errors="${newContactDTO.state}"></p>
                 </div>
 
 <!--                ZipCode   -->
                 <div class="form-style1">
                     <label>ZipCode</label>:
-                    <input th:field="${contact.zipcode}">
+                    <input th:field="${newContactDTO.zipcode}">
                     </label>
-                    <p class="error" th:errors="${contact.zipcode}"></p>
+                    <p class="error" th:errors="${newContactDTO.zipcode}"></p>
                 </div>
 
 <!--                Email   -->
                 <div class="form-style1">
                     <label>email</label>:
-                    <input name="contactEmail">
+                    <input name="contactEmail" th:field="${newContactDTO.email1}">
                     </label>
+                    <p class="error" th:errors="${newContactDTO.email1}"></p>
                     <input type="radio"  name="secondEmail" onclick="viewSecondEmailForm();" id="addEmail"><label>Add a Second Email</label>
                 </div>
 <!--                This appears if Second Email is checked-->
                 <div class="form-style1" id="secondEmail" style="display: none;">
                     <label>email</label>:
-                    <input name="secondEmail">
+                    <input name="secondEmail" th:field="${newContactDTO.email2}">
                     </label>
+                    <p class="error" th:errors="${newContactDTO.email2}"></p>
                 </div>
 
                 <div class="form-style1">
                     <label for="phoneNumber">Phone Number</label>:
-                    <input type="text" id="phoneNumber" name="phoneNumber" th:value="${phoneNumber}">
+                    <input type="text" id="phoneNumber" name="phoneNumber" th:field="${newContactDTO.phoneNumber1}">
 <!--                    <input type="tel" id="phoneNumber" name="contactPhoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">-->
                     </label>
                     <input type="radio" onclick="viewSecondPhoneNumberForm()" id="addPhoneNumber"><label>Add a Second Phone Number</label>

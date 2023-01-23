@@ -32,11 +32,11 @@ public class ManageContactsController {
     }
 
     @PostMapping("/addcontact")
-    public String processAddContactForm(@ModelAttribute @Valid Contact newContact, Errors errors, Model model,
-                                        @RequestParam(required = false) String contactEmail,
-                                        @RequestParam(required = false) String secondEmail,
-                                        @RequestParam(required = false) String phoneNumber,
-                                        @RequestParam(required = false) String secondPhoneNumber
+    public String processAddContactForm(@ModelAttribute @Valid Contact newContact, Errors errors, Model model
+//                                        @RequestParam(required = false) String contactEmail,
+//                                        @RequestParam(required = false) String secondEmail,
+//                                        @RequestParam(required = false) String phoneNumber,
+//                                        @RequestParam(required = false) String secondPhoneNumber
                                         ){
         if(errors.hasErrors()){
             model.addAttribute("title", "Manage Contacts");
@@ -54,26 +54,26 @@ public class ManageContactsController {
 //        System.out.println("co name:"+newContact.getCompanyName());
 //        System.out.println("firstname:"+newContact.getFirstName());
 //        System.out.println("zipcode:"+newContact.getZipcode());
-        System.out.println("contact phone number:"+phoneNumber);
-        if(!contactEmail.isBlank()){
-            System.out.println("contact email is completed");
-            newContact.setAnEmail(contactEmail);
-            if(!secondEmail.isBlank()){
-                System.out.println("2nd contact email is completed");
-                newContact.setAnEmail(secondEmail);
-            }
-        }
-
-        if(!phoneNumber.isBlank()){
-            System.out.println("phonenumber is completed");
-            PhoneNumber firstPhoneNumber = new PhoneNumber(phoneNumber);
-            newContact.setAPhoneNumber(firstPhoneNumber);
-            if(!secondPhoneNumber.isBlank()){
-                PhoneNumber phoneNumber2 = new PhoneNumber(secondPhoneNumber);
-                newContact.setAPhoneNumber(phoneNumber2);
-                System.out.println("2nd phone number is completed: "+phoneNumber2);
-            }
-        }
+//        System.out.println("contact phone number:"+phoneNumber);
+//        if(!contactEmail.isBlank()){
+//            System.out.println("contact email is completed");
+//            newContact.setAnEmail(contactEmail);
+//            if(!secondEmail.isBlank()){
+//                System.out.println("2nd contact email is completed");
+//                newContact.setAnEmail(secondEmail);
+//            }
+//        }
+//
+//        if(!phoneNumber.isBlank()){
+//            System.out.println("phonenumber is completed");
+//            PhoneNumber firstPhoneNumber = new PhoneNumber(phoneNumber);
+//            newContact.setAPhoneNumber(firstPhoneNumber);
+//            if(!secondPhoneNumber.isBlank()){
+//                PhoneNumber phoneNumber2 = new PhoneNumber(secondPhoneNumber);
+//                newContact.setAPhoneNumber(phoneNumber2);
+//                System.out.println("2nd phone number is completed: "+phoneNumber2);
+//            }
+//        }
 
         //
 
