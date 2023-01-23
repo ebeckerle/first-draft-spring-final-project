@@ -1,6 +1,7 @@
 package com.example.firstdraftspringfinalproject.models.dto;
 
 import com.example.firstdraftspringfinalproject.models.PhoneNumber;
+import com.example.firstdraftspringfinalproject.models.constraints.OptionalPhoneNumber;
 import com.example.firstdraftspringfinalproject.models.constraints.OptionalState;
 import com.example.firstdraftspringfinalproject.models.constraints.OptionalZipcode;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
@@ -43,10 +44,19 @@ public class NewContactDTO {
     @Email
     private String email2;
 
-    @Valid
-    private PhoneNumber phoneNumber1;
-    @Valid
+    @OptionalPhoneNumber
+    private String phoneNumber1;
+    @OptionalCountryCode
+    private String countryCodePhoneNumber1;
+    @OptionalPhoneNumberExtenstion
+    private String extPhoneNumber1;
+
+    @OptionalPhoneNumber
     private PhoneNumber phoneNumber2;
+    @OptionalCountryCode
+    private String countryCodePhoneNumber2;
+    @OptionalPhoneNumberExtenstion
+    private String extPhoneNumber2;
 
 //TODO - Have the constructors just for the testing???? but wanted to test the validation annotations, not sure how else to do without constructors??
 
@@ -68,27 +78,11 @@ public class NewContactDTO {
         this.companyName = companyName;
     }
 
-    public NewContactDTO(ContactType contactType, String firstName, String lastName,
-                         String companyName, String addressLineOne, String city, String state,
-                         String zipcode, String email1, String email2,
-                         PhoneNumber phoneNumber1, PhoneNumber phoneNumber2) {
-        this.contactType = contactType;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.companyName = companyName;
-        this.addressLineOne = addressLineOne;
-        this.city = city;
-        this.state = state;
-        this.zipcode = zipcode;
-        this.email1 = email1;
-        this.email2 = email2;
-        this.phoneNumber1 = phoneNumber1;
-        this.phoneNumber2 = phoneNumber2;
-    }
 
     public NewContactDTO(ContactType contactType, String firstName, String lastName,
                          String companyName, String addressLineOne, String city, String state,
-                         String zipcode, String email1, PhoneNumber phoneNumber1) {
+                         String zipcode, String email1, String phoneNumber1, String countryCodePhoneNumber1,
+                         String extPhoneNumber1) {
         this.contactType = contactType;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -99,6 +93,8 @@ public class NewContactDTO {
         this.zipcode = zipcode;
         this.email1 = email1;
         this.phoneNumber1 = phoneNumber1;
+        this.countryCodePhoneNumber1 = countryCodePhoneNumber1;
+        this.extPhoneNumber2 = extPhoneNumber1;
     }
 
     public NewContactDTO(){}
@@ -184,13 +180,15 @@ public class NewContactDTO {
         this.email2 = email2;
     }
 
-    public PhoneNumber getPhoneNumber1() {
+    public String getPhoneNumber1() {
         return phoneNumber1;
     }
 
-    public void setPhoneNumber1(PhoneNumber phoneNumber1) {
+    public void setPhoneNumber1(String phoneNumber1) {
         this.phoneNumber1 = phoneNumber1;
     }
+
+
 
     public PhoneNumber getPhoneNumber2() {
         return phoneNumber2;

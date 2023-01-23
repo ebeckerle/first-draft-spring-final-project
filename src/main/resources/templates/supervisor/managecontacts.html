@@ -125,7 +125,7 @@
 
                 <div class="form-style1">
                     <label for="phoneNumber">Phone Number</label>:
-                    <input type="text" id="phoneNumber" name="phoneNumber" th:field="${newContactDTO.phoneNumber1}">
+                    <input id="phoneNumber" name="phoneNumber" th:field="${newContactDTO.phoneNumber1}">
 <!--                    <input type="tel" id="phoneNumber" name="contactPhoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">-->
                     </label>
                     <p class="error" th:errors="${newContactDTO.phoneNumber1}"></p>
