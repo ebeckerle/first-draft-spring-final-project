@@ -128,6 +128,7 @@
                     <input type="text" id="phoneNumber" name="phoneNumber" th:field="${newContactDTO.phoneNumber1}">
 <!--                    <input type="tel" id="phoneNumber" name="contactPhoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">-->
                     </label>
+                    <p class="error" th:errors="${newContactDTO.phoneNumber1}"></p>
                     <input type="radio" onclick="viewSecondPhoneNumberForm()" id="addPhoneNumber"><label>Add a Second Phone Number</label>
                 </div>
 
@@ -141,8 +142,9 @@
 <!--                This appears if Second phone number is checked-->
                 <div class="form-style1" id="secondPhoneNumber" style="display: none;">
                     <label>phone number</label>:
-                    <input name="secondPhoneNumber">
+                    <input name="secondPhoneNumber" th:field="${newContactDTO.phoneNumber2}">
                     </label>
+                    <p class="error" th:errors="${newContactDTO.phoneNumber2}"></p>
                 </div>
 
                 <p class="req-asterisk">* required</p>
