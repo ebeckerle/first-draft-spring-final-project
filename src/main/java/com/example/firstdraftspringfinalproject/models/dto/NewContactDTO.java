@@ -52,7 +52,7 @@ public class NewContactDTO {
     private String extPhoneNumber1;
 
     @OptionalPhoneNumber
-    private PhoneNumber phoneNumber2;
+    private String phoneNumber2;
     @OptionalCountryCode
     private String countryCodePhoneNumber2;
     @OptionalPhoneNumberExtenstion
@@ -188,13 +188,43 @@ public class NewContactDTO {
         this.phoneNumber1 = phoneNumber1;
     }
 
+    public String getCountryCodePhoneNumber1() {
+        return countryCodePhoneNumber1;
+    }
 
+    public void setCountryCodePhoneNumber1(String countryCodePhoneNumber1) {
+        this.countryCodePhoneNumber1 = countryCodePhoneNumber1;
+    }
 
-    public PhoneNumber getPhoneNumber2() {
+    public String getExtPhoneNumber1() {
+        return extPhoneNumber1;
+    }
+
+    public void setExtPhoneNumber1(String extPhoneNumber1) {
+        this.extPhoneNumber1 = extPhoneNumber1;
+    }
+
+    public String getPhoneNumber2() {
         return phoneNumber2;
     }
 
-    public void setPhoneNumber2(PhoneNumber phoneNumber2) {
+    public void setPhoneNumber2(String phoneNumber2) {
         this.phoneNumber2 = phoneNumber2;
+    }
+
+    public String getCountryCodePhoneNumber2() {
+        return countryCodePhoneNumber2;
+    }
+
+    public void setCountryCodePhoneNumber2(String countryCodePhoneNumber2) {
+        this.countryCodePhoneNumber2 = countryCodePhoneNumber2;
+    }
+
+    public String getExtPhoneNumber2() {
+        return extPhoneNumber2;
+    }
+
+    public void setExtPhoneNumber2(String extPhoneNumber2) {
+        this.extPhoneNumber2 = extPhoneNumber2;
     }
 }
