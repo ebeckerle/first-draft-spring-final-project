@@ -46,7 +46,7 @@ public class NewContactDTOTest {
         //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
         setUp();
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "this first name must be more than 40 characters",
-                "LastName", "company name", "Address Line One", "City", "ST", "12345");
+                "LastName", "company name", "Address Line One", "City", "MO", "12345");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
@@ -60,7 +60,8 @@ public class NewContactDTOTest {
         //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
         setUp();
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
-                "this last name must be more than 40 characters", "company name", "Address Line One", "City", "ST", "12345");
+                "this last name must be more than 40 characters", "company name",
+                "Address Line One", "City", "MO", "12345");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
@@ -74,7 +75,7 @@ public class NewContactDTOTest {
         //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
         setUp();
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
-                "Last Name", "", "Address Line One", "City", "ST", "12345");
+                "Last Name", "", "Address Line One", "City", "MO", "12345");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
@@ -90,7 +91,7 @@ public class NewContactDTOTest {
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name",
                 "This company name must be only 60 characters so don't make it too long with lots of characters",
-                "Address Line One", "City", "ST", "12345");
+                "Address Line One", "City", "MO", "12345");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
@@ -106,7 +107,7 @@ public class NewContactDTOTest {
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "This Address Line ONe must be only eighty characters so don't make it too long with lots of characters; Address Line One",
-                "City", "ST", "12345");
+                "City", "MO", "12345");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
@@ -122,7 +123,8 @@ public class NewContactDTOTest {
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "Address Line One",
-                "This CIty must be only eighty characters so don't make it too long with lots of characters; Address Line One", "ST", "12345");
+                "This CIty must be only eighty characters so don't make it too long with lots of characters; Address Line One",
+                "MO", "12345");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
@@ -138,13 +140,13 @@ public class NewContactDTOTest {
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "Address Line One",
-                "City", "STATE", "12345");
+                "City", "Missouri", "12345");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
 
         assertEquals( 1, constraintViolations.size() );
-        assertEquals( "Must be 2 characters", constraintViolations.iterator().next().getMessage() );
+        assertEquals( "State must be left blank or be a valid two character postal code", constraintViolations.iterator().next().getMessage() );
     }
 
     @Test
@@ -154,13 +156,13 @@ public class NewContactDTOTest {
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "Address Line One",
-                "City", "ST", "123456");
+                "City", "MO", "123456");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
 
         assertEquals( 1, constraintViolations.size() );
-        assertEquals( "ZipCode must be 5 characters", constraintViolations.iterator().next().getMessage() );
+        assertEquals( "Zipcode is optional but must be 5 digits", constraintViolations.iterator().next().getMessage() );
     }
 
     @Test
@@ -170,7 +172,7 @@ public class NewContactDTOTest {
                 NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "Address Line One",
-                "City", "ST", "12345", "email", "3143303181", "+1",
+                "City", "MO", "12345", "email", "3143303181", "+1",
                 "");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
@@ -187,14 +189,14 @@ public class NewContactDTOTest {
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "Address Line One",
-                "City", "ST", "123", "email@email.com",
+                "City", "MO", "123", "email@email.com",
                 "3143303181", "", "");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
 
         assertEquals( 1, constraintViolations.size() );
-        assertEquals( "Zipcode is optional bu tmust be 5 digits", constraintViolations.iterator().next().getMessage() );
+        assertEquals( "Zipcode is optional but must be 5 digits", constraintViolations.iterator().next().getMessage() );
     }
 
     @Test
@@ -204,7 +206,23 @@ public class NewContactDTOTest {
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "Address Line One",
-                "City", "S", "12345", "email@email.com", "3143303181", "", "");
+                "City", "RY", "12345", "email@email.com", "3143303181", "", "");
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+        assertEquals( "State must be left blank or be a valid two character postal code", constraintViolations.iterator().next().getMessage() );
+    }
+
+    @Test
+    public void optionalPhoneNumberCustomConstraint() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                "Last Name", "Company Name",
+                "Address Line One",
+                "City", "MO", "12345", "email@email.com", "3143303181", "", "");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );

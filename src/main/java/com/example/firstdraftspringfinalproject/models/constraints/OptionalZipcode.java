@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface OptionalZipcode {
 
-    String message() default "Zipcode is optional bu tmust be 5 digits";
+    String message() default "Zipcode is optional but must be 5 digits";
 
     Class<?>[] groups() default { };
 
