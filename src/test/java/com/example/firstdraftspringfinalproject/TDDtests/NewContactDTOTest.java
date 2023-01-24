@@ -167,11 +167,11 @@ public class NewContactDTOTest {
     public void emailNotInEmailFormat() {
         //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
         setUp();
-        PhoneNumber phoneNumber = new PhoneNumber("3143303181");
-        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "Address Line One",
-                "City", "ST", "12345", "email", phoneNumber);
+                "City", "ST", "12345", "email", "3143303181", "+1",
+                "");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
