@@ -16,6 +16,13 @@ public class OptionalPhoneNumberValidator implements ConstraintValidator<Optiona
     @Override
     public boolean isValid(String phoneNumber, ConstraintValidatorContext constraintContext){
        //should make sure that
+        if(phoneNumber == null || phoneNumber.equals("")){
+            return true;
+        }
+        if(phoneNumber.length() == 10 && phoneNumber.matches("\\d+")){
+            System.out.println("here using the matches with the regex");
+            return true;
+        }
         return false;
     }
 }

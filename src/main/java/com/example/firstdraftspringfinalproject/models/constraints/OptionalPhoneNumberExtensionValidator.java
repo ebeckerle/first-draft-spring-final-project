@@ -12,8 +12,11 @@ public class OptionalPhoneNumberExtensionValidator implements ConstraintValidato
     }
 
     @Override
-    public boolean isValid(String phoneNumberExtenstion, ConstraintValidatorContext constraintContext){
+    public boolean isValid(String phoneNumberExtension, ConstraintValidatorContext constraintContext){
         //should make sure that
+        if(phoneNumberExtension== null || phoneNumberExtension.equals("")){
+            return true;
+        }
         return false;
     }
 }
