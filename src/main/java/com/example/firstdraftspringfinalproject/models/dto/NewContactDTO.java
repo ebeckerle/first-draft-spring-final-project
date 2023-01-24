@@ -1,9 +1,7 @@
 package com.example.firstdraftspringfinalproject.models.dto;
 
 import com.example.firstdraftspringfinalproject.models.PhoneNumber;
-import com.example.firstdraftspringfinalproject.models.constraints.OptionalPhoneNumber;
-import com.example.firstdraftspringfinalproject.models.constraints.OptionalState;
-import com.example.firstdraftspringfinalproject.models.constraints.OptionalZipcode;
+import com.example.firstdraftspringfinalproject.models.constraints.*;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 
 import javax.validation.Valid;

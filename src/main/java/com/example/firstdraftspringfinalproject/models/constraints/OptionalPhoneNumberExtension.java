@@ -12,13 +12,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = OptionalCountryCodeValidator.class)
+@Constraint(validatedBy = OptionalPhoneNumberExtensionValidator.class)
 @Documented
-public @interface OptionalCountryCode {
+public @interface OptionalPhoneNumberExtension {
 
-    String message() default "Country Code if left blank will default to the United States (+1), " +
-            "if present the Country code must adhere to the correct format - a plus sign, '+', and any numerical " +
-            "digit one through nine, '1-9'";
+    String message() default "Phone Number Extension if present must be 3 numerical digits";
 
     Class<?>[] groups() default { };
 
