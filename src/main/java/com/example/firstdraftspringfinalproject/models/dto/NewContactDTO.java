@@ -48,14 +48,14 @@ public class NewContactDTO {
     private String phoneNumber1;
     @OptionalCountryCode
     private String countryCodePhoneNumber1;
-    @OptionalPhoneNumberExtenstion
+    @OptionalPhoneNumberExtension
     private String extPhoneNumber1;
 
     @OptionalPhoneNumber
     private String phoneNumber2;
     @OptionalCountryCode
     private String countryCodePhoneNumber2;
-    @OptionalPhoneNumberExtenstion
+    @OptionalPhoneNumberExtension
     private String extPhoneNumber2;
 
 //TODO - Have the constructors just for the testing???? but wanted to test the validation annotations, not sure how else to do without constructors??

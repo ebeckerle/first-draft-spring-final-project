@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Constraint(validatedBy = OptionalZipcodeValidator.class)
 @Documented
-public @interface OptionalPhoneNumber {
+public @interface OptionalCountryCode {
 
     String message() default "Phone Number must be a valid 10 digits - a 3 digit area code and a 7 digit phone number";
 
