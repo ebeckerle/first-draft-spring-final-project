@@ -184,11 +184,11 @@ public class NewContactDTOTest {
     public void optionalZipcodeCustomConstraint() {
         //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
         setUp();
-        PhoneNumber phoneNumber = new PhoneNumber("3143303181");
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "Address Line One",
-                "City", "ST", "123", "email@email.com", phoneNumber);
+                "City", "ST", "123", "email@email.com",
+                "3143303181", "", "");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
@@ -201,11 +201,10 @@ public class NewContactDTOTest {
     public void optionalStateCustomConstraint() {
         //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
         setUp();
-        PhoneNumber phoneNumber = new PhoneNumber("3143303181");
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "Address Line One",
-                "City", "S", "12345", "email@email.com", phoneNumber);
+                "City", "S", "12345", "email@email.com", "3143303181", "", "");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
