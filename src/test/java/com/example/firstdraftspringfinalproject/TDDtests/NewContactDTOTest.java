@@ -222,13 +222,49 @@ public class NewContactDTOTest {
         NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
                 "Last Name", "Company Name",
                 "Address Line One",
-                "City", "MO", "12345", "email@email.com", "3143303181", "", "");
+                "City", "MO", "12345", "email@email.com", "3w43303181", "", "");
 
         Set<ConstraintViolation<NewContactDTO>> constraintViolations =
                 validator.validate( contact );
 
         assertEquals( 1, constraintViolations.size() );
-        assertEquals( "State must be left blank or be a valid two character postal code", constraintViolations.iterator().next().getMessage() );
+        assertEquals( "Phone Number must be a valid 10 digits - a 3 digit area code and a 7 digit phone number", constraintViolations.iterator().next().getMessage() );
+    }
+
+    @Test
+    public void optionalCountryCodeCustomConstraint() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                "Last Name", "Company Name",
+                "Address Line One",
+                "City", "MO", "12345", "email@email.com", "3143303181",
+                "+f678", "");
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+        assertEquals( "Country Code if left blank will default to the United States (+1), " +
+                "if present the Country code must adhere to the correct format - a plus sign, '+', and any numerical " +
+                "digit one through nine, '1-9'", constraintViolations.iterator().next().getMessage() );
+    }
+
+    @Test
+    public void optionalPhoneNumberExtensionCustomConstraint() {
+        //for some reason it seems like the @BeforeClass annotation is not working... so therefore I have setup(); run here:
+        setUp();
+        NewContactDTO contact = new NewContactDTO(ContactType.GENERAL, "First Name",
+                "Last Name", "Company Name",
+                "Address Line One",
+                "City", "MO", "12345", "email@email.com", "3143303181",
+                "+678", "srt5");
+
+        Set<ConstraintViolation<NewContactDTO>> constraintViolations =
+                validator.validate( contact );
+
+        assertEquals( 1, constraintViolations.size() );
+        assertEquals( "Phone Number Extension if present must be 3 numerical digits", constraintViolations.iterator().next().getMessage() );
     }
 
 }

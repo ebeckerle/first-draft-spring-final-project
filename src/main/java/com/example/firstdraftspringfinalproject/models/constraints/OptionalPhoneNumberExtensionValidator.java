@@ -17,6 +17,9 @@ public class OptionalPhoneNumberExtensionValidator implements ConstraintValidato
         if(phoneNumberExtension== null || phoneNumberExtension.equals("")){
             return true;
         }
+        if(phoneNumberExtension.length() == 3 && phoneNumberExtension.matches("\\d+")){
+            return true;
+        }
         return false;
     }
 }

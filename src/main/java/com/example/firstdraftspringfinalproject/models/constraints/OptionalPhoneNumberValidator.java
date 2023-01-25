@@ -20,7 +20,6 @@ public class OptionalPhoneNumberValidator implements ConstraintValidator<Optiona
             return true;
         }
         if(phoneNumber.length() == 10 && phoneNumber.matches("\\d+")){
-            System.out.println("here using the matches with the regex");
             return true;
         }
         return false;

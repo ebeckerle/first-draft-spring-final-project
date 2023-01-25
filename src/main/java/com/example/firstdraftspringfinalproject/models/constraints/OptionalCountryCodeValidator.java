@@ -16,15 +16,15 @@ public class OptionalCountryCodeValidator implements ConstraintValidator<Optiona
         if(countryCode== null || countryCode.equals("")){
             return true;
         }
-        if(countryCode.length()<=4  && countryCode.length()>=2  && countryCode.indexOf("+")==0
-                && countryCode.startsWith("+")){
+        if(countryCode.length()<=4 && countryCode.length()>=2 && countryCode.indexOf("+")==0){
             for (int i = 1; i < 4; i++) {
                 char character = countryCode.charAt(i);
-                if(character == 0 || character ==1){
-                    System.out.println(character);
+                String allowedCharacters = "0123456789";
+                if(allowedCharacters.indexOf(character)>=0){
                     return true;
                 }
             }
+
         }
         return false;
     }
