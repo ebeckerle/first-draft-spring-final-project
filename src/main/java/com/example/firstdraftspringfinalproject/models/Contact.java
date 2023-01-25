@@ -1,5 +1,6 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import com.example.firstdraftspringfinalproject.models.dto.NewContactDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import com.example.firstdraftspringfinalproject.models.interfaces.ContactConstants;
 
@@ -46,6 +47,24 @@ public class Contact implements ContactConstants {
     private List<@Valid PhoneNumber> phoneNumbers;
 
     public final static HashMap<String, String> ALLSTATESPOSTALCODES = ContactConstants.populateAllStatesHashMap();
+
+    public Contact(NewContactDTO newContactDTO){
+        this.contactType = newContactDTO.getContactType();
+        this.companyName = newContactDTO.getCompanyName();
+
+        if(newContactDTO.getLastName()!= null || newContactDTO.getLastName().equals("")){
+            this.lastName = newContactDTO.getLastName();
+        }
+        if(newContactDTO.getFirstName()!= null || newContactDTO.getFirstName().equals("")){
+            this.firstName = newContactDTO.getFirstName();
+        }
+        if(newContactDTO.getAddressLineOne()!= null || newContactDTO.getAddressLineOne().equals("")){
+            this.addressLineOne = newContactDTO.getAddressLineOne();
+        }
+        if(newContactDTO.getCity()!= null || newContactDTO.getCity().equals("")){
+            this.city = newContactDTO.getCity();
+        }
+    }
 
     public Contact(ContactType contactType, String firstName, String lastName,
 //                   @NotBlank(message = "Company Name is required.")
