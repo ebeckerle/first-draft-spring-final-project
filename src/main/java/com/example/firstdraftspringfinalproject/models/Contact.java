@@ -64,6 +64,20 @@ public class Contact implements ContactConstants {
         if(newContactDTO.getCity()!= null || newContactDTO.getCity().equals("")){
             this.city = newContactDTO.getCity();
         }
+        if(newContactDTO.getState()!= null || newContactDTO.getState().equals("")){
+            this.state = newContactDTO.getState();
+        }
+        if(newContactDTO.getZipcode()!= null || newContactDTO.getZipcode().equals("")){
+            this.zipcode = newContactDTO.getZipcode();
+        }
+        this.email = new ArrayList<>();
+        if(newContactDTO.getEmail1()!= null || newContactDTO.getEmail1().equals("")){
+            this.email.add(newContactDTO.getEmail1());
+        }
+        if(newContactDTO.getEmail2()!= null || newContactDTO.getEmail2().equals("")){
+            this.email.add(newContactDTO.getEmail2());
+        }
+
     }
 
     public Contact(ContactType contactType, String firstName, String lastName,
