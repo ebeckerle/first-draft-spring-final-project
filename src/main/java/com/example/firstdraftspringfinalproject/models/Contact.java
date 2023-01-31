@@ -91,8 +91,20 @@ public class Contact implements ContactConstants {
                 PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber1());
                 this.phoneNumbers.add(phoneNumber);
             }
-
-
+        }
+        if(newContactDTO.getPhoneNumber2()!= null || !newContactDTO.getPhoneNumber2().equals("")){
+            if(newContactDTO.getCountryCodePhoneNumber2() != null || !newContactDTO.getCountryCodePhoneNumber2().equals("")){
+                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getExtPhoneNumber2());
+                phoneNumber.setCountryCode(newContactDTO.getCountryCodePhoneNumber2());
+                this.phoneNumbers.add(phoneNumber);
+            }else if(newContactDTO.getExtPhoneNumber2() != null || !newContactDTO.getExtPhoneNumber2().equals("")){
+                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber2());
+                phoneNumber.setExtension(newContactDTO.getExtPhoneNumber2());
+                this.phoneNumbers.add(phoneNumber);
+            }else{
+                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber2());
+                this.phoneNumbers.add(phoneNumber);
+            }
         }
 
     }
