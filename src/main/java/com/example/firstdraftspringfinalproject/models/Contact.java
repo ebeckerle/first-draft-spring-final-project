@@ -71,15 +71,28 @@ public class Contact implements ContactConstants {
             this.zipcode = newContactDTO.getZipcode();
         }
         this.email = new ArrayList<>();
-        if(newContactDTO.getEmail1()!= null || newContactDTO.getEmail1().equals("")){
+        if(newContactDTO.getEmail1()!= null || !newContactDTO.getEmail1().equals("")){
             this.email.add(newContactDTO.getEmail1());
         }
-        if(newContactDTO.getEmail2()!= null || newContactDTO.getEmail2().equals("")){
+        if(newContactDTO.getEmail2()!= null || !newContactDTO.getEmail2().equals("")){
             this.email.add(newContactDTO.getEmail2());
         }
         this.phoneNumbers = new ArrayList<>();
-        if(newContactDTO.getPhoneNumber1()!= null || newContactDTO.getPhoneNumber1().equals("")){
-            this.phoneNumbers.add(newContactDTO.getPhoneNumber1());
+        if(newContactDTO.getPhoneNumber1()!= null || !newContactDTO.getPhoneNumber1().equals("")){
+            if(newContactDTO.getCountryCodePhoneNumber1() != null || !newContactDTO.getCountryCodePhoneNumber1().equals("")){
+                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber1());
+                phoneNumber.setCountryCode(newContactDTO.getCountryCodePhoneNumber1());
+                this.phoneNumbers.add(phoneNumber);
+            }else if(newContactDTO.getExtPhoneNumber1() != null || !newContactDTO.getExtPhoneNumber1().equals("")){
+                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber1());
+                phoneNumber.setExtension(newContactDTO.getExtPhoneNumber1());
+                this.phoneNumbers.add(phoneNumber);
+            }else{
+                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber1());
+                this.phoneNumbers.add(phoneNumber);
+            }
+
+
         }
 
     }

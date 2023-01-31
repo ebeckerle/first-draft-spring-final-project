@@ -31,7 +31,6 @@ public class PhoneNumber {
         this.areaCode = phoneNumber10digit.substring(0,3);
         this.exchangeCode = phoneNumber10digit.substring(3,6);
         this.lineNumber = phoneNumber10digit.substring(6,10);
-
     }
 
 

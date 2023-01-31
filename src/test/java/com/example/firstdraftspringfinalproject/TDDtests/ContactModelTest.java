@@ -66,6 +66,11 @@ public class ContactModelTest {
     }
 
     @Test
+    public void testConstructorFour(){
+
+    }
+
+    @Test
     public void testSetAnEmail(){
 
         testContactOne.setAnEmail("ilovetdd@test.com");
