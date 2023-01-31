@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 public class Contact implements ContactConstants {
 
-    //this is a git test
     @Id
     @GeneratedValue
     private Integer id;
