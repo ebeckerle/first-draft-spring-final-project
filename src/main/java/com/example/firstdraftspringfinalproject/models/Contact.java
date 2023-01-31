@@ -77,6 +77,10 @@ public class Contact implements ContactConstants {
         if(newContactDTO.getEmail2()!= null || newContactDTO.getEmail2().equals("")){
             this.email.add(newContactDTO.getEmail2());
         }
+        this.phoneNumbers = new ArrayList<>();
+        if(newContactDTO.getPhoneNumber1()!= null || newContactDTO.getPhoneNumber1().equals("")){
+            this.phoneNumbers.add(newContactDTO.getPhoneNumber1());
+        }
 
     }
 
