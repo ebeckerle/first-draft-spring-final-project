@@ -2,6 +2,7 @@ package com.example.firstdraftspringfinalproject.TDDtests;
 
 import com.example.firstdraftspringfinalproject.models.Contact;
 import com.example.firstdraftspringfinalproject.models.PhoneNumber;
+import com.example.firstdraftspringfinalproject.models.dto.NewContactDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
@@ -67,6 +68,33 @@ public class ContactModelTest {
 
     @Test
     public void testConstructorFour(){
+
+        NewContactDTO contactDTO = new NewContactDTO(ContactType.GENERAL, "Fox's Freight");
+        Contact contact = new Contact(contactDTO);
+
+        assertEquals(contact.getCompanyName(), "Fox's Freight");
+
+        NewContactDTO contactDTO2 = new NewContactDTO(ContactType.COLLEAGUE,  "First Name",
+                "Last Name", "Company Name",
+                "Address Line One",
+                "City", "MO", "12345", "email@email.com", "3143303181",
+                null, "");
+        Contact contact2 = new Contact(contactDTO2);
+        PhoneNumber phoneNumber = new PhoneNumber("3143303181");
+
+        assertEquals(contact2.getPhoneNumbers().get(0).getCountryCode(),"+1");
+        assertEquals(contact2.getPhoneNumbers().get(0).getExtension(), null);
+        assertEquals(contact2.getPhoneNumbers().get(0).getAreaCode(), "314");
+
+        NewContactDTO contactDTO3 = new NewContactDTO(ContactType.COLLEAGUE,  "",
+                "Last Name", "Company Name",
+                "",
+                "City", "MO", "12345", "email@email.com", "3143303181",
+                null, "");
+        Contact contact3 = new Contact(contactDTO3);
+
+        assertEquals(contact3.getFirstName(), null);
+
 
     }
 

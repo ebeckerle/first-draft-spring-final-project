@@ -52,58 +52,87 @@ public class Contact implements ContactConstants {
         this.contactType = newContactDTO.getContactType();
         this.companyName = newContactDTO.getCompanyName();
 
-        if(newContactDTO.getLastName()!= null || newContactDTO.getLastName().equals("")){
-            this.lastName = newContactDTO.getLastName();
-        }
-        if(newContactDTO.getFirstName()!= null || newContactDTO.getFirstName().equals("")){
-            this.firstName = newContactDTO.getFirstName();
-        }
-        if(newContactDTO.getAddressLineOne()!= null || newContactDTO.getAddressLineOne().equals("")){
-            this.addressLineOne = newContactDTO.getAddressLineOne();
-        }
-        if(newContactDTO.getCity()!= null || newContactDTO.getCity().equals("")){
-            this.city = newContactDTO.getCity();
-        }
-        if(newContactDTO.getState()!= null || newContactDTO.getState().equals("")){
-            this.state = newContactDTO.getState();
-        }
-        if(newContactDTO.getZipcode()!= null || newContactDTO.getZipcode().equals("")){
-            this.zipcode = newContactDTO.getZipcode();
-        }
-        this.email = new ArrayList<>();
-        if(newContactDTO.getEmail1()!= null || !newContactDTO.getEmail1().equals("")){
-            this.email.add(newContactDTO.getEmail1());
-        }
-        if(newContactDTO.getEmail2()!= null || !newContactDTO.getEmail2().equals("")){
-            this.email.add(newContactDTO.getEmail2());
-        }
-        this.phoneNumbers = new ArrayList<>();
-        if(newContactDTO.getPhoneNumber1()!= null || !newContactDTO.getPhoneNumber1().equals("")){
-            if(newContactDTO.getCountryCodePhoneNumber1() != null || !newContactDTO.getCountryCodePhoneNumber1().equals("")){
-                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber1());
-                phoneNumber.setCountryCode(newContactDTO.getCountryCodePhoneNumber1());
-                this.phoneNumbers.add(phoneNumber);
-            }else if(newContactDTO.getExtPhoneNumber1() != null || !newContactDTO.getExtPhoneNumber1().equals("")){
-                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber1());
-                phoneNumber.setExtension(newContactDTO.getExtPhoneNumber1());
-                this.phoneNumbers.add(phoneNumber);
-            }else{
-                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber1());
-                this.phoneNumbers.add(phoneNumber);
+        if(newContactDTO.getLastName()!= null){
+            if(!newContactDTO.getLastName().equals("")){
+                this.lastName = newContactDTO.getLastName();
             }
         }
-        if(newContactDTO.getPhoneNumber2()!= null || !newContactDTO.getPhoneNumber2().equals("")){
-            if(newContactDTO.getCountryCodePhoneNumber2() != null || !newContactDTO.getCountryCodePhoneNumber2().equals("")){
-                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getExtPhoneNumber2());
-                phoneNumber.setCountryCode(newContactDTO.getCountryCodePhoneNumber2());
-                this.phoneNumbers.add(phoneNumber);
-            }else if(newContactDTO.getExtPhoneNumber2() != null || !newContactDTO.getExtPhoneNumber2().equals("")){
-                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber2());
-                phoneNumber.setExtension(newContactDTO.getExtPhoneNumber2());
-                this.phoneNumbers.add(phoneNumber);
-            }else{
-                PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber2());
-                this.phoneNumbers.add(phoneNumber);
+        if(newContactDTO.getFirstName()!= null){
+            if (!newContactDTO.getFirstName().equals("")){
+                this.firstName = newContactDTO.getFirstName();
+            }
+        }
+        if(newContactDTO.getAddressLineOne()!= null){
+            if(!newContactDTO.getAddressLineOne().equals("")){
+                this.addressLineOne = newContactDTO.getAddressLineOne();
+            }
+        }
+        if(newContactDTO.getCity()!= null){
+            if(!newContactDTO.getCity().equals("")){
+                this.city = newContactDTO.getCity();
+            }
+        }
+        if(newContactDTO.getState()!= null){
+            if(!newContactDTO.getState().equals("")){
+                this.state = newContactDTO.getState();
+            }
+        }
+        if(newContactDTO.getZipcode()!= null){
+            if(!newContactDTO.getZipcode().equals("")){
+                this.zipcode = newContactDTO.getZipcode();
+            }
+        }
+        this.email = new ArrayList<>();
+        if(newContactDTO.getEmail1()!= null){
+            if(!newContactDTO.getEmail1().equals("")){
+                this.email.add(newContactDTO.getEmail1());
+            }
+        }
+        if(newContactDTO.getEmail2()!= null){
+            if(!newContactDTO.getEmail2().equals("")){
+                this.email.add(newContactDTO.getEmail2());
+            }
+        }
+        this.phoneNumbers = new ArrayList<>();
+        if(newContactDTO.getPhoneNumber1()!= null){
+            if(!newContactDTO.getPhoneNumber1().equals("")){
+                if(newContactDTO.getCountryCodePhoneNumber1() != null){
+                    if(!newContactDTO.getCountryCodePhoneNumber1().equals("")){
+                        PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber1());
+                        phoneNumber.setCountryCode(newContactDTO.getCountryCodePhoneNumber1());
+                        this.phoneNumbers.add(phoneNumber);
+                    }
+                }else if(newContactDTO.getExtPhoneNumber1() != null){
+                    if(!newContactDTO.getExtPhoneNumber1().equals("")){
+                        PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber1());
+                        phoneNumber.setExtension(newContactDTO.getExtPhoneNumber1());
+                        this.phoneNumbers.add(phoneNumber);
+                    }
+                }else{
+                    PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber1());
+                    this.phoneNumbers.add(phoneNumber);
+                }
+            }
+
+        }
+        if(newContactDTO.getPhoneNumber2()!= null){
+            if(!newContactDTO.getPhoneNumber2().equals("")){
+                if(newContactDTO.getCountryCodePhoneNumber2() != null){
+                    if(!newContactDTO.getCountryCodePhoneNumber2().equals("")){
+                        PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getExtPhoneNumber2());
+                        phoneNumber.setCountryCode(newContactDTO.getCountryCodePhoneNumber2());
+                        this.phoneNumbers.add(phoneNumber);
+                    }
+                }else if(newContactDTO.getExtPhoneNumber2() != null){
+                    if(!newContactDTO.getExtPhoneNumber2().equals("")){
+                        PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber2());
+                        phoneNumber.setExtension(newContactDTO.getExtPhoneNumber2());
+                        this.phoneNumbers.add(phoneNumber);
+                    }
+                }else{
+                    PhoneNumber phoneNumber = new PhoneNumber(newContactDTO.getPhoneNumber2());
+                    this.phoneNumbers.add(phoneNumber);
+                }
             }
         }
 
