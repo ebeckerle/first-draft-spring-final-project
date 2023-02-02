@@ -63,6 +63,7 @@ public class ManageContactsController {
 
         model.addAttribute("contact", contactRepository.findById(contactId).get());
         model.addAttribute("contactPhoneNumbers", contactRepository.findById(contactId).get().getPhoneNumbers());
+        model.addAttribute("contactEmails", contactRepository.findById(contactId).get().getEmail());
         return "supervisor/viewcontact";
     }
 }

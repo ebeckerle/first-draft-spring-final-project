@@ -42,6 +42,10 @@
             <th>Phone</th>
             <td th:text="${phoneNumber.areaCode}+ '-' + ${phoneNumber.exchangeCode}+ '-' + ${phoneNumber.lineNumber}"></td>
         </tr>
+        <tr th:each="email : ${contactEmails}">
+            <th>Email</th>
+            <td th:text="${email}"></td>
+        </tr>
     </table>
 </div>
 
