@@ -44,9 +44,8 @@ public class ManageContactsController {
 
             return "supervisor/managecontacts";
         }
-
-
-
+        Contact contact = new Contact(newContact);
+        contactRepository.save(contact);
 
         //repopulate the display
         model.addAttribute("title", "Manage Contacts");
@@ -56,5 +55,14 @@ public class ManageContactsController {
         model.addAttribute(new Contact());
 
         return "supervisor/managecontacts";
+    }
+
+    @GetMapping("/viewcontact")
+    public String viewAndEditContact(Model model, @RequestParam Integer contactId){
+        model.addAttribute("title", "View Contact Details");
+
+        model.addAttribute("contact", contactRepository.findById(contactId).get());
+        model.addAttribute("contactPhoneNumbers", contactRepository.findById(contactId).get().getPhoneNumbers());
+        return "supervisor/viewcontact";
     }
 }

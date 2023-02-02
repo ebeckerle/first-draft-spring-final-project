@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8">
+    <title th:text="${title}">Default Title</title>
+</head>
+<body>
+
+<div th:replace="fragments :: header-nav-login-sup"></div>
+
+<div class="main-contents">
+
+    <table>
+        <thead>
+        <th th:text="${contact.getId()}"></th>
+        </thead>
+        <tr>
+            <th>Company</th>
+            <td th:text="${contact.companyName}"></td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td th:text="${contact.lastName}"></td>
+        </tr>
+        <tr>
+            <th>First Name</th>
+            <td th:text="${contact.firstName}"></td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td th:text="${contact.addressLineOne}"></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td th:text="${contact.city} +', '+ ${contact.state}"></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td th:text="${contact.zipcode}"></td>
+        </tr>
+        <tr th:each="phoneNumber : ${contactPhoneNumbers}">
+            <th>Phone</th>
+            <td th:text="${phoneNumber.areaCode}+ '-' + ${phoneNumber.exchangeCode}+ '-' + ${phoneNumber.lineNumber}"></td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+</html>

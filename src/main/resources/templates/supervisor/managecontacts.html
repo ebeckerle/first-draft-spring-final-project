@@ -17,16 +17,16 @@
             <table class="table-style1">
                 <thead>
 <!--                <th>Contact Type</th>-->
-                <th>Last Name</th>
-                <th>Company Name</th>
+                    <th>Company Name</th>
+                    <th>Last Name</th>
+
                 </thead>
 
                 <tr th:each="contact : ${contacts}">
 <!--                    <td th:text="${contact.getContactType().getDisplayName()}"></td>-->
-<!--                    <td th:text="${contact.lastName}"></td>-->
-<!--                    <td th:text="${contact.companyName}"></td>-->
-                    <td></td>
-                    <td></td>
+                    <td><a th:text="${contact.companyName}" th:href="@{/supervisor/managecontacts/viewcontact(contactId=${contact.id})}"></a></td>
+                    <td th:text="${contact.lastName}"></td>
+
                 </tr>
             </table>
         </div>
