@@ -1,11 +1,13 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
+import com.example.firstdraftspringfinalproject.data.ContactRepository;
 import com.example.firstdraftspringfinalproject.data.EventRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.ShipmentRepository;
 import com.example.firstdraftspringfinalproject.models.Contact;
 import com.example.firstdraftspringfinalproject.models.Event;
 import com.example.firstdraftspringfinalproject.models.Shipment;
+import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,6 +36,9 @@ public class ManageShipmentsController {
 
     @Autowired
     private ShipmentRepository shipmentRepository;
+
+    @Autowired
+    private ContactRepository contactRepository;
 
     @GetMapping
     public String displayManageShipments(Model model){
@@ -91,7 +96,9 @@ public class ManageShipmentsController {
         shipmentTypes.add(ShipmentType.OUTGOING);
         model.addAttribute("shipmentTypes", shipmentTypes);
         model.addAttribute("projects", projectRepository.findAll());
-
+        if(contactRepository.findByContactType(ContactType.CARRIER).isPresent()){
+            model.addAttribute("carriers", contactRepository.findByContactType(ContactType.CARRIER).get());
+        }
         return "supervisor/newshipment";
     }
 
