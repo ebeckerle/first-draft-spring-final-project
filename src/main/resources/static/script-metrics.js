@@ -218,41 +218,40 @@ function createCSVFromChartData(){
     let primaryCategorySubject = primaryCategorySubjectElement.getAttribute("primaryCategorySubject");
     console.log(primaryCategorySubject);
 
-
-
-    //csv rows - we will put the data into this array and then
+    //csv rows - we will put the data into this array
     let csvRowData = [];
-
 
      if(primaryCategorySubject !== null){
           for(let valueSet in chartData){
             let xy = chartData[valueSet].replace("{","").replace("}", "").replace(" ", "");
-            let xyArray = xy.replace("=", ",");
-            console.log(typeof xyArray);
-            xyArray = primaryCategorySubject + "," + xyArray;
-            csvRowData.push(xyArray);
+            xy = xy.replace("=", ",");
+            xy = primaryCategorySubject + "," + xy;
+            csvRowData.push(xy);
           }
      }else{
          for(let valueSet in chartData){
              let xy = chartData[valueSet].replace("{","").replace("}", "").replace(" ", "");
-             let xyArray = xy.replace("=", ",");
-             csvRowData.push(xyArray);
+             xy = xy.replace("=", ",");
+             csvRowData.push(xy);
          }
      }
 
-
-
-
-    console.log(csvRowData);
-
-    //push headers
+    //create a csv, which is a string, starting with the headers
     let csv = csvHeaders+"\n";
-
     csvRowData = csvRowData.join("\n");
-
     csv = csv + csvRowData;
-
     console.log(csv);
+
+
+    document.write(csv);
+
+    let hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.target = '_blank';
+
+    //provide the name for the CSV file to be downloaded
+    hiddenElement.download = `${chartTitle}.csv`;
+    hiddenElement.click();
 
 
 }
