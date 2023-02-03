@@ -205,35 +205,52 @@ function createCSVFromChartData(){
 
     console.log("let's create a CSV from our chart data")
     let chartData = runCharts();
-//    console.log(chartData);
+
     let chartTitleElement = document.querySelector("#chartTitle");
     let chartTitle = chartTitleElement.getAttribute("chartTitle");
-//    console.log(chartTitle);
 
     let csvHeadersElement = document.querySelector("#csvHeaders");
     let csvHeaders = csvHeadersElement.getAttribute("csvHeaders").replace("[", "").replace("]", "").replace(" ", "");
-//    console.log(csvHeaders);
+
     console.log(typeof csvHeaders);
 
+    let primaryCategorySubjectElement = document.querySelector("#primaryCategorySubject");
+    let primaryCategorySubject = primaryCategorySubjectElement.getAttribute("primaryCategorySubject");
+    console.log(primaryCategorySubject);
+
+
+
     //csv rows - we will put the data into this array and then
-    let csvRows = [];
+    let csvRowData = [];
+
+
+     if(primaryCategorySubject !== null){
+          for(let valueSet in chartData){
+            let xy = chartData[valueSet].replace("{","").replace("}", "").replace(" ", "");
+            let xyArray = xy.replace("=", ",");
+            console.log(typeof xyArray);
+            xyArray = primaryCategorySubject + "," + xyArray;
+            csvRowData.push(xyArray);
+          }
+     }else{
+         for(let valueSet in chartData){
+             let xy = chartData[valueSet].replace("{","").replace("}", "").replace(" ", "");
+             let xyArray = xy.replace("=", ",");
+             csvRowData.push(xyArray);
+         }
+     }
+
+
+
+
+    console.log(csvRowData);
 
     //push headers
-
-
-    for(let valueSet in chartData){
-        let xy = chartData[valueSet].replace("{","").replace("}", "").replace(" ", "");
-        let xyArray = xy.replace("=", ",");
-        csvRows.push(xyArray);
-    }
-
-    console.log(csvRows);
-
     let csv = csvHeaders+"\n";
 
-    csvRows = csvRows.join("\n");
+    csvRowData = csvRowData.join("\n");
 
-    csv = csv + csvRows;
+    csv = csv + csvRowData;
 
     console.log(csv);
 

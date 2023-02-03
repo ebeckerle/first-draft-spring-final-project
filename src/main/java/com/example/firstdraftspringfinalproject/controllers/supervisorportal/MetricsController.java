@@ -94,6 +94,7 @@ public class MetricsController {
         model.addAttribute("xyValues", newMetric.getXyValues());
         model.addAttribute("chartTitle", newMetric.getChartTitle());
         model.addAttribute("csvHeaders", newMetric.getCsvHeaders());
+        model.addAttribute("primaryCategorySubject", newMetric.getPrimaryCategorySubject());
 
         model.addAttribute("title", "Metrics");
 
