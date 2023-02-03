@@ -205,16 +205,37 @@ function createCSVFromChartData(){
 
     console.log("let's create a CSV from our chart data")
     let chartData = runCharts();
-    console.log(chartData);
+//    console.log(chartData);
     let chartTitleElement = document.querySelector("#chartTitle");
     let chartTitle = chartTitleElement.getAttribute("chartTitle");
-    console.log(chartTitle);
+//    console.log(chartTitle);
 
     let csvHeadersElement = document.querySelector("#csvHeaders");
-    let csvHeaders = csvHeadersElement.getAttribute("csvHeaders");
-    console.log(csvHeaders);
-    //CSV format ["header1, header2",
-    //
+    let csvHeaders = csvHeadersElement.getAttribute("csvHeaders").replace("[", "").replace("]", "").replace(" ", "");
+//    console.log(csvHeaders);
+    console.log(typeof csvHeaders);
+
+    //csv rows - we will put the data into this array and then
+    let csvRows = [];
+
+    //push headers
+
+
+    for(let valueSet in chartData){
+        let xy = chartData[valueSet].replace("{","").replace("}", "").replace(" ", "");
+        let xyArray = xy.replace("=", ",");
+        csvRows.push(xyArray);
+    }
+
+    console.log(csvRows);
+
+    let csv = csvHeaders+"\n";
+
+    csvRows = csvRows.join("\n");
+
+    csv = csv + csvRows;
+
+    console.log(csv);
 
 
 }
