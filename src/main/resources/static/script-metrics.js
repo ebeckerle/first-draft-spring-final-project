@@ -2,6 +2,7 @@ function runCharts(){
 
     let chartDataElement = document.querySelector("#chart");
     let chartData = chartDataElement.getAttribute("xyValues").split(",");
+    return chartData;
 
 }
 
@@ -199,3 +200,21 @@ function viewSubOptions(){
 
 }
 
+
+function createCSVFromChartData(){
+
+    console.log("let's create a CSV from our chart data")
+    let chartData = runCharts();
+    console.log(chartData);
+    let chartTitleElement = document.querySelector("#chartTitle");
+    let chartTitle = chartTitleElement.getAttribute("chartTitle");
+    console.log(chartTitle);
+
+    let csvHeadersElement = document.querySelector("#csvHeaders");
+    let csvHeaders = csvHeadersElement.getAttribute("csvHeaders");
+    console.log(csvHeaders);
+    //CSV format ["header1, header2",
+    //
+
+
+}

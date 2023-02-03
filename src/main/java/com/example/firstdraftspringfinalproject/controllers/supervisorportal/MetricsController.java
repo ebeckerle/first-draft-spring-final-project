@@ -66,6 +66,7 @@ public class MetricsController {
         newMetric.setXyValuesWhenThereIsNoSecondaryCategory();
         model.addAttribute("xyValues", newMetric.getXyValues());
         model.addAttribute("chartTitle", "Total Hours by "+newMetric.getChartTitle());
+        model.addAttribute("csvHeaders", newMetric.getCsvHeaders());
 
         model.addAttribute("title", "Metrics");
 

@@ -34,6 +34,7 @@ public class Metrics {
     private String secondaryCategory;
     private String chartTitle;
     private HashMap<String, Integer> xyValues;
+    private List<String> csvHeaders;
 
 //    public Metrics(MetricsCategory primaryCategory) {
 //        this.primaryCategory = primaryCategory;
@@ -127,9 +128,15 @@ public class Metrics {
         return xyValues;
     }
 
+    public List<String> getCsvHeaders() {
+        return csvHeaders;
+    }
 
     public void setXyValuesWhenThereIsNoSecondaryCategory(){
         HashMap<String, Integer> xyValues = new HashMap<>();
+        ArrayList<String> csvHeaders = new ArrayList<>();
+        csvHeaders.add(this.primaryCategory);
+        csvHeaders.add("Hours");
         if(this.primaryCategory.equals("Employee")){
             List<Employee> employees = (List<Employee>) employeeRepository.findAll();
             for (Employee employee:
@@ -179,12 +186,16 @@ public class Metrics {
         }
         this.chartTitle = primaryCategory;
         this.xyValues = xyValues;
+        this.csvHeaders = csvHeaders;
     }
 
     public void setXyValuesWhenThereIsASecondaryCategory(){
         HashMap<String, Integer> xyValues = new HashMap<>();
         String chartTitle = "Chart Title";
-
+        ArrayList<String> csvHeaders = new ArrayList<>();
+        csvHeaders.add(this.primaryCategory);
+        csvHeaders.add(this.secondaryCategory);
+        csvHeaders.add("Hours");
         if (this.primaryCategory.equals("Employee")){
             String employee = this.primaryCategorySubject;
             String xChoice = this.secondaryCategory;
@@ -395,5 +406,6 @@ public class Metrics {
 
         this.chartTitle = chartTitle;
         this.xyValues = xyValues;
+        this.csvHeaders = csvHeaders;
     }
 }
