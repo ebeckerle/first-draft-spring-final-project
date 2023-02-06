@@ -15,8 +15,10 @@ function viewSubOptionsForShipmentType(){
 function addANewContactForCarrier(){
 
     if (document.getElementById("newCarrier").selected){
-        document.getElementById("addNewCarrier").style.display = "block";
-    }else{
-        document.getElementById("addNewCarrier").style.display = "none";
+        let a = document.createElement("a");
+        a.href = "/supervisor/managecontacts";
+        let event = document.createEvent("MouseEvents");
+        event.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, true, false, false, false, 0, null);
+        a.dispatchEvent(event);
     }
 }

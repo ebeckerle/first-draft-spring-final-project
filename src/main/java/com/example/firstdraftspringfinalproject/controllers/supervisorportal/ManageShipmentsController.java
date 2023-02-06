@@ -107,16 +107,7 @@ public class ManageShipmentsController {
                                                @ModelAttribute @Valid Shipment newShipment,
                                                Errors errors,
                                                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date incomingDateParam,
-                                               @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date outgoingDateScheduledParam,
-                                               @RequestParam(required = false) String companyName,
-                                               @RequestParam(required = false) String firstName,
-                                               @RequestParam(required = false) String lastName,
-                                               @RequestParam(required = false) String address,
-                                               @RequestParam(required = false) String city,
-                                               @RequestParam(required = false) String state,
-                                               @RequestParam(required = false) String zipCode,
-                                               @RequestParam(required = false) String email,
-                                               @RequestParam(required = false) String phoneNumber){
+                                               @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date outgoingDateScheduledParam){
 
         if (errors.hasErrors()){
             model.addAttribute("title", "Add Shipment");
@@ -143,15 +134,8 @@ public class ManageShipmentsController {
             incomingCal.setTime(incomingDateParam);
             Event incomingDate = new Event(incomingCal, incomingCal, newShipment.getName());
 
-            //if the new shipment is Incoming and required a new contact for the Carrier,
-            // create a new contact, and set the carrier to the new contact
-            if(companyName != null){
-                Contact carrierContact = new Contact(companyName);
-                newShipment.setCarrier(carrierContact);
-                //more if statements for if the remainder of contact info is included?
-            }else{
-                //should have a param that is a selected contact, find the contact in the repo and set it for the shipment
-            }
+            //find the contact in the repo and set it for the shipment
+
             System.out.println("incoming date"+newShipment.getIncomingDate().getStartDate());
             System.out.println("contact"+newShipment.getCarrier().toString());
             //TODO - save the new shipment to the repository

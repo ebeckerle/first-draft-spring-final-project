@@ -9,7 +9,7 @@
 <div th:replace="fragments :: header-nav-login-sup"></div>
 
 <div class="main-contents">
-    <p>new shipment form here</p>
+
     <form method="post" id="addShipmentForm">
 
         <div class="form-style1">
@@ -28,7 +28,7 @@
         </label>
             <p class="error" th:errors="${shipment.project}"></p>
             <br>
-            <a href="/supervisor/manageprojects/newproject" th:target="_blank">Add A New Project</a>
+            <a href="/supervisor/manageprojects/newproject" th:target="_blank" rel="noopener noreferrer">Add A New Project</a>
         </div>
 
         <div class="form-style1">
@@ -52,26 +52,12 @@
                             th:value="${carrier}"
                             th:text="${carrier}"
                             th:id="${carrier}"></option>
-                    <option value="newCarrier" id="newCarrier" class="form-control">Add A New Carrier</option>
                 </select>
+                <br>
+                <a href="/supervisor/managecontacts" th:target="_blank" rel="noopener noreferrer">Add A New Carrier Contact</a>
             </label>
         </div>
 
-        <div id="addNewCarrier" class="form-style1" style="display: none;">
-<!--            required-->
-            <label>Company Name:
-                <input type="text" name="companyName" class="form-control" id="companyName">
-            </label>
-<!--            not required-->
-            <label>First Name:</label>
-            <label>Last Name:</label>
-            <label>Address:</label>
-            <label>City:</label>
-            <label>State:</label>
-            <label>ZipCode:</label>
-            <label>Email:</label>
-            <label>Phone Number:</label>
-        </div>
 
         <div class="form-style1" id="subOptionsOutgoing" style="display: none;">
             <label>Schedule Outgoing Date:
@@ -79,9 +65,6 @@
             </label>
         </div>
 
-<!--        <div class="form-style1">-->
-<!--            <input type="submit" value="Add" class="btn btn-success">-->
-<!--        </div>-->
 
         <div class="form-style1">
             <button>Add</button>
