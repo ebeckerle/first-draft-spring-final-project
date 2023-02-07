@@ -112,8 +112,6 @@ public class ManageShipmentsController {
         if (errors.hasErrors()){
             model.addAttribute("title", "Add Shipment");
 
-            System.out.println("had errors");
-            System.out.println(errors);
             model.addAttribute(new Shipment());
             //TODO - has to be a cleaner way to have an arraylist of my Shipment Types...
             ArrayList<ShipmentType> shipmentTypes = new ArrayList<>();
@@ -126,13 +124,12 @@ public class ManageShipmentsController {
 
         //if the new shipment is Incoming, appropriately set the incoming date
         if(newShipment.getType() == ShipmentType.INCOMING){
-            System.out.println("incoming");
-            System.out.println(incomingDateParam.toString());
             //convert Date object to Calendar Object and create a new Event object?, the event Name will be
             // Shipment Name for now?
             Calendar incomingCal = Calendar.getInstance(); //move this businessey out of here?
             incomingCal.setTime(incomingDateParam);
             Event incomingDate = new Event(incomingCal, incomingCal, newShipment.getName());
+            System.out.println(incomingDate);
 
             //find the contact in the repo and set it for the shipment
 
@@ -142,13 +139,18 @@ public class ManageShipmentsController {
 
         }
 
-        //if the new shipment is Outgoing, appropriately set the incoming date
+        //if the new shipment is Outgoing, appropriately set the outgoing date
         if(newShipment.getType() == ShipmentType.OUTGOING){
             System.out.println("outgoing");
             System.out.println(outgoingDateScheduledParam.toString());
             //convert Date object to Calendar Object and create a new Event object?, the event Name will be
             // Shipment Name for now?
+            Calendar outgoingCal = Calendar.getInstance(); //move this businessey out of here?
+            outgoingCal.setTime(outgoingDateScheduledParam);
+            Event outgoingDateScheduled = new Event(outgoingCal, outgoingCal, newShipment.getName());
+            System.out.println(outgoingDateScheduled);
             //save the new shipment to the repository
+
         }
 
 
