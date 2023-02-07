@@ -33,7 +33,7 @@ public class ContactModelTest {
 
     private Contact testContactThree = new Contact(ContactType.GENERAL, "Tester", "Testerson", "5551114444");
 
-       @Test
+    @Test
     public void testConstructorOne(){
 
         assertFalse(isNull(testContactOne));
@@ -114,9 +114,14 @@ public class ContactModelTest {
 
     }
 
-    //TODO -
+
     @Test
     public void testSetAPhoneNumber(){
+
+        PhoneNumber phoneNumber = new PhoneNumber("3141234567");
+        testContactTwo.setAPhoneNumber(phoneNumber);
+
+        assertEquals(testContactTwo.getPhoneNumbers().get(0).getAreaCode(), "314");
 
     }
 
