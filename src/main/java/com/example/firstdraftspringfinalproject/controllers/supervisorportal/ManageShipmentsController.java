@@ -152,7 +152,10 @@ public class ManageShipmentsController {
             outgoingCal.setTime(outgoingDateScheduledParam);
             Event outgoingDateScheduled = new Event(outgoingCal, outgoingCal, newShipment.getName());
             System.out.println(outgoingDateScheduled);
+
+            newShipment.setOutgoingDateScheduled(outgoingDateScheduled);
             //save the new shipment to the repository
+            shipmentRepository.save(newShipment);
 
         }
 
