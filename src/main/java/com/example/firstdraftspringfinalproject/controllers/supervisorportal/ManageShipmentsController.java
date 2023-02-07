@@ -135,7 +135,10 @@ public class ManageShipmentsController {
 
             System.out.println("incoming date"+newShipment.getIncomingDate().getStartDate());
             System.out.println("contact"+newShipment.getCarrier().toString());
+
+            newShipment.setIncomingDate(incomingDate);
             //TODO - save the new shipment to the repository
+            shipmentRepository.save(newShipment);
 
         }
 
