@@ -126,8 +126,6 @@ public class ManageShipmentsController {
 
         //if the new shipment is Incoming, appropriately set the incoming date
         if(newShipment.getType() == ShipmentType.INCOMING){
-            System.out.println("incoming");
-            System.out.println(incomingDateParam.toString());
             //convert Date object to Calendar Object and create a new Event object?, the event Name will be
             // Shipment Name for now?
             Calendar incomingCal = Calendar.getInstance(); //move this businessey out of here?
@@ -135,7 +133,6 @@ public class ManageShipmentsController {
             Event incomingDate = new Event(incomingCal, incomingCal, newShipment.getName());
 
             //find the contact in the repo and set it for the shipment
-
             System.out.println("incoming date"+newShipment.getIncomingDate().getStartDate());
             System.out.println("contact"+newShipment.getCarrier().toString());
             //TODO - save the new shipment to the repository
