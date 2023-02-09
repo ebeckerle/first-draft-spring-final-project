@@ -111,7 +111,7 @@ public class ManageShipmentsController {
 
         if (errors.hasErrors()){
             model.addAttribute("title", "Add Shipment");
-
+            System.out.println(errors);
             model.addAttribute(new Shipment());
             //TODO - has to be a cleaner way to have an arraylist of my Shipment Types...
             ArrayList<ShipmentType> shipmentTypes = new ArrayList<>();
@@ -121,7 +121,7 @@ public class ManageShipmentsController {
             model.addAttribute("projects", projectRepository.findAll());
             return "supervisor/newshipment";
         }
-
+        System.out.println(newShipment.getType());
         //if the new shipment is Incoming, appropriately set the incoming date
         if(newShipment.getType() == ShipmentType.INCOMING){
             //convert Date object to Calendar Object and create a new Event object?, the event Name will be
