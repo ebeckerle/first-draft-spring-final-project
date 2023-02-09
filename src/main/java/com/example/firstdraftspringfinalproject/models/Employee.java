@@ -38,7 +38,7 @@ public class Employee {
     private GregorianCalendar firstDateOfWork;
     private Integer paidTimeOff;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @Valid
     private Contact contactInfo;
 
