@@ -30,8 +30,8 @@ public class Shipment {
     private ShipmentType type;
 
     //OUTGOING Fields
-    @OneToOne
-//    @OneToOne(cascade = CascadeType.ALL)
+
+    @OneToOne(cascade = CascadeType.ALL)
 //    @Valid
     private Event outgoingDateScheduled; //should be null if incoming
     @OneToOne

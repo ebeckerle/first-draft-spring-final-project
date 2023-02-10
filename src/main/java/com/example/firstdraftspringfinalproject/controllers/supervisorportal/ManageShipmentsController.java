@@ -48,39 +48,25 @@ public class ManageShipmentsController {
 
         ArrayList<Event> currentMonthEvents = new ArrayList<>();
 
-        Calendar calFeb4 = Calendar.getInstance();
-        calFeb4.set(Calendar.YEAR, 2022);
-        calFeb4.set(Calendar.MONTH, Calendar.FEBRUARY);
-        calFeb4.set(Calendar.DAY_OF_MONTH, 4);
+        Calendar calFeb1 = Calendar.getInstance();
+        calFeb1.set(Calendar.YEAR, 2023);
+        calFeb1.set(Calendar.MONTH, Calendar.FEBRUARY);
+        calFeb1.set(Calendar.DAY_OF_MONTH, 1);
+        Calendar calFeb28 = Calendar.getInstance();
+        calFeb28.set(Calendar.YEAR, 2023);
+        calFeb28.set(Calendar.MONTH, Calendar.FEBRUARY);
+        calFeb28.set(Calendar.DAY_OF_MONTH, 28);
 
-        Calendar calDec01 = Calendar.getInstance();
-        calDec01.set(Calendar.YEAR, 2022);
-        calDec01.set(Calendar.MONTH, Calendar.DECEMBER);
-        calDec01.set(Calendar.DAY_OF_MONTH, 1);
-
-        Calendar calDec10 = Calendar.getInstance();
-        calDec10.set(Calendar.YEAR, 2022);
-        calDec10.set(Calendar.MONTH, Calendar.DECEMBER);
-        calDec10.set(Calendar.DAY_OF_MONTH, 10);
-
-        Calendar calDec15 = Calendar.getInstance();
-        calDec15.set(Calendar.YEAR, 2022);
-        calDec15.set(Calendar.MONTH, Calendar.DECEMBER);
-        calDec15.set(Calendar.DAY_OF_MONTH, 15);
-        Event foxBirthday = new Event(calDec01, calFeb4, "Fox's Birthday");
-        Event maggieBirthday = new Event(calDec01, calDec10, "Maggie's Birthday");
-        Event maddyBirthday = new Event(calDec15, calDec15, "Maddy Brithday");
-        currentMonthEvents.add(foxBirthday);
-        currentMonthEvents.add(maggieBirthday);
-        currentMonthEvents.add(maddyBirthday);
-        model.addAttribute("currentMonthEvents", currentMonthEvents);
-        model.addAttribute("eventTotal", 3);
+        eventRepository.findByCalStartDateBetween(calFeb1, calFeb28);
+        model.addAttribute("currentMonthEvents", eventRepository.findByCalStartDateBetween(calFeb1, calFeb28));
+        model.addAttribute("eventTotal",  eventRepository.findByCalStartDateBetween(calFeb1, calFeb28).size());
 
         //TODO - coming from "Add an INcoming Shipment" link will take you to the AddShipment Form with the Type
         // pre-populated with "INCOMING" in the shipment type field., and vice-versa for outgoing.
 
         //TODO - display a list view vs. calendar view of shipments?  or just both to start, and then we can add the
         // toggle feature
+
 
         return "supervisor/manageshipments";
     }
@@ -155,10 +141,6 @@ public class ManageShipmentsController {
             shipmentRepository.save(newShipment);
 
         }
-
-
-
-        //bound fields: name, project, type.
 
 
 
