@@ -131,12 +131,9 @@ public class ManageShipmentsController {
             Event incomingDate = new Event(incomingCal, incomingCal, newShipment.getName());
             System.out.println(incomingDate);
 
-            //find the contact in the repo and set it for the shipment
-
+            newShipment.setIncomingDate(incomingDate);
             System.out.println("incoming date"+newShipment.getIncomingDate().getStartDate());
             System.out.println("contact"+newShipment.getCarrier().toString());
-
-            newShipment.setIncomingDate(incomingDate);
             //TODO - save the new shipment to the repository
             shipmentRepository.save(newShipment);
 

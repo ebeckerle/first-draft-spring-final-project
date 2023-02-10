@@ -42,7 +42,7 @@ public class Shipment {
     private Employee shipOutSignOff;
 
     //INCOMING Fields
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Event incomingDate;
     @OneToOne
     private Event inventoriedDate;
