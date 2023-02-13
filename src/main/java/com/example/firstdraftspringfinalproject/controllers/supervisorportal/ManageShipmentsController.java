@@ -20,6 +20,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,20 +48,25 @@ public class ManageShipmentsController {
 
         //TODO - delete following after having added shipments / events to the database
 
-        ArrayList<Event> currentMonthEvents = new ArrayList<>();
+        //Finding the start and end of the current month based on today's date
+        // TODO? -- move this logic to a Business Class?
+        LocalDate todaysDate = LocalDate.now();
+        int todaysMonth = todaysDate.getMonth().getValue();
+        int todaysYear = todaysDate.getYear();
+        Calendar startOfMonth = Calendar.getInstance();
+        startOfMonth.set(todaysYear, todaysMonth, 1);
+        System.out.println("today's start of month:"+ startOfMonth);
+        LocalDate lastDayOfMonthDate = todaysDate.withDayOfMonth(todaysDate.getMonth().length(todaysDate.isLeapYear()));
+        int lastDayOfMonth = lastDayOfMonthDate.getDayOfMonth();
+        Calendar endOfMonth = Calendar.getInstance();
+        endOfMonth.set(todaysYear, todaysMonth, lastDayOfMonth);
+        System.out.println("today's end of month:"+ endOfMonth);
 
-        Calendar calFeb1 = Calendar.getInstance();
-        calFeb1.set(Calendar.YEAR, 2023);
-        calFeb1.set(Calendar.MONTH, Calendar.FEBRUARY);
-        calFeb1.set(Calendar.DAY_OF_MONTH, 1);
-        Calendar calFeb28 = Calendar.getInstance();
-        calFeb28.set(Calendar.YEAR, 2023);
-        calFeb28.set(Calendar.MONTH, Calendar.FEBRUARY);
-        calFeb28.set(Calendar.DAY_OF_MONTH, 28);
 
-        eventRepository.findByCalStartDateBetween(calFeb1, calFeb28);
-        model.addAttribute("currentMonthEvents", eventRepository.findByCalStartDateBetween(calFeb1, calFeb28));
-        model.addAttribute("eventTotal",  eventRepository.findByCalStartDateBetween(calFeb1, calFeb28).size());
+
+        eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth);
+        model.addAttribute("currentMonthEvents", eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth));
+        model.addAttribute("eventTotal",  eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth).size());
 
         //TODO - coming from "Add an INcoming Shipment" link will take you to the AddShipment Form with the Type
         // pre-populated with "INCOMING" in the shipment type field., and vice-versa for outgoing.
@@ -67,7 +74,7 @@ public class ManageShipmentsController {
         //TODO - display a list view vs. calendar view of shipments?  or just both to start, and then we can add the
         // toggle feature
 
-        System.out.println(shipmentRepository.findShipmentsWithInDateRange(calFeb1, calFeb28).get(0).getId());
+//        System.out.println(shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth).get(0).getId());
 
 
 
