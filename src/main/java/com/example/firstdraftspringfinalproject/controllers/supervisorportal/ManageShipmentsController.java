@@ -67,6 +67,9 @@ public class ManageShipmentsController {
         //TODO - display a list view vs. calendar view of shipments?  or just both to start, and then we can add the
         // toggle feature
 
+        System.out.println(shipmentRepository.findShipmentsWithInDateRange(calFeb1, calFeb28).get(0).getId());
+
+
 
         return "supervisor/manageshipments";
     }
