@@ -51,17 +51,14 @@ public class ManageShipmentsController {
         //Finding the start and end of the current month based on today's date
         // TODO? -- move this logic to a Business Class?
         LocalDate todaysDate = LocalDate.now();
-        int todaysMonth = todaysDate.getMonth().getValue();
+        int todaysMonth = todaysDate.getMonth().getValue() - 1;
         int todaysYear = todaysDate.getYear();
         Calendar startOfMonth = Calendar.getInstance();
         startOfMonth.set(todaysYear, todaysMonth, 1);
-        System.out.println("today's start of month:"+ startOfMonth);
         LocalDate lastDayOfMonthDate = todaysDate.withDayOfMonth(todaysDate.getMonth().length(todaysDate.isLeapYear()));
         int lastDayOfMonth = lastDayOfMonthDate.getDayOfMonth();
         Calendar endOfMonth = Calendar.getInstance();
         endOfMonth.set(todaysYear, todaysMonth, lastDayOfMonth);
-        System.out.println("today's end of month:"+ endOfMonth);
-
 
 
         eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth);
@@ -74,9 +71,7 @@ public class ManageShipmentsController {
         //TODO - display a list view vs. calendar view of shipments?  or just both to start, and then we can add the
         // toggle feature
 
-//        System.out.println(shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth).get(0).getId());
-
-
+        System.out.println(shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth).get(0).getId());
 
         return "supervisor/manageshipments";
     }
