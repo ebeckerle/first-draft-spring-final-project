@@ -49,7 +49,8 @@ public class ManageShipmentsController {
         //TODO - delete following after having added shipments / events to the database
 
         //Finding the start and end of the current month based on today's date
-        // TODO? -- move this logic to a Business Class?
+        // TODO? -- move this logic to a Business Class? - interface that does translating between Date/Time/Calendar
+        //  classes that both timesheet, event, and shipment classes can inherit from??
         LocalDate todaysDate = LocalDate.now();
         int todaysMonth = todaysDate.getMonth().getValue() - 1;
         int todaysYear = todaysDate.getYear();
