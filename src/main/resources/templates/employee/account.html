@@ -32,20 +32,23 @@
       <h3>Contact Information</h3>
 
       <div class="form-style1">
-          <label th:text="${employee.getContactInfoAddressLineOne()}">Employee Contact Info Address Line One:
+          <p th:text="${'Address ' + employee.getContactInfoAddressLineOne()}"></p>
+          <label>Employee Contact Info Address Line One:
               <input th:field="${editContactDetailsDTO.addressLineOne}" th:placeholder="${employee.getEmergencyContactFirstName()}" class="form-control">
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.addressLineOne}"></p>
       </div>
 
       <div class="form-style1">
-          <label th:text="${employee.getContactInfoCity()}">Employee Contact Info City:
+          <p th:text="${'City -' + employee.getContactInfoCity()}"></p>
+          <label th:text="${'City -' + employee.getContactInfoCity()}">Employee Contact Info City:
               <input th:field="${editContactDetailsDTO.city}" class="form-control">
           </label>
       </div>
 
       <div class="form-style1">
-          <label th:text="${employee.getContactInfoState()}">Employee Contact Info State:
+          <p th:text="${employee.getContactInfoState()}"></p>
+          <label>Employee Contact Info State:
               <input th:field="${editContactDetailsDTO.state}" class="form-control">
           </label>
       </div>

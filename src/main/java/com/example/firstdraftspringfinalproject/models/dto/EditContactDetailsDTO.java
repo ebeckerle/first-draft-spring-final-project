@@ -138,4 +138,6 @@ public class EditContactDetailsDTO {
     public void setEcRelationship(String ecRelationship) {
         this.ecRelationship = ecRelationship;
     }
+
+
 }
