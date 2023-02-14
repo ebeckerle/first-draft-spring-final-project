@@ -105,7 +105,7 @@ public class Employee {
         this.title = title;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return username;
     }
 
@@ -193,7 +193,45 @@ public class Employee {
         return totalHoursWorkedToDate;
     }
 
-    //to String & Equals Methods
+    public Contact getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(Contact contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+
+    public Contact getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public String getEmergencyContactFirstName(){
+        if(emergencyContact == null){
+            return " ";
+        }
+        return emergencyContact.getFirstName();
+    }
+
+    public String getEmergencyContactLastName(){
+        if(emergencyContact == null){
+            return " ";
+        }
+        return emergencyContact.getLastName();
+    }
+
+    public String getEmergencyContactPhoneNumbers(){
+        if(emergencyContact == null){
+            return " ";
+        }
+        List<PhoneNumber> phoneNumbers = emergencyContact.getPhoneNumbers();
+        PhoneNumber phoneNumber = phoneNumbers.get(0);
+        return phoneNumber.toString();
+    }
+
+    public void setEmergencyContact(Contact emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+//to String & Equals Methods
 
 
     @Override

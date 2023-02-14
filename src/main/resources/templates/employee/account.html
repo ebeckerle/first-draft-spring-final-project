@@ -8,25 +8,57 @@
 
   <a href="/employee"><h2 th:text="${employee.firstNameLastNameCombo + ''}">Welcome (Employee Name here)!</h2></a>
   <br>
+<!--  <table class="table-style1">-->
+    <div>
+        <table class="table-style2">
+            <tr>
+                <th>First Name</th>
+                <td th:text="${employee.firstName}"></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td th:text="${employee.lastName}"></td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td th:text="${employee.username}"></td>
+            </tr>
+        </table>
+
+        <a>Change Username or Password</a>
+    </div>
+
   <form method="post">
 
-    <div class="form-style1">
-      <label th:text="${employee.firstName}">Code:
-      </label>
-    </div>
+<!--    <div class="form-style1">-->
+<!--      <label th:text="${employee.firstName}">Code:-->
+<!--      </label>-->
+<!--    </div>-->
 
-    <div class="form-style1">
-      <label th:text="${employee.lastName}">Code:
-      </label>
-    </div>
+<!--    <div class="form-style1">-->
+<!--      <label th:text="${employee.lastName}">Code:-->
+<!--      </label>-->
+<!--    </div>-->
 
     <h3>Emergency Contact</h3>
 
     <div class="form-style1">
-      <label>Project:
-<!--        <input th:field="${project.projectName}" class="form-control">-->
+      <label th:text="${employee.getEmergencyContactFirstName()}">Emergency Contact First Name:
+<!--        <input th:field="${emergencyContactDTO.firstName}" class="form-control">-->
       </label>
     </div>
+
+      <div class="form-style1">
+          <label th:text="${employee.getEmergencyContactLastName()}">Emergency Contact Last Name:
+              <!--        <input th:field="${emergencyContactDTO.lastName}" class="form-control">-->
+          </label>
+      </div>
+
+      <div class="form-style1">
+          <label th:text="${employee.getEmergencyContactPhoneNumbers()}">Emergency Contact Phone Numbers:
+              <!--        <input th:field="${emergencyContactDTO.phoneNumber}" class="form-control">-->
+          </label>
+      </div>
 
     <div class="form-style1">
       <input type="submit" value="Edit" class="btn btn-success">
