@@ -50,7 +50,7 @@ public class ManageShipmentsController {
 
         //Finding the start and end of the current month based on today's date
         // TODO? -- move this logic to a Business Class? - interface that does translating between Date/Time/Calendar
-        //  classes that both timesheet, event, and shipment classes can inherit from??
+        //  classes that both timesheet, event, and shipment classes can inherit such methods from??
         LocalDate todaysDate = LocalDate.now();
         int todaysMonth = todaysDate.getMonth().getValue() - 1;
         int todaysYear = todaysDate.getYear();
@@ -61,18 +61,15 @@ public class ManageShipmentsController {
         Calendar endOfMonth = Calendar.getInstance();
         endOfMonth.set(todaysYear, todaysMonth, lastDayOfMonth);
 
-
-        eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth);
+        //populate the calendar with shipment dates
         model.addAttribute("currentMonthEvents", eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth));
         model.addAttribute("eventTotal",  eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth).size());
 
-        //TODO - coming from "Add an INcoming Shipment" link will take you to the AddShipment Form with the Type
+        //TODO - coming from "Add an Incoming Shipment" link will take you to the AddShipment Form with the Type
         // pre-populated with "INCOMING" in the shipment type field., and vice-versa for outgoing.
 
         //TODO - display a list view vs. calendar view of shipments?  or just both to start, and then we can add the
         // toggle feature
-
-        System.out.println(shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth).get(0).getId());
 
         return "supervisor/manageshipments";
     }
