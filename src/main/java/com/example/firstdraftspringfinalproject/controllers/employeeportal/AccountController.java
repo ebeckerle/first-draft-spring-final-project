@@ -42,7 +42,7 @@ public class AccountController {
 
         if (employeeRepository.findById(employeeId).isPresent()){
             Employee employee = employeeRepository.findById(employeeId).get();
-
+            model.addAttribute("employee", employee);
 
         }
 
