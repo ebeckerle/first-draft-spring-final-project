@@ -14,11 +14,14 @@ import java.util.HashMap;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="d_contact_type",
+        discriminatorType = DiscriminatorType.INTEGER)
 public class Contact implements ContactConstants {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    protected Integer id;
 
 //    @NotNull(message = "Contact Type is required.")
     private ContactType contactType;

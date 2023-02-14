@@ -39,11 +39,11 @@ public class Employee {
     private Integer paidTimeOff;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @Valid
+//    @Valid
     private Contact contactInfo;
 
     @OneToOne
-    private Contact emergencyContact;
+    private EmergencyContact emergencyContact;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -197,11 +197,50 @@ public class Employee {
         return contactInfo;
     }
 
+    public String getContactInfoAddressLineOne() {
+        if(contactInfo == null || contactInfo.getAddressLineOne() == null){
+            return " ";
+        }
+        return contactInfo.getAddressLineOne();
+    }
+
+    public String getContactInfoCity() {
+        if(contactInfo == null || contactInfo.getCity() == null){
+            return " ";
+        }
+        return contactInfo.getCity();
+    }
+
+    public String getContactInfoState() {
+        if(contactInfo == null || contactInfo.getState() == null){
+            return " ";
+        }
+        return contactInfo.getState();
+    }
+
+    public String getContactInfoZipcode() {
+        if(contactInfo == null || contactInfo.getZipcode() == null){
+            return " ";
+        }
+        return contactInfo.getZipcode();
+    }
+    public List<String> getContactInfoPhoneNumbers() {
+        ArrayList<String> phoneNumbers = new ArrayList<>();
+        if(contactInfo == null || contactInfo.getPhoneNumbers() == null){
+            return phoneNumbers;
+        }
+        for (PhoneNumber number:
+             contactInfo.getPhoneNumbers()) {
+            phoneNumbers.add(number.toString());
+        }
+        return phoneNumbers;
+    }
+
     public void setContactInfo(Contact contactInfo) {
         this.contactInfo = contactInfo;
     }
 
-    public Contact getEmergencyContact() {
+    public EmergencyContact getEmergencyContact() {
         return emergencyContact;
     }
 
@@ -228,7 +267,14 @@ public class Employee {
         return phoneNumber.toString();
     }
 
-    public void setEmergencyContact(Contact emergencyContact) {
+    public String getEmergencyContactRelationship(){
+        if(emergencyContact == null){
+            return " ";
+        }
+        return emergencyContact.getRelationship();
+    }
+
+    public void setEmergencyContact(EmergencyContact emergencyContact) {
         this.emergencyContact = emergencyContact;
     }
 //to String & Equals Methods

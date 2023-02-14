@@ -5,7 +5,7 @@ import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
 import com.example.firstdraftspringfinalproject.models.Employee;
-import com.example.firstdraftspringfinalproject.models.Timesheet;
+import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDate;
-import java.util.GregorianCalendar;
-import java.util.Optional;
+
 
 @Controller
 @RequestMapping("employee/account")
@@ -43,6 +41,8 @@ public class AccountController {
         if (employeeRepository.findById(employeeId).isPresent()){
             Employee employee = employeeRepository.findById(employeeId).get();
             model.addAttribute("employee", employee);
+
+            model.addAttribute(new EditContactDetailsDTO());
 
         }
 
