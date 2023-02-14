@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div th:replace="fragments :: header-nav-login"></div>
+
+<div class="main-contents">
+
+  <a href="/employee"><h2 th:text="${'Welcome ' + employeeName + '!'}">Welcome (Employee Name here)!</h2></a>
+  <br>
+
+
+</div>
+
+</body>
+</html>
