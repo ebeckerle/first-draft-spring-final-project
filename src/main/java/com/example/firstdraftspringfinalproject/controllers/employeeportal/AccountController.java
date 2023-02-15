@@ -5,6 +5,7 @@ import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
 import com.example.firstdraftspringfinalproject.models.Contact;
+import com.example.firstdraftspringfinalproject.models.EmergencyContact;
 import com.example.firstdraftspringfinalproject.models.Employee;
 import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
@@ -67,6 +68,9 @@ public class AccountController {
             }
             //up
             System.out.println(editContactDetails.areThereAnyValuesInTheEmergContactToUpdate());
+            if(editContactDetails.areThereAnyValuesInTheEmergContactToUpdate()){
+                EmergencyContact emergencyContact = new EmergencyContact(editContactDetails);
+            }
 //            employee.setContactInfo();
 
             System.out.println(editContactDetails.getAddressLineOne());
