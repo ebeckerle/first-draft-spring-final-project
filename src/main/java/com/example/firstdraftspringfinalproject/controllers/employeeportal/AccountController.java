@@ -4,14 +4,18 @@ import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
+import com.example.firstdraftspringfinalproject.models.Contact;
 import com.example.firstdraftspringfinalproject.models.Employee;
 import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
+import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,17 +29,9 @@ public class AccountController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Autowired
-    private TimesheetRepository timesheetRepository;
-
-    @Autowired
-    private ProjectRepository projectRepository;
-
-    @Autowired
-    private WorkTypeRepository workTypeRepository;
-
     @GetMapping
     public String displayEmployeeAccountDetails(HttpServletRequest request, Model model){
+        model.addAttribute("title", "Account Details");
 
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
@@ -45,24 +41,43 @@ public class AccountController {
             model.addAttribute("employee", employee);
 
             model.addAttribute(new EditContactDetailsDTO());
-
+            model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
         }
 
         return "employee/account";
     }
 
     @PostMapping
-    public String processEditEmployeeAccountDetails(@ModelAttribute @Valid EditContactDetailsDTO editContactDetailsDTO,
-                                                    HttpServletRequest request, Model model, Err){
-
+    public String processEditEmployeeAccountDetails(@ModelAttribute @Valid EditContactDetailsDTO editContactDetailsDTO, Errors errors,
+                                                    HttpServletRequest request, Model model){
+        System.out.println("in process method");
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
 
         if (employeeRepository.findById(employeeId).isPresent()){
             Employee employee = employeeRepository.findById(employeeId).get();
-            model.addAttribute("employee", employee);
+            System.out.println("in employee is present");
 
+            if(errors.hasErrors()){
+                System.out.println("in errors hass errors");
+                model.addAttribute("title", "Account Details");
+                model.addAttribute("employee", employee);
+                model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
+
+                model.addAttribute(editContactDetailsDTO);
+
+                return "employee/account";
+            }
+
+            System.out.println(editContactDetailsDTO.getAddressLineOne());
+            System.out.println(editContactDetailsDTO.getCity().getClass());
+            System.out.println(editContactDetailsDTO.getCity());
+            System.out.println(editContactDetailsDTO.getState());
+
+            //repopulate display
+            model.addAttribute("employee", employee);
             model.addAttribute(new EditContactDetailsDTO());
+            model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
 
         }
 

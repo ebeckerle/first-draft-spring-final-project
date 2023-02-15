@@ -17,6 +17,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="d_contact_type",
         discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorValue("0")
 public class Contact implements ContactConstants {
 
     @Id

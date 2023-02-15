@@ -236,6 +236,14 @@ public class Employee {
         return phoneNumbers;
     }
 
+    public List<String> getContactInfoEmails() {
+        ArrayList<String> emails = new ArrayList<>();
+        if(contactInfo == null || contactInfo.getEmail() == null){
+            return emails;
+        }
+        return contactInfo.getEmail();
+    }
+
     public void setContactInfo(Contact contactInfo) {
         this.contactInfo = contactInfo;
     }

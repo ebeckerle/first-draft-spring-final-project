@@ -28,7 +28,8 @@
         <a>Change Username or Password</a>
     </div>
 
-  <form method="post">
+<!--  <form method="post" th:action="@{/employee/account}">-->
+    <form method="post">
       <h3>Contact Information</h3>
 
       <div class="form-style1">
@@ -50,7 +51,10 @@
       <div class="form-style1">
           <p th:text="${employee.getContactInfoState()}"></p>
           <label>Employee Contact Info State:
-              <input th:field="${editContactDetailsDTO.state}" class="form-control">
+              <input type="text" name="stateInput" oninput="runStateAutoFill()" id="stateInput" list="statesList" th:field="${editContactDetailsDTO.state}">
+              <datalist id="statesList">
+                  <option th:each="state : ${states}" th:value="${state.key}" th:text="${state.value}"></option>
+              </datalist>
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.state}"></p>
       </div>
