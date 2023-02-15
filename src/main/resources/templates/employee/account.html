@@ -67,10 +67,32 @@
           <p th:each="phoneNumber : ${employee.getContactInfoPhoneNumbers()}">
           <p th:text="${phoneNumber}"></p>
           </p>
-          <label>Employee Contact Info ZipCode:
+          <label>Employee Contact Info Phone Number:
               <input th:field="${editContactDetailsDTO.phoneNumber1}" class="form-control">
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.phoneNumber1}"></p>
+          <label>Employee Contact Info Phone Number:
+              <input th:field="${editContactDetailsDTO.phoneNumber2}" class="form-control">
+          </label>
+          <p class="error" th:errors="${editContactDetailsDTO.phoneNumber2}"></p>
+      </div>
+
+      <div class="form-style1">
+          <p th:each="email : ${employee.getContactInfoEmails()}">
+          <p th:text="${email}"></p>
+          </p>
+          <label>Employee Contact Info Email:
+              <input th:field="${editContactDetailsDTO.email1}" class="form-control">
+          </label>
+          <p class="error" th:errors="${editContactDetailsDTO.email1}"></p>
+          <label>Employee Contact Info Email:
+              <input th:field="${editContactDetailsDTO.email2}" class="form-control">
+          </label>
+          <p class="error" th:errors="${editContactDetailsDTO.email2}"></p>
+      </div>
+
+      <div class="form-style1">
+          <input type="submit" value="Save Edit" class="btn btn-success">
       </div>
 
 
@@ -94,7 +116,7 @@
 
       <div class="form-style1">
           <p th:text="${employee.getEmergencyContactPhoneNumbers()}"></p>
-          <label>Emergency Contact Phone Numbers:
+          <label>Emergency Contact Phone Number:
               <input th:field="${editContactDetailsDTO.ecPhoneNumber}" class="form-control">
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.ecPhoneNumber}"></p>
@@ -109,8 +131,9 @@
       </div>
 
     <div class="form-style1">
-      <input type="submit" value="Edit" class="btn btn-success">
+      <input type="submit" value="Save Edit" class="btn btn-success">
     </div>
+
   </form>
 
 </div>

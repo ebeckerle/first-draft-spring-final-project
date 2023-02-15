@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 
 @Controller
@@ -34,6 +36,24 @@ public class AccountController {
 
     @GetMapping
     public String displayEmployeeAccountDetails(HttpServletRequest request, Model model){
+
+        HttpSession session = request.getSession();
+        Integer employeeId = (Integer) session.getAttribute("user");
+
+        if (employeeRepository.findById(employeeId).isPresent()){
+            Employee employee = employeeRepository.findById(employeeId).get();
+            model.addAttribute("employee", employee);
+
+            model.addAttribute(new EditContactDetailsDTO());
+
+        }
+
+        return "employee/account";
+    }
+
+    @PostMapping
+    public String processEditEmployeeAccountDetails(@ModelAttribute @Valid EditContactDetailsDTO editContactDetailsDTO,
+                                                    HttpServletRequest request, Model model, Err){
 
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
