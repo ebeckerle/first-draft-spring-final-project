@@ -1,5 +1,6 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
 import com.example.firstdraftspringfinalproject.models.dto.NewContactDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import com.example.firstdraftspringfinalproject.models.interfaces.ContactConstants;
@@ -25,10 +26,10 @@ public class Contact implements ContactConstants {
     protected Integer id;
 
 //    @NotNull(message = "Contact Type is required.")
-    private ContactType contactType;
+    protected ContactType contactType;
 
-    private String firstName;
-    private String lastName;
+    protected String firstName;
+    protected String lastName;
 //    @NotBlank(message = "Company Name is required.")
 //    @Size(max = 60, message = "Must be under 60 characters")
     private String companyName;
@@ -47,7 +48,7 @@ public class Contact implements ContactConstants {
     private List<String> email = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<@Valid PhoneNumber> phoneNumbers;
+    protected List<@Valid PhoneNumber> phoneNumbers;
 
     public final static HashMap<String, String> ALLSTATESPOSTALCODES = ContactConstants.populateAllStatesHashMap();
 
@@ -141,6 +142,74 @@ public class Contact implements ContactConstants {
 
     }
 
+    public Contact(EditContactDetailsDTO editContactDetailsDTO){
+//        this.contactType = editContactDetailsDTO.getContactType();
+//        this.companyName = editContactDetailsDTO.getCompanyName();
+//
+//        if(editContactDetailsDTO.getLastName()!= null){
+//            if(!editContactDetailsDTO.getLastName().equals("")){
+//                this.lastName = editContactDetailsDTO.getLastName();
+//            }
+//        }
+//        if(editContactDetailsDTO.getFirstName()!= null){
+//            if (!editContactDetailsDTO.getFirstName().equals("")){
+//                this.firstName = editContactDetailsDTO.getFirstName();
+//            }
+//        }
+        if(editContactDetailsDTO.getAddressLineOne()!= null){
+            if(!editContactDetailsDTO.getAddressLineOne().equals("")){
+                this.addressLineOne = editContactDetailsDTO.getAddressLineOne();
+            }
+        }
+        if(editContactDetailsDTO.getCity()!= null){
+            if(!editContactDetailsDTO.getCity().equals("")){
+                this.city = editContactDetailsDTO.getCity();
+            }
+        }
+        if(editContactDetailsDTO.getState()!= null){
+            if(!editContactDetailsDTO.getState().equals("")){
+                this.state = editContactDetailsDTO.getState();
+            }
+        }
+        if(editContactDetailsDTO.getZipcode()!= null){
+            if(!editContactDetailsDTO.getZipcode().equals("")){
+                this.zipcode = editContactDetailsDTO.getZipcode();
+            }
+        }
+        this.email = new ArrayList<>();
+        if(editContactDetailsDTO.getEmail1()!= null){
+            if(!editContactDetailsDTO.getEmail1().equals("")){
+                this.email.add(editContactDetailsDTO.getEmail1());
+            }
+        }
+        if(editContactDetailsDTO.getEmail2()!= null){
+            if(!editContactDetailsDTO.getEmail2().equals("")){
+                this.email.add(editContactDetailsDTO.getEmail2());
+            }
+        }
+        this.phoneNumbers = new ArrayList<>();
+        if(editContactDetailsDTO.getPhoneNumber1()!= null){
+            if(!editContactDetailsDTO.getPhoneNumber1().equals("")){
+                    PhoneNumber phoneNumber = new PhoneNumber(editContactDetailsDTO.getPhoneNumber1());
+                    this.phoneNumbers.add(phoneNumber);
+            }
+
+        }
+        if(editContactDetailsDTO.getPhoneNumber2()!= null){
+            if(!editContactDetailsDTO.getPhoneNumber2().equals("")){
+                PhoneNumber phoneNumber = new PhoneNumber(editContactDetailsDTO.getPhoneNumber2());
+                this.phoneNumbers.add(phoneNumber);
+            }
+        }
+
+    }
+
+    public Contact(ContactType contactType, String firstName, String lastName, List<PhoneNumber> phoneNumbers){
+        this.contactType = contactType;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumbers = phoneNumbers;
+    }
     public Contact(ContactType contactType, String firstName, String lastName,
 //                   @NotBlank(message = "Company Name is required.")
                    @Size(max = 60) String companyName,

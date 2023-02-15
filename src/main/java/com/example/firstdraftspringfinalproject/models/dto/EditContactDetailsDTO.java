@@ -139,5 +139,14 @@ public class EditContactDetailsDTO {
         this.ecRelationship = ecRelationship;
     }
 
+    //TODO - account for if a blank space is inputed?? - or do this in the validation annotations?
+    public boolean areThereAnyValuesInTheEmergContactToUpdate(){
+        if (this.ecLastName.equals("")&&this.ecFirstName.equals("")
+                &&this.ecPhoneNumber.equals("")&&this.ecRelationship.equals("")){
+            return false;
+        }
+        return true;
+    }
+
 
 }

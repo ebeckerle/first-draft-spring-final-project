@@ -48,31 +48,31 @@ public class AccountController {
     }
 
     @PostMapping
-    public String processEditEmployeeAccountDetails(@ModelAttribute @Valid EditContactDetailsDTO editContactDetailsDTO, Errors errors,
+    public String processEditEmployeeAccountDetails(@ModelAttribute @Valid EditContactDetailsDTO editContactDetails, Errors errors,
                                                     HttpServletRequest request, Model model){
-        System.out.println("in process method");
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
 
         if (employeeRepository.findById(employeeId).isPresent()){
             Employee employee = employeeRepository.findById(employeeId).get();
-            System.out.println("in employee is present");
 
             if(errors.hasErrors()){
-                System.out.println("in errors hass errors");
                 model.addAttribute("title", "Account Details");
                 model.addAttribute("employee", employee);
                 model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
 
-                model.addAttribute(editContactDetailsDTO);
+                model.addAttribute(editContactDetails);
 
                 return "employee/account";
             }
+            //up
+            System.out.println(editContactDetails.areThereAnyValuesInTheEmergContactToUpdate());
+//            employee.setContactInfo();
 
-            System.out.println(editContactDetailsDTO.getAddressLineOne());
-            System.out.println(editContactDetailsDTO.getCity().getClass());
-            System.out.println(editContactDetailsDTO.getCity());
-            System.out.println(editContactDetailsDTO.getState());
+            System.out.println(editContactDetails.getAddressLineOne());
+            System.out.println(editContactDetails.getCity().getClass());
+            System.out.println(editContactDetails.getCity());
+            System.out.println(editContactDetails.getState());
 
             //repopulate display
             model.addAttribute("employee", employee);
