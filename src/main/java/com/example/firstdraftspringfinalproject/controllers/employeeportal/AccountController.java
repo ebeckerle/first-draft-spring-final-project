@@ -71,9 +71,11 @@ public class AccountController {
             if(editContactDetails.areThereAnyValuesInTheEmergContactToUpdate()){
                 if(employee.getEmergencyContact() != null){
                     System.out.println("ec is not null so i need to update");
-
+                    employee.setEmergencyContactUpdates(editContactDetails);
+                }else{
+                    EmergencyContact emergencyContact = new EmergencyContact(editContactDetails);
+                    employee.setEmergencyContact(emergencyContact);
                 }
-                EmergencyContact emergencyContact = new EmergencyContact(editContactDetails);
             }
 //            employee.setContactInfo();
 
