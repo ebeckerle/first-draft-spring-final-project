@@ -1,5 +1,6 @@
 package com.example.firstdraftspringfinalproject.models;
 
+import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -284,6 +285,22 @@ public class Employee {
 
     public void setEmergencyContact(EmergencyContact emergencyContact) {
         this.emergencyContact = emergencyContact;
+    }
+
+    public boolean isEmergencyContactNotNull(){
+        if(this.emergencyContact != null){
+            return true;
+        }
+        return false;
+    }
+
+    public void setEmergencyContactUpdates(EditContactDetailsDTO editedContactDetails){
+        if(!editedContactDetails.getEcFirstName().equals("")){
+            this.emergencyContact.firstName = editedContactDetails.getEcFirstName();
+        }
+        if(!editedContactDetails.getEcLastName().equals("")){
+            this.emergencyContact.lastName = editedContactDetails.getEcLastName();
+        }
     }
 //to String & Equals Methods
 
