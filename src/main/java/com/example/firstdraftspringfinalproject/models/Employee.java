@@ -301,7 +301,17 @@ public class Employee {
         if(!editedContactDetails.getEcLastName().equals("")){
             this.emergencyContact.lastName = editedContactDetails.getEcLastName();
         }
+        if(!editedContactDetails.getEcPhoneNumber().equals("")){
+            PhoneNumber ecPhone = new PhoneNumber(editedContactDetails.getEcPhoneNumber());
+            ArrayList<PhoneNumber> phoneNumbers = new ArrayList<>();
+            phoneNumbers.add(ecPhone);
+            this.emergencyContact.phoneNumbers = phoneNumbers;
+        }
+        if(!editedContactDetails.getEcRelationship().equals("")){
+            this.emergencyContact.relationship = editedContactDetails.getEcRelationship();
+        }
     }
+
 //to String & Equals Methods
 
 
