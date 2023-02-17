@@ -161,5 +161,15 @@ public class EditContactDetailsDTO {
         return true;
     }
 
+    public boolean areThereAnyValuesInTheContactInfoToUpdate(){
+        if (this.addressLineOne.equals("")&&this.city.equals("")
+                &&this.state.equals("")&&this.zipcode.equals("")
+                &&this.email1.equals("")&&this.email2.equals("")
+                &&this.phoneNumber1.equals("")&&this.phoneNumber2.equals("")){
+            return false;
+        }
+        return true;
+    }
+
 
 }

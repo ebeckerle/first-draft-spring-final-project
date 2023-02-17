@@ -73,11 +73,25 @@ public class AccountController {
                     System.out.println("ec is not null so i need to update");
                     employee.setEmergencyContactUpdates(editContactDetails);
                 }else{
+                    System.out.println("ec is null so i need to create a new one");
                     EmergencyContact emergencyContact = new EmergencyContact(editContactDetails);
                     employee.setEmergencyContact(emergencyContact);
                 }
             }
-//            employee.setContactInfo();
+
+            if(editContactDetails.areThereAnyValuesInTheContactInfoToUpdate()){
+                if(employee.getContactInfo() != null){
+                    employee.setContactInfoUpdates(editContactDetails);
+                }else{
+                    Contact contact = new Contact(editContactDetails);
+                    employee.setContactInfo(contact);
+                }
+            }
+
+            System.out.println(employee.getEmergencyContact().getRelationship());
+            System.out.println(employee.getContactInfo().getCity());
+
+//            employeeRepository.save(employee);
 
             System.out.println(editContactDetails.getAddressLineOne());
             System.out.println(editContactDetails.getCity().getClass());
