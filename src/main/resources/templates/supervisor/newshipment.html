@@ -49,7 +49,7 @@
                 <select name="carrier" onchange="addANewContactForCarrier()">
                     <option value="" disabled selected id="noSelection"></option>
                     <option th:each="carrier : ${carriers}"
-                            th:value="${carrier}"
+                            th:value="${carrier.getId()}"
                             th:text="${carrier}"
                             th:id="${carrier}"></option>
                 </select>

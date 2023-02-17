@@ -38,12 +38,12 @@ public class Employee {
     private GregorianCalendar firstDateOfWork;
     private Integer paidTimeOff;
 
-    @OneToOne
-    @Valid
+    @OneToOne(cascade = CascadeType.ALL)
+//    @Valid
     private Contact contactInfo;
 
     @OneToOne
-    private Contact emergencyContact;
+    private EmergencyContact emergencyContact;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -105,7 +105,7 @@ public class Employee {
         this.title = title;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return username;
     }
 
@@ -193,7 +193,99 @@ public class Employee {
         return totalHoursWorkedToDate;
     }
 
-    //to String & Equals Methods
+    public Contact getContactInfo() {
+        return contactInfo;
+    }
+
+    public String getContactInfoAddressLineOne() {
+        if(contactInfo == null || contactInfo.getAddressLineOne() == null){
+            return " ";
+        }
+        return contactInfo.getAddressLineOne();
+    }
+
+    public String getContactInfoCity() {
+        if(contactInfo == null || contactInfo.getCity() == null){
+            return " ";
+        }
+        return contactInfo.getCity();
+    }
+
+    public String getContactInfoState() {
+        if(contactInfo == null || contactInfo.getState() == null){
+            return " ";
+        }
+        return contactInfo.getState();
+    }
+
+    public String getContactInfoZipcode() {
+        if(contactInfo == null || contactInfo.getZipcode() == null){
+            return " ";
+        }
+        return contactInfo.getZipcode();
+    }
+    public List<String> getContactInfoPhoneNumbers() {
+        ArrayList<String> phoneNumbers = new ArrayList<>();
+        if(contactInfo == null || contactInfo.getPhoneNumbers() == null){
+            return phoneNumbers;
+        }
+        for (PhoneNumber number:
+             contactInfo.getPhoneNumbers()) {
+            phoneNumbers.add(number.toString());
+        }
+        return phoneNumbers;
+    }
+
+    public List<String> getContactInfoEmails() {
+        ArrayList<String> emails = new ArrayList<>();
+        if(contactInfo == null || contactInfo.getEmail() == null){
+            return emails;
+        }
+        return contactInfo.getEmail();
+    }
+
+    public void setContactInfo(Contact contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+
+    public EmergencyContact getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public String getEmergencyContactFirstName(){
+        if(emergencyContact == null){
+            return " ";
+        }
+        return emergencyContact.getFirstName();
+    }
+
+    public String getEmergencyContactLastName(){
+        if(emergencyContact == null){
+            return " ";
+        }
+        return emergencyContact.getLastName();
+    }
+
+    public String getEmergencyContactPhoneNumbers(){
+        if(emergencyContact == null){
+            return " ";
+        }
+        List<PhoneNumber> phoneNumbers = emergencyContact.getPhoneNumbers();
+        PhoneNumber phoneNumber = phoneNumbers.get(0);
+        return phoneNumber.toString();
+    }
+
+    public String getEmergencyContactRelationship(){
+        if(emergencyContact == null){
+            return " ";
+        }
+        return emergencyContact.getRelationship();
+    }
+
+    public void setEmergencyContact(EmergencyContact emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+//to String & Equals Methods
 
 
     @Override

@@ -20,6 +20,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,37 +48,24 @@ public class ManageShipmentsController {
 
         //TODO - delete following after having added shipments / events to the database
 
-        ArrayList<Event> currentMonthEvents = new ArrayList<>();
+        //Finding the start and end of the current month based on today's date
+        // TODO? -- move this logic to a Business Class? - interface that does translating between Date/Time/Calendar
+        //  classes that both timesheet, event, and shipment classes can inherit such methods from??
+        LocalDate todaysDate = LocalDate.now();
+        int todaysMonth = todaysDate.getMonth().getValue() - 1;
+        int todaysYear = todaysDate.getYear();
+        Calendar startOfMonth = Calendar.getInstance();
+        startOfMonth.set(todaysYear, todaysMonth, 1);
+        LocalDate lastDayOfMonthDate = todaysDate.withDayOfMonth(todaysDate.getMonth().length(todaysDate.isLeapYear()));
+        int lastDayOfMonth = lastDayOfMonthDate.getDayOfMonth();
+        Calendar endOfMonth = Calendar.getInstance();
+        endOfMonth.set(todaysYear, todaysMonth, lastDayOfMonth);
 
-        Calendar calFeb4 = Calendar.getInstance();
-        calFeb4.set(Calendar.YEAR, 2022);
-        calFeb4.set(Calendar.MONTH, Calendar.FEBRUARY);
-        calFeb4.set(Calendar.DAY_OF_MONTH, 4);
+        //populate the calendar with shipment dates
+        model.addAttribute("currentMonthEvents", eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth));
+        model.addAttribute("eventTotal",  eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth).size());
 
-        Calendar calDec01 = Calendar.getInstance();
-        calDec01.set(Calendar.YEAR, 2022);
-        calDec01.set(Calendar.MONTH, Calendar.DECEMBER);
-        calDec01.set(Calendar.DAY_OF_MONTH, 1);
-
-        Calendar calDec10 = Calendar.getInstance();
-        calDec10.set(Calendar.YEAR, 2022);
-        calDec10.set(Calendar.MONTH, Calendar.DECEMBER);
-        calDec10.set(Calendar.DAY_OF_MONTH, 10);
-
-        Calendar calDec15 = Calendar.getInstance();
-        calDec15.set(Calendar.YEAR, 2022);
-        calDec15.set(Calendar.MONTH, Calendar.DECEMBER);
-        calDec15.set(Calendar.DAY_OF_MONTH, 15);
-        Event foxBirthday = new Event(calDec01, calFeb4, "Fox's Birthday");
-        Event maggieBirthday = new Event(calDec01, calDec10, "Maggie's Birthday");
-        Event maddyBirthday = new Event(calDec15, calDec15, "Maddy Brithday");
-        currentMonthEvents.add(foxBirthday);
-        currentMonthEvents.add(maggieBirthday);
-        currentMonthEvents.add(maddyBirthday);
-        model.addAttribute("currentMonthEvents", currentMonthEvents);
-        model.addAttribute("eventTotal", 3);
-
-        //TODO - coming from "Add an INcoming Shipment" link will take you to the AddShipment Form with the Type
+        //TODO - coming from "Add an Incoming Shipment" link will take you to the AddShipment Form with the Type
         // pre-populated with "INCOMING" in the shipment type field., and vice-versa for outgoing.
 
         //TODO - display a list view vs. calendar view of shipments?  or just both to start, and then we can add the
@@ -111,8 +100,6 @@ public class ManageShipmentsController {
 
         if (errors.hasErrors()){
             model.addAttribute("title", "Add Shipment");
-
-            System.out.println("had errors");
             System.out.println(errors);
             model.addAttribute(new Shipment());
             //TODO - has to be a cleaner way to have an arraylist of my Shipment Types...
@@ -123,7 +110,7 @@ public class ManageShipmentsController {
             model.addAttribute("projects", projectRepository.findAll());
             return "supervisor/newshipment";
         }
-
+        System.out.println(newShipment.getType());
         //if the new shipment is Incoming, appropriately set the incoming date
         if(newShipment.getType() == ShipmentType.INCOMING){
             //convert Date object to Calendar Object and create a new Event object?, the event Name will be
@@ -131,26 +118,32 @@ public class ManageShipmentsController {
             Calendar incomingCal = Calendar.getInstance(); //move this businessey out of here?
             incomingCal.setTime(incomingDateParam);
             Event incomingDate = new Event(incomingCal, incomingCal, newShipment.getName());
+            System.out.println(incomingDate);
 
-            //find the contact in the repo and set it for the shipment
+            newShipment.setIncomingDate(incomingDate);
             System.out.println("incoming date"+newShipment.getIncomingDate().getStartDate());
             System.out.println("contact"+newShipment.getCarrier().toString());
             //TODO - save the new shipment to the repository
+            shipmentRepository.save(newShipment);
 
         }
 
-        //if the new shipment is Outgoing, appropriately set the incoming date
+        //if the new shipment is Outgoing, appropriately set the outgoing date
         if(newShipment.getType() == ShipmentType.OUTGOING){
             System.out.println("outgoing");
             System.out.println(outgoingDateScheduledParam.toString());
             //convert Date object to Calendar Object and create a new Event object?, the event Name will be
             // Shipment Name for now?
+            Calendar outgoingCal = Calendar.getInstance(); //move this businessey out of here?
+            outgoingCal.setTime(outgoingDateScheduledParam);
+            Event outgoingDateScheduled = new Event(outgoingCal, outgoingCal, newShipment.getName());
+            System.out.println(outgoingDateScheduled);
+
+            newShipment.setOutgoingDateScheduled(outgoingDateScheduled);
             //save the new shipment to the repository
+            shipmentRepository.save(newShipment);
+
         }
-
-
-
-        //bound fields: name, project, type.
 
 
 

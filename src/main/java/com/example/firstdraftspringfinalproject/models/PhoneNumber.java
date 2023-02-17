@@ -73,4 +73,11 @@ public class PhoneNumber {
     public void setExtension(String extension) {
         this.extension = extension;
     }
+
+    @Override
+    public String toString() {
+        return countryCode +" "+ areaCode + "-" +
+                "-" + exchangeCode +
+                "-" + lineNumber;
+    }
 }

@@ -36,7 +36,10 @@
 <!--Header Fragment when employee logged in-->
 <div th:fragment="header-nav-login">
     <div class="header-nav-login">
-        <header>Restoration Company</header>
+        <a  href="/employee">
+            <header>Restoration Company</header>
+        </a>
+
         <!--            <div class="drop-down">-->
         <!--                <button class="drop-down-btn">=</button>-->
         <nav>
@@ -47,6 +50,7 @@
             </a>
             <ol class="nav-bar-links">
                 <li class="nav-link"><a href="/employee">My Homepage</a></li>
+                <li class="nav-link"><a href="/employee/account">Account Details</a></li>
                 <li class="nav-link"><a href="/employee/timesheetrecords">Timesheets</a></li>
                 <li class="nav-link"><a href="/logout">Log Off</a></li>
             </ol>

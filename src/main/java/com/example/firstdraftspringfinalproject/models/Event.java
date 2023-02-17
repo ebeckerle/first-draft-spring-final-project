@@ -1,8 +1,6 @@
 package com.example.firstdraftspringfinalproject.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,14 +13,25 @@ public class Event {
     @Id
     Integer id;
 
+    @Temporal(TemporalType.DATE)
     Date startDate;
+    @Temporal(TemporalType.DATE)
     Date endDate;
-
+    @Temporal(TemporalType.DATE)
     Calendar calStartDate;
+
+    String calStartDateMonth;
+    @Temporal(TemporalType.DATE)
     Calendar calEndDate;
+
+    String calEndDateMonth;
 
     @Size(max = 80)
     String name;
+
+    //TODO - create an Event Type Enum with : GENERAL, Employee Birthday, Holiday, shipment-OUTgoing, Shipment-Incoming...?
+    // some way to address which events are connected with shipments, and if so incoming or outgoing?
+    //    EventType type;
 
     public Event(Date startDate, Date endDate, String name) {
         this.startDate = startDate;
