@@ -5,6 +5,7 @@ import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
 import com.example.firstdraftspringfinalproject.models.Contact;
+import com.example.firstdraftspringfinalproject.models.EmergencyContact;
 import com.example.firstdraftspringfinalproject.models.Employee;
 import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
@@ -48,31 +49,40 @@ public class AccountController {
     }
 
     @PostMapping
-    public String processEditEmployeeAccountDetails(@ModelAttribute @Valid EditContactDetailsDTO editContactDetailsDTO, Errors errors,
+    public String processEditEmployeeAccountDetails(@ModelAttribute @Valid EditContactDetailsDTO editContactDetails, Errors errors,
                                                     HttpServletRequest request, Model model){
-        System.out.println("in process method");
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
 
         if (employeeRepository.findById(employeeId).isPresent()){
             Employee employee = employeeRepository.findById(employeeId).get();
-            System.out.println("in employee is present");
 
             if(errors.hasErrors()){
-                System.out.println("in errors hass errors");
                 model.addAttribute("title", "Account Details");
                 model.addAttribute("employee", employee);
                 model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
 
-                model.addAttribute(editContactDetailsDTO);
+                model.addAttribute(editContactDetails);
 
                 return "employee/account";
             }
+            //up
+            System.out.println(editContactDetails.areThereAnyValuesInTheEmergContactToUpdate());
+            if(editContactDetails.areThereAnyValuesInTheEmergContactToUpdate()){
+                if(employee.getEmergencyContact() != null){
+                    System.out.println("ec is not null so i need to update");
+                    employee.setEmergencyContactUpdates(editContactDetails);
+                }else{
+                    EmergencyContact emergencyContact = new EmergencyContact(editContactDetails);
+                    employee.setEmergencyContact(emergencyContact);
+                }
+            }
+//            employee.setContactInfo();
 
-            System.out.println(editContactDetailsDTO.getAddressLineOne());
-            System.out.println(editContactDetailsDTO.getCity().getClass());
-            System.out.println(editContactDetailsDTO.getCity());
-            System.out.println(editContactDetailsDTO.getState());
+            System.out.println(editContactDetails.getAddressLineOne());
+            System.out.println(editContactDetails.getCity().getClass());
+            System.out.println(editContactDetails.getCity());
+            System.out.println(editContactDetails.getState());
 
             //repopulate display
             model.addAttribute("employee", employee);

@@ -4,43 +4,56 @@ package com.example.firstdraftspringfinalproject.models.dto;
 import com.example.firstdraftspringfinalproject.models.constraints.*;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class EditContactDetailsDTO {
 
 
     @Size(max = 80, message = "Must be under 80 characters")
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String addressLineOne;
     @Size(max = 60, message = "Must be under 60 characters")
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String city;
     @OptionalState
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String state;
     @OptionalZipcode
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String zipcode;
 
     @Email
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String email1;
     @Email
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String email2;
 
     @OptionalPhoneNumber
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String phoneNumber1;
 
 
     @OptionalPhoneNumber
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String phoneNumber2;
 
 
     @Size(max = 40, message = "Must be under 40 characters")
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String ecFirstName;
 
     @Size(max = 40, message = "Must be under 40 characters")
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String ecLastName;
 
     @OptionalPhoneNumber
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String ecPhoneNumber;
 
     @Size(max = 20, message = "Must be under 20 characters")
+//    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String ecRelationship;
 
     public String getAddressLineOne() {
@@ -137,6 +150,15 @@ public class EditContactDetailsDTO {
 
     public void setEcRelationship(String ecRelationship) {
         this.ecRelationship = ecRelationship;
+    }
+
+    //TODO - account for if a blank space is inputed?? - or do this in the validation annotations?
+    public boolean areThereAnyValuesInTheEmergContactToUpdate(){
+        if (this.ecLastName.equals("")&&this.ecFirstName.equals("")
+                &&this.ecPhoneNumber.equals("")&&this.ecRelationship.equals("")){
+            return false;
+        }
+        return true;
     }
 
 
