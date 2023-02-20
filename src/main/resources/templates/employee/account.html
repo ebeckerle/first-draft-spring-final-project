@@ -35,7 +35,7 @@
       <div class="form-style1">
           <p th:text="${'Address ' + employee.getContactInfoAddressLineOne()}"></p>
           <label>Employee Contact Info Address Line One:
-              <input th:field="${editContactDetailsDTO.addressLineOne}" th:placeholder="${employee.getEmergencyContactFirstName()}" class="form-control">
+              <input th:field="${editContactDetailsDTO.addressLineOne}" th:placeholder="${employee.getContactInfoAddressLineOne()}" class="form-control">
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.addressLineOne}"></p>
       </div>
@@ -43,7 +43,9 @@
       <div class="form-style1">
           <p th:text="${'City -' + employee.getContactInfoCity()}"></p>
           <label>Employee Contact Info City:
-              <input th:field="${editContactDetailsDTO.city}" class="form-control">
+              <input th:field="${editContactDetailsDTO.city}"
+                     th:placeholder="${employee.getContactInfoCity()}"
+                     class="form-control">
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.city}"></p>
       </div>
@@ -62,7 +64,9 @@
       <div class="form-style1">
           <p th:text="${employee.getContactInfoZipcode()}"></p>
           <label>Employee Contact Info ZipCode:
-              <input th:field="${editContactDetailsDTO.zipcode}" class="form-control">
+              <input th:field="${editContactDetailsDTO.zipcode}"
+                     th:placeholder="${employee.getContactInfoCity()}"
+                     class="form-control">
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.zipcode}"></p>
       </div>
@@ -72,11 +76,15 @@
           <p th:text="${phoneNumber}"></p>
           </p>
           <label>Employee Contact Info Phone Number:
-              <input th:field="${editContactDetailsDTO.phoneNumber1}" class="form-control">
+              <input th:field="${editContactDetailsDTO.phoneNumber1}"
+                     th:placeholder="${employee.getContactInfoCity()}"
+                     class="form-control">
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.phoneNumber1}"></p>
           <label>Employee Contact Info Phone Number:
-              <input th:field="${editContactDetailsDTO.phoneNumber2}" class="form-control">
+              <input th:field="${editContactDetailsDTO.phoneNumber2}"
+                     th:placeholder="${employee.getContactInfoCity()}"
+                     class="form-control">
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.phoneNumber2}"></p>
       </div>
@@ -105,7 +113,9 @@
       <div class="form-style1">
           <p th:text="${employee.getEmergencyContactFirstName()}"></p>
           <label>Emergency Contact First Name:
-              <input th:field="${editContactDetailsDTO.ecFirstName}" th:placeholder="${employee.getEmergencyContactFirstName()}" class="form-control">
+              <input th:field="${editContactDetailsDTO.ecFirstName}"
+                     th:placeholder="${employee.getEmergencyContactFirstName()}"
+                     class="form-control">
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.ecFirstName}"></p>
       </div>
@@ -113,7 +123,9 @@
       <div class="form-style1">
           <p th:text="${employee.getEmergencyContactLastName()}"></p>
           <label>Emergency Contact Last Name:
-              <input th:field="${editContactDetailsDTO.ecLastName}" class="form-control">
+              <input th:field="${editContactDetailsDTO.ecLastName}"
+                     th:placeholder="${employee.getEmergencyContactLastName()}"
+                     class="form-control">
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.ecLastName}"></p>
       </div>
@@ -129,7 +141,8 @@
       <div class="form-style1">
           <p th:text="${employee.getEmergencyContactRelationship()}"></p>
           <label>Emergency Contact Relationship:
-              <input th:field="${editContactDetailsDTO.ecRelationship}" class="form-control">
+              <input th:field="${editContactDetailsDTO.ecRelationship}"
+                     th:placeholder="${employee.getEmergencyContactRelationship()}">
           </label>
           <p class="error" th:errors="${editContactDetailsDTO.ecRelationship}"></p>
       </div>

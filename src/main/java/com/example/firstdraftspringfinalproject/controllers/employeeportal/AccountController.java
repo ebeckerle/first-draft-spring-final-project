@@ -66,14 +66,11 @@ public class AccountController {
 
                 return "employee/account";
             }
-            //up
-            System.out.println(editContactDetails.areThereAnyValuesInTheEmergContactToUpdate());
+
             if(editContactDetails.areThereAnyValuesInTheEmergContactToUpdate()){
                 if(employee.getEmergencyContact() != null){
-                    System.out.println("ec is not null so i need to update");
                     employee.setEmergencyContactUpdates(editContactDetails);
                 }else{
-                    System.out.println("ec is null so i need to create a new one");
                     EmergencyContact emergencyContact = new EmergencyContact(editContactDetails);
                     employee.setEmergencyContact(emergencyContact);
                 }
@@ -87,16 +84,7 @@ public class AccountController {
                     employee.setContactInfo(contact);
                 }
             }
-
-            System.out.println(employee.getEmergencyContact().getRelationship());
-            System.out.println(employee.getContactInfo().getCity());
-
-//            employeeRepository.save(employee);
-
-            System.out.println(editContactDetails.getAddressLineOne());
-            System.out.println(editContactDetails.getCity().getClass());
-            System.out.println(editContactDetails.getCity());
-            System.out.println(editContactDetails.getState());
+            employeeRepository.save(employee);
 
             //repopulate display
             model.addAttribute("employee", employee);
