@@ -30,126 +30,154 @@
 
 <!--  <form method="post" th:action="@{/employee/account}">-->
     <form method="post">
-      <h3>Contact Information</h3>
+        <h3>Contact Information</h3>
+        <div class="col-container">
 
-      <div class="form-style1">
-          <p th:text="${'Address ' + employee.getContactInfoAddressLineOne()}"></p>
-          <label>Employee Contact Info Address Line One:
-              <input th:field="${editContactDetailsDTO.addressLineOne}" th:placeholder="${employee.getContactInfoAddressLineOne()}" class="form-control">
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.addressLineOne}"></p>
-      </div>
+            <div class="left-col">
+                <h6>Current Mailing Address</h6>
+                <div class="mailing-address-style">
+                    <p th:text="${employee.firstNameLastNameCombo}"></p>
+                    <p th:text="${employee.getContactInfoAddressLineOne()}"></p>
+                    <p th:text="${employee.getContactInfoCity()+ ', ' + employee.getContactInfoState()}"></p>
+                    <p th:text="${employee.getContactInfoZipcode()}"></p>
+                </div>
 
-      <div class="form-style1">
-          <p th:text="${'City -' + employee.getContactInfoCity()}"></p>
-          <label>Employee Contact Info City:
-              <input th:field="${editContactDetailsDTO.city}"
-                     th:placeholder="${employee.getContactInfoCity()}"
-                     class="form-control">
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.city}"></p>
-      </div>
+                <br>
+                <div th:each="phoneNumber : ${employee.getContactInfoPhoneNumbers()}">
+                <p th:text="${phoneNumber}"></p>
+                </div>
+                <br>
+                <div th:each="email : ${employee.getContactInfoEmails()}">
+                    <p th:text="${email}"></p>
+                </div>
+            </div>
 
-      <div class="form-style1">
-          <p th:text="${employee.getContactInfoState()}"></p>
-          <label>Employee Contact Info State:
-              <input type="text" name="stateInput" oninput="runStateAutoFill()" id="stateInput" list="statesList" th:field="${editContactDetailsDTO.state}">
-              <datalist id="statesList">
-                  <option th:each="state : ${states}" th:value="${state.key}" th:text="${state.value}"></option>
-              </datalist>
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.state}"></p>
-      </div>
+            <div class="right-col">
+                <div class="form-edit-contact-details">
+                    <div class="form-style1">
+                        <label>Address:
+                            <input th:field="${editContactDetailsDTO.addressLineOne}" th:placeholder="${employee.getContactInfoAddressLineOne()}" class="form-control">
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.addressLineOne}"></p>
+                    </div>
 
-      <div class="form-style1">
-          <p th:text="${employee.getContactInfoZipcode()}"></p>
-          <label>Employee Contact Info ZipCode:
-              <input th:field="${editContactDetailsDTO.zipcode}"
-                     th:placeholder="${employee.getContactInfoCity()}"
-                     class="form-control">
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.zipcode}"></p>
-      </div>
+                    <div class="form-style1">
+                        <label>City:
+                            <input th:field="${editContactDetailsDTO.city}"
+                                   th:placeholder="${employee.getContactInfoCity()}"
+                                   class="form-control">
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.city}"></p>
+                    </div>
 
-      <div class="form-style1">
-          <p th:each="phoneNumber : ${employee.getContactInfoPhoneNumbers()}">
-          <p th:text="${phoneNumber}"></p>
-          </p>
-          <label>Employee Contact Info Phone Number:
-              <input th:field="${editContactDetailsDTO.phoneNumber1}"
-                     th:placeholder="${employee.getContactInfoCity()}"
-                     class="form-control">
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.phoneNumber1}"></p>
-          <label>Employee Contact Info Phone Number:
-              <input th:field="${editContactDetailsDTO.phoneNumber2}"
-                     th:placeholder="${employee.getContactInfoCity()}"
-                     class="form-control">
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.phoneNumber2}"></p>
-      </div>
+                    <div class="form-style1">
+                        <label>State:
+                            <input type="text" name="stateInput" oninput="runStateAutoFill()" id="stateInput" list="statesList" th:field="${editContactDetailsDTO.state}">
+                            <datalist id="statesList">
+                                <option th:each="state : ${states}" th:value="${state.key}" th:text="${state.value}"></option>
+                            </datalist>
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.state}"></p>
+                    </div>
 
-      <div class="form-style1">
-          <p th:each="email : ${employee.getContactInfoEmails()}">
-          <p th:text="${email}"></p>
-          </p>
-          <label>Employee Contact Info Email:
-              <input th:field="${editContactDetailsDTO.email1}" class="form-control">
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.email1}"></p>
-          <label>Employee Contact Info Email:
-              <input th:field="${editContactDetailsDTO.email2}" class="form-control">
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.email2}"></p>
-      </div>
+                    <div class="form-style1">
+                        <label>ZipCode:
+                            <input th:field="${editContactDetailsDTO.zipcode}"
+                                   th:placeholder="${employee.getContactInfoZipcode()}"
+                                   class="form-control">
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.zipcode}"></p>
+                    </div>
 
-      <div class="form-style1">
-          <input type="submit" value="Save Edit" class="btn btn-success">
-      </div>
+                    <div class="form-style1">
+                        <label>Phone Number:
+                            <input th:field="${editContactDetailsDTO.phoneNumber1}"
+                                   th:placeholder="${employee.getContactInfoCity()}"
+                                   class="form-control">
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.phoneNumber1}"></p>
+                        <label>Phone Number:
+                            <input th:field="${editContactDetailsDTO.phoneNumber2}"
+                                   th:placeholder="${employee.getContactInfoCity()}"
+                                   class="form-control">
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.phoneNumber2}"></p>
+                    </div>
 
+                    <div class="form-style1">
+                        <p th:each="email : ${employee.getContactInfoEmails()}">
+                        <p th:text="${email}"></p>
+                        </p>
+                        <label>Email:
+                            <input th:field="${editContactDetailsDTO.email1}" class="form-control">
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.email1}"></p>
+                        <label>Email:
+                            <input th:field="${editContactDetailsDTO.email2}" class="form-control">
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.email2}"></p>
+                    </div>
+
+                    <div class="form-style1">
+                        <input type="submit" value="Save Edit" class="btn btn-success">
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <h3>Emergency Contact</h3>
+        <div class="col-container">
+            <div class="left-col">
+                <p th:text="${employee.getEmergencyContactFirstName()}"></p>
+                <p th:text="${employee.getEmergencyContactLastName()}"></p>
+                <!--          <p th:text="${employee.getEmergencyContactPhoneNumbers()}"></p>-->
+                <p th:text="${employee.getEmergencyContactRelationship()}"></p>
+            </div>
 
-      <div class="form-style1">
-          <p th:text="${employee.getEmergencyContactFirstName()}"></p>
-          <label>Emergency Contact First Name:
-              <input th:field="${editContactDetailsDTO.ecFirstName}"
-                     th:placeholder="${employee.getEmergencyContactFirstName()}"
-                     class="form-control">
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.ecFirstName}"></p>
-      </div>
+            <div class="right-col">
+                <div class="form-edit-contact-details">
+                    <div class="form-style1">
+                        <label>Emergency Contact First Name:
+                            <input th:field="${editContactDetailsDTO.ecFirstName}"
+                                   th:placeholder="${employee.getEmergencyContactFirstName()}"
+                                   class="form-control">
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.ecFirstName}"></p>
+                    </div>
 
-      <div class="form-style1">
-          <p th:text="${employee.getEmergencyContactLastName()}"></p>
-          <label>Emergency Contact Last Name:
-              <input th:field="${editContactDetailsDTO.ecLastName}"
-                     th:placeholder="${employee.getEmergencyContactLastName()}"
-                     class="form-control">
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.ecLastName}"></p>
-      </div>
+                    <div class="form-style1">
+                        <label>Emergency Contact Last Name:
+                            <input th:field="${editContactDetailsDTO.ecLastName}"
+                                   th:placeholder="${employee.getEmergencyContactLastName()}"
+                                   class="form-control">
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.ecLastName}"></p>
+                    </div>
 
-      <div class="form-style1">
-<!--          <p th:text="${employee.getEmergencyContactPhoneNumbers()}"></p>-->
-          <label>Emergency Contact Phone Number:
-              <input th:field="${editContactDetailsDTO.ecPhoneNumber}" class="form-control">
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.ecPhoneNumber}"></p>
-      </div>
+                    <div class="form-style1">
+                        <label>Emergency Contact Phone Number:
+                            <input th:field="${editContactDetailsDTO.ecPhoneNumber}" class="form-control">
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.ecPhoneNumber}"></p>
+                    </div>
 
-      <div class="form-style1">
-          <p th:text="${employee.getEmergencyContactRelationship()}"></p>
-          <label>Emergency Contact Relationship:
-              <input th:field="${editContactDetailsDTO.ecRelationship}"
-                     th:placeholder="${employee.getEmergencyContactRelationship()}">
-          </label>
-          <p class="error" th:errors="${editContactDetailsDTO.ecRelationship}"></p>
-      </div>
+                    <div class="form-style1">
+                        <label>Emergency Contact Relationship:
+                            <input th:field="${editContactDetailsDTO.ecRelationship}"
+                                   th:placeholder="${employee.getEmergencyContactRelationship()}">
+                        </label>
+                        <p class="error" th:errors="${editContactDetailsDTO.ecRelationship}"></p>
+                    </div>
 
-    <div class="form-style1">
-      <input type="submit" value="Save Edit" class="btn btn-success">
-    </div>
+                    <div class="form-style1">
+                        <input type="submit" value="Save Edit" class="btn btn-success">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
 
   </form>
 
