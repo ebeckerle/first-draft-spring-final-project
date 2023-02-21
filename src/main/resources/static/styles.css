@@ -293,11 +293,39 @@ ul li {
     min-width: 100%;
     justify-content: space-evenly;
 }
-.left-col {
+.left-col-50-percent {
     border: 2px solid grey;
     display: flex;
     flex-direction: column;
     min-width: 50%;
+    /*margin: 8px;*/
+    padding: 8px;
+}
+
+.left-col-70-percent {
+    border: 2px solid grey;
+    display: flex;
+    flex-direction: column;
+    min-width: 70%;
+    /*margin: 8px;*/
+    padding: 8px;
+}
+
+.right-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-col-50-percent {
+    display: flex;
+    flex-direction: column;
+    min-width: 50%;
+}
+
+.right-col-30-percent {
+    display: flex;
+    flex-direction: column;
+    min-width: 30%;
     /*margin: 8px;*/
     padding: 8px;
 }

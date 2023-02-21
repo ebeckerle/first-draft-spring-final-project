@@ -32,10 +32,11 @@
 
 <!--  <form method="post" th:action="@{/employee/account}">-->
     <form method="post">
+
         <h3>Contact Information</h3>
         <div class="col-container">
 
-            <div class="left-col">
+            <div class="left-col-50-percent">
                 <h5>Current Mailing Address</h5>
                 <div class="mailing-address-style">
                     <p th:text="${employee.firstNameLastNameCombo}"></p>
@@ -47,7 +48,7 @@
                 <br>
                 <h5>Phone Numbers</h5>
                 <div th:each="phoneNumber : ${employee.getContactInfoPhoneNumbers()}">
-                <p th:text="${phoneNumber}"></p>
+                    <p th:text="${phoneNumber}"></p>
                 </div>
                 <br>
                 <h5>Email Address</h5>
@@ -56,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="right-col">
+            <div class="right-col-50-percent">
                 <div class="form-edit-contact-details">
                     <div class="form-style1">
                         <label>Address:
@@ -127,15 +128,17 @@
             </div>
         </div>
 
-    <h3>Emergency Contact</h3>
+        <h3>Emergency Contact</h3>
         <div class="col-container">
-            <div class="left-col">
-                <p th:text="${employee.getEmergencyContactFirstName()+' '+employee.getEmergencyContactLastName()}"></p>
-                <p th:text="${employee.getEmergencyContactPhoneNumbers()}"></p>
-                <p th:text="${employee.getEmergencyContactRelationship()}"></p>
+            <div class="left-col-50-percent">
+<!--                <div>-->
+                    <p th:text="${employee.getEmergencyContactFirstName()+' '+employee.getEmergencyContactLastName()}"></p>
+                    <p th:text="${employee.getEmergencyContactPhoneNumbers()}"></p>
+                    <p th:text="${employee.getEmergencyContactRelationship()}"></p>
+<!--                </div>-->
             </div>
 
-            <div class="right-col">
+            <div class="right-col-50-percent">
                 <div class="form-edit-contact-details">
                     <div class="form-style1">
                         <label>First Name:
@@ -182,9 +185,7 @@
 
         </div>
 
-
-
-  </form>
+    </form>
 
 </div>
 
