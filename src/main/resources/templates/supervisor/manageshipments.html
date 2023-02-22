@@ -45,7 +45,9 @@
                     <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getCalEndDate()}" th:text="${event.toStringEndDate()}"></p>
                 </li>
             </ol>
-            TODO - styling for the following shipment event list, and
+
+<!--TODO - styling for the following shipment event list, and  change the way they are listed - todos in the event class and controller ,-->
+<!-- bc right now start date and end date will always be the same (for shipments) so I don't wanna list both-->
             <ol id="event-data-list" style="display: none;">
                 <li th:each="event : ${currentMonthEvents}" th:text="${event.getName() + ': '+ event.toStringStartDate() +' - '+ event.toStringEndDate()}">
                 </li>
