@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 @Entity
 public class Event {
@@ -90,5 +91,18 @@ public class Event {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCalStartDateToString(){
+        String calStartDate = this.calStartDate.getDisplayName(Calendar.DAY_OF_MONTH, Calendar.SHORT_STANDALONE, Locale.US);
+        System.out.println(this.calStartDate);
+//        return this.calStartDate.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + ' '
+//                + this.calStartDate.getDisplayName(Calendar.DAY_OF_MONTH, Calendar.SHORT, Locale.US)+ ' '
+//                + this.calStartDate.getDisplayName(Calendar.YEAR, Calendar.LONG, Locale.US);
+        return "Start Date " + calStartDate;
+    }
+
+    public String getCalEndDateToString(){
+        return this.calEndDate.getDisplayName(1,1,Locale.US);
     }
 }

@@ -46,8 +46,6 @@ public class ManageShipmentsController {
     public String displayManageShipments(Model model){
         model.addAttribute("title", "Manage Shipments");
 
-        //TODO - delete following after having added shipments / events to the database
-
         //Finding the start and end of the current month based on today's date
         // TODO? -- move this logic to a Business Class? - interface that does translating between Date/Time/Calendar
         //  classes that both timesheet, event, and shipment classes can inherit such methods from??
