@@ -1,9 +1,11 @@
+.shipments-color-code {
+
+}
 #green {
     background-color: green;
     width: 8px;
     height: 8px;
     padding: 10px;
-    /*display: inline-block;*/
 }
 
 #orange {
@@ -15,21 +17,22 @@
 
 .outgoing-green {
     display: flex;
-    /*justify-content: space-evenly;*/
-    /*text-align: center;*/
 }
 
 .incoming-orange {
-    display: flex-box;
+    display: flex;
 }
 
 .outgoing-green p {
     color: green;
     font-weight: bold;
     margin: 0;
+    padding-left: 1px;
 }
 
 .incoming-orange p {
     color: orange;
     font-weight: bold;
+    margin: 0;
+    padding-left: 1px;
 }
