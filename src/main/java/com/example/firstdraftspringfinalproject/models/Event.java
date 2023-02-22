@@ -46,6 +46,14 @@ public class Event {
         this.name = name;
     }
 
+    public Event(Date startDate, Date endDate, Calendar calStartDate, Calendar calEndDate, String name) {
+        this.startDate = startDate;
+        this.endDate = startDate;
+        this.calStartDate = calStartDate;
+        this.calEndDate = calEndDate;
+        this.name = name;
+    }
+
     public Event() {
     }
 
