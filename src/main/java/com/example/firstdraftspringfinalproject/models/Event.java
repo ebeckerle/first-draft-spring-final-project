@@ -93,16 +93,26 @@ public class Event {
         this.name = name;
     }
 
-    public String getCalStartDateToString(){
-        String calStartDate = this.calStartDate.getDisplayName(Calendar.DAY_OF_MONTH, Calendar.SHORT_STANDALONE, Locale.US);
-        System.out.println(this.calStartDate);
+    //TODO - I would like to spiffy up these two toString methods, so they are as dry as can be and return
+    // this format "mm/dd/yyyy"; also need to consider if the date fields are saved when the calendar fields
+    // are saved... still unsure best practices on Date Class over Calendar class...
+    public String toStringStartDate(){
+        if(this.startDate == null){
+            return "No Start Date Listed";
+        }
+        String stringToReturn = this.startDate.toString();
+
 //        return this.calStartDate.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + ' '
 //                + this.calStartDate.getDisplayName(Calendar.DAY_OF_MONTH, Calendar.SHORT, Locale.US)+ ' '
 //                + this.calStartDate.getDisplayName(Calendar.YEAR, Calendar.LONG, Locale.US);
-        return "Start Date " + calStartDate;
+
+        return stringToReturn;
     }
 
-    public String getCalEndDateToString(){
-        return this.calEndDate.getDisplayName(1,1,Locale.US);
+    public String toStringEndDate(){
+        if(this.endDate == null){
+            return "No End Date Listed";
+        }
+         return this.endDate.toString();
     }
 }

@@ -28,11 +28,11 @@ function toggleViewListOrCalendar(){
 
     if(document.getElementById("viewList").checked){
         console.log("in the view list selected");
-        document.getElementById("event-data").style.display = "block";
+        document.getElementById("event-data-list").style.display = "block";
         document.getElementById("calendar").style.display = "none";
     }
     if(document.getElementById("viewCalendar").checked){
-        document.getElementById("event-data").style.display = "none";
+        document.getElementById("event-data-list").style.display = "none";
         document.getElementById("calendar").style.display = "block";
     }
 
