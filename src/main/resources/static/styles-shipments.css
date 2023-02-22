@@ -1,0 +1,35 @@
+#green {
+    background-color: green;
+    width: 8px;
+    height: 8px;
+    padding: 10px;
+    /*display: inline-block;*/
+}
+
+#orange {
+    background-color: orange;
+    width: 8px;
+    height: 8px;
+    padding: 10px;
+}
+
+.outgoing-green {
+    display: flex;
+    /*justify-content: space-evenly;*/
+    /*text-align: center;*/
+}
+
+.incoming-orange {
+    display: flex-box;
+}
+
+.outgoing-green p {
+    color: green;
+    font-weight: bold;
+    margin: 0;
+}
+
+.incoming-orange p {
+    color: orange;
+    font-weight: bold;
+}
