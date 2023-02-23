@@ -25,6 +25,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("supervisor/manageshipments")
@@ -60,7 +61,37 @@ public class ManageShipmentsController {
         endOfMonth.set(todaysYear, todaysMonth, lastDayOfMonth);
 
         //populate the calendar with shipment dates
+        //this query will populate calendar with all events within a range
         model.addAttribute("currentMonthEvents", eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth));
+        //only shipment events within a date range
+        List<Shipment> currentMonthShipments = shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth);
+        List<Event> currentMonthShipmentIncomingEvents = new ArrayList<>();
+        List<Event> currentMonthShipmentOutgoingEvents = new ArrayList<>();
+        for(Shipment shipment : currentMonthShipments){
+            if(shipment.getType() == ShipmentType.INCOMING){
+                System.out.println("incoming");
+                if(eventRepository.findById(shipment.getIncomingDate().getId()).isPresent()){
+                    Event event = eventRepository.findById(shipment.getIncomingDate().getId()).get();
+                    System.out.println(event.getName());
+                    currentMonthShipmentIncomingEvents.add(event);
+                }
+            }
+            if(shipment.getType() == ShipmentType.OUTGOING){
+                System.out.println("outgoing");
+                if(eventRepository.findById(shipment.getOutgoingDateScheduled().getId()).isPresent()){
+                    Event event = eventRepository.findById(shipment.getOutgoingDateScheduled().getId()).get();
+                    currentMonthShipmentOutgoingEvents.add(event);
+                }
+            }
+        }
+        model.addAttribute("currentMonthShipmentEvents", shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth));
+
+        model.addAttribute("currentMonthIncomingShipmentEvents", currentMonthShipmentIncomingEvents);
+        model.addAttribute("currentMonthOutgoingShipmentEvents", currentMonthShipmentOutgoingEvents);
+
+        //only incoming shipment events / only outgoing shipment events
+        model.addAttribute("allIncomingShipments", shipmentRepository.findByType(ShipmentType.INCOMING));
+        model.addAttribute("allOutgoingShipments", shipmentRepository.findByType(ShipmentType.OUTGOING));
         model.addAttribute("eventTotal",  eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth).size());
 
         //TODO - coming from "Add an Incoming Shipment" link will take you to the AddShipment Form with the Type
