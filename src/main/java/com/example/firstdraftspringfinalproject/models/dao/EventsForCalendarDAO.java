@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class EventsForCalendarDAO {
@@ -21,6 +22,10 @@ public class EventsForCalendarDAO {
 
     private List<EventDAO> events = new ArrayList<>();
 
+    private HashMap<Integer, String> keyLegend = new HashMap<>();
+
+    private List<String> keyOrLegend = new ArrayList<>();
+
     public void addEventsOfOneColorCode(List<Event> events, String colorCode){
         System.out.println("before for loope" + this.events.size());
         for (Event event :
@@ -34,5 +39,9 @@ public class EventsForCalendarDAO {
 
     public List<EventDAO> getEvents() {
         return events;
+    }
+
+    public HashMap<Integer, String> getKeyLegend() {
+        return keyLegend;
     }
 }

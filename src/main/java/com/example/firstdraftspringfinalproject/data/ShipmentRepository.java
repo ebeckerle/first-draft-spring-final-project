@@ -24,8 +24,13 @@ public interface ShipmentRepository  extends CrudRepository<Shipment, Integer> {
 
     @Query(value = "SELECT * FROM shipment INNER JOIN event ON shipment.incoming_date_id=event.id WHERE cal_start_date BETWEEN :startRange AND :endRange",
             nativeQuery = true)
-    List<Shipment> findShipmentsWithInDateRange(@Param("startRange")Calendar startOfDateRange,
+    List<Shipment> findShipmentsWithAIncomingDateWithInDateRange(@Param("startRange")Calendar startOfDateRange,
                                                 @Param("endRange")Calendar endOfDateRange);
+
+    @Query(value = "SELECT * FROM shipment INNER JOIN event ON shipment.outgoing_date_scheduled_id=event.id WHERE cal_start_date BETWEEN :startRange AND :endRange",
+            nativeQuery = true)
+    List<Shipment> findShipmentsWithAnOutgoingDateScheduledWithInDateRange(@Param("startRange")Calendar startOfDateRange,
+                                                                 @Param("endRange")Calendar endOfDateRange);
 
     List<Shipment> findByType(ShipmentType shipmentType);
 

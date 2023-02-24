@@ -65,12 +65,29 @@ public class ManageShipmentsController {
         //this query will populate calendar with all events within a range
         model.addAttribute("currentMonthEvents", eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth));
         //only shipment events within a date range
-        List<Shipment> currentMonthShipments = shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth);
-        ////////TODO
-        System.out.println("current month shipments size:"+currentMonthShipments.size());
+        List<Shipment> currentMonthShipmentsWithAnIncomingDate = shipmentRepository.findShipmentsWithAIncomingDateWithInDateRange(startOfMonth, endOfMonth);
+        List<Shipment> currentMonthShipmentsWithAnOutgoingDateScheduled = shipmentRepository.findShipmentsWithAnOutgoingDateScheduledWithInDateRange(startOfMonth, endOfMonth);
+
         List<Event> currentMonthShipmentIncomingEvents = new ArrayList<>();
         List<Event> currentMonthShipmentOutgoingEvents = new ArrayList<>();
-        for(Shipment shipment : currentMonthShipments){
+        for(Shipment shipment : currentMonthShipmentsWithAnIncomingDate){
+            if(shipment.getType() == ShipmentType.INCOMING){
+                System.out.println("incoming");
+                if(eventRepository.findById(shipment.getIncomingDate().getId()).isPresent()){
+                    Event event = eventRepository.findById(shipment.getIncomingDate().getId()).get();
+                    System.out.println(event.getName());
+                    currentMonthShipmentIncomingEvents.add(event);
+                }
+            }
+            if(shipment.getType() == ShipmentType.OUTGOING){
+                System.out.println("outgoing");
+                if(eventRepository.findById(shipment.getOutgoingDateScheduled().getId()).isPresent()){
+                    Event event = eventRepository.findById(shipment.getOutgoingDateScheduled().getId()).get();
+                    currentMonthShipmentOutgoingEvents.add(event);
+                }
+            }
+        }
+        for(Shipment shipment : currentMonthShipmentsWithAnOutgoingDateScheduled){
             if(shipment.getType() == ShipmentType.INCOMING){
                 System.out.println("incoming");
                 if(eventRepository.findById(shipment.getIncomingDate().getId()).isPresent()){

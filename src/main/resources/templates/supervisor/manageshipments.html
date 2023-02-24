@@ -61,14 +61,22 @@
 <!--                    <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getCalEndDate()}" th:text="${event.toStringEndDate()}"></p>-->
 <!--                </li>-->
 <!--            </ol>-->
-        <div id="shipments-color-code">
-            <div class="incoming-orange">
-                <div id="orange"></div><p> - Incoming</p>
+<!--        <div id="shipments-color-code">-->
+<!--            <div class="incoming-orange">-->
+<!--                <div id="orange"></div><p> - Incoming</p>-->
+<!--            </div>-->
+<!--            <div class="outgoing-green">-->
+<!--                <div id="green"></div><p> - Outgoing</p>-->
+<!--            </div>-->
+<!--        </div>-->
+            <div id="cal-legend-color-code">
+                <div class="color1">
+                    <div th:id="color1"></div><p th:text="${eventsForCalendarDAO.getKeyLegend().getValue}"> - Incoming</p>
+                </div>
+                <div class="color2">
+                    <div id="color2"></div><p> - Outgoing</p>
+                </div>
             </div>
-            <div class="outgoing-green">
-                <div id="green"></div><p> - Outgoing</p>
-            </div>
-        </div>
 <!--TODO - styling for the following shipment event list, and  change the way they are listed - todos in the event class and controller ,-->
 <!-- bc right now start date and end date will always be the same (for shipments) so I don't wanna list both-->
             <ol id="event-data-list" style="display: none;">
