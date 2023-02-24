@@ -11,17 +11,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+// think this is an interface???
+
 public class ShipmentDAO {
 
-    @Autowired
-    private EventRepository eventRepository;
 
-    @Autowired
-    private ShipmentRepository shipmentRepository;
-
-    public static List<Event> createAListOfCurrentMonthShipmentsEvents(Calendar startDate, Calendar endDate){
-        List<Shipment> currentMonthShipmentsWithAnIncomingDate = this.shipmentRepository.findShipmentsWithAIncomingDateWithInDateRange(startDate, endDate);
-        List<Shipment> currentMonthShipmentsWithAnOutgoingDateScheduled = this.shipmentRepository.findShipmentsWithAnOutgoingDateScheduledWithInDateRange(startDate, endDate);
+    public static EventsForCalendarDAO createAListOfCurrentMonthShipmentsEvents(EventRepository eventRepository,
+                                                                                ShipmentRepository shipmentRepository,
+                                                                                Calendar startDate, Calendar endDate){
+        List<Shipment> currentMonthShipmentsWithAnIncomingDate = shipmentRepository.findShipmentsWithAIncomingDateWithInDateRange(startDate, endDate);
+        List<Shipment> currentMonthShipmentsWithAnOutgoingDateScheduled = shipmentRepository.findShipmentsWithAnOutgoingDateScheduledWithInDateRange(startDate, endDate);
 
         List<Event> currentMonthShipmentIncomingEvents = new ArrayList<>();
         List<Event> currentMonthShipmentOutgoingEvents = new ArrayList<>();
@@ -63,6 +62,7 @@ public class ShipmentDAO {
         EventsForCalendarDAO listOfEvents = new EventsForCalendarDAO();
         listOfEvents.addEventsOfOneColorCode(currentMonthShipmentIncomingEvents, "1");
         listOfEvents.addEventsOfOneColorCode(currentMonthShipmentOutgoingEvents, "2");
+        return listOfEvents;
     }
 
 }

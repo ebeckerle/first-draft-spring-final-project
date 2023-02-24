@@ -8,8 +8,10 @@ import com.example.firstdraftspringfinalproject.models.Contact;
 import com.example.firstdraftspringfinalproject.models.Event;
 import com.example.firstdraftspringfinalproject.models.Shipment;
 import com.example.firstdraftspringfinalproject.models.dao.EventsForCalendarDAO;
+import com.example.firstdraftspringfinalproject.models.dao.ShipmentDAO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
+import com.example.firstdraftspringfinalproject.models.interfaces.OurCalendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -48,74 +50,20 @@ public class ManageShipmentsController {
     public String displayManageShipments(Model model){
         model.addAttribute("title", "Manage Shipments");
 
-        //Finding the start and end of the current month based on today's date
-        // TODO? -- move this logic to a Business Class? - interface that does translating between Date/Time/Calendar
-        //  classes that both timesheet, event, and shipment classes can inherit such methods from??
+        //Populate Calendar with Shipment Events
         LocalDate todaysDate = LocalDate.now();
-        int todaysMonth = todaysDate.getMonth().getValue() - 1;
-        int todaysYear = todaysDate.getYear();
-        Calendar startOfMonth = Calendar.getInstance();
-        startOfMonth.set(todaysYear, todaysMonth, 1);
-        LocalDate lastDayOfMonthDate = todaysDate.withDayOfMonth(todaysDate.getMonth().length(todaysDate.isLeapYear()));
-        int lastDayOfMonth = lastDayOfMonthDate.getDayOfMonth();
-        Calendar endOfMonth = Calendar.getInstance();
-        endOfMonth.set(todaysYear, todaysMonth, lastDayOfMonth);
+        Calendar monthStartDate = OurCalendar.findMonthStartDateBasedOnTodaysDate(todaysDate);
+        Calendar monthEndDate = OurCalendar.findMonthEndDateBasedOnTodaysDate(todaysDate);
+        EventsForCalendarDAO listOfEvents = ShipmentDAO.createAListOfCurrentMonthShipmentsEvents(eventRepository, shipmentRepository, monthStartDate, monthEndDate);
 
-        //populate the calendar with shipment dates
-        //this query will populate calendar with all events within a range
-        model.addAttribute("currentMonthEvents", eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth));
-        //only shipment events within a date range
-        List<Shipment> currentMonthShipmentsWithAnIncomingDate = shipmentRepository.findShipmentsWithAIncomingDateWithInDateRange(startOfMonth, endOfMonth);
-        List<Shipment> currentMonthShipmentsWithAnOutgoingDateScheduled = shipmentRepository.findShipmentsWithAnOutgoingDateScheduledWithInDateRange(startOfMonth, endOfMonth);
-
-        List<Event> currentMonthShipmentIncomingEvents = new ArrayList<>();
-        List<Event> currentMonthShipmentOutgoingEvents = new ArrayList<>();
-        for(Shipment shipment : currentMonthShipmentsWithAnIncomingDate){
-            if(shipment.getType() == ShipmentType.INCOMING){
-                System.out.println("incoming");
-                if(eventRepository.findById(shipment.getIncomingDate().getId()).isPresent()){
-                    Event event = eventRepository.findById(shipment.getIncomingDate().getId()).get();
-                    System.out.println(event.getName());
-                    currentMonthShipmentIncomingEvents.add(event);
-                }
-            }
-            if(shipment.getType() == ShipmentType.OUTGOING){
-                System.out.println("outgoing");
-                if(eventRepository.findById(shipment.getOutgoingDateScheduled().getId()).isPresent()){
-                    Event event = eventRepository.findById(shipment.getOutgoingDateScheduled().getId()).get();
-                    currentMonthShipmentOutgoingEvents.add(event);
-                }
-            }
-        }
-        for(Shipment shipment : currentMonthShipmentsWithAnOutgoingDateScheduled){
-            if(shipment.getType() == ShipmentType.INCOMING){
-                System.out.println("incoming");
-                if(eventRepository.findById(shipment.getIncomingDate().getId()).isPresent()){
-                    Event event = eventRepository.findById(shipment.getIncomingDate().getId()).get();
-                    System.out.println(event.getName());
-                    currentMonthShipmentIncomingEvents.add(event);
-                }
-            }
-            if(shipment.getType() == ShipmentType.OUTGOING){
-                System.out.println("outgoing");
-                if(eventRepository.findById(shipment.getOutgoingDateScheduled().getId()).isPresent()){
-                    Event event = eventRepository.findById(shipment.getOutgoingDateScheduled().getId()).get();
-                    currentMonthShipmentOutgoingEvents.add(event);
-                }
-            }
-        }
-        System.out.println("current month shipment outgoing events"+currentMonthShipmentOutgoingEvents.size());
-        EventsForCalendarDAO listOfEvents = new EventsForCalendarDAO();
-        listOfEvents.addEventsOfOneColorCode(currentMonthShipmentIncomingEvents, "1");
-        listOfEvents.addEventsOfOneColorCode(currentMonthShipmentOutgoingEvents, "2");
         System.out.println(listOfEvents.getEvents().get(0).getName());
         System.out.println(listOfEvents.getEvents().size());
         System.out.println(listOfEvents.getEvents().get(0).getColorCode());
         model.addAttribute("currentMonthShipmentEvents", listOfEvents);
 //        model.addAttribute("currentMonthShipmentEvents", shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth));
 
-        model.addAttribute("currentMonthIncomingShipmentEvents", currentMonthShipmentIncomingEvents);
-        model.addAttribute("currentMonthOutgoingShipmentEvents", currentMonthShipmentOutgoingEvents);
+//        model.addAttribute("currentMonthIncomingShipmentEvents", currentMonthShipmentIncomingEvents);
+//        model.addAttribute("currentMonthOutgoingShipmentEvents", currentMonthShipmentOutgoingEvents);
 
         //only incoming shipment events / only outgoing shipment events
         model.addAttribute("allIncomingShipments", shipmentRepository.findByType(ShipmentType.INCOMING));
