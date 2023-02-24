@@ -43,15 +43,24 @@
 <!--                    <p th:id="eventName + ${iterStat.count}" th:eventName="${event.getName()}" th:text="${event.getName()}"></p>-->
 <!--                    <p th:id="startDate + ${iterStat.count}" th:eventStart="${event.getCalStartDate()}" th:text="${event.toStringStartDate()}"></p>-->
 <!--                    <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getCalEndDate()}" th:text="${event.toStringEndDate()}"></p>-->
+<!--                    <p th:id="color + ${iterStat.count}" th:color="${event.getColor()}"></p>-->
 <!--                </li>-->
 <!--            </ol>-->
-            <ol id="event-data" th:each="event,iterStat : ${currentMonthIncomingShipmentEvents}" style="display: none;">
+            <ol id="event-data" th:each="eventDAO,iterStat : ${currentMonthShipmentEvents.getEvents()}" style="display: none;">
                 <li th:id="${iterStat.count}">
-                    <p th:id="eventName + ${iterStat.count}" th:eventName="${event.getName()}" th:text="${event.getName()}"></p>
-                    <p th:id="startDate + ${iterStat.count}" th:eventStart="${event.getCalStartDate()}" th:text="${event.toStringStartDate()}"></p>
-                    <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getCalEndDate()}" th:text="${event.toStringEndDate()}"></p>
+                    <p th:id="eventName + ${iterStat.count}" th:eventName="${eventDAO.getName()}" th:text="${eventDAO.getName()}"></p>
+                    <p th:id="startDate + ${iterStat.count}" th:eventStart="${eventDAO.getStartDate()}"></p>
+                    <p th:id="endDate + ${iterStat.count}" th:eventEnd="${eventDAO.getEndDate()}"></p>
+                    <p th:id="color + ${iterStat.count}" th:color="${eventDAO.getColorCode()}"></p>
                 </li>
             </ol>
+<!--            <ol id="event-data" th:each="event,iterStat : ${currentMonthIncomingShipmentEvents}" style="display: none;">-->
+<!--                <li th:id="${iterStat.count}">-->
+<!--                    <p th:id="eventName + ${iterStat.count}" th:eventName="${event.getName()}" th:text="${event.getName()}"></p>-->
+<!--                    <p th:id="startDate + ${iterStat.count}" th:eventStart="${event.getCalStartDate()}" th:text="${event.toStringStartDate()}"></p>-->
+<!--                    <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getCalEndDate()}" th:text="${event.toStringEndDate()}"></p>-->
+<!--                </li>-->
+<!--            </ol>-->
         <div id="shipments-color-code">
             <div class="incoming-orange">
                 <div id="orange"></div><p> - Incoming</p>

@@ -7,6 +7,7 @@ import com.example.firstdraftspringfinalproject.data.ShipmentRepository;
 import com.example.firstdraftspringfinalproject.models.Contact;
 import com.example.firstdraftspringfinalproject.models.Event;
 import com.example.firstdraftspringfinalproject.models.Shipment;
+import com.example.firstdraftspringfinalproject.models.dao.EventsForCalendarDAO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,8 @@ public class ManageShipmentsController {
         model.addAttribute("currentMonthEvents", eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth));
         //only shipment events within a date range
         List<Shipment> currentMonthShipments = shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth);
+        ////////TODO
+        System.out.println("current month shipments size:"+currentMonthShipments.size());
         List<Event> currentMonthShipmentIncomingEvents = new ArrayList<>();
         List<Event> currentMonthShipmentOutgoingEvents = new ArrayList<>();
         for(Shipment shipment : currentMonthShipments){
@@ -84,7 +87,15 @@ public class ManageShipmentsController {
                 }
             }
         }
-        model.addAttribute("currentMonthShipmentEvents", shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth));
+        System.out.println("current month shipment outgoing events"+currentMonthShipmentOutgoingEvents.size());
+        EventsForCalendarDAO listOfEvents = new EventsForCalendarDAO();
+        listOfEvents.addEventsOfOneColorCode(currentMonthShipmentIncomingEvents, "1");
+        listOfEvents.addEventsOfOneColorCode(currentMonthShipmentOutgoingEvents, "2");
+        System.out.println(listOfEvents.getEvents().get(0).getName());
+        System.out.println(listOfEvents.getEvents().size());
+        System.out.println(listOfEvents.getEvents().get(0).getColorCode());
+        model.addAttribute("currentMonthShipmentEvents", listOfEvents);
+//        model.addAttribute("currentMonthShipmentEvents", shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth));
 
         model.addAttribute("currentMonthIncomingShipmentEvents", currentMonthShipmentIncomingEvents);
         model.addAttribute("currentMonthOutgoingShipmentEvents", currentMonthShipmentOutgoingEvents);
@@ -92,7 +103,9 @@ public class ManageShipmentsController {
         //only incoming shipment events / only outgoing shipment events
         model.addAttribute("allIncomingShipments", shipmentRepository.findByType(ShipmentType.INCOMING));
         model.addAttribute("allOutgoingShipments", shipmentRepository.findByType(ShipmentType.OUTGOING));
-        model.addAttribute("eventTotal",  eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth).size());
+        model.addAttribute("eventTotal", listOfEvents.getEvents().size());
+//        model.addAttribute("eventTotal",  eventRepository.findByCalStartDateBetween(startOfMonth, endOfMonth).size());
+//        model.addAttribute("eventTotal",  currentMonthShipmentIncomingEvents.size());
 
         //TODO - coming from "Add an Incoming Shipment" link will take you to the AddShipment Form with the Type
         // pre-populated with "INCOMING" in the shipment type field., and vice-versa for outgoing.

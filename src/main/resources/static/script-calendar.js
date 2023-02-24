@@ -65,10 +65,11 @@ function loadEventData(){
     let eventCount = document.getElementById("eventTotal").innerHTML;
 
         class Event {
-            constructor(name, startDate, endDate) {
+            constructor(name, startDate, endDate, color) {
                 this.name = name;
                 this.startDate = startDate;
                 this.endDate = endDate;
+                this.color = color;
             }
         }
 
@@ -91,10 +92,12 @@ function loadEventData(){
             let year = Number(eventEnd.slice((eventEnd.indexOf(",YEAR=")+6),(eventEnd.indexOf(",YEAR=")+10)));
             let month = Number(eventEnd.slice((eventEnd.indexOf(",MONTH=")+7),eventEnd.indexOf(",WEEK_OF_YEAR=")));
             let date = Number(eventEnd.slice((eventEnd.indexOf(",DAY_OF_MONTH=")+14),(eventEnd.indexOf(",DAY_OF_YEAR="))));
-
             let eventEndDate = new Date(year, month, date);
 
-            let event = new Event(eventName, eventStartDate, eventEndDate);
+            let eventColorCodeElement = document.querySelector("#color"+i);
+            let eventColor = eventColorCodeElement.getAttribute("color");
+
+            let event = new Event(eventName, eventStartDate, eventEndDate, eventColor);
             arrayOfEvents.push(event);
         }
 
@@ -111,8 +114,9 @@ function populateCalendarWithEvents(calendarDate, eventData){
         if(currentMonth == eventMonth){
             let startDateDayOfMonth = eventData[i].startDate.getDate();
             let eventName = eventData[i].name;
+            let eventColorCode = eventData[i].color;
             let day = document.getElementById('date-'+startDateDayOfMonth);
-            day.innerHTML=startDateDayOfMonth + "<div>"+eventName+"</div>";
+            day.innerHTML=startDateDayOfMonth + "<div class='cal-color-code"+eventColorCode+"'>"+eventName+"</div>";
         }
 
     }
