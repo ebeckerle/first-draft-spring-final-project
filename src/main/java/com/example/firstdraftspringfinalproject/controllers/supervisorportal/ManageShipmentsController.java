@@ -60,6 +60,8 @@ public class ManageShipmentsController {
         System.out.println(listOfEvents.getEvents().size());
         System.out.println(listOfEvents.getEvents().get(0).getColorCode());
         model.addAttribute("currentMonthShipmentEvents", listOfEvents);
+        System.out.println(listOfEvents.getKeyLegend().size());
+
 //        model.addAttribute("currentMonthShipmentEvents", shipmentRepository.findShipmentsWithInDateRange(startOfMonth, endOfMonth));
 
 //        model.addAttribute("currentMonthIncomingShipmentEvents", currentMonthShipmentIncomingEvents);
