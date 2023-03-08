@@ -38,14 +38,7 @@
 
     <div class="col-container">
         <div class="left-col-70-percent">
-<!--            <ol id="event-data" th:each="event,iterStat : ${currentMonthEvents}" style="display: none;">-->
-<!--                <li th:id="${iterStat.count}">-->
-<!--                    <p th:id="eventName + ${iterStat.count}" th:eventName="${event.getName()}" th:text="${event.getName()}"></p>-->
-<!--                    <p th:id="startDate + ${iterStat.count}" th:eventStart="${event.getCalStartDate()}" th:text="${event.toStringStartDate()}"></p>-->
-<!--                    <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getCalEndDate()}" th:text="${event.toStringEndDate()}"></p>-->
-<!--                    <p th:id="color + ${iterStat.count}" th:color="${event.getColor()}"></p>-->
-<!--                </li>-->
-<!--            </ol>-->
+
             <ol id="event-data" th:each="eventDAO,iterStat : ${currentMonthShipmentEvents.getEvents()}" style="display: none;">
                 <li th:id="${iterStat.count}">
                     <p th:id="eventName + ${iterStat.count}" th:eventName="${eventDAO.getName()}" th:text="${eventDAO.getName()}"></p>
@@ -54,37 +47,19 @@
                     <p th:id="color + ${iterStat.count}" th:color="${eventDAO.getColorCode()}"></p>
                 </li>
             </ol>
-<!--            <ol id="event-data" th:each="event,iterStat : ${currentMonthIncomingShipmentEvents}" style="display: none;">-->
-<!--                <li th:id="${iterStat.count}">-->
-<!--                    <p th:id="eventName + ${iterStat.count}" th:eventName="${event.getName()}" th:text="${event.getName()}"></p>-->
-<!--                    <p th:id="startDate + ${iterStat.count}" th:eventStart="${event.getCalStartDate()}" th:text="${event.toStringStartDate()}"></p>-->
-<!--                    <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getCalEndDate()}" th:text="${event.toStringEndDate()}"></p>-->
-<!--                </li>-->
-<!--            </ol>-->
-<!--        <div id="shipments-color-code">-->
-<!--            <div class="incoming-orange">-->
-<!--                <div id="orange"></div><p> - Incoming</p>-->
-<!--            </div>-->
-<!--            <div class="outgoing-green">-->
-<!--                <div id="green"></div><p> - Outgoing</p>-->
-<!--            </div>-->
-<!--        </div>-->
-            <div id="cal-legend-color-code">
+
+            <div>
                 <div th:each="legend,iterStat : ${currentMonthShipmentEvents.getKeyLegend()}">
                     <div th:class="color + ${iterStat.count}">
-                        <div th:id="color + ${iterStat.count}"></div><p th:text="${legend.value}"></p>
+                        <div th:id="color + ${iterStat.count}"></div><p th:text="' - ' + ${legend.value}"></p>
                     </div>
                 </div>
             </div>
-<!--            <div id="cal-legend-color-code" th:each="key,iterStat : ${currentMonthShipmentEvents.getKeyLegend()}">-->
-<!--                    <div th:class="color + ${iterStat.count}">-->
-<!--                        <div th:id="color + ${iterStat.count}"></div><p th:text="${key}"></p>-->
-<!--                    </div>-->
-<!--            </div>-->
+
 <!--TODO - styling for the following shipment event list, and  change the way they are listed - todos in the event class and controller ,-->
 <!-- bc right now start date and end date will always be the same (for shipments) so I don't wanna list both-->
             <ol id="event-data-list" style="display: none;">
-                <li th:each="event : ${currentMonthEvents}" th:text="${event.getName() + ': '+ event.toStringStartDate() +' - '+ event.toStringEndDate()}">
+                <li th:each="eventDAO : ${currentMonthShipmentEvents.getEvents()}" th:text="${eventDAO.getName() + ': '+ eventDAO.toStringStartDate() +' - '+ eventDAO.toStringEndDate()}">
                 </li>
             </ol>
 
