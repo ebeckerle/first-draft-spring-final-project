@@ -60,8 +60,10 @@ public class ShipmentDAO {
         }
         System.out.println("current month shipment outgoing events"+currentMonthShipmentOutgoingEvents.size());
         EventsForCalendarDAO listOfEvents = new EventsForCalendarDAO();
-        listOfEvents.addEventsOfOneColorCode(currentMonthShipmentIncomingEvents, "1");
-        listOfEvents.addEventsOfOneColorCode(currentMonthShipmentOutgoingEvents, "2");
+        listOfEvents.addEventsOfOneColorCode(currentMonthShipmentIncomingEvents, 1, "Incoming");
+        listOfEvents.addEventsOfOneColorCode(currentMonthShipmentOutgoingEvents, 2, "Outgoing");
+
+
         return listOfEvents;
     }
 

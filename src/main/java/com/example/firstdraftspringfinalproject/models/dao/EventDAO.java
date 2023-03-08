@@ -12,9 +12,9 @@ public class EventDAO {
     private Calendar startDate;
     private Calendar endDate;
 
-    private String colorCode;
+    private Integer colorCode;
 
-    public EventDAO(Event event, String colorCode){
+    public EventDAO(Event event, Integer colorCode){
         this.name = event.getName();
         this.startDate = event.getCalStartDate();
         this.endDate = event.getCalEndDate();
@@ -44,11 +44,11 @@ public class EventDAO {
         this.endDate = endDate;
     }
 
-    public String getColorCode() {
+    public Integer getColorCode() {
         return colorCode;
     }
 
-    public void setColorCode(String colorCode) {
+    public void setColorCode(Integer colorCode) {
         this.colorCode = colorCode;
     }
 }

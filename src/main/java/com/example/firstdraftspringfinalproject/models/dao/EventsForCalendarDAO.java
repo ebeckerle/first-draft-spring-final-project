@@ -26,15 +26,17 @@ public class EventsForCalendarDAO {
 
     private List<String> keyOrLegend = new ArrayList<>();
 
-    public void addEventsOfOneColorCode(List<Event> events, String colorCode){
+    public void addEventsOfOneColorCode(List<Event> events, Integer colorCode, String legend){
         System.out.println("before for loope" + this.events.size());
         for (Event event :
                 events) {
             EventDAO eventDAO = new EventDAO(event, colorCode);
             this.events.add(eventDAO);
         }
-        System.out.println("after for loope" + this.events.size());
-
+        if(!this.keyLegend.containsKey(colorCode)){
+            this.keyLegend.put(colorCode, legend);
+        }
+//        System.out.println("after for loope" + this.events.size());
     }
 
     public List<EventDAO> getEvents() {
