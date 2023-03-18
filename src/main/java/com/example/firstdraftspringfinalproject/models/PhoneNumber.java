@@ -76,7 +76,7 @@ public class PhoneNumber {
 
     @Override
     public String toString() {
-        return countryCode +" "+ areaCode + "-" +
+        return countryCode +" "+ areaCode +
                 "-" + exchangeCode +
                 "-" + lineNumber;
     }

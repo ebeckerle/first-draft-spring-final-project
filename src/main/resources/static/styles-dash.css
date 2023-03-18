@@ -189,11 +189,6 @@
     padding: 8px;
 }
 
-.right-col {
-    display: flex;
-    flex-direction: column;
-}
-
 .project-dash {
     border: 2px solid grey;
     margin: 8px;

@@ -10,64 +10,116 @@
 
 <div class="main-contents">
 
-    <p>Shipments Feature will go here</p>
+    <h1>Shipments</h1>
 
-    <ol id="event-data" th:each="event,iterStat : ${currentMonthEvents}" style="display: none;">
-        <li th:id="${iterStat.count}">
-            <p th:id="eventName + ${iterStat.count}" th:eventName="${event.getName()}"></p>
-            <p th:id="startDate + ${iterStat.count}" th:eventStart="${event.getCalStartDate()}"></p>
-            <p th:id="endDate + ${iterStat.count}" th:eventEnd="${event.getCalEndDate()}"></p>
-        </li>
-    </ol>
+        <ol>
+            <li>
+                <input type="radio"
+                       id="viewList"
+                       name="viewShipments"
+                       value="viewList"
+                       onchange="toggleViewListOrCalendar()">
+                <label for="viewList">View List</label>
+            </li>
+            <li>
+                <input type="radio"
+                       id="viewCalendar"
+                       name="viewShipments"
+                       value="viewCalendar"
+                       checked
+                       onchange="toggleViewListOrCalendar()">
+                <label for="viewCalendar">View Calendar</label>
+            </li>
+        </ol>
 
-    <p id="eventTotal" th:value="eventTotal" th:text="${eventTotal}" style="display: none;"></p>
+    <hr>
 
 
-    <div id="calendar">
-        <!-- Parent container for the calendar month -->
-        <div class="calendar-month">
-            <!-- The calendar header -->
-            <section class="calendar-month-header">
-                <!-- Month name -->
-                <div
-                        id="selected-month"
-                        class="calendar-month-header-selected-month"
-                >
-                    Current Month
+
+    <div class="col-container">
+        <div class="left-col-70-percent">
+
+            <ol id="event-data" th:each="eventDAO,iterStat : ${currentMonthShipmentEvents.getEvents()}" style="display: none;">
+                <li th:id="${iterStat.count}">
+                    <p th:id="eventName + ${iterStat.count}" th:eventName="${eventDAO.getName()}" th:text="${eventDAO.getName()}"></p>
+                    <p th:id="startDate + ${iterStat.count}" th:eventStart="${eventDAO.getStartDate()}"></p>
+                    <p th:id="endDate + ${iterStat.count}" th:eventEnd="${eventDAO.getEndDate()}"></p>
+                    <p th:id="color + ${iterStat.count}" th:color="${eventDAO.getColorCode()}"></p>
+                </li>
+            </ol>
+
+            <div>
+                <div th:each="legend,iterStat : ${currentMonthShipmentEvents.getKeyLegend()}">
+                    <div th:class="color + ${iterStat.count}">
+                        <div th:id="color + ${iterStat.count}"></div><p th:text="' - ' + ${legend.value}"></p>
+                    </div>
                 </div>
-                <!-- Pagination -->
-                <div class="calendar-month-header-selectors">
-                    <span id="previous-month-selector"> </span>
-                    <span id="present-month-selector"></span>
-                    <span id="next-month-selector"> </span>
+            </div>
+
+<!--TODO - styling for the following shipment event list, and  change the way they are listed - todos in the event class and controller ,-->
+<!-- bc right now start date and end date will always be the same (for shipments) so I don't wanna list both-->
+            <ol id="event-data-list" style="display: none;">
+                <li th:each="eventDAO : ${currentMonthShipmentEvents.getEvents()}" th:text="${eventDAO.getName() + ': '+ eventDAO.toStringStartDate() +' - '+ eventDAO.toStringEndDate()}">
+                </li>
+            </ol>
+
+            <p id="eventTotal" th:value="eventTotal" th:text="${eventTotal}" style="display: none;"></p>
+
+            <div id="calendar">
+                <!-- Parent container for the calendar month -->
+                <div class="calendar-month">
+                    <!-- The calendar header -->
+                    <section class="calendar-month-header">
+                        <!-- Month name -->
+                        <div
+                                id="selected-month"
+                                class="calendar-month-header-selected-month"
+                        >
+                            Current Month
+                        </div>
+                        <!-- Pagination -->
+                        <div class="calendar-month-header-selectors">
+                            <span id="previous-month-selector"> </span>
+                            <span id="present-month-selector"></span>
+                            <span id="next-month-selector"> </span>
+                        </div>
+                    </section>
+
+                    <table>
+                        <!-- Calendar grid header -->
+                        <thead id="days-of-week" class="day-of-week">
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                        </thead>
+                        <!-- Calendar grid -->
+                        <tbody id="calendar-body">
+
+                        </tbody>
+                    </table>
                 </div>
-            </section>
 
-            <table>
-                <!-- Calendar grid header -->
-                <thead id="days-of-week" class="day-of-week">
-                <tr>
-                    <th>Sun</th>
-                    <th>Mon</th>
-                    <th>Tue</th>
-                    <th>Wed</th>
-                    <th>Thu</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
-                </tr>
-                </thead>
-                <!-- Calendar grid -->
-                <tbody id="calendar-body">
-
-                </tbody>
-            </table>
+            </div>
         </div>
 
+        <div class="right-col-30-percent">
+<!--            <div>-->
+                <a href="/supervisor/manageshipments/addShipment">Create an Incoming Shipment</a>
+                <br>
+                <a href="/supervisor/manageshipments/addShipment">Create an Outgoing Shipment</a>
+<!--            </div>-->
+        </div>
     </div>
 
-    <a href="/supervisor/manageshipments/addShipment">Create an Incoming Shipment</a>
-    <br>
-    <a href="/supervisor/manageshipments/addShipment">Create an Outgoing Shipment</a>
+
+
+
 
 </div>
 

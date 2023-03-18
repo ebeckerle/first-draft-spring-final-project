@@ -22,3 +22,19 @@ function addANewContactForCarrier(){
         a.dispatchEvent(event);
     }
 }
+
+function toggleViewListOrCalendar(){
+    console.log("jin the toggle view list or calendar function");
+
+    if(document.getElementById("viewList").checked){
+        console.log("in the view list selected");
+        document.getElementById("event-data-list").style.display = "block";
+        document.getElementById("calendar").style.display = "none";
+    }
+    if(document.getElementById("viewCalendar").checked){
+        document.getElementById("event-data-list").style.display = "none";
+        document.getElementById("calendar").style.display = "block";
+    }
+
+
+}

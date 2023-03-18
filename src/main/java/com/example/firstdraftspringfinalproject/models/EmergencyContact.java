@@ -43,6 +43,8 @@ public class EmergencyContact extends Contact {
         }
     }
 
+    public EmergencyContact(){}
+
     public void setFirstNameWhenEditing(String firstNameWhenEditing){
         if (!firstNameWhenEditing.equals("")){
             this.firstName = firstNameWhenEditing;

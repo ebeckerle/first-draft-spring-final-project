@@ -3,10 +3,9 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.models.Employee;
-import com.example.firstdraftspringfinalproject.models.OtpGenerator;
+import com.example.firstdraftspringfinalproject.models.pojo.OtpGenerator;
 import com.example.firstdraftspringfinalproject.models.Timesheet;
 import com.example.firstdraftspringfinalproject.models.dto.CreateEmployeeDTO;
-import com.example.firstdraftspringfinalproject.models.dto.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -19,8 +18,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.*;
 
 @Controller

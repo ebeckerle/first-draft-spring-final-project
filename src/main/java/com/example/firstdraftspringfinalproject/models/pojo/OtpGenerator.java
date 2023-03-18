@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.pojo;
 
 import java.util.Random;
 import java.util.SplittableRandom;

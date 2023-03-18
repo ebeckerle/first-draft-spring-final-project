@@ -190,3 +190,49 @@ body {
 
 
 */
+
+.cal-color-code1 {
+    color: green;
+}
+
+.cal-color-code2 {
+    color: orange;
+}
+
+/* CALENDAR - KEY / LEGEND */
+
+#color1 {
+    background-color: green;
+    width: 8px;
+    height: 8px;
+    padding: 10px;
+}
+
+#color2 {
+    background-color: orange;
+    width: 8px;
+    height: 8px;
+    padding: 10px;
+}
+
+.color1 {
+    display: flex;
+}
+
+.color2 {
+    display: flex;
+}
+
+.color1 p {
+    color: green;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 1px;
+}
+
+.color2 p {
+    color: orange;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 1px;
+}

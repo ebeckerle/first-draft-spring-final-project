@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 public class EditContactDetailsDTO {
 
-
+//TODO  - custom constraint where field Must be left empty or include a non-whitespace character (optional notblank)
     @Size(max = 80, message = "Must be under 80 characters")
 //    @NotBlank(message = "Must be left empty or include a non-whitespace character")
     private String addressLineOne;
@@ -156,6 +156,16 @@ public class EditContactDetailsDTO {
     public boolean areThereAnyValuesInTheEmergContactToUpdate(){
         if (this.ecLastName.equals("")&&this.ecFirstName.equals("")
                 &&this.ecPhoneNumber.equals("")&&this.ecRelationship.equals("")){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean areThereAnyValuesInTheContactInfoToUpdate(){
+        if (this.addressLineOne.equals("")&&this.city.equals("")
+                &&this.state.equals("")&&this.zipcode.equals("")
+                &&this.email1.equals("")&&this.email2.equals("")
+                &&this.phoneNumber1.equals("")&&this.phoneNumber2.equals("")){
             return false;
         }
         return true;

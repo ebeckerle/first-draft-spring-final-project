@@ -1,6 +1,7 @@
 package com.example.firstdraftspringfinalproject.data;
 
 import com.example.firstdraftspringfinalproject.models.Shipment;
+import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 import org.springframework.data.repository.CrudRepository;
 import com.example.firstdraftspringfinalproject.models.Event;
 
@@ -16,5 +17,7 @@ public interface EventRepository  extends CrudRepository<Event, Integer> {
     List<Event> findByCalStartDateAndCalEndDate(Calendar calStartDate, Calendar calEndDate);
 
     List<Event> findByCalStartDateBetween(Calendar firstMonthDate, Calendar lastMonthDate);
+
+
 
 }

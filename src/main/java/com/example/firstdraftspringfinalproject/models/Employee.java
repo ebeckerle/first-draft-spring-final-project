@@ -43,7 +43,7 @@ public class Employee {
 //    @Valid
     private Contact contactInfo;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private EmergencyContact emergencyContact;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -301,7 +301,48 @@ public class Employee {
         if(!editedContactDetails.getEcLastName().equals("")){
             this.emergencyContact.lastName = editedContactDetails.getEcLastName();
         }
+        if(!editedContactDetails.getEcPhoneNumber().equals("")){
+            PhoneNumber ecPhone = new PhoneNumber(editedContactDetails.getEcPhoneNumber());
+            ArrayList<PhoneNumber> phoneNumbers = new ArrayList<>();
+            phoneNumbers.add(ecPhone);
+            this.emergencyContact.phoneNumbers = phoneNumbers;
+        }
+        if(!editedContactDetails.getEcRelationship().equals("")){
+            this.emergencyContact.relationship = editedContactDetails.getEcRelationship();
+        }
     }
+    public void setContactInfoUpdates(EditContactDetailsDTO editedContactDetails){
+        if(!editedContactDetails.getAddressLineOne().equals("")){
+            this.contactInfo.setAddressLineOne(editedContactDetails.getAddressLineOne());
+        }
+        if(!editedContactDetails.getCity().equals("")){
+            this.emergencyContact.setCity(editedContactDetails.getCity());
+        }
+        if(!editedContactDetails.getState().equals("")){
+            this.emergencyContact.setState(editedContactDetails.getState());
+        }
+        if(!editedContactDetails.getZipcode().equals("")){
+            this.emergencyContact.setZipcode(editedContactDetails.getZipcode());
+        }
+        if(!editedContactDetails.getEmail1().equals("")){
+            this.contactInfo.getEmail().add(editedContactDetails.getEmail1());
+        }
+        if(!editedContactDetails.getEmail2().equals("")){
+            this.contactInfo.getEmail().add(editedContactDetails.getEmail2());
+        }
+        if(!editedContactDetails.getPhoneNumber1().equals("")){
+            //TODO - we could end up with repeated phone numbers in the database with this? - autowire repo and
+            // query database before instantiating a new phone number? (see if already exists,)
+            PhoneNumber phone = new PhoneNumber(editedContactDetails.getPhoneNumber1());
+            this.contactInfo.getPhoneNumbers().add(phone);
+        }
+        if(!editedContactDetails.getPhoneNumber2().equals("")){
+            PhoneNumber phone = new PhoneNumber(editedContactDetails.getPhoneNumber2());
+            this.contactInfo.getPhoneNumbers().add(phone);
+        }
+
+    }
+
 //to String & Equals Methods
 
 
