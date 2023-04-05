@@ -4,13 +4,9 @@ import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
-import com.example.firstdraftspringfinalproject.models.*;
+import com.example.firstdraftspringfinalproject.models.dao.Metrics;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

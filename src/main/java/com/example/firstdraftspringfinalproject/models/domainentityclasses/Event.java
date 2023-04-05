@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;

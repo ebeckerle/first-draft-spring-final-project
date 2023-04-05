@@ -1,8 +1,8 @@
 package com.example.firstdraftspringfinalproject.data;
 
-import com.example.firstdraftspringfinalproject.models.Project;
-import com.example.firstdraftspringfinalproject.models.ProjectWorkTypeSet;
-import com.example.firstdraftspringfinalproject.models.WorkType;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.ProjectWorkTypeSet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.WorkType;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

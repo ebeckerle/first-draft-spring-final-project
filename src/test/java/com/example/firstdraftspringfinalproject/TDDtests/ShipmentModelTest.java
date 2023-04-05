@@ -1,12 +1,11 @@
 package com.example.firstdraftspringfinalproject.TDDtests;
 
-import com.example.firstdraftspringfinalproject.models.*;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Pallet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.ProductType;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Shipment;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
 import static java.util.Objects.isNull;
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,7 +54,7 @@ public class ShipmentModelTest {
     // update Project Class:
 
     private Project pNam = new Project("NAM", "Nelson Atkins Museum");
-    private  Shipment testShipmentOne = new Shipment("PhaseII - NAM", pNam, ShipmentType.OUTGOING);
+    private Shipment testShipmentOne = new Shipment("PhaseII - NAM", pNam, ShipmentType.OUTGOING);
     private ProductType testProductTypeOne = new ProductType("Wooden Window Sash", "double-hung, six over one");
     private ProductType testProductTypeTwo = new ProductType("Steel Window Sash", "casement, 1 lite");
     private Pallet testPalletOne = new Pallet(testProductTypeOne, 5);

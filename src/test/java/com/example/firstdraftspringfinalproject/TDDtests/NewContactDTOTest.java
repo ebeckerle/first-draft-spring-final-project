@@ -1,7 +1,5 @@
 package com.example.firstdraftspringfinalproject.TDDtests;
 
-import com.example.firstdraftspringfinalproject.models.Contact;
-import com.example.firstdraftspringfinalproject.models.PhoneNumber;
 import com.example.firstdraftspringfinalproject.models.dto.NewContactDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.junit.BeforeClass;

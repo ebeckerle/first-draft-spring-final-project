@@ -1,9 +1,15 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets;
+
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
+
+//TODO: add a explanatory file (READ.ME?) to this timesheets package - maybe a pdf/jpg that 's an image graph
+// of how the timesheet is translated with line entries being added to a timesheet, etc etc
+// image of timesheet existing with callouts, uml diagram as well.
 
 @Entity
 public class Timesheet {

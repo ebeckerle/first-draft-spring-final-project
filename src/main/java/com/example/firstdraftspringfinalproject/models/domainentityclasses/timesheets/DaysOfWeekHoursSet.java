@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,18 +1,10 @@
 package com.example.firstdraftspringfinalproject.TDDtests;
 
-import com.example.firstdraftspringfinalproject.models.Contact;
-import com.example.firstdraftspringfinalproject.models.PhoneNumber;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.Contact;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.PhoneNumber;
 import com.example.firstdraftspringfinalproject.models.dto.NewContactDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import java.util.ArrayList;
-import java.util.Set;
 
 import static java.util.Objects.isNull;
 import static org.junit.jupiter.api.Assertions.*;

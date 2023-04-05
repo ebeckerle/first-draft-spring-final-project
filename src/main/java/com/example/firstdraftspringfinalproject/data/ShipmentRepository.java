@@ -1,8 +1,7 @@
 package com.example.firstdraftspringfinalproject.data;
 
-import com.example.firstdraftspringfinalproject.models.DaysOfWeekHoursSet;
-import com.example.firstdraftspringfinalproject.models.Event;
-import com.example.firstdraftspringfinalproject.models.Shipment;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Event;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Shipment;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

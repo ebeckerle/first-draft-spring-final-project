@@ -1,7 +1,6 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Objects;
 

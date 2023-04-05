@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

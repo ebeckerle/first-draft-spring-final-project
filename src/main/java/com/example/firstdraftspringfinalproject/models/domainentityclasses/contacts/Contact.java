@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts;
 
 import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
 import com.example.firstdraftspringfinalproject.models.dto.NewContactDTO;

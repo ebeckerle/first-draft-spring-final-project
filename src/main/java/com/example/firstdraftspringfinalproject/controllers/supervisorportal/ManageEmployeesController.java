@@ -2,9 +2,9 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
-import com.example.firstdraftspringfinalproject.models.Employee;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.pojo.OtpGenerator;
-import com.example.firstdraftspringfinalproject.models.Timesheet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.dto.CreateEmployeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;

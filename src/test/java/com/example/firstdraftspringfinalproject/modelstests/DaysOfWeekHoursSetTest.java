@@ -1,6 +1,6 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
-import com.example.firstdraftspringfinalproject.models.DaysOfWeekHoursSet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.DaysOfWeekHoursSet;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

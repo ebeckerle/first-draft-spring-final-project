@@ -1,10 +1,12 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets;
+
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.WorkType;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity

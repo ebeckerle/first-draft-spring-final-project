@@ -1,15 +1,12 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses;
 
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.Contact;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 

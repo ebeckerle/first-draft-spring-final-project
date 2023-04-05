@@ -1,7 +1,11 @@
 package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 
 import com.example.firstdraftspringfinalproject.data.*;
-import com.example.firstdraftspringfinalproject.models.*;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.DaysOfWeekHoursSet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.ProjectWorkTypeSet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

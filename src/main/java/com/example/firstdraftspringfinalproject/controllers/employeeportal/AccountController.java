@@ -1,14 +1,10 @@
 package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
-import com.example.firstdraftspringfinalproject.data.ProjectRepository;
-import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
-import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
-import com.example.firstdraftspringfinalproject.models.Contact;
-import com.example.firstdraftspringfinalproject.models.EmergencyContact;
-import com.example.firstdraftspringfinalproject.models.Employee;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.Contact;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.EmergencyContact;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
-import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -2,10 +2,9 @@ package com.example.firstdraftspringfinalproject.models.dao;
 
 import com.example.firstdraftspringfinalproject.data.EventRepository;
 import com.example.firstdraftspringfinalproject.data.ShipmentRepository;
-import com.example.firstdraftspringfinalproject.models.Event;
-import com.example.firstdraftspringfinalproject.models.Shipment;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Event;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Shipment;
 import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Calendar;

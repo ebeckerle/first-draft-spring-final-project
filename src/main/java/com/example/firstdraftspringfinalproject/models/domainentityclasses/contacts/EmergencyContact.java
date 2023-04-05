@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts;
 
 import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
@@ -7,14 +7,13 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @DiscriminatorValue("4")
 public class EmergencyContact extends Contact {
 
     @Size(max = 40)
-    String relationship;
+    protected String relationship;
 
     public EmergencyContact(EditContactDetailsDTO editContactDetailsDTO){
         this.contactType = ContactType.EMERGENCYCONTACT;

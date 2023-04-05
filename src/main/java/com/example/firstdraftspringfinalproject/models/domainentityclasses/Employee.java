@@ -1,12 +1,15 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses;
 
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.Contact;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.EmergencyContact;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.PhoneNumber;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;

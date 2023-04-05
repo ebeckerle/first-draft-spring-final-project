@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets;
 
 import java.util.Objects;
 import javax.persistence.*;

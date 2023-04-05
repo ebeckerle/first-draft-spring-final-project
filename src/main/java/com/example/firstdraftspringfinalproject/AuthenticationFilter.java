@@ -1,7 +1,7 @@
 package com.example.firstdraftspringfinalproject;
 
 import com.example.firstdraftspringfinalproject.controllers.AuthenticationController;
-import com.example.firstdraftspringfinalproject.models.Employee;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;

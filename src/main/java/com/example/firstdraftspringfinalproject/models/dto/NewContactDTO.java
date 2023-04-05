@@ -1,16 +1,12 @@
 package com.example.firstdraftspringfinalproject.models.dto;
 
-import com.example.firstdraftspringfinalproject.models.PhoneNumber;
 import com.example.firstdraftspringfinalproject.models.constraints.*;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 public class NewContactDTO {
 

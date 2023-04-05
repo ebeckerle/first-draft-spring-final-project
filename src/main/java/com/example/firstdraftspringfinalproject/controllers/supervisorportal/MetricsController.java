@@ -1,7 +1,8 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.*;
-import com.example.firstdraftspringfinalproject.models.*;
+import com.example.firstdraftspringfinalproject.models.dao.Metrics;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("supervisor/metrics")

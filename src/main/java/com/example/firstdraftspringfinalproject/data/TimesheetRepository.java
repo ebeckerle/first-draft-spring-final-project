@@ -1,8 +1,6 @@
 package com.example.firstdraftspringfinalproject.data;
 
-import com.example.firstdraftspringfinalproject.models.Employee;
-import com.example.firstdraftspringfinalproject.models.Timesheet;
-import org.springframework.data.jpa.repository.Query;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.GregorianCalendar;

@@ -1,13 +1,14 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
-import com.example.firstdraftspringfinalproject.models.*;
-import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.DaysOfWeekHoursSet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.ProjectWorkTypeSet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,7 +1,7 @@
 package com.example.firstdraftspringfinalproject.controllers;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
-import com.example.firstdraftspringfinalproject.models.Employee;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.dto.LoginFormDTO;
 import com.example.firstdraftspringfinalproject.models.dto.RegisterFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Controller

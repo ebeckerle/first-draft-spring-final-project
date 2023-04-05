@@ -1,7 +1,6 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
-import com.example.firstdraftspringfinalproject.models.WorkType;
-import org.junit.Before;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.WorkType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

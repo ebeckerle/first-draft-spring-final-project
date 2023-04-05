@@ -1,9 +1,13 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.dao;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.ProjectWorkTypeSet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;

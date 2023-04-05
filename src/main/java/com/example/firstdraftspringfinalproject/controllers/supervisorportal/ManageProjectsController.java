@@ -1,7 +1,7 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
-import com.example.firstdraftspringfinalproject.models.Project;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

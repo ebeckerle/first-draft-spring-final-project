@@ -1,7 +1,7 @@
 package com.example.firstdraftspringfinalproject.TDDtests;
 
-import com.example.firstdraftspringfinalproject.models.Pallet;
-import com.example.firstdraftspringfinalproject.models.ProductType;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Pallet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.ProductType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

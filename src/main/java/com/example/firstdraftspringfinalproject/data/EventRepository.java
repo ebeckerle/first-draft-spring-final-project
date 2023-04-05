@@ -1,13 +1,10 @@
 package com.example.firstdraftspringfinalproject.data;
 
-import com.example.firstdraftspringfinalproject.models.Shipment;
-import com.example.firstdraftspringfinalproject.models.enums.ShipmentType;
 import org.springframework.data.repository.CrudRepository;
-import com.example.firstdraftspringfinalproject.models.Event;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Event;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
 
 public interface EventRepository  extends CrudRepository<Event, Integer> {
 

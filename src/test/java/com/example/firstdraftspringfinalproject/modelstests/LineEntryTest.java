@@ -1,11 +1,11 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
-import com.example.firstdraftspringfinalproject.models.*;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.DaysOfWeekHoursSet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.ProjectWorkTypeSet;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import org.junit.jupiter.api.Test;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.HashMap;
-import java.util.Optional;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;

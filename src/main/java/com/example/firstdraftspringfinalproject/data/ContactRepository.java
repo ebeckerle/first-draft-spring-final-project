@@ -1,8 +1,6 @@
 package com.example.firstdraftspringfinalproject.data;
 
-import com.example.firstdraftspringfinalproject.models.Contact;
-import com.example.firstdraftspringfinalproject.models.DaysOfWeekHoursSet;
-import com.example.firstdraftspringfinalproject.models.Employee;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.Contact;
 import com.example.firstdraftspringfinalproject.models.enums.ContactType;
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,8 +1,7 @@
 package com.example.firstdraftspringfinalproject.models.dao;
 
-import com.example.firstdraftspringfinalproject.models.Event;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Event;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Calendar;
 public class EventDAO {
 

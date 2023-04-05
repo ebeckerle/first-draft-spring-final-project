@@ -1,4 +1,6 @@
-package com.example.firstdraftspringfinalproject.models;
+package com.example.firstdraftspringfinalproject.models.domainentityclasses;
+
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.Contact;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -20,22 +22,24 @@ public class Project {
     @Size(max=100, message = "Please provide a name for the project in less than 100 characters")
     private String projectName;
 
-    // TODO : Other fields we may want in the future:
-
     @OneToOne
     @JoinColumn(name = "contact_info_id")
     private Contact contactInfo;
+
+    // TODO : Other fields we may want in the future:
+    //  hoursQuoted, hoursBilled, etc;
+    //  number of shipments upcoming;
+    //  shipment goal dates; actual shipment dates
 
     public Contact getContactInfo() {
         return contactInfo;
     }
 
+
     public void setContactInfo(Contact contactInfo) {
         this.contactInfo = contactInfo;
     }
-    //  hoursQuoted, hoursBilled, contactInfo, etc;
-    //  number of shipments upcoming;
-    //  shipment goal dates; actual shipment dates
+
 
     public Project (String projectCode, String projectName){
         this.projectCode = projectCode;
