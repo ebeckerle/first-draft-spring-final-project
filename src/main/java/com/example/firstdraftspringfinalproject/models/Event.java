@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
+
 
 @Entity
 public class Event {

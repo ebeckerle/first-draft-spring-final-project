@@ -4,7 +4,6 @@ import com.example.firstdraftspringfinalproject.data.ContactRepository;
 import com.example.firstdraftspringfinalproject.data.EventRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.ShipmentRepository;
-import com.example.firstdraftspringfinalproject.models.Contact;
 import com.example.firstdraftspringfinalproject.models.Event;
 import com.example.firstdraftspringfinalproject.models.Shipment;
 import com.example.firstdraftspringfinalproject.models.dao.EventsForCalendarDAO;
@@ -18,17 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
-
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+
 
 @Controller
 @RequestMapping("supervisor/manageshipments")

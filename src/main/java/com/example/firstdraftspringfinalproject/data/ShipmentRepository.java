@@ -22,6 +22,13 @@ public interface ShipmentRepository  extends CrudRepository<Shipment, Integer> {
 
     List<Shipment> findByOutgoingDateActual(Event outgoingDateScheduled);
 
+    //TODO TODODODODODODODO!!!!! FIX THIS SELECT ALLLLL!!!! AND MAYBE ADD 'IF EXISTS'....
+    // Following on the list of the MySQL best practices, do not just blindly use SELECT * in the code.
+    // If the table has many columns, all will be returned. This will slow down the response time,
+    // especially if you send the result to a front-end application. Instead, explicitly type out the
+    // column names which are actually needed. For checking the existence of data, use EXISTS clause
+    // which is faster in response time. For example, use:If EXISTS(SELECT * from Table WHERE col=’some value’)
+
     @Query(value = "SELECT * FROM shipment INNER JOIN event ON shipment.incoming_date_id=event.id WHERE cal_start_date BETWEEN :startRange AND :endRange",
             nativeQuery = true)
     List<Shipment> findShipmentsWithAIncomingDateWithInDateRange(@Param("startRange")Calendar startOfDateRange,
