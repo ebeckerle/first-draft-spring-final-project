@@ -1,9 +1,9 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.*;
-import com.example.firstdraftspringfinalproject.models.dao.Metrics;
 import com.example.firstdraftspringfinalproject.models.dao.MetricsChart;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
+import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,7 +62,7 @@ public class MetricsController {
     @PostMapping(params="total")
     public String processViewMetrics(@RequestParam String xValue, Model model){
 
-        MetricsChart newMetric = new MetricsChart(xValue, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+        MetricsChart newMetric = new MetricsChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
         newMetric.populateChartDataWhenThereIsNoSecondaryCategory();
         model.addAttribute("xyValues", newMetric.getXyValues());
         model.addAttribute("chartTitle", "Total Hours by "+newMetric.getChartTitle());
@@ -89,8 +89,8 @@ public class MetricsController {
             case "PayRate" -> primaryCategorySubject = String.valueOf(payRate);
         }
 
-        Metrics newMetric = new Metrics(chartCategory, primaryCategorySubject, xChoice, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
-        newMetric.setXyValuesWhenThereIsASecondaryCategory();
+        MetricsChart newMetric = new MetricsChart(MetricsCategory.getMetricsCategoryEnumFromString(chartCategory), primaryCategorySubject, MetricsCategory.getMetricsCategoryEnumFromString(xChoice), employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+        newMetric.populateChartDataWhenThereIsASecondaryCategory();
         model.addAttribute("xyValues", newMetric.getXyValues());
         model.addAttribute("chartTitle", newMetric.getChartTitle());
         model.addAttribute("csvHeaders", newMetric.getCsvHeaders());

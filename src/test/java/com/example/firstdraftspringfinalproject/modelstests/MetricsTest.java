@@ -5,12 +5,14 @@ import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
 import com.example.firstdraftspringfinalproject.models.dao.Metrics;
+import com.example.firstdraftspringfinalproject.models.dao.MetricsChart;
+import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MetricsTest {
+public class MetricsChartTest {
 
 
     @Autowired
@@ -27,7 +29,7 @@ public class MetricsTest {
 
 //    Metrics testMetricsObj1 = new Metrics("Employee", employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
 
-    Metrics testMetricsObj2 = new Metrics("WorkType", "Project", "Notre Dame Cathedral", employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+    MetricsChart testMetricsObj2 = new MetricsChart(MetricsCategory.WORKTYPE, "Project", "Notre Dame Cathedral", employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
 
     @Test
     public void test(){
@@ -38,8 +40,8 @@ public class MetricsTest {
     @Test
     public void testSetXyValuesWhenThereIsNoSecondaryCategory(){
 
-        Metrics testMetricsObj1 = new Metrics("Employee", employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
-        testMetricsObj1.setXyValuesWhenThereIsNoSecondaryCategory();
+        MetricsChart testMetricsObj1 = new MetricsChart("Employee", employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+        testMetricsObj1.populateChartDataWhenThereIsNoSecondaryCategory();
         assertFalse(testMetricsObj1.getContainsSecondaryCategory());
         assertFalse(testMetricsObj1.getXyValues().isEmpty());
 //        assertEquals("101", "102");

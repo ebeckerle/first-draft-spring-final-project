@@ -19,11 +19,13 @@ public enum MetricsCategory {
         return displayName;
     }
 
-    public MetricsCategory getMetricsCategoryEnumFromString(String metricsCategory){
-        if(metricsCategory.equals("Employee")){
-            return EMPLOYEE;
-        } else if (metricsCategory.equals("Project")) {
-            return PROJECT;
-        }
+    public static MetricsCategory getMetricsCategoryEnumFromString(String metricsCategory){
+        return switch (metricsCategory) {
+            case "Employee" -> EMPLOYEE;
+            case "Project" -> PROJECT;
+            case "WorkType" -> WORKTYPE;
+            case "PayRate" -> PAYRATE;
+            default -> EMPLOYEE;
+        };
     }
 }

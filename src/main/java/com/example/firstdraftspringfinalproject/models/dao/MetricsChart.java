@@ -32,21 +32,14 @@ public class MetricsChart {
     private WorkTypeRepository workTypeRepository;
 
     private MetricsCategory primaryCategory;
-//    private String primaryCategory;
-
     private String primaryCategorySubject;
     private Boolean containsSecondaryCategory;
     private MetricsCategory secondaryCategory;
 
-//    private String secondaryCategory;
     private String chartTitle;
     private HashMap<String, Integer> xyValues;
     private List<String> csvHeaders;
 
-    public MetricsChart(MetricsCategory primaryCategory) {
-        this.primaryCategory = primaryCategory;
-        this.containsSecondaryCategory = false;
-    }
     public MetricsChart(MetricsCategory primaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
         this.primaryCategory = primaryCategory;
         this.containsSecondaryCategory = false;
@@ -56,12 +49,6 @@ public class MetricsChart {
         this.workTypeRepository = workTypeRepository;
     }
 
-    public MetricsChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory) {
-        this.primaryCategory = primaryCategory;
-        this.containsSecondaryCategory = true;
-        this.primaryCategorySubject = primaryCategorySubject;
-        this.secondaryCategory = secondaryCategory;
-    }
     public MetricsChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
         this.primaryCategory = primaryCategory;
         this.containsSecondaryCategory = true;
@@ -75,49 +62,17 @@ public class MetricsChart {
 
     //Getter & Setters
 
-    public MetricsCategory getPrimaryCategory() {
-        return primaryCategory;
-    }
-
-    public void setPrimaryCategory(MetricsCategory primaryCategory) {
-        this.primaryCategory = primaryCategory;
-    }
-
-
-    public void setPrimaryCategory(String primaryCategory) {
-        this.primaryCategory = primaryCategory;
-    }
-
     public Boolean getContainsSecondaryCategory() {
         return containsSecondaryCategory;
     }
 
-    public void setContainsSecondaryCategory(Boolean containsSecondaryCategory) {
-        this.containsSecondaryCategory = containsSecondaryCategory;
-    }
 
     public String getPrimaryCategorySubject() {
         return primaryCategorySubject;
     }
 
-    public void setPrimaryCategorySubject(String primaryCategorySubject) {
-        this.primaryCategorySubject = primaryCategorySubject;
-    }
-
-    public MetricsCategory getSecondaryCategory() {
-        return secondaryCategory;
-    }
-
-    public void setSecondaryCategory(MetricsCategory secondaryCategory) {
-        this.secondaryCategory = secondaryCategory;
-    }
-
     public String getChartTitle() {
         return chartTitle;
-    }
-
-    public void setChartTitle(String chartTitle) {
-        this.chartTitle = chartTitle;
     }
 
     public HashMap<String, Integer> getXyValues() {
@@ -133,14 +88,14 @@ public class MetricsChart {
         ArrayList<String> csvHeaders = new ArrayList<>();
         csvHeaders.add(this.primaryCategory.getDisplayName());
         csvHeaders.add("Hours");
-        if(this.primaryCategory.equals("Employee")){
+        if(this.primaryCategory.getDisplayName().equals("Employee")){
             List<Employee> employees = (List<Employee>) employeeRepository.findAll();
             for (Employee employee:
                     employees) {
                 xyValues.put(employee.getLastName(), employee.getTotalHoursWorkedToDate());
             }
         }
-        if (this.primaryCategory.equals("Project")){
+        if (this.primaryCategory.getDisplayName().equals("Project")){
             List<Project>  projects = (List<Project>) projectRepository.findAll();
             for (Project project:
                     projects) {
@@ -152,7 +107,7 @@ public class MetricsChart {
                 xyValues.put(project.getProjectName(), totalHoursForProject);
             }
         }
-        if (this.primaryCategory.equals("WorkType")){
+        if (this.primaryCategory.getDisplayName().equals("WorkType")){
             List<WorkType> workTypes = (List<WorkType>) workTypeRepository.findAll();
             for (WorkType workType:
                     workTypes){
@@ -164,7 +119,7 @@ public class MetricsChart {
                 xyValues.put(workType.toStringWorkTypeCode(), totalHoursForWorkType);
             }
         }
-        if (this.primaryCategory.equals("PayRate")){
+        if (this.primaryCategory.getDisplayName().equals("PayRate")){
             List<Integer> payRates = new ArrayList<>();
             for (Timesheet timesheet:
                     timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
@@ -185,16 +140,16 @@ public class MetricsChart {
         this.csvHeaders = csvHeaders;
     }
 
-    public void setXyValuesWhenThereIsASecondaryCategory(){
+    public void populateChartDataWhenThereIsASecondaryCategory(){
         HashMap<String, Integer> xyValues = new HashMap<>();
         String chartTitle = "Chart Title";
         ArrayList<String> csvHeaders = new ArrayList<>();
-        csvHeaders.add(this.primaryCategory);
-        csvHeaders.add(this.secondaryCategory);
+        csvHeaders.add(this.primaryCategory.getDisplayName());
+        csvHeaders.add(this.secondaryCategory.getDisplayName());
         csvHeaders.add("Hours");
-        if (this.primaryCategory.equals("Employee")){
+        if (this.primaryCategory.getDisplayName().equals("Employee")){
             String employee = this.primaryCategorySubject;
-            String xChoice = this.secondaryCategory;
+            String xChoice = this.secondaryCategory.getDisplayName();
             chartTitle = this.primaryCategorySubject + "'s Hours by "+this.secondaryCategory;
             Employee employee1;
             if (employeeRepository.findByFirstNameLastNameCombo(employee).isPresent()){
@@ -226,9 +181,9 @@ public class MetricsChart {
                 }
             }
 
-        } else if (this.primaryCategory.equals("Project")){
+        } else if (this.primaryCategory.getDisplayName().equals("Project")){
             String project = this.primaryCategorySubject;
-            String xChoice = this.secondaryCategory;
+            String xChoice = this.secondaryCategory.getDisplayName();
             chartTitle = "Hours worked on " + project + " by "+xChoice;
             Project project1 = projectRepository.findByProjectName(project);
             List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
@@ -286,10 +241,10 @@ public class MetricsChart {
                 }
             }
 
-        } else if (this.primaryCategory.equals("WorkType")){
+        } else if (this.primaryCategory.getDisplayName().equals("WorkType")){
 
             String workType = this.primaryCategorySubject;
-            String xChoice = this.secondaryCategory;
+            String xChoice = this.secondaryCategory.getDisplayName();
             chartTitle = "Hours worked in " + workType + ", by "+xChoice;
             if(xChoice.equals("Employee")){
                 for (Timesheet timesheet:
@@ -346,9 +301,9 @@ public class MetricsChart {
                     }
                 }
             }
-        } else if (this.primaryCategory.equals("PayRate")){
+        } else if (this.primaryCategory.getDisplayName().equals("PayRate")){
             String payRate = this.primaryCategorySubject;
-            String xChoice = this.secondaryCategory;
+            String xChoice = this.secondaryCategory.getDisplayName();
             chartTitle = "Hours worked compensated at $" + payRate + " / per hour by "+xChoice;
             if(xChoice.equals("Employee")){
                 for (Timesheet timesheet:
