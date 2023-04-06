@@ -131,7 +131,7 @@ public class MetricsChart {
     public void populateChartDataWhenThereIsNoSecondaryCategory(){
         HashMap<String, Integer> xyValues = new HashMap<>();
         ArrayList<String> csvHeaders = new ArrayList<>();
-        csvHeaders.add(this.primaryCategory);
+        csvHeaders.add(this.primaryCategory.getDisplayName());
         csvHeaders.add("Hours");
         if(this.primaryCategory.equals("Employee")){
             List<Employee> employees = (List<Employee>) employeeRepository.findAll();
@@ -180,7 +180,7 @@ public class MetricsChart {
                 }
             }
         }
-        this.chartTitle = primaryCategory;
+        this.chartTitle = primaryCategory.getDisplayName();
         this.xyValues = xyValues;
         this.csvHeaders = csvHeaders;
     }

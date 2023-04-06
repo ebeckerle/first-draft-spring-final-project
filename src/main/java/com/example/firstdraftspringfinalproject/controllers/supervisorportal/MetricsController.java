@@ -2,6 +2,7 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.dao.Metrics;
+import com.example.firstdraftspringfinalproject.models.dao.MetricsChart;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,7 +62,7 @@ public class MetricsController {
     @PostMapping(params="total")
     public String processViewMetrics(@RequestParam String xValue, Model model){
 
-        Metrics newMetric = new Metrics(xValue, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+        MetricsChart newMetric = new MetricsChart(xValue, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
         newMetric.populateChartDataWhenThereIsNoSecondaryCategory();
         model.addAttribute("xyValues", newMetric.getXyValues());
         model.addAttribute("chartTitle", "Total Hours by "+newMetric.getChartTitle());

@@ -18,4 +18,12 @@ public enum MetricsCategory {
     public String getDisplayName() {
         return displayName;
     }
+
+    public MetricsCategory getMetricsCategoryEnumFromString(String metricsCategory){
+        if(metricsCategory.equals("Employee")){
+            return EMPLOYEE;
+        } else if (metricsCategory.equals("Project")) {
+            return PROJECT;
+        }
+    }
 }
