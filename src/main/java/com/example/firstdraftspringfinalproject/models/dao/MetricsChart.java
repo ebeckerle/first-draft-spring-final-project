@@ -8,6 +8,7 @@ import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.ProjectWorkTypeSet;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
+import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 
 //I think this is a Data Access Object???
 
-public class Metrics {
+public class MetricsChart {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -30,21 +31,23 @@ public class Metrics {
     @Autowired
     private WorkTypeRepository workTypeRepository;
 
-//    private MetricsCategory primaryCategory;
-    private String primaryCategory;
-    private Boolean containsSecondaryCategory;
+    private MetricsCategory primaryCategory;
+//    private String primaryCategory;
+
     private String primaryCategorySubject;
-//    private MetricsCategory secondaryCategory;
-    private String secondaryCategory;
+    private Boolean containsSecondaryCategory;
+    private MetricsCategory secondaryCategory;
+
+//    private String secondaryCategory;
     private String chartTitle;
     private HashMap<String, Integer> xyValues;
     private List<String> csvHeaders;
 
-//    public Metrics(MetricsCategory primaryCategory) {
-//        this.primaryCategory = primaryCategory;
-//        this.containsSecondaryCategory = false;
-//    }
-    public Metrics(String primaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
+    public MetricsChart(MetricsCategory primaryCategory) {
+        this.primaryCategory = primaryCategory;
+        this.containsSecondaryCategory = false;
+    }
+    public MetricsChart(MetricsCategory primaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
         this.primaryCategory = primaryCategory;
         this.containsSecondaryCategory = false;
         this.employeeRepository = employeeRepository;
@@ -53,13 +56,13 @@ public class Metrics {
         this.workTypeRepository = workTypeRepository;
     }
 
-//    public Metrics(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory) {
-//        this.primaryCategory = primaryCategory;
-//        this.containsSecondaryCategory = true;
-//        this.primaryCategorySubject = primaryCategorySubject;
-//        this.secondaryCategory = secondaryCategory;
-//    }
-    public Metrics(String primaryCategory, String primaryCategorySubject, String secondaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
+    public MetricsChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory) {
+        this.primaryCategory = primaryCategory;
+        this.containsSecondaryCategory = true;
+        this.primaryCategorySubject = primaryCategorySubject;
+        this.secondaryCategory = secondaryCategory;
+    }
+    public MetricsChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
         this.primaryCategory = primaryCategory;
         this.containsSecondaryCategory = true;
         this.primaryCategorySubject = primaryCategorySubject;
@@ -72,17 +75,14 @@ public class Metrics {
 
     //Getter & Setters
 
-//    public MetricsCategory getPrimaryCategory() {
-//        return primaryCategory;
-//    }
-//
-//    public void setPrimaryCategory(MetricsCategory primaryCategory) {
-//        this.primaryCategory = primaryCategory;
-//    }
-
-    public String getPrimaryCategory() {
+    public MetricsCategory getPrimaryCategory() {
         return primaryCategory;
     }
+
+    public void setPrimaryCategory(MetricsCategory primaryCategory) {
+        this.primaryCategory = primaryCategory;
+    }
+
 
     public void setPrimaryCategory(String primaryCategory) {
         this.primaryCategory = primaryCategory;
@@ -104,19 +104,11 @@ public class Metrics {
         this.primaryCategorySubject = primaryCategorySubject;
     }
 
-//    public MetricsCategory getSecondaryCategory() {
-//        return secondaryCategory;
-//    }
-//
-//    public void setSecondaryCategory(MetricsCategory secondaryCategory) {
-//        this.secondaryCategory = secondaryCategory;
-//    }
-
-    public String getSecondaryCategory() {
+    public MetricsCategory getSecondaryCategory() {
         return secondaryCategory;
     }
 
-    public void setSecondaryCategory(String secondaryCategory) {
+    public void setSecondaryCategory(MetricsCategory secondaryCategory) {
         this.secondaryCategory = secondaryCategory;
     }
 
@@ -136,7 +128,7 @@ public class Metrics {
         return csvHeaders;
     }
 
-    public void setXyValuesWhenThereIsNoSecondaryCategory(){
+    public void populateChartDataWhenThereIsNoSecondaryCategory(){
         HashMap<String, Integer> xyValues = new HashMap<>();
         ArrayList<String> csvHeaders = new ArrayList<>();
         csvHeaders.add(this.primaryCategory);

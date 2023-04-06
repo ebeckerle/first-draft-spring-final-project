@@ -299,19 +299,19 @@ public class Employee {
 
     public void setEmergencyContactUpdates(EditContactDetailsDTO editedContactDetails){
         if(!editedContactDetails.getEcFirstName().equals("")){
-            this.emergencyContact.firstName = editedContactDetails.getEcFirstName();
+            this.emergencyContact.setFirstName(editedContactDetails.getEcFirstName());
         }
         if(!editedContactDetails.getEcLastName().equals("")){
-            this.emergencyContact.lastName = editedContactDetails.getEcLastName();
+            this.emergencyContact.setLastName(editedContactDetails.getEcLastName());
         }
         if(!editedContactDetails.getEcPhoneNumber().equals("")){
             PhoneNumber ecPhone = new PhoneNumber(editedContactDetails.getEcPhoneNumber());
             ArrayList<PhoneNumber> phoneNumbers = new ArrayList<>();
             phoneNumbers.add(ecPhone);
-            this.emergencyContact.phoneNumbers = phoneNumbers;
+            this.emergencyContact.setPhoneNumbers(phoneNumbers);
         }
         if(!editedContactDetails.getEcRelationship().equals("")){
-            this.emergencyContact.relationship = editedContactDetails.getEcRelationship();
+            this.emergencyContact.setRelationship(editedContactDetails.getEcRelationship());
         }
     }
     public void setContactInfoUpdates(EditContactDetailsDTO editedContactDetails){

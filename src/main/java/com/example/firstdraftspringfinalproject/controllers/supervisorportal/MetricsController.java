@@ -62,7 +62,7 @@ public class MetricsController {
     public String processViewMetrics(@RequestParam String xValue, Model model){
 
         Metrics newMetric = new Metrics(xValue, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
-        newMetric.setXyValuesWhenThereIsNoSecondaryCategory();
+        newMetric.populateChartDataWhenThereIsNoSecondaryCategory();
         model.addAttribute("xyValues", newMetric.getXyValues());
         model.addAttribute("chartTitle", "Total Hours by "+newMetric.getChartTitle());
         model.addAttribute("csvHeaders", newMetric.getCsvHeaders());
