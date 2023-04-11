@@ -6,7 +6,9 @@ public enum MetricsCategory {
     EMPLOYEE("Employee"),
     PROJECT("Project"),
     WORKTYPE("WorkType"),
-    PAYRATE("PayRate");
+    PAYRATE("PayRate"),
+    NOSECONDARYCATEGORY("NoSecondaryCategory");
+
 
 
     private final String displayName;
@@ -25,7 +27,7 @@ public enum MetricsCategory {
             case "Project" -> PROJECT;
             case "WorkType" -> WORKTYPE;
             case "PayRate" -> PAYRATE;
-            default -> EMPLOYEE;
+            default -> NOSECONDARYCATEGORY;
         };
     }
 }

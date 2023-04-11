@@ -17,32 +17,37 @@ import java.util.List;
 
 //I think this is a Data Access Object???
 
-public class MetricsChart {
+public class MetricsChart implements MetricsEmployeePayRate, MetricsWorkType, MetricsProject, MetricsEmployee{
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Autowired
-    private TimesheetRepository timesheetRepository;
+    private final TimesheetRepository timesheetRepository;
 
     @Autowired
-    private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
 
     @Autowired
-    private WorkTypeRepository workTypeRepository;
+    private final WorkTypeRepository workTypeRepository;
 
-    private MetricsCategory primaryCategory;
-    private String primaryCategorySubject;
-    private Boolean containsSecondaryCategory;
-    private MetricsCategory secondaryCategory;
+    private final MetricsCategory primaryCategory;
+    private final String primaryCategorySubject;
+    private final Boolean containsSecondaryCategory;
+    private final MetricsCategory secondaryCategory;
 
     private String chartTitle;
     private HashMap<String, Integer> xyValues;
     private List<String> csvHeaders;
 
     public MetricsChart(MetricsCategory primaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
+        if(timesheetRepository.count() == 0){
+            throw new RuntimeException("Fail, there are no timesheets");
+        }
         this.primaryCategory = primaryCategory;
+        this.primaryCategorySubject = "There is no secondary category, so there is no primary category subject.";
         this.containsSecondaryCategory = false;
+        this.secondaryCategory = MetricsCategory.NOSECONDARYCATEGORY;
         this.employeeRepository = employeeRepository;
         this.timesheetRepository = timesheetRepository;
         this.projectRepository = projectRepository;
@@ -50,6 +55,12 @@ public class MetricsChart {
     }
 
     public MetricsChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
+        if(timesheetRepository.count() == 0){
+            throw new RuntimeException("Fail, there are no timesheets");
+        }
+        if(primaryCategory == secondaryCategory){
+            throw new RuntimeException("Fail");
+        }
         this.primaryCategory = primaryCategory;
         this.containsSecondaryCategory = true;
         this.primaryCategorySubject = primaryCategorySubject;
@@ -83,280 +94,110 @@ public class MetricsChart {
         return csvHeaders;
     }
 
-    public void populateChartDataWhenThereIsNoSecondaryCategory(){
-        HashMap<String, Integer> xyValues = new HashMap<>();
+    //METHODS
+
+    public static ArrayList<String> loadCsvHeaders(MetricsCategory primaryCategory, MetricsCategory secondaryCategory, String primaryCategorySubject){
         ArrayList<String> csvHeaders = new ArrayList<>();
-        csvHeaders.add(this.primaryCategory.getDisplayName());
+        if(secondaryCategory == MetricsCategory.NOSECONDARYCATEGORY){
+            csvHeaders.add(primaryCategory.getDisplayName());
+        } else {
+            csvHeaders.add(primaryCategory.getDisplayName());
+            csvHeaders.add(secondaryCategory.getDisplayName());
+        }
         csvHeaders.add("Hours");
-        if(this.primaryCategory.getDisplayName().equals("Employee")){
-            List<Employee> employees = (List<Employee>) employeeRepository.findAll();
-            for (Employee employee:
-                    employees) {
-                xyValues.put(employee.getLastName(), employee.getTotalHoursWorkedToDate());
-            }
-        }
-        if (this.primaryCategory.getDisplayName().equals("Project")){
-            List<Project>  projects = (List<Project>) projectRepository.findAll();
-            for (Project project:
-                    projects) {
-                Integer totalHoursForProject = 0;
-                for (Timesheet timesheet:
-                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    totalHoursForProject += timesheet.getTotalHoursByProject(project);
-                }
-                xyValues.put(project.getProjectName(), totalHoursForProject);
-            }
-        }
-        if (this.primaryCategory.getDisplayName().equals("WorkType")){
-            List<WorkType> workTypes = (List<WorkType>) workTypeRepository.findAll();
-            for (WorkType workType:
-                    workTypes){
-                Integer totalHoursForWorkType = 0;
-                for (Timesheet timesheet:
-                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    totalHoursForWorkType += timesheet.getTotalHoursByWorkType(workType);
-                }
-                xyValues.put(workType.toStringWorkTypeCode(), totalHoursForWorkType);
-            }
-        }
-        if (this.primaryCategory.getDisplayName().equals("PayRate")){
-            List<Integer> payRates = new ArrayList<>();
-            for (Timesheet timesheet:
-                    timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                //
-                Integer payRate = timesheet.getCurrentPayRate();
-                if(payRates.contains(payRate)){
-                    Integer existingHourTotal = xyValues.get(String.valueOf(payRate));
-                    Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
-                    xyValues.replace(String.valueOf(payRate), newHourTotal);
-                }else{
-                    payRates.add(payRate);
-                    xyValues.put(String.valueOf(payRate), timesheet.getTotalHours());
-                }
-            }
-        }
-        this.chartTitle = primaryCategory.getDisplayName();
-        this.xyValues = xyValues;
-        this.csvHeaders = csvHeaders;
+        return csvHeaders;
     }
 
+    public void populateChartDataWhenThereIsNoSecondaryCategory(){
+
+        switch (this.primaryCategory.getDisplayName()) {
+            case "Employee" ->
+                    this.xyValues = MetricsEmployee.loadXyValuesForPrimaryCategoryEmployee(timesheetRepository, employeeRepository);
+            case "Project" ->
+                    this.xyValues = MetricsProject.loadXyValuesForPrimaryCategoryProject(timesheetRepository, projectRepository);
+            case "WorkType" ->
+                    this.xyValues = MetricsWorkType.loadXyValuesForPrimaryCategoryWorkType(timesheetRepository, workTypeRepository);
+            case "PayRate" ->
+                    this.xyValues = MetricsEmployeePayRate.loadXyValuesForEmployeePayRate(timesheetRepository);
+        }
+        this.chartTitle = primaryCategory.getDisplayName();
+        this.csvHeaders = MetricsChart.loadCsvHeaders(this.primaryCategory, this.secondaryCategory, this.primaryCategorySubject);
+    }
+
+
     public void populateChartDataWhenThereIsASecondaryCategory(){
+
+        if(this.secondaryCategory == MetricsCategory.NOSECONDARYCATEGORY){
+            throw new RuntimeException("Sorry, can not populate data for a chart with a secondary category " +
+                    "when secondary category is null. Please consider populating a chart with only a primary category.");
+        }
+        if (employeeRepository.findByFirstNameLastNameCombo(this.primaryCategorySubject).isEmpty()) {
+            throw new RuntimeException("Sorry, can not populate data for this topic, as it is not in the Database.");
+        }
+
         HashMap<String, Integer> xyValues = new HashMap<>();
-        String chartTitle = "Chart Title";
-        ArrayList<String> csvHeaders = new ArrayList<>();
-        csvHeaders.add(this.primaryCategory.getDisplayName());
-        csvHeaders.add(this.secondaryCategory.getDisplayName());
-        csvHeaders.add("Hours");
-        if (this.primaryCategory.getDisplayName().equals("Employee")){
-            String employee = this.primaryCategorySubject;
-            String xChoice = this.secondaryCategory.getDisplayName();
-            chartTitle = this.primaryCategorySubject + "'s Hours by "+this.secondaryCategory;
-            Employee employee1;
-            if (employeeRepository.findByFirstNameLastNameCombo(employee).isPresent()){
-                employee1 = employeeRepository.findByFirstNameLastNameCombo(employee).get();
-                List<Timesheet> employeesTimesheets = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employee1.getEmployeeId(), true, true);
-                if(xChoice.equals("Project")){
-                    List<Project> projects = (List<Project>) projectRepository.findAll();
-                    Integer totalHoursForX = 0;
-                    for (Project aProject:
-                            projects) {
-                        totalHoursForX = 0;
-                        for (Timesheet timesheet : employeesTimesheets){
-                            totalHoursForX += timesheet.getTotalHoursByProject(aProject);
-                            xyValues.put(aProject.toString(), totalHoursForX);
-                        }
-                    }
+        this.csvHeaders = MetricsChart.loadCsvHeaders(this.primaryCategory, this.secondaryCategory, this.primaryCategorySubject);
+        String xChoice = this.secondaryCategory.getDisplayName();
+        switch (this.primaryCategory.getDisplayName()) {
+            case "Employee" -> {
+                this.chartTitle  = this.primaryCategorySubject + "'s Hours by " + this.secondaryCategory;
+                Employee employee = employeeRepository.findByFirstNameLastNameCombo(this.primaryCategorySubject).get();
+                List<Timesheet> employeesTimesheets = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employee.getEmployeeId(), true, true);
+                if (xChoice.equals("Project")) {
+                    xyValues = MetricsProject.loadXyValuesForSecondaryCategoryProject(projectRepository, employeesTimesheets);
+                }else if (xChoice.equals("WorkType")) {
+                    xyValues = MetricsWorkType.loadXyValuesForSecondaryCategoryWorkType(workTypeRepository, employeesTimesheets);
                 }
-                if(xChoice.equals("WorkType")){
-                    List<WorkType> workTypes = (List<WorkType>) workTypeRepository.findAll();
-                    Integer totalHoursForX = 0;
-                    for (WorkType aWorkType      :
-                            workTypes) {
-                        totalHoursForX = 0;
-                        for (Timesheet timesheet : employeesTimesheets){
-                            totalHoursForX += timesheet.getTotalHoursByWorkType(aWorkType);
-                            xyValues.put(aWorkType.toString(), totalHoursForX);
-                        }
+                this.xyValues = xyValues;
+                //TODO if xChoice.equals("PayRate") !!!
+            }
+            case "Project" -> {
+                String projectName = this.primaryCategorySubject;
+                this.chartTitle = "Hours worked on " + projectName + " by " + xChoice;
+                Project project = projectRepository.findByProjectName(projectName);
+                List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
+                switch (xChoice) {
+                    case "Employee" -> {
+                        this.xyValues = MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsProject(employeeRepository, timesheetRepository, project);
+                    }
+                    case "WorkType" -> {
+                        this.xyValues = MetricsWorkType.loadXyValuesForSecondaryCategoryWorkTypeWhenPrimaryCategoryIsProject(timesheets, project);
+                    }
+                    case "PayRate" -> {
+                        this.xyValues = MetricsEmployeePayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsProject(timesheets, project);
                     }
                 }
             }
-
-        } else if (this.primaryCategory.getDisplayName().equals("Project")){
-            String project = this.primaryCategorySubject;
-            String xChoice = this.secondaryCategory.getDisplayName();
-            chartTitle = "Hours worked on " + project + " by "+xChoice;
-            Project project1 = projectRepository.findByProjectName(project);
-            List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
-            if(xChoice.equals("Employee")){
-                List<Employee> employees = (List<Employee>) employeeRepository.findAll();
-                for (Employee aEmployee: employees) {
-                    List<Timesheet> employeesTimesheets = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(aEmployee.getEmployeeId(), true, true);
-                    Integer totalHoursForX = 0;
-                    for (Timesheet timesheet : employeesTimesheets){
-                        totalHoursForX += timesheet.getTotalHoursByProject(project1);
-                        xyValues.put(aEmployee.toString(), totalHoursForX);
+            case "WorkType" -> {
+                String workTypeName = this.primaryCategorySubject;
+                this.chartTitle = "Hours worked in " + workTypeName + ", by " + xChoice;
+                switch (xChoice) {
+                    case "Employee" -> {
+                        this.xyValues = MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName);
+                    }
+                    case "Project" -> {
+                        this.xyValues = MetricsProject.loadXyValuesForSecondaryCategoryProjectWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName);
+                    }
+                    case "PayRate" -> {
+                        this.xyValues = MetricsEmployeePayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName);
                     }
                 }
             }
-            if(xChoice.equals("WorkType")) {
-                for (Timesheet timesheet : timesheets) {
-                    List<LineEntry> lineEntries = timesheet.getLineEntries();
-                    for (LineEntry lineEntry :
-                            lineEntries) {
-                        Integer totalHoursForX = 0;
-                        ProjectWorkTypeSet projectWorkTypeSet = lineEntry.getProjectWorkTypeCombo();
-                        if (projectWorkTypeSet.getProject().equals(project1)) {
-                            if (xyValues.containsKey(projectWorkTypeSet.getWorkType().toString())) {
-                                totalHoursForX += xyValues.get(projectWorkTypeSet.getWorkType().toString());
-                                totalHoursForX += lineEntry.getTotalHours();
-                                xyValues.replace(projectWorkTypeSet.getWorkType().toString(), totalHoursForX);
-                            } else {
-                                totalHoursForX += lineEntry.getTotalHours();
-                                xyValues.put(projectWorkTypeSet.getWorkType().toString(), totalHoursForX);
-                            }
-                        }
+            case "PayRate" -> {
+                String payRateString = this.primaryCategorySubject;
+                chartTitle = "Hours worked compensated at $" + payRateString + " / per hour by " + xChoice;
+                switch (xChoice) {
+                    case "Employee" -> {
+                        this.xyValues = MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString);
                     }
-                }
-            }
-            if(xChoice.equals("PayRate")){
-                List<String> payRates = new ArrayList<>();
-                for (Timesheet timesheet:
-                        timesheets) {
-                    List<LineEntry> lineEntries = timesheet.getLineEntries();
-                    for (LineEntry lineEntry :
-                            lineEntries) {
-                        ProjectWorkTypeSet projectWorkTypeSet = lineEntry.getProjectWorkTypeCombo();
-                        if (projectWorkTypeSet.getProject().equals(project1)) {
-                            String payRate1 = "$"+timesheet.getCurrentPayRate()+" per hour";
-                            if (payRates.contains(payRate1)) {
-                                Integer existingHourTotal = xyValues.get(payRate1);
-                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
-                                xyValues.replace(payRate1, newHourTotal);
-                            } else {
-                                payRates.add(payRate1);
-                                xyValues.put(payRate1, lineEntry.getTotalHours());
-                            }
-                        }
+                    case "Project" -> {
+                        this.xyValues = MetricsProject.getXyValuesForSecondaryCategoryProjectWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString);
                     }
-                }
-            }
-
-        } else if (this.primaryCategory.getDisplayName().equals("WorkType")){
-
-            String workType = this.primaryCategorySubject;
-            String xChoice = this.secondaryCategory.getDisplayName();
-            chartTitle = "Hours worked in " + workType + ", by "+xChoice;
-            if(xChoice.equals("Employee")){
-                for (Timesheet timesheet:
-                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    for (LineEntry lineEntry:
-                            timesheet.getLineEntries()) {
-                        String workType1 = lineEntry.getProjectWorkTypeCombo().getWorkType().toString();
-                        if (workType.equals(workType1)){
-                            if (xyValues.containsKey(timesheet.getEmployee().toString())){
-                                Integer existingHourTotal = xyValues.get(timesheet.getEmployee().toString());
-                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
-                                xyValues.replace(timesheet.getEmployee().toString(), newHourTotal);
-                            }else{
-                                xyValues.put(timesheet.getEmployee().toString(), lineEntry.getTotalHours());
-                            }
-                        }
-                    }
-                }
-            }
-            if(xChoice.equals("Project")){
-                for (Timesheet timesheet:
-                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    for (LineEntry lineEntry:
-                            timesheet.getLineEntries()) {
-                        String workType1 = lineEntry.getProjectWorkTypeCombo().getWorkType().toString();
-                        if(workType.equals(workType1)){
-                            if (xyValues.containsKey(lineEntry.getProjectWorkTypeCombo().getProject().toString())){
-                                Integer existingHourTotal = xyValues.get(lineEntry.getProjectWorkTypeCombo().getProject().toString());
-                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
-                                xyValues.replace(lineEntry.getProjectWorkTypeCombo().getProject().toString(), newHourTotal);
-                            }else{
-                                xyValues.put(lineEntry.getProjectWorkTypeCombo().getProject().toString(), lineEntry.getTotalHours());
-                            }
-                        }
-                    }
-                }
-            }
-            if(xChoice.equals("PayRate")){
-                for (Timesheet timesheet:
-                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    for (LineEntry lineEntry:
-                            timesheet.getLineEntries()) {
-                        String workType1 = lineEntry.getProjectWorkTypeCombo().getWorkType().toString();
-                        if(workType.equals(workType1)){
-                            String payRate1 = "$"+timesheet.getCurrentPayRate()+" per hour";
-                            if (xyValues.containsKey(payRate1)) {
-                                Integer existingHourTotal = xyValues.get(payRate1);
-                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
-                                xyValues.replace(payRate1, newHourTotal);
-                            } else {
-                                xyValues.put(payRate1, lineEntry.getTotalHours());
-                            }
-                        }
-                    }
-                }
-            }
-        } else if (this.primaryCategory.getDisplayName().equals("PayRate")){
-            String payRate = this.primaryCategorySubject;
-            String xChoice = this.secondaryCategory.getDisplayName();
-            chartTitle = "Hours worked compensated at $" + payRate + " / per hour by "+xChoice;
-            if(xChoice.equals("Employee")){
-                for (Timesheet timesheet:
-                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    if(payRate.equals(timesheet.getCurrentPayRate().toString())){
-                        if(xyValues.containsKey(timesheet.getEmployee().toString())){
-                            Integer existingHourTotal = xyValues.get(timesheet.getEmployee().toString());
-                            Integer newHourTotal = existingHourTotal + timesheet.getTotalHours();
-                            xyValues.put(timesheet.getEmployee().toString(), newHourTotal);
-                        }else{
-                            xyValues.put(timesheet.getEmployee().toString(), timesheet.getTotalHours());
-                        }
-                    }
-                }
-            }
-            if(xChoice.equals("Project")){
-                for (Timesheet timesheet:
-                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    for (LineEntry lineEntry:
-                            timesheet.getLineEntries()) {
-                        if(payRate.equals(timesheet.getCurrentPayRate().toString())){
-                            if(xyValues.containsKey(lineEntry.getProjectWorkTypeCombo().getProject().toString())){
-                                Integer existingHourTotal = xyValues.get(lineEntry.getProjectWorkTypeCombo().getProject().toString());
-                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
-                                xyValues.put(lineEntry.getProjectWorkTypeCombo().getProject().toString(), newHourTotal);
-                            }else{
-                                xyValues.put(lineEntry.getProjectWorkTypeCombo().getProject().toString(), lineEntry.getTotalHours());
-                            }
-                        }
-                    }
-                }
-            }
-            if(xChoice.equals("WorkType")){
-                for (Timesheet timesheet:
-                        timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
-                    for (LineEntry lineEntry:
-                            timesheet.getLineEntries()) {
-                        if(payRate.equals(timesheet.getCurrentPayRate().toString())){
-                            if(xyValues.containsKey(lineEntry.getProjectWorkTypeCombo().getWorkType().toString())){
-                                Integer existingHourTotal = xyValues.get(lineEntry.getProjectWorkTypeCombo().getWorkType().toString());
-                                Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
-                                xyValues.put(lineEntry.getProjectWorkTypeCombo().getWorkType().toString(), newHourTotal);
-                            }else{
-                                xyValues.put(lineEntry.getProjectWorkTypeCombo().getWorkType().toString(), lineEntry.getTotalHours());
-                            }
-                        }
+                    case "WorkType" -> {
+                        this.xyValues = MetricsWorkType.loadXyValuesForSecondaryCategoryWorkTypeWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString);
                     }
                 }
             }
         }
-
-        this.chartTitle = chartTitle;
-        this.xyValues = xyValues;
-        this.csvHeaders = csvHeaders;
     }
 }
