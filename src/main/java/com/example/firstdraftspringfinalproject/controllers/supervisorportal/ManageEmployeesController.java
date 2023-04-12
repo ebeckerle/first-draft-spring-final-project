@@ -158,6 +158,11 @@ public class ManageEmployeesController {
         if (timesheetRepository.findById(timesheetId).isPresent()){
             Timesheet timesheet = timesheetRepository.findById(timesheetId).get();
             timesheet.setSupervisorApproval(true);
+            if(employeeRepository.findById(timesheet.getEmployee().getEmployeeId()).isPresent()){
+                Employee employee = employeeRepository.findById(timesheet.getEmployee().getEmployeeId()).get();
+                employee.resetTotalApprovedHoursWorkedToDate();
+                employeeRepository.save(employee);
+            }
             timesheetRepository.save(timesheet);
 
             redirectAttributes.addFlashAttribute("timesheetEmployee", timesheet.getEmployee().getFirstName() + " " + timesheet.getEmployee().getLastName());

@@ -2,6 +2,7 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.dao.MetricsChart;
+import com.example.firstdraftspringfinalproject.models.dao.MetricsPayRate;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +44,11 @@ public class MetricsController {
         model.addAttribute("chartCategories", xValueChoices);
 
         model.addAttribute("employees", employeeRepository.findAll());
+        //TODO -do we need all of the other columns of data - just need employee first name, last name, id - native sql query?
         model.addAttribute("projects", projectRepository.findAll());
         model.addAttribute("workTypes", workTypeRepository.findAll());
-        List<Integer> payRates = new ArrayList<>();
         List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
-        for (Timesheet timesheet:
-             timesheets) {
-            if (!payRates.contains(timesheet.getCurrentPayRate())){
-                payRates.add(timesheet.getCurrentPayRate());
-            }
-        }
+        List<Integer> payRates = MetricsPayRate.loadListOfPayRates(timesheets);
         model.addAttribute("payRates", payRates);
 
         model.addAttribute("title", "Metrics Query");

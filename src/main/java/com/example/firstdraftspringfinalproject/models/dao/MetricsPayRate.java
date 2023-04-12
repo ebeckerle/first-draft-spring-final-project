@@ -78,5 +78,16 @@ public interface MetricsPayRate {
         return xyValues;
     }
 
+    static List<Integer> loadListOfPayRates(List<Timesheet> timesheets){
+        ArrayList<Integer> payRates = new ArrayList<>();
+        for (Timesheet timesheet:
+                timesheets) {
+            if (!payRates.contains(timesheet.getCurrentPayRate())){
+                payRates.add(timesheet.getCurrentPayRate());
+            }
+        }
+        return payRates;
+    }
+
 
 }

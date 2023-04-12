@@ -94,7 +94,7 @@ public class EmployeeTest {
         testEmployee.getTimesheets().add(testTimesheet2);
         testEmployee.getTimesheets().add(testTimesheet3);
 
-        assertEquals(26, testEmployee.getTotalHoursWorkedToDate());
+        assertEquals(26, testEmployee.getTotalApprovedHoursWorkedToDate());
 
         //    public Integer getTotalHoursWorkedToDate(){
 //        List<Timesheet> timesheets = this.timesheets;

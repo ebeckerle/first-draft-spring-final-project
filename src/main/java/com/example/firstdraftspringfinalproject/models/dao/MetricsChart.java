@@ -21,15 +21,22 @@ public class MetricsChart implements MetricsPayRate, MetricsWorkType, MetricsPro
 
     @Autowired
     private final EmployeeRepository employeeRepository;
+    //TODO - just pull from database this  - List<Employee> employees...
 
     @Autowired
     private final TimesheetRepository timesheetRepository;
+    //TODO - just pull from database this  - List<Timesheet> timesheets  /* - just timesheets that are submitted and
+    // approved by supervisor - */ - findBySupervisorApprovalAndCompletionStatus(true, true)
 
     @Autowired
     private final ProjectRepository projectRepository;
+    //TODO - just pull from database this  - List<Project> projects (these are maybe in the future just un retired
+    // projects, or just projects in that have entered production phase? right now all projects
 
     @Autowired
     private final WorkTypeRepository workTypeRepository;
+    //TODO - maybe? - List<WorkType> I think we are actually always pulling all work types and I don't see why that would
+    // change at this point...
 
     private final MetricsCategory primaryCategory;
     private final String primaryCategorySubject;
@@ -112,7 +119,7 @@ public class MetricsChart implements MetricsPayRate, MetricsWorkType, MetricsPro
 
         switch (this.primaryCategory.getDisplayName()) {
             case "Employee" ->
-                    this.xyValues = MetricsEmployee.loadXyValuesForPrimaryCategoryEmployee(timesheetRepository, employeeRepository);
+                    this.xyValues = MetricsEmployee.loadXyValuesForPrimaryCategoryEmployee(employeeRepository);
             case "Project" ->
                     this.xyValues = MetricsProject.loadXyValuesForPrimaryCategoryProject(timesheetRepository, projectRepository);
             case "WorkType" ->

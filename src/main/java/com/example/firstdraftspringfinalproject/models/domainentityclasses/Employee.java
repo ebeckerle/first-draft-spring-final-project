@@ -49,6 +49,8 @@ public class Employee {
     @OneToOne(cascade = CascadeType.ALL)
     private EmergencyContact emergencyContact;
 
+    private Integer totalHoursWorkedToDate = 0;
+
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Employee (String firstName, String lastName, String title, Integer payRate, Integer paidTimeOff, String oneTimePassword) {
@@ -149,10 +151,6 @@ public class Employee {
         return supervisorAccess;
     }
 
-    public void setSupervisorAccess(Boolean supervisorAccess) {
-        this.supervisorAccess = supervisorAccess;
-    }
-
     public Integer getPayRate() {
         return payRate;
     }
@@ -161,31 +159,15 @@ public class Employee {
         this.payRate = payRate;
     }
 
-    public GregorianCalendar getFirstDateOfWork() {
-        return firstDateOfWork;
-    }
-
     public void setFirstDateOfWork(GregorianCalendar firstDateOfWork) {
         this.firstDateOfWork = firstDateOfWork;
-    }
-
-    public Integer getPaidTimeOff() {
-        return paidTimeOff;
-    }
-
-    public void setPaidTimeOff(Integer paidTimeOff) {
-        this.paidTimeOff = paidTimeOff;
-    }
-
-    public String getOtpHash() {
-        return otpHash;
     }
 
     public void setPwHash(String password){
         this.pwHash = encoder.encode(password);
     }
 
-    public Integer getTotalHoursWorkedToDate(){
+    public Integer getTotalApprovedHoursWorkedToDate(){
         List<Timesheet> timesheets = this.timesheets;
         Integer totalHoursWorkedToDate = 0;
         for (Timesheet timesheet:
@@ -195,6 +177,18 @@ public class Employee {
             }
         }
         return totalHoursWorkedToDate;
+    }
+
+    public void resetTotalApprovedHoursWorkedToDate(){
+        List<Timesheet> timesheets = this.timesheets;
+        Integer newTotalHoursWorkedToDate = 0;
+        for (Timesheet timesheet:
+                timesheets) {
+            if(timesheet.getSupervisorApproval()){
+                newTotalHoursWorkedToDate += timesheet.getTotalHours();
+            }
+        }
+        this.totalHoursWorkedToDate = newTotalHoursWorkedToDate;
     }
 
     public Contact getContactInfo() {

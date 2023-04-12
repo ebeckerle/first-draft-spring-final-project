@@ -15,12 +15,12 @@ import java.util.List;
 
 public interface MetricsEmployee {
 
-    static HashMap<String, Integer> loadXyValuesForPrimaryCategoryEmployee(TimesheetRepository timesheetRepository, EmployeeRepository employeeRepository) {
+    static HashMap<String, Integer> loadXyValuesForPrimaryCategoryEmployee(EmployeeRepository employeeRepository) {
         HashMap<String, Integer> xyValues = new HashMap<>();
-        List<Employee> employees = (List<Employee>) employeeRepository.findAll();
+        List<Employee> employees = (List<Employee>) employeeRepository.findAll();//TODO - native sql method
         for (Employee employee:
                 employees) {
-            xyValues.put(employee.getLastName(), employee.getTotalHoursWorkedToDate());
+            xyValues.put(employee.getLastName(), employee.getTotalApprovedHoursWorkedToDate());
         }
         return xyValues;
     }
