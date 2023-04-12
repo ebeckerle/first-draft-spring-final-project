@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public interface MetricsEmployeePayRate {
+public interface MetricsPayRate {
 
-    static HashMap<String, Integer> loadXyValuesForEmployeePayRate(TimesheetRepository timesheetRepository){
+    static HashMap<String, Integer> loadXyValuesForPrimaryCategoryPayRate(TimesheetRepository timesheetRepository){
         HashMap<String, Integer> xyValues = new HashMap<>();
         List<Integer> payRates = new ArrayList<>();
         for (Timesheet timesheet:

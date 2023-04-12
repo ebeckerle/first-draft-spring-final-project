@@ -17,7 +17,7 @@ import java.util.List;
 
 //I think this is a Data Access Object???
 
-public class MetricsChart implements MetricsEmployeePayRate, MetricsWorkType, MetricsProject, MetricsEmployee{
+public class MetricsChart implements MetricsPayRate, MetricsWorkType, MetricsProject, MetricsEmployee{
 
     @Autowired
     private final EmployeeRepository employeeRepository;
@@ -118,7 +118,7 @@ public class MetricsChart implements MetricsEmployeePayRate, MetricsWorkType, Me
             case "WorkType" ->
                     this.xyValues = MetricsWorkType.loadXyValuesForPrimaryCategoryWorkType(timesheetRepository, workTypeRepository);
             case "PayRate" ->
-                    this.xyValues = MetricsEmployeePayRate.loadXyValuesForEmployeePayRate(timesheetRepository);
+                    this.xyValues = MetricsPayRate.loadXyValuesForPrimaryCategoryPayRate(timesheetRepository);
         }
         this.chartTitle = primaryCategory.getDisplayName();
         this.csvHeaders = MetricsChart.loadCsvHeaders(this.primaryCategory, this.secondaryCategory, this.primaryCategorySubject);
@@ -164,7 +164,7 @@ public class MetricsChart implements MetricsEmployeePayRate, MetricsWorkType, Me
                         this.xyValues = MetricsWorkType.loadXyValuesForSecondaryCategoryWorkTypeWhenPrimaryCategoryIsProject(timesheets, project);
                     }
                     case "PayRate" -> {
-                        this.xyValues = MetricsEmployeePayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsProject(timesheets, project);
+                        this.xyValues = MetricsPayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsProject(timesheets, project);
                     }
                 }
             }
@@ -179,7 +179,7 @@ public class MetricsChart implements MetricsEmployeePayRate, MetricsWorkType, Me
                         this.xyValues = MetricsProject.loadXyValuesForSecondaryCategoryProjectWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName);
                     }
                     case "PayRate" -> {
-                        this.xyValues = MetricsEmployeePayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName);
+                        this.xyValues = MetricsPayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName);
                     }
                 }
             }
