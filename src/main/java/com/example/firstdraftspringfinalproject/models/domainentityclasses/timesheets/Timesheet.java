@@ -1,6 +1,7 @@
 package com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets;
 
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
+import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetTotalsHours;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
@@ -12,7 +13,7 @@ import java.util.*;
 // image of timesheet existing with callouts, uml diagram as well.
 
 @Entity
-public class Timesheet {
+public class Timesheet implements TimesheetTotalsHours {
 
     @ManyToOne
     private Employee employee;
@@ -68,10 +69,6 @@ public class Timesheet {
     // GETTERS & SETTERS
 
     public Integer getId() {
-        return timesheetId;
-    }
-
-    public Integer getTimesheetId() {
         return timesheetId;
     }
 
@@ -132,15 +129,6 @@ public class Timesheet {
     public void setLineEntries(ArrayList<LineEntry> lineEntries) {
         this.lineEntries = lineEntries;
     }
-
-//    public Boolean checkALineEntryAlreadyExists(LineEntry lineEntry){
-//
-//        if (this.lineEntries.contains(lineEntry)){
-//            return true;
-//        }else {
-//            return false;
-//        }
-//    }
 
     public Integer getTotalMondayHours() {
         return totalMondayHours;
@@ -239,37 +227,45 @@ public class Timesheet {
         return new LineEntry();
     }
 
+    //TODO  - ? - rewrite this method with DayOfWeek enum as argument?, it will only return 0 with a messed up input but...
     public Integer totalDayOfWeekHours(String dayOfWeek){
         Integer totalHours = 0;
-        if (dayOfWeek.equals("Monday")){
-            for (LineEntry lineEntry:
-                    this.lineEntries) {
-                totalHours += lineEntry.getDaysOfWeekHoursCombo().getMondayHours();
+        switch (dayOfWeek) {
+            case "Monday" -> {
+                for (LineEntry lineEntry :
+                        this.lineEntries) {
+                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getMondayHours();
                 }
-        } else if (dayOfWeek.equals("Tuesday")){
-            for (LineEntry lineEntry:
-                    this.lineEntries) {
-                totalHours += lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours();
             }
-        }else if (dayOfWeek.equals("Wednesday")){
-            for (LineEntry lineEntry:
-                    this.lineEntries) {
-                totalHours += lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours();
+            case "Tuesday" -> {
+                for (LineEntry lineEntry :
+                        this.lineEntries) {
+                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours();
+                }
             }
-        }else if (dayOfWeek.equals("Thursday")){
-            for (LineEntry lineEntry:
-                    this.lineEntries) {
-                totalHours += lineEntry.getDaysOfWeekHoursCombo().getThursdayHours();
+            case "Wednesday" -> {
+                for (LineEntry lineEntry :
+                        this.lineEntries) {
+                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours();
+                }
             }
-        }else if (dayOfWeek.equals("Friday")){
-            for (LineEntry lineEntry:
-                    this.lineEntries) {
-                totalHours += lineEntry.getDaysOfWeekHoursCombo().getFridayHours();
+            case "Thursday" -> {
+                for (LineEntry lineEntry :
+                        this.lineEntries) {
+                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getThursdayHours();
+                }
             }
-        }else if (dayOfWeek.equals("Saturday")){
-            for (LineEntry lineEntry:
-                    this.lineEntries) {
-                totalHours += lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours();
+            case "Friday" -> {
+                for (LineEntry lineEntry :
+                        this.lineEntries) {
+                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getFridayHours();
+                }
+            }
+            case "Saturday" -> {
+                for (LineEntry lineEntry :
+                        this.lineEntries) {
+                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours();
+                }
             }
         }
         return totalHours;

@@ -111,19 +111,27 @@ public class TimesheetController {
 
         //find the current timesheet
         ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+        if(timesheets.size() != 1){
+            throw new RuntimeException("There is not one current timesheet, (zero or two or more)");
+        }
         Timesheet currentTimesheet = timesheets.get(0);
 
+        //check if project & worktype combo already exists on this Timesheet in particular, so we can add to that line
+        // entry in particular
         Integer workTypeId = WorkType.fromToStringToId(workType);
-
-        //check if project & worktype combo already exists in database
         ProjectWorkTypeSet projectWorkTypeSet = projectWorkTypeSetRepository.findByProjectAndWorkType(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId));
-
         if (projectWorkTypeSet == null){
             // , if not, save the new project worktype combo
             projectWorkTypeSetRepository.save(new ProjectWorkTypeSet(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId)));
         }
 
-        Integer projectWorkTypeId =  projectWorkTypeSetRepository.findByProjectAndWorkType(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId)).getId();
+        //set local variables the projectWorkTypeSet and the daysOfWeekHoursSet needed to instantiate a
+        // line entry and save to database as needed.
+        Integer projectWorkTypeId = projectWorkTypeSetRepository.findByProjectAndWorkType(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId)).getId();
+        if(projectWorkTypeSetRepository.findById(projectWorkTypeId).isEmpty()){
+            throw new RuntimeException("There was an error in your ProjectWorkTypeSet failed to save to the database or " +
+                    "could not be found.");
+        }
         ProjectWorkTypeSet projectWorkTypeCombo = projectWorkTypeSetRepository.findById(projectWorkTypeId).get();
         DaysOfWeekHoursSet daysOfWeekHoursCombo = new DaysOfWeekHoursSet(daysOfWeek, hours);
         daysOfWeekHoursSetRepository.save(daysOfWeekHoursCombo);

@@ -43,7 +43,6 @@ public class Employee {
     private Integer paidTimeOff;
 
     @OneToOne(cascade = CascadeType.ALL)
-//    @Valid
     private Contact contactInfo;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -285,10 +284,7 @@ public class Employee {
     }
 
     public boolean isEmergencyContactNotNull(){
-        if(this.emergencyContact != null){
-            return true;
-        }
-        return false;
+        return this.emergencyContact != null;
     }
 
     public void setEmergencyContactUpdates(EditContactDetailsDTO editedContactDetails){

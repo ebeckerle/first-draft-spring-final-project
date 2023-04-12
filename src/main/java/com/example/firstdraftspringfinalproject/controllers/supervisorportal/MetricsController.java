@@ -45,6 +45,7 @@ public class MetricsController {
 
         model.addAttribute("employees", employeeRepository.findAll());
         //TODO -do we need all of the other columns of data - just need employee first name, last name, id - native sql query?
+        //        model.addAttribute("employees", employeeRepository.findAllEmployeesFirstNameLastNameCombo());
         model.addAttribute("projects", projectRepository.findAll());
         model.addAttribute("workTypes", workTypeRepository.findAll());
         List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
