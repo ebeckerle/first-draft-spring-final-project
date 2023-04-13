@@ -58,16 +58,6 @@ public class TimesheetController {
         Integer employeeId = (Integer) session.getAttribute("user");
 
         //DISPLAY the necessary attributes for the timesheet table (the second table)
-//        model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
-
-        //We need total hours worked on each individual day of the week and display them in the last row of the table
-        model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours("Monday"));
-        model.addAttribute("tuesdayTotal", currentTimesheet.totalDayOfWeekHours("Tuesday"));
-        model.addAttribute("wednesdayTotal", currentTimesheet.totalDayOfWeekHours("Wednesday"));
-        model.addAttribute("thursdayTotal", currentTimesheet.totalDayOfWeekHours("Thursday"));
-        model.addAttribute("fridayTotal", currentTimesheet.totalDayOfWeekHours("Friday"));
-        model.addAttribute("saturdayTotal", currentTimesheet.totalDayOfWeekHours("Saturday"));
-
         model.addAttribute("totalHoursForTheWeek", currentTimesheet.getTotalHours());
 
         model.addAttribute("title", "Current Timesheet");
