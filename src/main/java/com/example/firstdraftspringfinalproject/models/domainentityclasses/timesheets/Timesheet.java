@@ -33,14 +33,14 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
     @OneToMany(mappedBy = "timesheet", cascade = CascadeType.ALL)
     private List<LineEntry> lineEntries = new ArrayList<>();
 
-    private Integer totalMondayHours;
-    private Integer totalTuesdayHours;
-    private Integer totalWednesdayHours;
-    private Integer totalThursdayHours;
-    private Integer totalFridayHours;
-    private Integer totalSaturdayHours;
+    private Integer totalMondayHours = 0;
+    private Integer totalTuesdayHours = 0;
+    private Integer totalWednesdayHours = 0;
+    private Integer totalThursdayHours = 0;
+    private Integer totalFridayHours = 0;
+    private Integer totalSaturdayHours = 0;
 
-    private Integer totalHours;
+    private Integer totalHours = 0;
 
     private Integer totalPay;
     private Integer currentPayRate;

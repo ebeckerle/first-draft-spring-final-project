@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 // - TODO  -  add a PTO feature,
 //  TODO - make it so that the employee cannot submit more than one timesheet for the given week
@@ -49,23 +50,24 @@ public class TimesheetController {
 
 
     @GetMapping
-    public String displayCurrentTimesheet(HttpServletRequest request, Model model){
+    public String displayCurrentTimesheet(HttpServletRequest request, Model model,
+                                          @ModelAttribute("todaysDate") String today,
+                                          @ModelAttribute("projects") List<Project> projects,
+                                          @ModelAttribute("workTypes") List<WorkType> workTypes,
+                                          @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
 
         // find the correct employee for the session
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
 
-        // find the current timesheet for correct employee
-        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
-        Timesheet currentTimesheet = timesheets.get(0);
+//        // find the current timesheet for correct employee
+//        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+//        Timesheet currentTimesheet = timesheets.get(0);
 
         //display the Dates for this Timesheet
         String startDate = TimesheetCalculateDates.formatDates(currentTimesheet.getStartDate());
         String dueDate = TimesheetCalculateDates.formatDates(currentTimesheet.getDueDate());
         String payDay = TimesheetCalculateDates.formatDates(currentTimesheet.getPayDay());
-        LocalDate currentDate = LocalDate.now();
-        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
-        model.addAttribute("today", today);
         model.addAttribute("startDate", startDate);
         model.addAttribute("dueDate", dueDate);
         model.addAttribute("payDay", payDay);
@@ -74,27 +76,21 @@ public class TimesheetController {
         model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
 
         //We need total hours worked on each individual day of the week and display them in the last row of the table
-        Integer mondayTotal = currentTimesheet.totalDayOfWeekHours("Monday");
-        Integer tuesdayTotal = currentTimesheet.totalDayOfWeekHours("Tuesday");
-        Integer wednesdayTotal = currentTimesheet.totalDayOfWeekHours("Wednesday");
-        Integer thursdayTotal = currentTimesheet.totalDayOfWeekHours("Thursday");
-        Integer fridayTotal = currentTimesheet.totalDayOfWeekHours("Friday");
-        Integer saturdayTotal = currentTimesheet.totalDayOfWeekHours("Saturday");
-        model.addAttribute("mondayTotal", mondayTotal);
-        model.addAttribute("tuesdayTotal", tuesdayTotal);
-        model.addAttribute("wednesdayTotal", wednesdayTotal);
-        model.addAttribute("thursdayTotal", thursdayTotal);
-        model.addAttribute("fridayTotal", fridayTotal);
-        model.addAttribute("saturdayTotal", saturdayTotal);
+        model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours("Monday"));
+        model.addAttribute("tuesdayTotal", currentTimesheet.totalDayOfWeekHours("Tuesday"));
+        model.addAttribute("wednesdayTotal", currentTimesheet.totalDayOfWeekHours("Wednesday"));
+        model.addAttribute("thursdayTotal", currentTimesheet.totalDayOfWeekHours("Thursday"));
+        model.addAttribute("fridayTotal", currentTimesheet.totalDayOfWeekHours("Friday"));
+        model.addAttribute("saturdayTotal", currentTimesheet.totalDayOfWeekHours("Saturday"));
 
-        model.addAttribute("totalHoursForTheWeek", mondayTotal + tuesdayTotal + wednesdayTotal + thursdayTotal + fridayTotal + saturdayTotal);
+        model.addAttribute("totalHoursForTheWeek", currentTimesheet.getTotalHours());
 
         model.addAttribute("title", "Current Timesheet");
         model.addAttribute("currentTimesheet", currentTimesheet);
 
         //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
-        model.addAttribute("projects", projectRepository.findAll());
-        model.addAttribute("workTypes", workTypeRepository.findAll());
+//        model.addAttribute("projects", projectRepository.findAll());
+//        model.addAttribute("workTypes", workTypeRepository.findAll());
         model.addAttribute("daysOfWeek", DaysOfWeek.values());
         model.addAttribute("employeeId", employeeId);
 
@@ -108,7 +104,10 @@ public class TimesheetController {
                                              @RequestParam String workType,
                                              @RequestParam String daysOfWeek,
                                              @RequestParam Integer hours,
-                                             HttpServletRequest request, Model model){
+                                             HttpServletRequest request, Model model,
+                                             @ModelAttribute("todaysDate") String today,
+                                             @ModelAttribute("projects") List<Project> projects,
+                                             @ModelAttribute("workTypes") List<WorkType> workTypes){
 
         //find the current timesheet
         ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
@@ -162,6 +161,7 @@ public class TimesheetController {
         // if not, add a new line entry.
         lineEntryRepository.save(newEntry);
         currentTimesheet.getLineEntries().add(newEntry);
+        currentTimesheet.setTotalHours();
 
         timesheetRepository.save(currentTimesheet);
 
@@ -169,9 +169,9 @@ public class TimesheetController {
         String startDate = TimesheetCalculateDates.formatDates(currentTimesheet.getStartDate());
         String dueDate = TimesheetCalculateDates.formatDates(currentTimesheet.getDueDate());
         String payDay = TimesheetCalculateDates.formatDates(currentTimesheet.getPayDay());
-        LocalDate currentDate = LocalDate.now();
-        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
-        model.addAttribute("today", today);
+//        LocalDate currentDate = LocalDate.now();
+//        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
+//        model.addAttribute("today", today);
         model.addAttribute("startDate", startDate);
         model.addAttribute("dueDate", dueDate);
         model.addAttribute("payDay", payDay);
@@ -180,27 +180,21 @@ public class TimesheetController {
         model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
 
         //We need total hours worked on each individual day of the week and display them in the last row of the table
-        Integer mondayTotal = currentTimesheet.totalDayOfWeekHours("Monday");
-        Integer tuesdayTotal = currentTimesheet.totalDayOfWeekHours("Tuesday");
-        Integer wednesdayTotal = currentTimesheet.totalDayOfWeekHours("Wednesday");
-        Integer thursdayTotal = currentTimesheet.totalDayOfWeekHours("Thursday");
-        Integer fridayTotal = currentTimesheet.totalDayOfWeekHours("Friday");
-        Integer saturdayTotal = currentTimesheet.totalDayOfWeekHours("Saturday");
-        model.addAttribute("mondayTotal", mondayTotal);
-        model.addAttribute("tuesdayTotal", tuesdayTotal);
-        model.addAttribute("wednesdayTotal", wednesdayTotal);
-        model.addAttribute("thursdayTotal", thursdayTotal);
-        model.addAttribute("fridayTotal", fridayTotal);
-        model.addAttribute("saturdayTotal", saturdayTotal);
+        model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours("Monday"));
+        model.addAttribute("tuesdayTotal", currentTimesheet.totalDayOfWeekHours("Tuesday"));
+        model.addAttribute("wednesdayTotal", currentTimesheet.totalDayOfWeekHours("Wednesday"));
+        model.addAttribute("thursdayTotal", currentTimesheet.totalDayOfWeekHours("Thursday"));
+        model.addAttribute("fridayTotal", currentTimesheet.totalDayOfWeekHours("Friday"));
+        model.addAttribute("saturdayTotal", currentTimesheet.totalDayOfWeekHours("Saturday"));
 
-        model.addAttribute("totalHoursForTheWeek", mondayTotal + tuesdayTotal + wednesdayTotal + thursdayTotal + fridayTotal + saturdayTotal);
+        model.addAttribute("totalHoursForTheWeek", currentTimesheet.getTotalHours());
 
         model.addAttribute("title", "Current Timesheet");
         model.addAttribute("currentTimesheet", currentTimesheet);
 
         //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
-        model.addAttribute("projects", projectRepository.findAll());
-        model.addAttribute("workTypes", workTypeRepository.findAll());
+//        model.addAttribute("projects", projectRepository.findAll());
+//        model.addAttribute("workTypes", workTypeRepository.findAll());
 
         model.addAttribute("daysOfWeek", DaysOfWeek.values());
         model.addAttribute("employeeId", employeeId);
@@ -279,6 +273,8 @@ public class TimesheetController {
         lineEntryRepository.save(newEditedEntry);
         //add the new entry to the array list of line entries on the current timesheet
         currentTimesheet.getLineEntries().add(newEditedEntry);
+        //update total hours field in current timesheet
+        currentTimesheet.setTotalHours();
         //save the current timesheet
         timesheetRepository.save(currentTimesheet);
 
@@ -296,6 +292,8 @@ public class TimesheetController {
 
         currentTimesheet.getLineEntries().remove(lineEntryToDelete);
         lineEntryRepository.deleteById(lineEntryId);
+
+        currentTimesheet.setTotalHours();
 
         model.addAttribute("title", "Timesheet");
 
