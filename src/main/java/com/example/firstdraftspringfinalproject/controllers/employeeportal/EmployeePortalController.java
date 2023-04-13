@@ -179,9 +179,10 @@ public class EmployeePortalController {
                                                @RequestParam Integer fridayTotal,
                                                @RequestParam Integer saturdayTotal,
                                                HttpServletRequest request,
-                                               RedirectAttributes redirectAttributes, Model model){
+                                               RedirectAttributes redirectAttributes, Model model,
+                                               @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
         //grab the current timesheet
-        Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
+//        Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
         //set the total of monday's hours, tuesdays hours, etc
         currentTimesheet.setTotalMondayHours(mondayTotal);
         currentTimesheet.setTotalTuesdayHours(tuesdayTotal);

@@ -51,26 +51,11 @@ public class TimesheetController {
 
     @GetMapping
     public String displayCurrentTimesheet(HttpServletRequest request, Model model,
-                                          @ModelAttribute("todaysDate") String today,
-                                          @ModelAttribute("projects") List<Project> projects,
-                                          @ModelAttribute("workTypes") List<WorkType> workTypes,
                                           @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
 
         // find the correct employee for the session
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
-
-//        // find the current timesheet for correct employee
-//        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
-//        Timesheet currentTimesheet = timesheets.get(0);
-
-        //display the Dates for this Timesheet
-        String startDate = TimesheetCalculateDates.formatDates(currentTimesheet.getStartDate());
-        String dueDate = TimesheetCalculateDates.formatDates(currentTimesheet.getDueDate());
-        String payDay = TimesheetCalculateDates.formatDates(currentTimesheet.getPayDay());
-        model.addAttribute("startDate", startDate);
-        model.addAttribute("dueDate", dueDate);
-        model.addAttribute("payDay", payDay);
 
         //DISPLAY the necessary attributes for the timesheet table (the second table)
         model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
@@ -87,11 +72,6 @@ public class TimesheetController {
 
         model.addAttribute("title", "Current Timesheet");
         model.addAttribute("currentTimesheet", currentTimesheet);
-
-        //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
-//        model.addAttribute("projects", projectRepository.findAll());
-//        model.addAttribute("workTypes", workTypeRepository.findAll());
-        model.addAttribute("daysOfWeek", DaysOfWeek.values());
         model.addAttribute("employeeId", employeeId);
 
         return "employee/timesheet";
@@ -104,17 +84,15 @@ public class TimesheetController {
                                              @RequestParam String workType,
                                              @RequestParam String daysOfWeek,
                                              @RequestParam Integer hours,
-                                             HttpServletRequest request, Model model,
-                                             @ModelAttribute("todaysDate") String today,
-                                             @ModelAttribute("projects") List<Project> projects,
-                                             @ModelAttribute("workTypes") List<WorkType> workTypes){
+                                             Model model,
+                                             @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
 
-        //find the current timesheet
-        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
-        if(timesheets.size() != 1){
-            throw new RuntimeException("There is not one current timesheet, (zero or two or more)");
-        }
-        Timesheet currentTimesheet = timesheets.get(0);
+//        //find the current timesheet
+//        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+//        if(timesheets.size() != 1){
+//            throw new RuntimeException("There is not one current timesheet, (zero or two or more)");
+//        }
+//        Timesheet currentTimesheet = timesheets.get(0);
 
         //check if project & worktype combo already exists on this Timesheet in particular, so we can add to that line
         // entry in particular
@@ -165,17 +143,6 @@ public class TimesheetController {
 
         timesheetRepository.save(currentTimesheet);
 
-        //display the Dates for this Timesheet
-        String startDate = TimesheetCalculateDates.formatDates(currentTimesheet.getStartDate());
-        String dueDate = TimesheetCalculateDates.formatDates(currentTimesheet.getDueDate());
-        String payDay = TimesheetCalculateDates.formatDates(currentTimesheet.getPayDay());
-//        LocalDate currentDate = LocalDate.now();
-//        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
-//        model.addAttribute("today", today);
-        model.addAttribute("startDate", startDate);
-        model.addAttribute("dueDate", dueDate);
-        model.addAttribute("payDay", payDay);
-
         //DISPLAY the necessary attributes for the timesheet table (the second table)
         model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
 
@@ -192,11 +159,6 @@ public class TimesheetController {
         model.addAttribute("title", "Current Timesheet");
         model.addAttribute("currentTimesheet", currentTimesheet);
 
-        //CONTINUE to display the model attributes for the line entry Table Form (the 1st one)
-//        model.addAttribute("projects", projectRepository.findAll());
-//        model.addAttribute("workTypes", workTypeRepository.findAll());
-
-        model.addAttribute("daysOfWeek", DaysOfWeek.values());
         model.addAttribute("employeeId", employeeId);
 
         return "employee/timesheet";
