@@ -78,6 +78,37 @@ public class EmployeePortalAdviceController {
         model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
     }
 
+    @ModelAttribute("mondayTotal")
+    public void getMondayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours("Monday"));
+    }
+
+    @ModelAttribute("tuesdayTotal")
+    public void getTuesdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        model.addAttribute("tuesdayTotal", currentTimesheet.totalDayOfWeekHours("Tuesday"));
+    }
+
+    @ModelAttribute("wednesdayTotal")
+    public void getWednesdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        model.addAttribute("wednesdayTotal", currentTimesheet.totalDayOfWeekHours("Wednesday"));
+    }
+
+    @ModelAttribute("thursdayTotal")
+    public void getThursdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        model.addAttribute("thursdayTotal", currentTimesheet.totalDayOfWeekHours("Thursday"));
+    }
+
+    @ModelAttribute("fridayTotal")
+    public void getFridayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        model.addAttribute("fridayTotal", currentTimesheet.totalDayOfWeekHours("Friday"));
+    }
+
+    @ModelAttribute("saturdayTotal")
+    public void getSaturdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        model.addAttribute("saturdayTotal", currentTimesheet.totalDayOfWeekHours("Saturday"));
+    }
+
+
     @ModelAttribute("projects")
             public void getAllProjects(Model model){
         model.addAttribute("projects", projectRepository.findAll());
