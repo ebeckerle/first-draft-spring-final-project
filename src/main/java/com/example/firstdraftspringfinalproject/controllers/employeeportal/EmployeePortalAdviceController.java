@@ -73,6 +73,11 @@ public class EmployeePortalAdviceController {
         model.addAttribute("payDay", TimesheetCalculateDates.formatDates(currentTimesheet.getPayDay()));
     }
 
+    @ModelAttribute("logOfEntries")
+    public void getLogOfEntries(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
+    }
+
     @ModelAttribute("projects")
             public void getAllProjects(Model model){
         model.addAttribute("projects", projectRepository.findAll());

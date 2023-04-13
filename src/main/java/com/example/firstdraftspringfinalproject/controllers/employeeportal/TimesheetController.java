@@ -58,7 +58,7 @@ public class TimesheetController {
         Integer employeeId = (Integer) session.getAttribute("user");
 
         //DISPLAY the necessary attributes for the timesheet table (the second table)
-        model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
+//        model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
 
         //We need total hours worked on each individual day of the week and display them in the last row of the table
         model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours("Monday"));
@@ -86,13 +86,6 @@ public class TimesheetController {
                                              @RequestParam Integer hours,
                                              Model model,
                                              @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
-
-//        //find the current timesheet
-//        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
-//        if(timesheets.size() != 1){
-//            throw new RuntimeException("There is not one current timesheet, (zero or two or more)");
-//        }
-//        Timesheet currentTimesheet = timesheets.get(0);
 
         //check if project & worktype combo already exists on this Timesheet in particular, so we can add to that line
         // entry in particular
@@ -144,7 +137,7 @@ public class TimesheetController {
         timesheetRepository.save(currentTimesheet);
 
         //DISPLAY the necessary attributes for the timesheet table (the second table)
-        model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
+//        model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
 
         //We need total hours worked on each individual day of the week and display them in the last row of the table
         model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours("Monday"));
