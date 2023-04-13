@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
+import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetCalculateDates;
 import com.example.firstdraftspringfinalproject.models.pojo.OtpGenerator;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.dto.CreateEmployeeDTO;
@@ -166,7 +167,7 @@ public class ManageEmployeesController {
             timesheetRepository.save(timesheet);
 
             redirectAttributes.addFlashAttribute("timesheetEmployee", timesheet.getEmployee().getFirstName() + " " + timesheet.getEmployee().getLastName());
-            redirectAttributes.addFlashAttribute("timesheetWeek", Timesheet.formatDates(timesheet.getStartDate()) + " - " + Timesheet.formatDates(timesheet.getDueDate()));
+            redirectAttributes.addFlashAttribute("timesheetWeek", TimesheetCalculateDates.formatDates(timesheet.getStartDate()) + " - " + TimesheetCalculateDates.formatDates(timesheet.getDueDate()));
         }
 
         model.addAttribute("title", "Success!");

@@ -7,6 +7,7 @@ import com.example.firstdraftspringfinalproject.models.domainentityclasses.times
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.ProjectWorkTypeSet;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
+import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetCalculateDates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,9 +60,9 @@ public class TimesheetController {
         Timesheet currentTimesheet = timesheets.get(0);
 
         //display the Dates for this Timesheet
-        String startDate = Timesheet.formatDates(currentTimesheet.getStartDate());
-        String dueDate = Timesheet.formatDates(currentTimesheet.getDueDate());
-        String payDay = Timesheet.formatDates(currentTimesheet.getPayDay());
+        String startDate = TimesheetCalculateDates.formatDates(currentTimesheet.getStartDate());
+        String dueDate = TimesheetCalculateDates.formatDates(currentTimesheet.getDueDate());
+        String payDay = TimesheetCalculateDates.formatDates(currentTimesheet.getPayDay());
         LocalDate currentDate = LocalDate.now();
         String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
         model.addAttribute("today", today);
@@ -165,9 +166,9 @@ public class TimesheetController {
         timesheetRepository.save(currentTimesheet);
 
         //display the Dates for this Timesheet
-        String startDate = Timesheet.formatDates(currentTimesheet.getStartDate());
-        String dueDate = Timesheet.formatDates(currentTimesheet.getDueDate());
-        String payDay = Timesheet.formatDates(currentTimesheet.getPayDay());
+        String startDate = TimesheetCalculateDates.formatDates(currentTimesheet.getStartDate());
+        String dueDate = TimesheetCalculateDates.formatDates(currentTimesheet.getDueDate());
+        String payDay = TimesheetCalculateDates.formatDates(currentTimesheet.getPayDay());
         LocalDate currentDate = LocalDate.now();
         String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
         model.addAttribute("today", today);

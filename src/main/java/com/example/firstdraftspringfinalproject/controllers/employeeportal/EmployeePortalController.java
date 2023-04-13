@@ -4,6 +4,7 @@ import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
+import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetCalculateDates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -47,7 +48,7 @@ public class EmployeePortalController {
             Employee employee = employeeRepository.findById(employeeId).get();
 
             LocalDate todaysDate = LocalDate.now();
-            GregorianCalendar thisWeeksStartDate = Timesheet.figureStartDateBasedOnTodaysDate(todaysDate);
+            GregorianCalendar thisWeeksStartDate = TimesheetCalculateDates.figureStartDateBasedOnTodaysDate(todaysDate);
 
             model.addAttribute("title", "Home");
             model.addAttribute("employeeName", employee.getFirstName());
@@ -66,7 +67,7 @@ public class EmployeePortalController {
             //add a model attribute for message about this week's timesheet
             Optional<Timesheet> thisWeeksTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndStartDate(employeeId, thisWeeksStartDate);
             if(thisWeeksTimesheet.isPresent()){
-                String startDate = Timesheet.formatDates(thisWeeksTimesheet.get().getStartDate());
+                String startDate = TimesheetCalculateDates.formatDates(thisWeeksTimesheet.get().getStartDate());
                 if(thisWeeksTimesheet.get().getCompletionStatus()){
                     if(thisWeeksTimesheet.get().getSupervisorApproval()){
                         model.addAttribute("thisWeekTimesheet", "Your timesheet for the week of "+startDate+ " has been approved!");
@@ -76,10 +77,10 @@ public class EmployeePortalController {
                 }
             }
             //add a model attribute for message about last week's timesheet
-            GregorianCalendar lastWeeksStartDate = Timesheet.figureLastWeeksStartDateBasedOnTodaysDate(todaysDate);
+            GregorianCalendar lastWeeksStartDate = TimesheetCalculateDates.figureLastWeeksStartDateBasedOnTodaysDate(todaysDate);
             Optional<Timesheet> lastWeeksTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndStartDate(employeeId, lastWeeksStartDate);
             if(lastWeeksTimesheet.isPresent()){
-                String startDate = Timesheet.formatDates(lastWeeksTimesheet.get().getStartDate());
+                String startDate = TimesheetCalculateDates.formatDates(lastWeeksTimesheet.get().getStartDate());
 
                 if(lastWeeksTimesheet.get().getSupervisorApproval()){
                     model.addAttribute("lastWeekTimesheet", "Your timesheet for the week of "+startDate+ " has been approved!");
@@ -131,7 +132,7 @@ public class EmployeePortalController {
             Timesheet newTimesheet = new Timesheet(employeeRepository.findById(employeeId).get());
 
             //set the new timesheet's start date based on todaysDate using setDates() method
-            GregorianCalendar startDateGC = newTimesheet.figureStartDateBasedOnTodaysDate(todaysDate);
+            GregorianCalendar startDateGC = TimesheetCalculateDates.figureStartDateBasedOnTodaysDate(todaysDate);
             newTimesheet.setDates(startDateGC);
 
             //set the new timesheet completion status and supervisor approval as false
@@ -146,9 +147,9 @@ public class EmployeePortalController {
 
 
             //display the Dates for this Timesheet
-            String startDate = Timesheet.formatDates(newTimesheet.getStartDate());
-            String dueDate = Timesheet.formatDates(newTimesheet.getDueDate());
-            String payDay = Timesheet.formatDates(newTimesheet.getPayDay());
+            String startDate = TimesheetCalculateDates.formatDates(newTimesheet.getStartDate());
+            String dueDate = TimesheetCalculateDates.formatDates(newTimesheet.getDueDate());
+            String payDay = TimesheetCalculateDates.formatDates(newTimesheet.getPayDay());
             LocalDate currentDate = LocalDate.now();
             String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
             model.addAttribute("today", today);

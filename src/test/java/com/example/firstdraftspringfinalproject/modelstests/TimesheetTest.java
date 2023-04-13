@@ -5,6 +5,7 @@ import com.example.firstdraftspringfinalproject.models.domainentityclasses.times
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.ProjectWorkTypeSet;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
+import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetCalculateDates;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -200,7 +201,7 @@ public class TimesheetTest {
     public void testFormatDates(){
 
         GregorianCalendar date = new GregorianCalendar(2022, 2, 4);
-        String expected = Timesheet.formatDates(date);
+        String expected = TimesheetCalculateDates.formatDates(date);
         System.out.println(expected);
         assertEquals(expected, "2/4/2022");
 
@@ -213,10 +214,10 @@ public class TimesheetTest {
     public void testFigureStartDateBasedOnTodaysDate(){
 
         LocalDate today = LocalDate.now();
-        GregorianCalendar startDateExpected = Timesheet.figureStartDateBasedOnTodaysDate(today);
-        GregorianCalendar startDateActual = Timesheet.figureStartDateBasedOnTodaysDate(today);
+        GregorianCalendar startDateExpected = TimesheetCalculateDates.figureStartDateBasedOnTodaysDate(today);
+        GregorianCalendar startDateActual = TimesheetCalculateDates.figureStartDateBasedOnTodaysDate(today);
 
-        System.out.println(Timesheet.formatDates(startDateExpected));
+        System.out.println(TimesheetCalculateDates.formatDates(startDateExpected));
 
         //TODO : wrong ?????
         assertEquals(startDateExpected.getClass(), startDateActual.getClass());
