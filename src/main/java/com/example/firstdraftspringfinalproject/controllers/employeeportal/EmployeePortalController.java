@@ -146,23 +146,8 @@ public class EmployeePortalController {
             employeeRepository.save(employee);
 
 
-            //display the Dates for this Timesheet
-            String startDate = TimesheetCalculateDates.formatDates(newTimesheet.getStartDate());
-            String dueDate = TimesheetCalculateDates.formatDates(newTimesheet.getDueDate());
-            String payDay = TimesheetCalculateDates.formatDates(newTimesheet.getPayDay());
-            LocalDate currentDate = LocalDate.now();
-            String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
-            model.addAttribute("today", today);
-            model.addAttribute("startDate", startDate);
-            model.addAttribute("dueDate", dueDate);
-            model.addAttribute("payDay", payDay);
-
             model.addAttribute("title", "Timesheet");
 
-            //display the model attributes for the line entry Table Form (the 1st one)
-            model.addAttribute("projects", projectRepository.findAll());
-            model.addAttribute("workTypes", workTypeRepository.findAll());
-            model.addAttribute("daysOfWeek", DaysOfWeek.values());
             model.addAttribute("employeeId", employeeId);
         }
 
@@ -181,8 +166,6 @@ public class EmployeePortalController {
                                                HttpServletRequest request,
                                                RedirectAttributes redirectAttributes, Model model,
                                                @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
-        //grab the current timesheet
-//        Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
         //set the total of monday's hours, tuesdays hours, etc
         currentTimesheet.setTotalMondayHours(mondayTotal);
         currentTimesheet.setTotalTuesdayHours(tuesdayTotal);
