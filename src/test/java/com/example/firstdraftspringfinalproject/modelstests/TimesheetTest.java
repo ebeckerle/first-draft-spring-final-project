@@ -158,42 +158,6 @@ public class TimesheetTest {
         assertEquals(0, testTimesheet1.totalDayOfWeekHours("Thursday"));
         assertEquals(8, testTimesheet1.totalDayOfWeekHours("Friday"));
         assertEquals(0, testTimesheet1.totalDayOfWeekHours("Saturday"));
-
-//        public Integer totalDayOfWeekHours(String dayOfWeek){
-//            Integer totalHours = 0;
-//            if (dayOfWeek.equals("Monday")){
-//                for (LineEntry lineEntry:
-//                        this.lineEntries) {
-//                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getMondayHours();
-//                }
-//            } else if (dayOfWeek.equals("Tuesday")){
-//                for (LineEntry lineEntry:
-//                        this.lineEntries) {
-//                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours();
-//                }
-//            }else if (dayOfWeek.equals("Wednesday")){
-//                for (LineEntry lineEntry:
-//                        this.lineEntries) {
-//                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours();
-//                }
-//            }else if (dayOfWeek.equals("Thursday")){
-//                for (LineEntry lineEntry:
-//                        this.lineEntries) {
-//                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getThursdayHours();
-//                }
-//            }else if (dayOfWeek.equals("Friday")){
-//                for (LineEntry lineEntry:
-//                        this.lineEntries) {
-//                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getFridayHours();
-//                }
-//            }else if (dayOfWeek.equals("Saturday")){
-//                for (LineEntry lineEntry:
-//                        this.lineEntries) {
-//                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours();
-//                }
-//            }
-//            return totalHours;
-//        }
     }
 
 

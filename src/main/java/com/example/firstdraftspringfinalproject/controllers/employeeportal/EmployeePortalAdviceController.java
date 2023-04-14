@@ -4,7 +4,6 @@ import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
 import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetCalculateDates;
@@ -12,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
+
 
 @ControllerAdvice("com.example.firstdraftspringfinalproject.controllers.employeeportal")
 public class EmployeePortalAdviceController {
@@ -35,6 +34,8 @@ public class EmployeePortalAdviceController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    //THE Following are all Model attributes for populating the Timesheet Form, and are used in methods in the Timesheet
+    //Controller and the Employee Portal Controller
 
     @ModelAttribute("currentTimesheet")
     public void getCurrentTimesheet(HttpServletRequest request, Model model) {
@@ -106,6 +107,11 @@ public class EmployeePortalAdviceController {
     @ModelAttribute("saturdayTotal")
     public void getSaturdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
         model.addAttribute("saturdayTotal", currentTimesheet.totalDayOfWeekHours("Saturday"));
+    }
+
+    @ModelAttribute("totalHoursForTheWeek")
+    public void getTotalHoursForTheWeek(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        model.addAttribute("totalHoursForTheWeek", currentTimesheet.getTotalHours());
     }
 
 

@@ -121,6 +121,9 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
 
     public void setCompletionStatus(Boolean completionStatus) {
         this.completionStatus = completionStatus;
+        if(!this.completionStatus){
+            this.supervisorApproval = false;
+        }
     }
 
     public void setSupervisorApproval(Boolean supervisorApproval) {

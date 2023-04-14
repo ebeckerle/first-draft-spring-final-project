@@ -135,9 +135,8 @@ public class EmployeePortalController {
             GregorianCalendar startDateGC = TimesheetCalculateDates.figureStartDateBasedOnTodaysDate(todaysDate);
             newTimesheet.setDates(startDateGC);
 
-            //set the new timesheet completion status and supervisor approval as false
+            //set the new timesheet completion status as false (and therein supervisor approval as false)
             newTimesheet.setCompletionStatus(false);
-            newTimesheet.setSupervisorApproval(false);
             timesheetRepository.save(newTimesheet);
 
             //set the employee's current timesheet completion status as false
@@ -145,9 +144,7 @@ public class EmployeePortalController {
             employee.setCurrentTimesheetCompletionStatus(false);
             employeeRepository.save(employee);
 
-
             model.addAttribute("title", "Timesheet");
-
             model.addAttribute("employeeId", employeeId);
         }
 
@@ -156,8 +153,7 @@ public class EmployeePortalController {
 
     //form submit lives at employee/timesheet url (or employee/timesheet/createnewlineentry url), renders at employee/successSubmit url
     @PostMapping("/successSubmit")
-    public RedirectView processSubmitTimesheet(@RequestParam Integer currentTimesheetId,
-                                               @RequestParam Integer mondayTotal,
+    public RedirectView processSubmitTimesheet(@RequestParam Integer mondayTotal,
                                                @RequestParam Integer tuesdayTotal,
                                                @RequestParam Integer wednesdayTotal,
                                                @RequestParam Integer thursdayTotal,
@@ -166,6 +162,8 @@ public class EmployeePortalController {
                                                HttpServletRequest request,
                                                RedirectAttributes redirectAttributes, Model model,
                                                @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
+        System.out.println("request param: mondayTotal: "+mondayTotal);
+        System.out.println("currentTimesheet get total monday hours: "+currentTimesheet.getTotalMondayHours());
         //set the total of monday's hours, tuesdays hours, etc
         currentTimesheet.setTotalMondayHours(mondayTotal);
         currentTimesheet.setTotalTuesdayHours(tuesdayTotal);

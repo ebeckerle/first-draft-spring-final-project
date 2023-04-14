@@ -50,18 +50,14 @@ public class TimesheetController {
 
 
     @GetMapping
-    public String displayCurrentTimesheet(HttpServletRequest request, Model model,
-                                          @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
+    public String displayCurrentTimesheet(HttpServletRequest request, Model model){
 
         // find the correct employee for the session
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
 
-        //DISPLAY the necessary attributes for the timesheet table (the second table)
-        model.addAttribute("totalHoursForTheWeek", currentTimesheet.getTotalHours());
-
+        //DISPLAY
         model.addAttribute("title", "Current Timesheet");
-        model.addAttribute("currentTimesheet", currentTimesheet);
         model.addAttribute("employeeId", employeeId);
 
         return "employee/timesheet";
@@ -126,12 +122,8 @@ public class TimesheetController {
 
         timesheetRepository.save(currentTimesheet);
 
-        //DISPLAY the necessary attributes for the timesheet table (the second table)
-        model.addAttribute("totalHoursForTheWeek", currentTimesheet.getTotalHours());
-
+        //DISPLAY
         model.addAttribute("title", "Current Timesheet");
-        model.addAttribute("currentTimesheet", currentTimesheet);
-
         model.addAttribute("employeeId", employeeId);
 
         return "employee/timesheet";
