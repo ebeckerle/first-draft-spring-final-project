@@ -73,8 +73,8 @@ public class TimesheetController {
                                              Model model,
                                              @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
 
-        //check if project & worktype combo already exists on this Timesheet in particular, so we can add to that line
-        // entry in particular
+        //check if line entry already exists on this Timesheet in particular, so we can either add or update
+
         Integer workTypeId = WorkType.fromToStringToId(workType);
         ProjectWorkTypeSet projectWorkTypeSet = projectWorkTypeSetRepository.findByProjectAndWorkType(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId));
         if (projectWorkTypeSet == null){
@@ -94,7 +94,7 @@ public class TimesheetController {
         daysOfWeekHoursSetRepository.save(daysOfWeekHoursCombo);
 
         //Create the new line entry object
-        LineEntry newEntry = new LineEntry(projectWorkTypeCombo, daysOfWeekHoursCombo, currentTimesheet);
+        LineEntry newEntry = new LineEntry(projectWorkTypeCombo.getProject(), projectWorkTypeCombo.getWorkType(), daysOfWeekHoursCombo, currentTimesheet);
 
         //check if the lineEntry Project WorkType Combo already exists as a line entry,
         if (currentTimesheet.checkALineEntry(newEntry)){

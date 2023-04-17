@@ -1,5 +1,8 @@
 package com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets;
 
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.WorkType;
+
 import java.util.Objects;
 import javax.persistence.*;
 
@@ -11,8 +14,14 @@ public class LineEntry {
     @GeneratedValue
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private ProjectWorkTypeSet projectWorkTypeCombo;
+//    @OneToOne(cascade = CascadeType.PERSIST)
+//    private ProjectWorkTypeSet projectWorkTypeCombo;
+
+    @ManyToOne
+    private Project project;
+
+    @ManyToOne
+    private WorkType workType;
 
     @OneToOne(cascade = CascadeType.ALL)
     private DaysOfWeekHoursSet daysOfWeekHoursCombo;
@@ -24,8 +33,18 @@ public class LineEntry {
     private Integer totalHours = 0;
 
 
-    public LineEntry(ProjectWorkTypeSet projectWorkTypeCombo, DaysOfWeekHoursSet daysOfWeekHoursCombo, Timesheet timesheet){
-        this.projectWorkTypeCombo = projectWorkTypeCombo;
+//    public LineEntry(ProjectWorkTypeSet projectWorkTypeCombo, DaysOfWeekHoursSet daysOfWeekHoursCombo, Timesheet timesheet){
+//        this.projectWorkTypeCombo = projectWorkTypeCombo;
+//        this.project = projectWorkTypeCombo.getProject();
+//        this.workType = projectWorkTypeCombo.getWorkType();
+//        this.daysOfWeekHoursCombo = daysOfWeekHoursCombo;
+//        this.totalHours = daysOfWeekHoursCombo.getTotalHours();
+//        this.timesheet = timesheet;
+//    }
+
+    public LineEntry(Project project, WorkType workType, DaysOfWeekHoursSet daysOfWeekHoursCombo, Timesheet timesheet){
+        this.project = project;
+        this.workType = workType;
         this.daysOfWeekHoursCombo = daysOfWeekHoursCombo;
         this.totalHours = daysOfWeekHoursCombo.getTotalHours();
         this.timesheet = timesheet;
@@ -41,12 +60,24 @@ public class LineEntry {
         return id;
     }
 
-    public ProjectWorkTypeSet getProjectWorkTypeCombo() {
-        return projectWorkTypeCombo;
+//    public ProjectWorkTypeSet getProjectWorkTypeCombo() {
+//        return projectWorkTypeCombo;
+//    }
+
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjectWorkTypeCombo(ProjectWorkTypeSet projectWorkTypeCombo) {
-        this.projectWorkTypeCombo = projectWorkTypeCombo;
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public WorkType getWorkType() {
+        return workType;
+    }
+
+    public void setWorkType(WorkType workType) {
+        this.workType = workType;
     }
 
     public DaysOfWeekHoursSet getDaysOfWeekHoursCombo() {
@@ -61,10 +92,6 @@ public class LineEntry {
         return  daysOfWeekHoursCombo.getTotalHours();
     }
 
-    public void setTotalHours(Integer totalHours) {
-        this.totalHours = totalHours;
-    }
-
     public Timesheet getTimesheet() {
         return timesheet;
     }
@@ -73,18 +100,18 @@ public class LineEntry {
         this.timesheet = timesheet;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LineEntry lineEntry = (LineEntry) o;
-        return projectWorkTypeCombo.equals(lineEntry.projectWorkTypeCombo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(projectWorkTypeCombo);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        LineEntry lineEntry = (LineEntry) o;
+//        return projectWorkTypeCombo.equals(lineEntry.projectWorkTypeCombo);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(projectWorkTypeCombo);
+//    }
 
 
     public static DaysOfWeekHoursSet updateALineEntry(DaysOfWeekHoursSet dayHourCombo1, DaysOfWeekHoursSet dayHourCombo2){
@@ -100,5 +127,16 @@ public class LineEntry {
         return dayHourCombo3;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LineEntry lineEntry = (LineEntry) o;
+        return project.equals(lineEntry.project) && workType.equals(lineEntry.workType) && timesheet.equals(lineEntry.timesheet);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(project, workType, timesheet);
+    }
 }

@@ -1,10 +1,12 @@
 package com.example.firstdraftspringfinalproject.models.domainentityclasses;
 
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.Contact;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,6 +23,10 @@ public class Project {
     @NotBlank(message = "Please provide a name for the project")
     @Size(max=100, message = "Please provide a name for the project in less than 100 characters")
     private String projectName;
+
+    @OneToMany
+//    @OneToMany(mappedBy = "project")
+    private List<LineEntry> lineEntries;
 
     @OneToOne
     @JoinColumn(name = "contact_info_id")

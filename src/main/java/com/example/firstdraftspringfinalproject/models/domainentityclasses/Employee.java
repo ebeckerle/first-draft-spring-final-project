@@ -94,6 +94,10 @@ public class Employee {
         this.lastName = lastName;
     }
 
+    public String getFirstNameLastNameCombo() {
+        return firstNameLastNameCombo;
+    }
+
     public String getTitle() {
         return title;
     }

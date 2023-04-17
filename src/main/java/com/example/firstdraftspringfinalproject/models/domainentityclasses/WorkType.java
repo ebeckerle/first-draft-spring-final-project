@@ -1,7 +1,11 @@
 package com.example.firstdraftspringfinalproject.models.domainentityclasses;
 
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,6 +14,10 @@ public class WorkType {
     @Id
     private Integer workTypeId;
     private String workDescription;
+
+    @OneToMany
+    //    @OneToMany(mappedBy = "workType")
+    private List<LineEntry> lineEntries;
 
     public WorkType(Integer workTypeId, String workDescription){
         this.workTypeId = workTypeId;
@@ -32,6 +40,14 @@ public class WorkType {
 
     public void setWorkDescription(String workDescription) {
         this.workDescription = workDescription;
+    }
+
+    public List<LineEntry> getLineEntries() {
+        return lineEntries;
+    }
+
+    public void setLineEntries(List<LineEntry> lineEntries) {
+        this.lineEntries = lineEntries;
     }
 
     @Override
