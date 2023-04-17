@@ -142,6 +142,15 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         this.totalMondayHours = totalMondayHours;
     }
 
+    public void updateTotalMondayHours() {
+        Integer currentTotalMonday = this.totalMondayHours;
+        for (LineEntry lineEntry :
+                this.lineEntries) {
+            currentTotalMonday += lineEntry.getDaysOfWeekHoursCombo().getMondayHours();
+        }
+        this.totalMondayHours = currentTotalMonday;
+    }
+
     public Integer getTotalTuesdayHours() {
         return totalTuesdayHours;
     }
@@ -180,6 +189,29 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
 
     public void setTotalSaturdayHours(Integer totalSaturdayHours) {
         this.totalSaturdayHours = totalSaturdayHours;
+    }
+    public void updateAndResetEachDayOfWeekTotalHours() {
+        Integer currentTotalMonday = this.totalMondayHours;
+        Integer currentTotalTuesday = this.totalTuesdayHours;
+        Integer currentTotalWednesday = this.totalWednesdayHours;
+        Integer currentTotalThursday = this.totalThursdayHours;
+        Integer currentTotalFriday = this.totalFridayHours;
+        Integer currentTotalSaturday = this.totalSaturdayHours;
+        for (LineEntry lineEntry :
+                this.lineEntries) {
+            currentTotalMonday += lineEntry.getDaysOfWeekHoursCombo().getMondayHours();
+            currentTotalTuesday += lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours();
+            currentTotalWednesday += lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours();
+            currentTotalThursday += lineEntry.getDaysOfWeekHoursCombo().getThursdayHours();
+            currentTotalFriday += lineEntry.getDaysOfWeekHoursCombo().getFridayHours();
+            currentTotalSaturday += lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours();
+        }
+        this.totalMondayHours = currentTotalMonday;
+        this.totalTuesdayHours = currentTotalTuesday;
+        this.totalWednesdayHours = currentTotalWednesday;
+        this.totalThursdayHours = currentTotalThursday;
+        this.totalFridayHours = currentTotalFriday;
+        this.totalSaturdayHours = currentTotalSaturday;
     }
 
     public Integer getTotalHours() {

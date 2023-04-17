@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.controllers.employeeportal;
+package com.example.firstdraftspringfinalproject.controllers.employeeportal.timesheet;
 
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
@@ -118,6 +118,9 @@ public class TimesheetController {
         // if not, add a new line entry.
         lineEntryRepository.save(newEntry);
         currentTimesheet.getLineEntries().add(newEntry);
+
+        //update the timesheets total hours for each Day of the Week
+        currentTimesheet.updateAndResetEachDayOfWeekTotalHours();
         currentTimesheet.setTotalHours();
 
         timesheetRepository.save(currentTimesheet);
