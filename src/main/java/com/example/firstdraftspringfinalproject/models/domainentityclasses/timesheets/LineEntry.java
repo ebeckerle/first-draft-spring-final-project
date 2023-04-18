@@ -14,8 +14,8 @@ public class LineEntry {
     @GeneratedValue
     private Integer id;
 
-//    @OneToOne(cascade = CascadeType.PERSIST)
-//    private ProjectWorkTypeSet projectWorkTypeCombo;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private ProjectWorkTypeSet projectWorkTypeCombo;
 
     @ManyToOne
     private Project project;
@@ -33,14 +33,14 @@ public class LineEntry {
     private Integer totalHours = 0;
 
 
-//    public LineEntry(ProjectWorkTypeSet projectWorkTypeCombo, DaysOfWeekHoursSet daysOfWeekHoursCombo, Timesheet timesheet){
-//        this.projectWorkTypeCombo = projectWorkTypeCombo;
-//        this.project = projectWorkTypeCombo.getProject();
-//        this.workType = projectWorkTypeCombo.getWorkType();
-//        this.daysOfWeekHoursCombo = daysOfWeekHoursCombo;
-//        this.totalHours = daysOfWeekHoursCombo.getTotalHours();
-//        this.timesheet = timesheet;
-//    }
+    public LineEntry(ProjectWorkTypeSet projectWorkTypeCombo, DaysOfWeekHoursSet daysOfWeekHoursCombo, Timesheet timesheet){
+        this.projectWorkTypeCombo = projectWorkTypeCombo;
+        this.project = projectWorkTypeCombo.getProject();
+        this.workType = projectWorkTypeCombo.getWorkType();
+        this.daysOfWeekHoursCombo = daysOfWeekHoursCombo;
+        this.totalHours = daysOfWeekHoursCombo.getTotalHours();
+        this.timesheet = timesheet;
+    }
 
     public LineEntry(Project project, WorkType workType, DaysOfWeekHoursSet daysOfWeekHoursCombo, Timesheet timesheet){
         this.project = project;
@@ -60,9 +60,9 @@ public class LineEntry {
         return id;
     }
 
-//    public ProjectWorkTypeSet getProjectWorkTypeCombo() {
-//        return projectWorkTypeCombo;
-//    }
+    public ProjectWorkTypeSet getProjectWorkTypeCombo() {
+        return projectWorkTypeCombo;
+    }
 
     public Project getProject() {
         return project;
@@ -114,7 +114,7 @@ public class LineEntry {
 //    }
 
 
-    public static DaysOfWeekHoursSet updateALineEntry(DaysOfWeekHoursSet dayHourCombo1, DaysOfWeekHoursSet dayHourCombo2){
+    public static DaysOfWeekHoursSet updateHoursOnLineEntry(DaysOfWeekHoursSet dayHourCombo1, DaysOfWeekHoursSet dayHourCombo2){
 
         Integer newMondayTotal = dayHourCombo1.getMondayHours() + dayHourCombo2.getMondayHours();
         Integer newTuesdayTotal = dayHourCombo1.getTuesdayHours() + dayHourCombo2.getTuesdayHours();
@@ -125,6 +125,16 @@ public class LineEntry {
 
         DaysOfWeekHoursSet dayHourCombo3 = new DaysOfWeekHoursSet(newMondayTotal, newTuesdayTotal, newWednesdayTotal, newThursdayTotal, newFridayTotal, newSaturdayTotal);
         return dayHourCombo3;
+    }
+
+    public boolean isLineEntryOnTimesheet(Timesheet currentTimesheet) {
+        for (LineEntry lineEntry :
+                currentTimesheet.getLineEntries()) {
+            if(this.project.equals(lineEntry.getProject()) && this.workType.equals(lineEntry.getWorkType())){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

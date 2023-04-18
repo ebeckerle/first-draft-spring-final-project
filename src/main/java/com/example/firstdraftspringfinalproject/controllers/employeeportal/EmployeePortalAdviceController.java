@@ -23,19 +23,8 @@ import java.util.ArrayList;
 public class EmployeePortalAdviceController {
 
     @Autowired
-    private ProjectRepository projectRepository;
-
-    @Autowired
-    private WorkTypeRepository workTypeRepository;
-
-    @Autowired
     private TimesheetRepository timesheetRepository;
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-    //THE Following are all Model attributes for populating the Timesheet Form, and are used in methods in the Timesheet
-    //Controller and the Employee Portal Controller
 
     @ModelAttribute("currentTimesheet")
     public void getCurrentTimesheet(HttpServletRequest request, Model model) {
@@ -50,95 +39,5 @@ public class EmployeePortalAdviceController {
             model.addAttribute("currentTimesheet", currentTimesheet);
         }
     }
-
-
-//    @ModelAttribute("todaysDate")
-//    public void getTodaysDate(Model model){
-//        LocalDate currentDate = LocalDate.now();
-//        String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
-//        model.addAttribute("today", today);
-//    }
-//
-//    @ModelAttribute("startDate")
-//    public void getThisTimesheetsStartDate(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
-//        if(currentTimesheet.getStartDate() == null){
-//            System.out.println("curent tmsheets start date is null");
-//        }else {
-//            model.addAttribute("startDate", TimesheetCalculateDates.formatDates(currentTimesheet.getStartDate()));
-//        }
-//    }
-//
-//    @ModelAttribute("dueDate")
-//    public void getThisTimesheetsDueDate(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
-//        if(currentTimesheet.getDueDate() == null){
-//            System.out.println("curent tmsheets due date is null");
-//        }else{
-//            model.addAttribute("dueDate", TimesheetCalculateDates.formatDates(currentTimesheet.getDueDate()));
-//        }
-//    }
-//
-//    @ModelAttribute("payDay")
-//    public void getThisTimesheetsPayDay(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
-//        model.addAttribute("payDay", TimesheetCalculateDates.formatDates(currentTimesheet.getPayDay()));
-//    }
-//
-//    @ModelAttribute("logOfEntries")
-//    public void getLogOfEntries(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
-//        model.addAttribute("logOfEntries", currentTimesheet.getLineEntries());
-//    }
-//
-//    @ModelAttribute("mondayTotal")
-//    public void getMondayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
-//        model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours("Monday"));
-//    }
-//
-//    @ModelAttribute("tuesdayTotal")
-//    public void getTuesdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
-//        model.addAttribute("tuesdayTotal", currentTimesheet.totalDayOfWeekHours("Tuesday"));
-//    }
-//
-//    @ModelAttribute("wednesdayTotal")
-//    public void getWednesdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
-//        model.addAttribute("wednesdayTotal", currentTimesheet.totalDayOfWeekHours("Wednesday"));
-//    }
-//
-//    @ModelAttribute("thursdayTotal")
-//    public void getThursdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
-//        model.addAttribute("thursdayTotal", currentTimesheet.totalDayOfWeekHours("Thursday"));
-//    }
-//
-//    @ModelAttribute("fridayTotal")
-//    public void getFridayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
-//        model.addAttribute("fridayTotal", currentTimesheet.totalDayOfWeekHours("Friday"));
-//    }
-//
-//    @ModelAttribute("saturdayTotal")
-//    public void getSaturdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
-//        model.addAttribute("saturdayTotal", currentTimesheet.totalDayOfWeekHours("Saturday"));
-//    }
-//
-//    @ModelAttribute("totalHoursForTheWeek")
-//    public void getTotalHoursForTheWeek(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
-//        model.addAttribute("totalHoursForTheWeek", currentTimesheet.getTotalHours());
-//    }
-
-
-//    @ModelAttribute("projects")
-//            public void getAllProjects(Model model){
-//        model.addAttribute("projects", projectRepository.findAll());
-//    }
-//
-//    @ModelAttribute("workTypes")
-//    public void getAllWorkTypes(Model model){
-//        model.addAttribute("workTypes", workTypeRepository.findAll());
-//    }
-//
-//    @ModelAttribute("daysOfWeek")
-//    public void getDaysOfWeek(Model model){
-//        model.addAttribute("daysOfWeek", DaysOfWeek.values());
-//    }
-
-
-
 
 }

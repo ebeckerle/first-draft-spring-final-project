@@ -1,16 +1,12 @@
 package com.example.firstdraftspringfinalproject.models.dao;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
-import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.WorkType;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
-import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.HashMap;
 import java.util.List;
 

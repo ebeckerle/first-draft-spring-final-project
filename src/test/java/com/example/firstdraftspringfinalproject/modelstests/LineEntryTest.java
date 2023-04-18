@@ -40,7 +40,7 @@ public class LineEntryTest {
 
         //should I make this method static?
 //        LineEntry.updateALineEntry(dayWkHrSetTest1, dayWkHrSetTest2);
-        DaysOfWeekHoursSet actual = lineEntry1.updateALineEntry(dayWkHrSetTest1, dayWkHrSetTest2);
+        DaysOfWeekHoursSet actual = lineEntry1.updateHoursOnLineEntry(dayWkHrSetTest1, dayWkHrSetTest2);
 
         assertTrue(actual.equals(daysOfWeekHoursSetExpected));
 

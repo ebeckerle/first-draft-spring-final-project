@@ -30,7 +30,7 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
     private Boolean completionStatus;
     private Boolean supervisorApproval;
 
-    @OneToMany(mappedBy = "timesheet", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "timesheet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LineEntry> lineEntries = new ArrayList<>();
 
     private Integer totalMondayHours = 0;
@@ -253,15 +253,6 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         return doesLineEntryAlreadyExist;
     }
 
-    public LineEntry getLineEntryWithMatchingProjectWorkType(ProjectWorkTypeSet projectWorkTypeSet){
-        for (LineEntry lineEntry:
-             this.lineEntries) {
-            if (lineEntry.getProjectWorkTypeCombo().equals(projectWorkTypeSet)){
-                return lineEntry;
-            }
-        }
-        return new LineEntry();
-    }
 
     //TODO  - ? - rewrite this method with DayOfWeek enum as argument?, it will only return 0 with a messed up input but...
     public Integer totalDayOfWeekHours(String dayOfWeek){
@@ -337,5 +328,30 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         return totalHoursForWorkType;
     }
 
+
+    public LineEntry findMatchingLineEntry(LineEntry theNewLineEntry) {
+        LineEntry existingLineEntry = new LineEntry();
+        for (LineEntry lineEntry:
+                this.getLineEntries()) {
+            if(lineEntry.equals(theNewLineEntry)){
+                existingLineEntry = lineEntry;
+            }
+        }
+        return existingLineEntry;
+    }
+
+    public void updateLineEntry(LineEntry existingLineEntry, LineEntry theNewLineEntry) {
+        if(!existingLineEntry.equals(theNewLineEntry)){
+            throw new RuntimeException("these line entries do not match, (are not equal in project and work type), failed to update existing.");
+        }
+        DaysOfWeekHoursSet existingHours = existingLineEntry.getDaysOfWeekHoursCombo();
+        DaysOfWeekHoursSet newHours = theNewLineEntry.getDaysOfWeekHoursCombo();
+        DaysOfWeekHoursSet newNewDaysHours = LineEntry.updateHoursOnLineEntry(existingHours, newHours);
+        theNewLineEntry.setDaysOfWeekHoursCombo(newNewDaysHours);
+        System.out.println("line entries before remove: "+ this.lineEntries.size());
+        this.lineEntries.remove(existingLineEntry);
+        System.out.println("line entries after remove: "+ this.lineEntries.size());
+        this.lineEntries.add(theNewLineEntry);
+    }
 
 }

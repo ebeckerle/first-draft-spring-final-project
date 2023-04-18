@@ -32,10 +32,18 @@ public class Project {
     @JoinColumn(name = "contact_info_id")
     private Contact contactInfo;
 
+
     // TODO : Other fields we may want in the future:
     //  hoursQuoted, hoursBilled, etc;
     //  number of shipments upcoming;
     //  shipment goal dates; actual shipment dates
+
+    public Project (String projectCode, String projectName){
+        this.projectCode = projectCode;
+        this.projectName = projectName;
+    }
+
+    public Project () {}
 
     public Contact getContactInfo() {
         return contactInfo;
@@ -45,14 +53,6 @@ public class Project {
     public void setContactInfo(Contact contactInfo) {
         this.contactInfo = contactInfo;
     }
-
-
-    public Project (String projectCode, String projectName){
-        this.projectCode = projectCode;
-        this.projectName = projectName;
-    }
-
-    public Project () {}
 
     // GETTERS & SETTERS
     public Integer getProjectId() {

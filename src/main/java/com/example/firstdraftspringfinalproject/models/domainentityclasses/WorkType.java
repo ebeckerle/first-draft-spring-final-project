@@ -19,8 +19,8 @@ public class WorkType {
     //    @OneToMany(mappedBy = "workType")
     private List<LineEntry> lineEntries;
 
-    public WorkType(Integer workTypeId, String workDescription){
-        this.workTypeId = workTypeId;
+    public WorkType(Integer id, String workDescription){
+        this.workTypeId = id;
         this.workDescription = workDescription;
     }
 
