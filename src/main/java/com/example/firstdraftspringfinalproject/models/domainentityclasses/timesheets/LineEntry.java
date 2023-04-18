@@ -100,19 +100,6 @@ public class LineEntry {
         this.timesheet = timesheet;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        LineEntry lineEntry = (LineEntry) o;
-//        return projectWorkTypeCombo.equals(lineEntry.projectWorkTypeCombo);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(projectWorkTypeCombo);
-//    }
-
 
     public static DaysOfWeekHoursSet updateHoursOnLineEntry(DaysOfWeekHoursSet dayHourCombo1, DaysOfWeekHoursSet dayHourCombo2){
 

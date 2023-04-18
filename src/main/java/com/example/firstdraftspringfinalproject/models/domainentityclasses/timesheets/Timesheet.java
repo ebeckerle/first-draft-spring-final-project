@@ -316,7 +316,6 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
 
     public Integer getTotalHoursByWorkType(WorkType workType){
         List<LineEntry> lineEntries = this.lineEntries;
-        //iterate thru an arraylist of line entries
         Integer totalHoursForWorkType = 0;
         for (LineEntry lineEntry : lineEntries){
             Integer lineEntryTotal = 0;

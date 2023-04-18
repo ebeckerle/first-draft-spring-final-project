@@ -78,61 +78,12 @@ public class TimesheetController {
         if(theNewLineEntry.isLineEntryOnTimesheet(currentTimesheet)){
             LineEntry existingLineEntry = currentTimesheet.findMatchingLineEntry(theNewLineEntry);
             currentTimesheet.updateLineEntry(existingLineEntry, theNewLineEntry);
-            System.out.println("updated existing line entry");
         }else{
             currentTimesheet.getLineEntries().add(theNewLineEntry);
-            System.out.println("added a new line entry");
         }
-
-
-//        Integer workTypeId = WorkType.fromToStringToId(workType);
-//        ProjectWorkTypeSet projectWorkTypeSet = projectWorkTypeSetRepository.findByProjectAndWorkType(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId));
-//        if (projectWorkTypeSet == null){
-//            // , if not, save the new project worktype combo
-//            projectWorkTypeSetRepository.save(new ProjectWorkTypeSet(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId)));
-//        }
-//
-//        //set local variables the projectWorkTypeSet and the daysOfWeekHoursSet needed to instantiate a
-//        // line entry and save to database as needed.
-//        Integer projectWorkTypeId = projectWorkTypeSetRepository.findByProjectAndWorkType(projectRepository.findByProjectName(project), workTypeRepository.findByWorkTypeId(workTypeId)).getId();
-//        if(projectWorkTypeSetRepository.findById(projectWorkTypeId).isEmpty()){
-//            throw new RuntimeException("There was an error in your ProjectWorkTypeSet failed to save to the database or " +
-//                    "could not be found.");
-//        }
-//        ProjectWorkTypeSet projectWorkTypeCombo = projectWorkTypeSetRepository.findById(projectWorkTypeId).get();
-//        DaysOfWeekHoursSet daysOfWeekHoursCombo = new DaysOfWeekHoursSet(daysOfWeek, hours);
-//        daysOfWeekHoursSetRepository.save(daysOfWeekHoursCombo);
-//
-//        //Create the new line entry object
-//        LineEntry newEntry = new LineEntry(projectWorkTypeCombo.getProject(), projectWorkTypeCombo.getWorkType(), daysOfWeekHoursCombo, currentTimesheet);
-//
-//        //check if the lineEntry Project WorkType Combo already exists as a line entry,
-//        if (currentTimesheet.checkALineEntry(newEntry)){
-//            //first grab incoming entry's id so we can delete it after we update it and save a new one
-//            Integer incomingLineEntryId = currentTimesheet.getLineEntryWithMatchingProjectWorkType(projectWorkTypeCombo).getId();
-//
-//            //find the existing matching line entry:
-//            LineEntry existingLineEntry = lineEntryRepository.findByProjectWorkTypeComboAndTimesheet(projectWorkTypeCombo, currentTimesheet);
-//
-//            // if so, update that line entry,
-//            DaysOfWeekHoursSet newCombinedDaysOfWeekHoursCombo = LineEntry.updateALineEntry(daysOfWeekHoursCombo, existingLineEntry.getDaysOfWeekHoursCombo());
-//            daysOfWeekHoursSetRepository.save(newCombinedDaysOfWeekHoursCombo);
-//            newEntry.setDaysOfWeekHoursCombo(newCombinedDaysOfWeekHoursCombo);
-//
-//            //save for now
-//            lineEntryRepository.save(newEntry);
-//            LineEntry oldLineEntryToDelete = lineEntryRepository.findById(incomingLineEntryId).get();
-//            currentTimesheet.getLineEntries().remove(oldLineEntryToDelete);
-//            lineEntryRepository.delete(oldLineEntryToDelete);
-//        }
-//        // if not, add a new line entry.
-//        lineEntryRepository.save(newEntry);
-//        currentTimesheet.getLineEntries().add(newEntry);
-
         //update the timesheets total hours for each Day of the Week
         currentTimesheet.updateAndResetEachDayOfWeekTotalHours();
         currentTimesheet.setTotalHours();
-
         timesheetRepository.save(currentTimesheet);
 
         //DISPLAY
