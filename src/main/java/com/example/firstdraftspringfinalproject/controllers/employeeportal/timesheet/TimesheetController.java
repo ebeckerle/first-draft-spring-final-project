@@ -117,7 +117,6 @@ public class TimesheetController {
             model.addAttribute("currentTimesheetId", currentTimesheet.getId());
             model.addAttribute("lineEntry", lineEntryRepository.findById(lineEntryId).orElseThrow());
             model.addAttribute("title", "Edit Line Entry");
-            System.out.println("in the errors");
             return "employee/editlineentry";
         }
         LineEntry existingLineEntry = lineEntryRepository.findById(lineEntryId).orElseThrow();

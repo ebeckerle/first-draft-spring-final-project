@@ -356,6 +356,8 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
     }
 
     public void replaceLineEntry(LineEntry existingLineEntry, LineEntry editedLineEntry) {
+
+        System.out.println("in replace Line Entry method");
         this.lineEntries.remove(existingLineEntry);
         this.lineEntries.add(editedLineEntry);
     }
