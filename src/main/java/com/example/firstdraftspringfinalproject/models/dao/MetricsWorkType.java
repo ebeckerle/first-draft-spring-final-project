@@ -72,12 +72,12 @@ public interface MetricsWorkType {
             for (LineEntry lineEntry :
                     timesheet.getLineEntries()) {
                 if (payRateString.equals(timesheet.getCurrentPayRate().toString())) {
-                    if (xyValues.containsKey(lineEntry.getProjectWorkTypeCombo().getWorkType().toString())) {
-                        Integer existingHourTotal = xyValues.get(lineEntry.getProjectWorkTypeCombo().getWorkType().toString());
+                    if (xyValues.containsKey(lineEntry.getWorkType().toString())) {
+                        Integer existingHourTotal = xyValues.get(lineEntry.getWorkType().toString());
                         Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
-                        xyValues.put(lineEntry.getProjectWorkTypeCombo().getWorkType().toString(), newHourTotal);
+                        xyValues.put(lineEntry.getWorkType().toString(), newHourTotal);
                     } else {
-                        xyValues.put(lineEntry.getProjectWorkTypeCombo().getWorkType().toString(), lineEntry.getTotalHours());
+                        xyValues.put(lineEntry.getWorkType().toString(), lineEntry.getTotalHours());
                     }
                 }
             }

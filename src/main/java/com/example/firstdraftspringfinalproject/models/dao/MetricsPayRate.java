@@ -62,7 +62,7 @@ public interface MetricsPayRate {
                 timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
             for (LineEntry lineEntry :
                     timesheet.getLineEntries()) {
-                String workType1 = lineEntry.getProjectWorkTypeCombo().getWorkType().toString();
+                String workType1 = lineEntry.getWorkType().toString();
                 if (workTypeName.equals(workType1)) {
                     String payRate1 = "$" + timesheet.getCurrentPayRate() + " per hour";
                     if (xyValues.containsKey(payRate1)) {

@@ -77,7 +77,7 @@ public interface MetricsEmployee {
                 timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
             for (LineEntry lineEntry :
                     timesheet.getLineEntries()) {
-                String workTypeString = lineEntry.getProjectWorkTypeCombo().getWorkType().toString();
+                String workTypeString = lineEntry.getWorkType().toString();
                 if (workTypeName.equals(workTypeString)) {
                     if (xyValues.containsKey(timesheet.getEmployee().toString())) {
                         Integer existingHourTotal = xyValues.get(timesheet.getEmployee().toString());

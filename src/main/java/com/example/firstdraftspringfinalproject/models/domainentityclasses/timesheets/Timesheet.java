@@ -1,12 +1,11 @@
 package com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets;
 
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
+import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
 import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetCalculateDates;
 import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetTotalsHours;
 
 import javax.persistence.*;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.*;
 
 //TODO: add a explanatory file (READ.ME?) to this timesheets package - maybe a pdf/jpg that 's an image graph
@@ -146,7 +145,7 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         Integer currentTotalMonday = this.totalMondayHours;
         for (LineEntry lineEntry :
                 this.lineEntries) {
-            currentTotalMonday += lineEntry.getDaysOfWeekHoursCombo().getMondayHours();
+            currentTotalMonday += lineEntry.getMondayHours();
         }
         this.totalMondayHours = currentTotalMonday;
     }
@@ -190,7 +189,7 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
     public void setTotalSaturdayHours(Integer totalSaturdayHours) {
         this.totalSaturdayHours = totalSaturdayHours;
     }
-    public void updateAndResetEachDayOfWeekTotalHours() {
+    public void updateEachDayOfWeekTotalHours() {
         Integer currentTotalMonday = this.totalMondayHours;
         Integer currentTotalTuesday = this.totalTuesdayHours;
         Integer currentTotalWednesday = this.totalWednesdayHours;
@@ -199,12 +198,12 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         Integer currentTotalSaturday = this.totalSaturdayHours;
         for (LineEntry lineEntry :
                 this.lineEntries) {
-            currentTotalMonday += lineEntry.getDaysOfWeekHoursCombo().getMondayHours();
-            currentTotalTuesday += lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours();
-            currentTotalWednesday += lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours();
-            currentTotalThursday += lineEntry.getDaysOfWeekHoursCombo().getThursdayHours();
-            currentTotalFriday += lineEntry.getDaysOfWeekHoursCombo().getFridayHours();
-            currentTotalSaturday += lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours();
+            currentTotalMonday += lineEntry.getMondayHours();
+            currentTotalTuesday += lineEntry.getTuesdayHours();
+            currentTotalWednesday += lineEntry.getWednesdayHours();
+            currentTotalThursday += lineEntry.getThursdayHours();
+            currentTotalFriday += lineEntry.getFridayHours();
+            currentTotalSaturday += lineEntry.getSaturdayHours();
         }
         this.totalMondayHours = currentTotalMonday;
         this.totalTuesdayHours = currentTotalTuesday;
@@ -253,52 +252,48 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         return doesLineEntryAlreadyExist;
     }
 
-
-    //TODO  - ? - rewrite this method with DayOfWeek enum as argument?, it will only return 0 with a messed up input but...
-    public Integer totalDayOfWeekHours(String dayOfWeek){
+    public Integer totalDayOfWeekHours(DaysOfWeek dayOfWeek){
         Integer totalHours = 0;
         switch (dayOfWeek) {
-            case "Monday" -> {
+            case MONDAY -> {
                 for (LineEntry lineEntry :
                         this.lineEntries) {
-                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getMondayHours();
+                    totalHours += lineEntry.getMondayHours();
                 }
             }
-            case "Tuesday" -> {
+            case TUESDAY -> {
                 for (LineEntry lineEntry :
                         this.lineEntries) {
-                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours();
+                    totalHours += lineEntry.getTuesdayHours();
                 }
             }
-            case "Wednesday" -> {
+            case WEDNESDAY -> {
                 for (LineEntry lineEntry :
                         this.lineEntries) {
-                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours();
+                    totalHours += lineEntry.getWednesdayHours();
                 }
             }
-            case "Thursday" -> {
+            case THURSDAY -> {
                 for (LineEntry lineEntry :
                         this.lineEntries) {
-                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getThursdayHours();
+                    totalHours += lineEntry.getThursdayHours();
                 }
             }
-            case "Friday" -> {
+            case FRIDAY -> {
                 for (LineEntry lineEntry :
                         this.lineEntries) {
-                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getFridayHours();
+                    totalHours += lineEntry.getFridayHours();
                 }
             }
-            case "Saturday" -> {
+            case SATURDAY -> {
                 for (LineEntry lineEntry :
                         this.lineEntries) {
-                    totalHours += lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours();
+                    totalHours += lineEntry.getSaturdayHours();
                 }
             }
         }
         return totalHours;
     }
-
-
 
     public Integer getTotalHoursByProject(Project project){
         List<LineEntry> lineEntries = this.lineEntries;
@@ -306,7 +301,7 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         Integer totalHoursForProject = 0;
         for (LineEntry lineEntry : lineEntries){
             Integer lineEntryTotal = 0;
-            if (lineEntry.getProjectWorkTypeCombo().getProject().equals(project)){
+            if (lineEntry.getProject().equals(project)){
                 lineEntryTotal = lineEntry.getTotalHours();
             }
             totalHoursForProject +=lineEntryTotal;
@@ -319,7 +314,7 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         Integer totalHoursForWorkType = 0;
         for (LineEntry lineEntry : lineEntries){
             Integer lineEntryTotal = 0;
-            if (lineEntry.getProjectWorkTypeCombo().getWorkType().equals(workType)){
+            if (lineEntry.getWorkType().equals(workType)){
                 lineEntryTotal = lineEntry.getTotalHours();
             }
             totalHoursForWorkType +=lineEntryTotal;
@@ -343,13 +338,20 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         if(!existingLineEntry.equals(theNewLineEntry)){
             throw new RuntimeException("these line entries do not match, (are not equal in project and work type), failed to update existing.");
         }
-        DaysOfWeekHoursSet existingHours = existingLineEntry.getDaysOfWeekHoursCombo();
-        DaysOfWeekHoursSet newHours = theNewLineEntry.getDaysOfWeekHoursCombo();
-        DaysOfWeekHoursSet newNewDaysHours = LineEntry.updateHoursOnLineEntry(existingHours, newHours);
-        theNewLineEntry.setDaysOfWeekHoursCombo(newNewDaysHours);
-        System.out.println("line entries before remove: "+ this.lineEntries.size());
+        Integer totalMondayHours = existingLineEntry.getMondayHours() + theNewLineEntry.getMondayHours();
+        Integer totalTuesdayHours = existingLineEntry.getTuesdayHours() + theNewLineEntry.getTuesdayHours();
+        Integer totalWednesdayHours = existingLineEntry.getWednesdayHours() + theNewLineEntry.getWednesdayHours();
+        Integer totalThursdayHours = existingLineEntry.getThursdayHours() + theNewLineEntry.getThursdayHours();
+        Integer totalFridayHours = existingLineEntry.getFridayHours() + theNewLineEntry.getFridayHours();
+        Integer totalSaturdayHours = existingLineEntry.getSaturdayHours() + theNewLineEntry.getSaturdayHours();
+        theNewLineEntry.setMondayHours(totalMondayHours);
+        theNewLineEntry.setTuesdayHours(totalTuesdayHours);
+        theNewLineEntry.setWednesdayHours(totalWednesdayHours);
+        theNewLineEntry.setThursdayHours(totalThursdayHours);
+        theNewLineEntry.setFridayHours(totalFridayHours);
+        theNewLineEntry.setSaturdayHours(totalSaturdayHours);
+
         this.lineEntries.remove(existingLineEntry);
-        System.out.println("line entries after remove: "+ this.lineEntries.size());
         this.lineEntries.add(theNewLineEntry);
     }
 

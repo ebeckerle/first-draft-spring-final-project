@@ -50,14 +50,14 @@ public interface MetricsProject {
                 timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true)) {
             for (LineEntry lineEntry :
                     timesheet.getLineEntries()) {
-                String workTypeString = lineEntry.getProjectWorkTypeCombo().getWorkType().toString();
+                String workTypeString = lineEntry.getWorkType().toString();
                 if (workTypeName.equals(workTypeString)) {
-                    if (xyValues.containsKey(lineEntry.getProjectWorkTypeCombo().getProject().toString())) {
-                        Integer existingHourTotal = xyValues.get(lineEntry.getProjectWorkTypeCombo().getProject().toString());
+                    if (xyValues.containsKey(lineEntry.getProject().toString())) {
+                        Integer existingHourTotal = xyValues.get(lineEntry.getProject().toString());
                         Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
-                        xyValues.replace(lineEntry.getProjectWorkTypeCombo().getProject().toString(), newHourTotal);
+                        xyValues.replace(lineEntry.getProject().toString(), newHourTotal);
                     } else {
-                        xyValues.put(lineEntry.getProjectWorkTypeCombo().getProject().toString(), lineEntry.getTotalHours());
+                        xyValues.put(lineEntry.getProject().toString(), lineEntry.getTotalHours());
                     }
                 }
             }
@@ -73,12 +73,12 @@ public interface MetricsProject {
             for (LineEntry lineEntry :
                     timesheet.getLineEntries()) {
                 if (payRateString.equals(timesheet.getCurrentPayRate().toString())) {
-                    if (xyValues.containsKey(lineEntry.getProjectWorkTypeCombo().getProject().toString())) {
-                        Integer existingHourTotal = xyValues.get(lineEntry.getProjectWorkTypeCombo().getProject().toString());
+                    if (xyValues.containsKey(lineEntry.getProject().toString())) {
+                        Integer existingHourTotal = xyValues.get(lineEntry.getProject().toString());
                         Integer newHourTotal = existingHourTotal + lineEntry.getTotalHours();
-                        xyValues.put(lineEntry.getProjectWorkTypeCombo().getProject().toString(), newHourTotal);
+                        xyValues.put(lineEntry.getProject().toString(), newHourTotal);
                     } else {
-                        xyValues.put(lineEntry.getProjectWorkTypeCombo().getProject().toString(), lineEntry.getTotalHours());
+                        xyValues.put(lineEntry.getProject().toString(), lineEntry.getTotalHours());
                     }
                 }
             }

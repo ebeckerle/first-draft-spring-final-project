@@ -2,9 +2,13 @@ package com.example.firstdraftspringfinalproject.models.domainentityclasses.time
 
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.WorkType;
+import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
 
 import java.util.Objects;
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -14,17 +18,32 @@ public class LineEntry {
     @GeneratedValue
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private ProjectWorkTypeSet projectWorkTypeCombo;
-
+    @NotNull
     @ManyToOne
     private Project project;
 
+    @NotNull
     @ManyToOne
     private WorkType workType;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private DaysOfWeekHoursSet daysOfWeekHoursCombo;
+    @Max(24)
+    @Min(0)
+    private Integer mondayHours = 0;
+    @Max(24)
+    @Min(0)
+    private Integer tuesdayHours = 0;
+
+    @Max(24)
+    @Min(0)private Integer wednesdayHours = 0;
+
+    @Max(24)
+    @Min(0)private Integer thursdayHours = 0;
+
+    @Max(24)
+    @Min(0)private Integer fridayHours = 0;
+
+    @Max(24)
+    @Min(0)private Integer saturdayHours = 0;
 
     @ManyToOne
     @JoinColumn(name="timesheet_id")
@@ -32,36 +51,42 @@ public class LineEntry {
 
     private Integer totalHours = 0;
 
-
-    public LineEntry(ProjectWorkTypeSet projectWorkTypeCombo, DaysOfWeekHoursSet daysOfWeekHoursCombo, Timesheet timesheet){
-        this.projectWorkTypeCombo = projectWorkTypeCombo;
-        this.project = projectWorkTypeCombo.getProject();
-        this.workType = projectWorkTypeCombo.getWorkType();
-        this.daysOfWeekHoursCombo = daysOfWeekHoursCombo;
-        this.totalHours = daysOfWeekHoursCombo.getTotalHours();
+    public LineEntry(){}
+    public LineEntry(Timesheet timesheet){
         this.timesheet = timesheet;
     }
 
-    public LineEntry(Project project, WorkType workType, DaysOfWeekHoursSet daysOfWeekHoursCombo, Timesheet timesheet){
+    public LineEntry(Project project, WorkType workType, DaysOfWeek dayOfWeek, Integer hours, Timesheet timesheet){
+        if(hours<=0 || hours>24){
+            throw new RuntimeException("can not create a line entry with less than 1 hour or more than 24 hours for one day");
+        }
         this.project = project;
         this.workType = workType;
-        this.daysOfWeekHoursCombo = daysOfWeekHoursCombo;
-        this.totalHours = daysOfWeekHoursCombo.getTotalHours();
+        if(dayOfWeek.equals(DaysOfWeek.MONDAY)){
+            this.mondayHours = hours;
+        } else if (dayOfWeek.equals(DaysOfWeek.TUESDAY)) {
+            this.tuesdayHours = hours;
+        } else if (dayOfWeek.equals(DaysOfWeek.WEDNESDAY)) {
+            this.wednesdayHours = hours;
+        } else if (dayOfWeek.equals(DaysOfWeek.THURSDAY)) {
+            this.thursdayHours = hours;
+        } else if (dayOfWeek.equals(DaysOfWeek.FRIDAY)) {
+            this.fridayHours = hours;
+        } else if (dayOfWeek.equals(DaysOfWeek.SATURDAY)) {
+            this.saturdayHours = hours;
+        }
+        this.totalHours = hours;
         this.timesheet = timesheet;
     }
 
 
-    public LineEntry(){}
+
 
 
     //GETTERS & SETTERS
 
     public Integer getId() {
         return id;
-    }
-
-    public ProjectWorkTypeSet getProjectWorkTypeCombo() {
-        return projectWorkTypeCombo;
     }
 
     public Project getProject() {
@@ -80,16 +105,57 @@ public class LineEntry {
         this.workType = workType;
     }
 
-    public DaysOfWeekHoursSet getDaysOfWeekHoursCombo() {
-        return daysOfWeekHoursCombo;
+
+    public Integer getMondayHours() {
+        return mondayHours;
     }
 
-    public void setDaysOfWeekHoursCombo(DaysOfWeekHoursSet daysOfWeekHoursCombo) {
-        this.daysOfWeekHoursCombo = daysOfWeekHoursCombo;
+    public void setMondayHours(Integer mondayHours) {
+        this.mondayHours = mondayHours;
+    }
+
+    public Integer getTuesdayHours() {
+        return tuesdayHours;
+    }
+
+    public void setTuesdayHours(Integer tuesdayHours) {
+        this.tuesdayHours = tuesdayHours;
+    }
+
+    public Integer getWednesdayHours() {
+        return wednesdayHours;
+    }
+
+    public void setWednesdayHours(Integer wednesdayHours) {
+        this.wednesdayHours = wednesdayHours;
+    }
+
+    public Integer getThursdayHours() {
+        return thursdayHours;
+    }
+
+    public void setThursdayHours(Integer thursdayHours) {
+        this.thursdayHours = thursdayHours;
+    }
+
+    public Integer getFridayHours() {
+        return fridayHours;
+    }
+
+    public void setFridayHours(Integer fridayHours) {
+        this.fridayHours = fridayHours;
+    }
+
+    public Integer getSaturdayHours() {
+        return saturdayHours;
+    }
+
+    public void setSaturdayHours(Integer saturdayHours) {
+        this.saturdayHours = saturdayHours;
     }
 
     public Integer getTotalHours() {
-        return  daysOfWeekHoursCombo.getTotalHours();
+        return totalHours;
     }
 
     public Timesheet getTimesheet() {
@@ -101,17 +167,8 @@ public class LineEntry {
     }
 
 
-    public static DaysOfWeekHoursSet updateHoursOnLineEntry(DaysOfWeekHoursSet dayHourCombo1, DaysOfWeekHoursSet dayHourCombo2){
-
-        Integer newMondayTotal = dayHourCombo1.getMondayHours() + dayHourCombo2.getMondayHours();
-        Integer newTuesdayTotal = dayHourCombo1.getTuesdayHours() + dayHourCombo2.getTuesdayHours();
-        Integer newWednesdayTotal = dayHourCombo1.getWednesdayHours() + dayHourCombo2.getWednesdayHours();
-        Integer newThursdayTotal = dayHourCombo1.getThursdayHours() + dayHourCombo2.getThursdayHours();
-        Integer newFridayTotal = dayHourCombo1.getFridayHours() + dayHourCombo2.getFridayHours();
-        Integer newSaturdayTotal = dayHourCombo1.getSaturdayHours() + dayHourCombo2.getSaturdayHours();
-
-        DaysOfWeekHoursSet dayHourCombo3 = new DaysOfWeekHoursSet(newMondayTotal, newTuesdayTotal, newWednesdayTotal, newThursdayTotal, newFridayTotal, newSaturdayTotal);
-        return dayHourCombo3;
+    public void updateTotalHoursOnLineEntry(){
+        this.totalHours = this.mondayHours + this.tuesdayHours + this.wednesdayHours + this.thursdayHours + this.fridayHours +this.saturdayHours;
     }
 
     public boolean isLineEntryOnTimesheet(Timesheet currentTimesheet) {

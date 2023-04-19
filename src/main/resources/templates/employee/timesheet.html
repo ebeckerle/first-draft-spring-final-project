@@ -80,58 +80,58 @@
 
                 <!--            MONDAY COLUMN-->
                 <td>
-                         <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getMondayHours() > 0}'>
-                            <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getMondayHours()}"></p>
+                         <div th:if='${lineEntry.getMondayHours() > 0}'>
+                            <p th:text="${lineEntry.getMondayHours()}"></p>
                         </div>
-                        <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getMondayHours() > 0}'>
+                        <div th:unless='${lineEntry.getMondayHours() > 0}'>
                             <p></p>
                         </div>
 
                 </td>
                 <!--            TUESDAY COLUMN-->
                 <td>
-                        <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours() > 0}'>
-                            <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours()}"></p>
+                        <div th:if='${lineEntry.getTuesdayHours() > 0}'>
+                            <p th:text="${lineEntry.getTuesdayHours()}"></p>
                         </div>
-                        <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getTuesdayHours() > 0}'>
+                        <div th:unless='${lineEntry.getTuesdayHours() > 0}'>
                             <p></p>
                         </div>
                 </td>
                 <!--            WEDNESDAY COLUMN-->
                 <td>
-                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours() > 0}'>
-                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours()}"></p>
+                    <div th:if='${lineEntry.getWednesdayHours() > 0}'>
+                        <p th:text="${lineEntry.getWednesdayHours()}"></p>
                     </div>
-                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getWednesdayHours() > 0}'>
+                    <div th:unless='${lineEntry.getWednesdayHours() > 0}'>
                         <p></p>
                     </div>
                 </td>
 
                 <!--            THURSDAY COLUMN-->
                 <td>
-                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours() > 0}'>
-                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours()}"></p>
+                    <div th:if='${lineEntry.getThursdayHours() > 0}'>
+                        <p th:text="${lineEntry.getThursdayHours()}"></p>
                     </div>
-                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getThursdayHours() > 0}'>
+                    <div th:unless='${lineEntry.getThursdayHours() > 0}'>
                         <p></p>
                     </div>
                 </td>
 
                 <!--            FRIDAY COLUMN-->
                 <td>
-                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getFridayHours() > 0}'>
-                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getFridayHours()}"></p>
+                    <div th:if='${lineEntry.getFridayHours() > 0}'>
+                        <p th:text="${lineEntry.getFridayHours()}"></p>
                     </div>
-                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getFridayHours() > 0}'>
+                    <div th:unless='${lineEntry.getFridayHours() > 0}'>
                         <p></p>
                     </div>
                 </td>
                 <!--            SATURDAY COLUMN-->
                 <td>
-                    <div th:if='${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours() > 0}'>
-                        <p th:text="${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours()}"></p>
+                    <div th:if='${lineEntry.getSaturdayHours() > 0}'>
+                        <p th:text="${lineEntry.getSaturdayHours()}"></p>
                     </div>
-                    <div th:unless='${lineEntry.getDaysOfWeekHoursCombo().getSaturdayHours() > 0}'>
+                    <div th:unless='${lineEntry.getSaturdayHours() > 0}'>
                         <p></p>
                     </div>
                 </td>
