@@ -39,8 +39,7 @@ public interface MetricsPayRate {
             List<LineEntry> lineEntries = timesheet.getLineEntries();
             for (LineEntry lineEntry :
                     lineEntries) {
-                ProjectWorkTypeSet projectWorkTypeSet = lineEntry.getProjectWorkTypeCombo();
-                if (projectWorkTypeSet.getProject().equals(project)) {
+                if (lineEntry.getProject().equals(project)) {
                     String payRate = "$" + timesheet.getCurrentPayRate() + " per hour";
                     if (payRates.contains(payRate)) {
                         Integer existingHourTotal = xyValues.get(payRate);

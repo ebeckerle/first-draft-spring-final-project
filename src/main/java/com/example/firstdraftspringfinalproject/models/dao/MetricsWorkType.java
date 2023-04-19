@@ -49,15 +49,14 @@ public interface MetricsWorkType {
             for (LineEntry lineEntry :
                     lineEntries) {
                 Integer totalHoursForX = 0;
-                ProjectWorkTypeSet projectWorkTypeSet = lineEntry.getProjectWorkTypeCombo();
-                if (projectWorkTypeSet.getProject().equals(project)) {
-                    if (xyValues.containsKey(projectWorkTypeSet.getWorkType().toString())) {
-                        totalHoursForX += xyValues.get(projectWorkTypeSet.getWorkType().toString());
+               if (lineEntry.getProject().equals(project)) {
+                    if (xyValues.containsKey(lineEntry.getWorkType().toString())) {
+                        totalHoursForX += xyValues.get(lineEntry.getWorkType().toString());
                         totalHoursForX += lineEntry.getTotalHours();
-                        xyValues.replace(projectWorkTypeSet.getWorkType().toString(), totalHoursForX);
+                        xyValues.replace(lineEntry.getWorkType().toString(), totalHoursForX);
                     } else {
                         totalHoursForX += lineEntry.getTotalHours();
-                        xyValues.put(projectWorkTypeSet.getWorkType().toString(), totalHoursForX);
+                        xyValues.put(lineEntry.getWorkType().toString(), totalHoursForX);
                     }
                 }
             }
