@@ -110,17 +110,14 @@ public class TimesheetController {
 
     @PostMapping(value = "editlineentry", params = "save")
     public String processEditLineEntryEdit(@RequestParam Integer lineEntryId, @RequestParam Integer currentTimesheetId,
-//                                           @RequestParam(required = false) Integer mondayHours,
-//                                           @RequestParam(required = false) Integer tuesdayHours,
-//                                           @RequestParam(required = false) Integer wednesdayHours,
-//                                           @RequestParam(required = false) Integer thursdayHours,
-//                                           @RequestParam(required = false) Integer fridayHours,
-//                                           @RequestParam(required = false) Integer saturdayHours,
                                            @ModelAttribute @Valid LineEntry editedLineEntry, Errors errors,
                                            @ModelAttribute("currentTimesheet") Timesheet currentTimesheet,
                                            Model model){
         if (errors.hasErrors()){
+            model.addAttribute("currentTimesheetId", currentTimesheet.getId());
+            model.addAttribute("lineEntry", lineEntryRepository.findById(lineEntryId).orElseThrow());
             model.addAttribute("title", "Edit Line Entry");
+            System.out.println("in the errors");
             return "employee/editlineentry";
         }
         LineEntry existingLineEntry = lineEntryRepository.findById(lineEntryId).orElseThrow();

@@ -24,8 +24,9 @@
             </thead>
 
             <tr>
-                <th th:text="${lineEntry.getProject().toString()+
-                        ' - '+lineEntry.getWorkType().toStringWorkTypeCode()}">default Project - workType</th>
+<!--                <th th:text="${lineEntry.getProject().toString()+-->
+<!--                        ' - '+lineEntry.getWorkType().toStringWorkTypeCode()}">default Project - workType</th>-->
+                <th>default Project - workType</th>
 
                 <!--            MONDAY COLUMN-->
                 <td>
@@ -88,20 +89,12 @@
             </tr>
             <tr>
                 <td></td>
-<!--                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getMondayHours()}" name="mondayHours"></td>-->
-<!--                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getTuesdayHours()}" name="tuesdayHours"></td>-->
-<!--                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getWednesdayHours()}" name="wednesdayHours"></td>-->
-<!--                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getThursdayHours()}" name="thursdayHours"></td>-->
-<!--                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getFridayHours()}" name="fridayHours"></td>-->
-<!--                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getSaturdayHours()}" name="saturdayHours"></td>-->
-
-
-                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getMondayHours()}" th:field="${editedLineEntry.mondayHours}"></td>
-                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getTuesdayHours()}" th:field="${editedLineEntry.tuesdayHours}"></td>
-                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getWednesdayHours()}" th:field="${editedLineEntry.wednesdayHours}"></td>
-                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getThursdayHours()}" th:field="${editedLineEntry.thursdayHours}"></td>
-                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getFridayHours()}" th:field="${editedLineEntry.fridayHours}"></td>
-                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getSaturdayHours()}" th:field="${editedLineEntry.saturdayHours}"></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getMondayHours()}"  th:field="${lineEntry.mondayHours}"></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getTuesdayHours()}" th:field="${lineEntry.tuesdayHours}"></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getWednesdayHours()}" th:field="${lineEntry.wednesdayHours}"></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getThursdayHours()}" th:field="${lineEntry.thursdayHours}"></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getFridayHours()}" th:field="${lineEntry.fridayHours}"></td>
+                <td><input type="number" min="0" max="24" th:placeholder="${lineEntry.getSaturdayHours()}" th:field="${lineEntry.saturdayHours}"></td>
 
             </tr>
 

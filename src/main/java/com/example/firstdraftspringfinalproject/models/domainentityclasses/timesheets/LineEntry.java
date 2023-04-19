@@ -18,11 +18,9 @@ public class LineEntry {
     @GeneratedValue
     private Integer id;
 
-    @NotNull
     @ManyToOne
     private Project project;
 
-    @NotNull
     @ManyToOne
     private WorkType workType;
 
