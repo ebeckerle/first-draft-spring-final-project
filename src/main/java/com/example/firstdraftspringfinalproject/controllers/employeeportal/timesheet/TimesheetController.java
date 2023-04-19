@@ -116,60 +116,20 @@ public class TimesheetController {
                                            @RequestParam(required = false) Integer thursdayHours,
                                            @RequestParam(required = false) Integer fridayHours,
                                            @RequestParam(required = false) Integer saturdayHours,
-                                           @ModelAttribute @Valid LineEntry lineEntry, Errors errors,
+                                           @ModelAttribute @Valid LineEntry editedLineEntry, Errors errors,
+                                           @ModelAttribute("currentTimesheet") Timesheet currentTimesheet,
                                            Model model){
         if (errors.hasErrors()){
             model.addAttribute("title", "Edit Line Entry");
             return "employee/editlineentry";
         }
-//        //get the current dayhour combo attached to line entry
-//        DaysOfWeekHoursSet currentDayHourCombo = lineEntryRepository.findById(lineEntryId).get().getDaysOfWeekHoursCombo();
-//        //get the current dayhour combo's id so we can delete it later
-//        Integer currentDayHourComboId = currentDayHourCombo.getId();
-//        //get the project workType combo attached to the line entry (it's id)
-//        Integer projectWorkTypeId = lineEntryRepository.findById(lineEntryId).get().getProjectWorkTypeCombo().getId();
-//        //create a new dayhour combo that will replace the old one
-//        Integer existingMonday = daysOfWeekHoursSetRepository.findById(currentDayHourComboId).get().getMondayHours();
-//        if (mondayHours == null){
-//            mondayHours = existingMonday;
-//        }
-//        Integer existingTuesday = daysOfWeekHoursSetRepository.findById(currentDayHourComboId).get().getTuesdayHours();
-//        if (tuesdayHours == null){
-//            tuesdayHours = existingTuesday;
-//        }
-//        Integer existingWednesday = daysOfWeekHoursSetRepository.findById(currentDayHourComboId).get().getWednesdayHours();
-//        if (wednesdayHours == null){
-//            wednesdayHours = existingWednesday;
-//        }
-//        Integer existingThursday = daysOfWeekHoursSetRepository.findById(currentDayHourComboId).get().getThursdayHours();
-//        if (thursdayHours == null){
-//            thursdayHours = existingThursday;
-//        }
-//        Integer existingFriday = daysOfWeekHoursSetRepository.findById(currentDayHourComboId).get().getFridayHours();
-//        if (fridayHours == null){
-//            fridayHours = existingFriday;
-//        }
-//        Integer existingSaturday = daysOfWeekHoursSetRepository.findById(currentDayHourComboId).get().getSaturdayHours();
-//        if (saturdayHours == null){
-//            saturdayHours = existingSaturday;
-//        }
-//        DaysOfWeekHoursSet newDayHourCombo = new DaysOfWeekHoursSet(mondayHours, tuesdayHours, wednesdayHours, thursdayHours, fridayHours, saturdayHours);
-//
-//        //remove the lineEntry from the Current Timesheet's array list of line entries
-//        Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
-//        currentTimesheet.getLineEntries().remove(lineEntryRepository.findById(lineEntryId).get());
-//        //create a new line entry with project workType combo & new day hour combo
-//        LineEntry newEditedEntry = new LineEntry(projectWorkTypeSetRepository.findById(projectWorkTypeId).get(), newDayHourCombo, currentTimesheet);
-//
-//        //delete the old Line Entry
-//        System.out.println(lineEntryId);
-//        lineEntryRepository.deleteById(lineEntryId);
-//        //save the new line entry to the repository
-//        lineEntryRepository.save(newEditedEntry);
-        //add the new entry to the array list of line entries on the current timesheet
-        currentTimesheet.getLineEntries().add(newEditedEntry);
-        //update total hours field in current timesheet
+        LineEntry existingLineEntry = lineEntryRepository.findById(lineEntryId).orElseThrow();
+        currentTimesheet.replaceLineEntry(existingLineEntry, editedLineEntry);
+
+        //update the timesheets total hours for each Day of the Week
+        currentTimesheet.updateEachDayOfWeekTotalHours();
         currentTimesheet.setTotalHours();
+
         //save the current timesheet
         timesheetRepository.save(currentTimesheet);
 
