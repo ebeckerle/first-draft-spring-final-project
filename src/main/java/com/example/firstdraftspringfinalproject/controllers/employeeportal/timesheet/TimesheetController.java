@@ -137,9 +137,9 @@ public class TimesheetController {
     @PostMapping(value = "editlineentry", params = "delete")
     public String processEditLineEntryDelete(@RequestParam Integer lineEntryId, @RequestParam Integer currentTimesheetId, Model model){
         //remove the lineEntry from the Current Timesheet's array list of line entries
-        Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).get();
+        Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).orElseThrow();
 
-        LineEntry lineEntryToDelete = lineEntryRepository.findById(lineEntryId).get();
+        LineEntry lineEntryToDelete = lineEntryRepository.findById(lineEntryId).orElseThrow();
 
         currentTimesheet.getLineEntries().remove(lineEntryToDelete);
         lineEntryRepository.deleteById(lineEntryId);

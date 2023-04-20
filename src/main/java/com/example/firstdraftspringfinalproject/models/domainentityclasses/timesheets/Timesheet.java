@@ -40,8 +40,6 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
     private Integer totalSaturdayHours = 0;
 
     private Integer totalHours = 0;
-
-    private Integer totalPay;
     private Integer currentPayRate;
 
 
@@ -129,9 +127,6 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         this.supervisorApproval = supervisorApproval;
     }
 
-    public void setLineEntries(ArrayList<LineEntry> lineEntries) {
-        this.lineEntries = lineEntries;
-    }
 
     public Integer getTotalMondayHours() {
         return totalMondayHours;
@@ -141,50 +136,25 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         this.totalMondayHours = totalMondayHours;
     }
 
-    public void updateTotalMondayHours() {
-        Integer currentTotalMonday = this.totalMondayHours;
-        for (LineEntry lineEntry :
-                this.lineEntries) {
-            currentTotalMonday += lineEntry.getMondayHours();
-        }
-        this.totalMondayHours = currentTotalMonday;
-    }
-
-    public Integer getTotalTuesdayHours() {
-        return totalTuesdayHours;
-    }
 
     public void setTotalTuesdayHours(Integer totalTuesdayHours) {
         this.totalTuesdayHours = totalTuesdayHours;
     }
 
-    public Integer getTotalWednesdayHours() {
-        return totalWednesdayHours;
-    }
 
     public void setTotalWednesdayHours(Integer totalWednesdayHours) {
         this.totalWednesdayHours = totalWednesdayHours;
     }
 
-    public Integer getTotalThursdayHours() {
-        return totalThursdayHours;
-    }
 
     public void setTotalThursdayHours(Integer totalThursdayHours) {
         this.totalThursdayHours = totalThursdayHours;
-    }
-
-    public Integer getTotalFridayHours() {
-        return totalFridayHours;
     }
 
     public void setTotalFridayHours(Integer totalFridayHours) {
         this.totalFridayHours = totalFridayHours;
     }
 
-    public Integer getTotalSaturdayHours() {
-        return totalSaturdayHours;
-    }
 
     public void setTotalSaturdayHours(Integer totalSaturdayHours) {
         this.totalSaturdayHours = totalSaturdayHours;
@@ -235,22 +205,6 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         this.currentPayRate = employee.getPayRate();
     }
 
-    public boolean checkALineEntry(LineEntry newEntry){
-        boolean doesLineEntryAlreadyExist = false;
-        while (!doesLineEntryAlreadyExist) {
-            for (LineEntry entry :
-                    this.lineEntries) {
-                if (entry.equals(newEntry)) {
-                    doesLineEntryAlreadyExist = true;
-                    break;
-                }
-            }
-            if (!doesLineEntryAlreadyExist){
-                break;
-            }
-        }
-        return doesLineEntryAlreadyExist;
-    }
 
     public Integer totalDayOfWeekHours(DaysOfWeek dayOfWeek){
         Integer totalHours = 0;

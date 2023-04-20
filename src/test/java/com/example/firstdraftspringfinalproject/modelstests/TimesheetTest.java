@@ -1,10 +1,9 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.DaysOfWeekHoursSet;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.ProjectWorkTypeSet;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
+import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
 import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetCalculateDates;
 import org.junit.jupiter.api.Test;
 
@@ -15,24 +14,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TimesheetTest {
 
-
     Employee practiceEmployee = new Employee("Elizabeth", "Beckerle");
     Project pIasc = new Project("IASC", "Iowa State Capitol");
     Project pNam = new Project("NAM", "Nelson Atkins Museum");
     WorkType wT101 = new WorkType(101, "Inventory");
     WorkType wT102 = new WorkType(102, "Cut and Process Rough Parts");
     Timesheet testTimesheet1 = new Timesheet(practiceEmployee);
-    ProjectWorkTypeSet pWT1 = new ProjectWorkTypeSet(pIasc, wT101);
-    ProjectWorkTypeSet pWT2 = new ProjectWorkTypeSet(pIasc, wT102);
-    ProjectWorkTypeSet pWT3 = new ProjectWorkTypeSet(pNam, wT102);
-    DaysOfWeekHoursSet dWkHr1 = new DaysOfWeekHoursSet(0, 0, 4,0,0,0);
-    DaysOfWeekHoursSet dWkHr2 = new DaysOfWeekHoursSet(0,0,0,0,4,0);
-    DaysOfWeekHoursSet dWkHr3 = new DaysOfWeekHoursSet(1,1,3,0,4,0);
-
-    LineEntry lineEntry1 = new LineEntry(pWT1, dWkHr1, testTimesheet1);
-    LineEntry lineEntry2 = new LineEntry(pWT1, dWkHr2, testTimesheet1);
-    LineEntry lineEntry3 = new LineEntry(pWT2, dWkHr3, testTimesheet1);
-    LineEntry lineEntry4 = new LineEntry(pWT3, dWkHr3, testTimesheet1);
+    LineEntry lineEntry1 = new LineEntry(pIasc, wT101, DaysOfWeek.MONDAY, 5, testTimesheet1);
+    LineEntry lineEntry2 = new LineEntry(pIasc, wT102, DaysOfWeek.TUESDAY, 5,testTimesheet1);
+    LineEntry lineEntry3 = new LineEntry(pNam, wT101, DaysOfWeek.WEDNESDAY, 7, testTimesheet1);
+    LineEntry lineEntry4 = new LineEntry(pNam, wT102, DaysOfWeek.FRIDAY, 8, testTimesheet1);
 
 
     @Test
@@ -48,22 +39,6 @@ public class TimesheetTest {
 
         assertEquals(expectedDueDate, testTimesheet.getDueDate());
         assertEquals(expectedPayDay, testTimesheet.getPayDay());
-
-//        public void setDates(GregorianCalendar startDate) {
-//
-//            this.startDate = startDate;
-//            int yearOfStart = startDate.get(Calendar.YEAR);
-//            int monthOfStart = startDate.get(Calendar.MONTH);
-//            int dateOfStart = startDate.get(Calendar.DATE);
-//
-//            GregorianCalendar dueDate = new GregorianCalendar(yearOfStart, monthOfStart, dateOfStart);
-//            dueDate.add(Calendar.DATE, 7);
-//            this.dueDate = dueDate;
-//
-//            GregorianCalendar payDay = new GregorianCalendar(yearOfStart, monthOfStart, dateOfStart);
-//            payDay.add(Calendar.DATE, 11);
-//            this.payDay = payDay;
-//        }
     }
 
     @Test
@@ -74,11 +49,6 @@ public class TimesheetTest {
         testTimesheet.setCurrentPayRate();
 
         assertEquals(30, testTimesheet.getCurrentPayRate());
-
-//        public void setCurrentPayRate() {
-//            Employee employee = this.employee;
-//            this.currentPayRate = employee.getPayRate();
-//        }
     }
 
     @Test
@@ -97,81 +67,28 @@ public class TimesheetTest {
     }
 
     @Test
-    public void testCheckALineEntryForFalse(){
-
-        assertFalse(testTimesheet1.checkALineEntry(lineEntry1));
-
-        //        public boolean checkALineEntry(LineEntry newEntry){
-//            boolean doesLineEntryAlreadyExist = false;
-//            while (!doesLineEntryAlreadyExist) {
-//                for (LineEntry entry :
-//                        this.lineEntries) {
-//                    if (entry.equals(newEntry)) {
-//                        doesLineEntryAlreadyExist = true;
-//                        break;
-//                    }
-//                }
-//                if (!doesLineEntryAlreadyExist){
-//                    break;
-//                }
-//            }
-//            return doesLineEntryAlreadyExist;
-//        }
-    }
-
-    @Test
-    public void testCheckALineEntryForTrue(){
-
-        testTimesheet1.getLineEntries().add(lineEntry1);
-        assertTrue(testTimesheet1.checkALineEntry(lineEntry1));
-    }
-
-    @Test
-    public void testGetLineEntryWithMatchingProjectWorkType(){
-
-        testTimesheet1.getLineEntries().add(lineEntry1);
-
-        assertEquals(lineEntry1, testTimesheet1.getLineEntryWithMatchingProjectWorkType(pWT1));
-
-//        public LineEntry getLineEntryWithMatchingProjectWorkType(ProjectWorkTypeSet projectWorkTypeSet){
-//            for (LineEntry lineEntry:
-//                    this.lineEntries) {
-//                if (lineEntry.getProjectWorkTypeCombo().equals(projectWorkTypeSet)){
-//                    return lineEntry;
-//                }
-//            }
-//            return new LineEntry();
-//        }
-
-    }
-
-    @Test
     public void testTotalDayOfWeekHours(){
-
+        lineEntry1.setTuesdayHours(3);
         testTimesheet1.getLineEntries().add(lineEntry1);
         testTimesheet1.getLineEntries().add(lineEntry2);
         testTimesheet1.getLineEntries().add(lineEntry3);
+        testTimesheet1.getLineEntries().add(lineEntry4);
 
-        assertEquals(1, testTimesheet1.totalDayOfWeekHours("Monday"));
-        assertEquals(1, testTimesheet1.totalDayOfWeekHours("Tuesday"));
-        assertEquals(7, testTimesheet1.totalDayOfWeekHours("Wednesday"));
-        assertEquals(0, testTimesheet1.totalDayOfWeekHours("Thursday"));
-        assertEquals(8, testTimesheet1.totalDayOfWeekHours("Friday"));
-        assertEquals(0, testTimesheet1.totalDayOfWeekHours("Saturday"));
+        assertEquals(5, testTimesheet1.totalDayOfWeekHours(DaysOfWeek.MONDAY));
+        assertEquals(8, testTimesheet1.totalDayOfWeekHours(DaysOfWeek.TUESDAY));
+        assertEquals(7, testTimesheet1.totalDayOfWeekHours(DaysOfWeek.WEDNESDAY));
+        assertEquals(0, testTimesheet1.totalDayOfWeekHours(DaysOfWeek.THURSDAY));
+        assertEquals(8, testTimesheet1.totalDayOfWeekHours(DaysOfWeek.FRIDAY));
+        assertEquals(0, testTimesheet1.totalDayOfWeekHours(DaysOfWeek.SATURDAY));
     }
 
 
     @Test
     public void testFormatDates(){
-
         GregorianCalendar date = new GregorianCalendar(2022, 2, 4);
         String expected = TimesheetCalculateDates.formatDates(date);
         System.out.println(expected);
         assertEquals(expected, "2/4/2022");
-
-//        public static String formatDates(GregorianCalendar date){
-//            return date.get(Calendar.MONTH) + "/" + date.get(Calendar.DATE) + "/" + date.get(Calendar.YEAR);
-//        }
     }
 
     @Test
@@ -240,47 +157,17 @@ public class TimesheetTest {
 
         assertEquals(17, testTimesheet1.getTotalHoursByProject(pIasc));
         assertEquals(9, testTimesheet1.getTotalHoursByProject(pNam));
-
-//        public Integer getTotalHoursByProject(Project project){
-//            List<LineEntry> lineEntries = this.lineEntries;
-//            //iterate thru an arraylist of line entries
-//            Integer totalHoursForProject = 0;
-//            for (LineEntry lineEntry : lineEntries){
-//                Integer lineEntryTotal = 0;
-//                if (lineEntry.getProjectWorkTypeCombo().getProject().equals(project)){
-//                    lineEntryTotal = lineEntry.getTotalHours();
-//                }
-//                totalHoursForProject +=lineEntryTotal;
-//            }
-//            return totalHoursForProject;
-//        }
     }
 
     @Test
     public void testGetTotalHoursByWorkType(){
-
         testTimesheet1.getLineEntries().add(lineEntry1);
         testTimesheet1.getLineEntries().add(lineEntry2);
         testTimesheet1.getLineEntries().add(lineEntry3);
         testTimesheet1.getLineEntries().add(lineEntry4);
 
-
         assertEquals(8, testTimesheet1.getTotalHoursByWorkType(wT101));
         assertEquals(18, testTimesheet1.getTotalHoursByWorkType(wT102));
-
-//        public Integer getTotalHoursByWorkType(WorkType workType){
-//            List<LineEntry> lineEntries = this.lineEntries;
-//            //iterate thru an arraylist of line entries
-//            Integer totalHoursForWorkType = 0;
-//            for (LineEntry lineEntry : lineEntries){
-//                Integer lineEntryTotal = 0;
-//                if (lineEntry.getProjectWorkTypeCombo().getWorkType().equals(workType)){
-//                    lineEntryTotal = lineEntry.getTotalHours();
-//                }
-//                totalHoursForWorkType +=lineEntryTotal;
-//            }
-//            return totalHoursForWorkType;
-//        }
     }
 
 
