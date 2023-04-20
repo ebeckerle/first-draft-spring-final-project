@@ -1,11 +1,7 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.DaysOfWeekHoursSet;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.ProjectWorkTypeSet;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
-import org.junit.jupiter.api.Test;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -25,7 +21,6 @@ public class LineEntryTest {
     Project pIasc = new Project("IASC", "Iowa State Capitol");
     WorkType wT101 = new WorkType(101, "Inventory");
 
-    ProjectWorkTypeSet pWT1 = new ProjectWorkTypeSet(pIasc, wT101);
 
 
 

@@ -97,7 +97,6 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
     }
 
     public void setDates(GregorianCalendar startDate) {
-
         this.startDate = startDate;
         int yearOfStart = startDate.get(Calendar.YEAR);
         int monthOfStart = startDate.get(Calendar.MONTH);

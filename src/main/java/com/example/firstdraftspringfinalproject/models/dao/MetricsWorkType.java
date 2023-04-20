@@ -5,7 +5,6 @@ import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.WorkType;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.ProjectWorkTypeSet;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 
 import java.util.HashMap;

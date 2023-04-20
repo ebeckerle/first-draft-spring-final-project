@@ -1,8 +1,6 @@
 package com.example.firstdraftspringfinalproject.controllers.employeeportal.timesheet;
 
 import com.example.firstdraftspringfinalproject.data.*;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.DaysOfWeekHoursSet;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
@@ -40,11 +38,6 @@ public class TimesheetController {
     @Autowired
     private LineEntryRepository lineEntryRepository;
 
-    @Autowired
-    private ProjectWorkTypeSetRepository projectWorkTypeSetRepository;
-
-    @Autowired
-    private DaysOfWeekHoursSetRepository daysOfWeekHoursSetRepository;
 
 
     @GetMapping
