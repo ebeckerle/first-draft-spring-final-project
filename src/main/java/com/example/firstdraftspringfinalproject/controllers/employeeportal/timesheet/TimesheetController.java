@@ -109,7 +109,7 @@ public class TimesheetController {
     }
 
     @PostMapping(value = "editlineentry", params = "save")
-    public String processEditLineEntryEdit(@RequestParam Integer lineEntryId, @RequestParam Integer currentTimesheetId,
+    public String processEditLineEntryEdit(@RequestParam Integer lineEntryId,
                                            @ModelAttribute @Valid LineEntry editedLineEntry, Errors errors,
                                            @ModelAttribute("currentTimesheet") Timesheet currentTimesheet,
                                            Model model){
