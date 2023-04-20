@@ -76,16 +76,9 @@ public class LineEntry {
         this.totalHours = hours;
         this.timesheet = timesheet;
     }
-
-
-
-
-
     //GETTERS & SETTERS
 
-    public Integer getId() {
-        return id;
-    }
+    public Integer getId() {return id;}
 
     public Project getProject() {
         return project;
@@ -162,11 +155,6 @@ public class LineEntry {
 
     public void setTimesheet(Timesheet timesheet) {
         this.timesheet = timesheet;
-    }
-
-
-    public void updateTotalHoursOnLineEntry(){
-        this.totalHours = this.mondayHours + this.tuesdayHours + this.wednesdayHours + this.thursdayHours + this.fridayHours +this.saturdayHours;
     }
 
     public boolean isLineEntryOnTimesheet(Timesheet currentTimesheet) {

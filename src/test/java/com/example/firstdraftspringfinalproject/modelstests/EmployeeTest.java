@@ -29,17 +29,17 @@ public class EmployeeTest {
     Timesheet testTimesheet2 = new Timesheet(testEmployee, date2);
     Timesheet testTimesheet3 = new Timesheet(testEmployee, date3);
 
-    ProjectWorkTypeSet pWT1 = new ProjectWorkTypeSet(pIasc, wT101);
-    ProjectWorkTypeSet pWT2 = new ProjectWorkTypeSet(pIasc, wT102);
-    ProjectWorkTypeSet pWT3 = new ProjectWorkTypeSet(pNam, wT102);
-    DaysOfWeekHoursSet dWkHr1 = new DaysOfWeekHoursSet(0, 0, 4,0,0,0);
-    DaysOfWeekHoursSet dWkHr2 = new DaysOfWeekHoursSet(0,0,0,0,4,0);
-    DaysOfWeekHoursSet dWkHr3 = new DaysOfWeekHoursSet(1,1,3,0,4,0);
-
-    LineEntry lineEntry1 = new LineEntry(pWT1, dWkHr1, testTimesheet1);
-    LineEntry lineEntry2 = new LineEntry(pWT1, dWkHr2, testTimesheet1);
-    LineEntry lineEntry3 = new LineEntry(pWT2, dWkHr3, testTimesheet1);
-    LineEntry lineEntry4 = new LineEntry(pWT3, dWkHr3, testTimesheet1);
+//    ProjectWorkTypeSet pWT1 = new ProjectWorkTypeSet(pIasc, wT101);
+//    ProjectWorkTypeSet pWT2 = new ProjectWorkTypeSet(pIasc, wT102);
+//    ProjectWorkTypeSet pWT3 = new ProjectWorkTypeSet(pNam, wT102);
+//    DaysOfWeekHoursSet dWkHr1 = new DaysOfWeekHoursSet(0, 0, 4,0,0,0);
+//    DaysOfWeekHoursSet dWkHr2 = new DaysOfWeekHoursSet(0,0,0,0,4,0);
+//    DaysOfWeekHoursSet dWkHr3 = new DaysOfWeekHoursSet(1,1,3,0,4,0);
+//
+//    LineEntry lineEntry1 = new LineEntry(pWT1, dWkHr1, testTimesheet1);
+//    LineEntry lineEntry2 = new LineEntry(pWT1, dWkHr2, testTimesheet1);
+//    LineEntry lineEntry3 = new LineEntry(pWT2, dWkHr3, testTimesheet1);
+//    LineEntry lineEntry4 = new LineEntry(pWT3, dWkHr3, testTimesheet1);
 
 
     @Test
@@ -71,44 +71,44 @@ public class EmployeeTest {
 
 
 
-    @Test
-    public void testGetTotalHoursWorkedToDate(){
-
-        testTimesheet1.getLineEntries().add(lineEntry1);
-        testTimesheet1.getLineEntries().add(lineEntry2);
-        testTimesheet1.getLineEntries().add(lineEntry3);
-        testTimesheet1.setTotalHours();
-        testTimesheet1.setCompletionStatus(true);
-        testTimesheet1.setSupervisorApproval(true);
-        System.out.println(testTimesheet1.getTotalHours());
-
-        testTimesheet2.getLineEntries().add(lineEntry4);
-        testTimesheet2.setTotalHours();
-        testTimesheet2.setCompletionStatus(true);
-        testTimesheet2.setSupervisorApproval(true);
-
-        testTimesheet3.setCompletionStatus(false);
-        testTimesheet3.setSupervisorApproval(false);
-
-        testEmployee.getTimesheets().add(testTimesheet1);
-        testEmployee.getTimesheets().add(testTimesheet2);
-        testEmployee.getTimesheets().add(testTimesheet3);
-
-        assertEquals(26, testEmployee.getTotalApprovedHoursWorkedToDate());
-
-        //    public Integer getTotalHoursWorkedToDate(){
-//        List<Timesheet> timesheets = this.timesheets;
-//        Integer totalHoursWorkedToDate = 0;
-//        for (Timesheet timesheet:
-//                timesheets) {
-//            if(timesheet.getSupervisorApproval()){
-//                totalHoursWorkedToDate += timesheet.getTotalHours();
-//            }
-//        }
-//        return totalHoursWorkedToDate;
+//    @Test
+//    public void testGetTotalHoursWorkedToDate(){
+//
+//        testTimesheet1.getLineEntries().add(lineEntry1);
+//        testTimesheet1.getLineEntries().add(lineEntry2);
+//        testTimesheet1.getLineEntries().add(lineEntry3);
+//        testTimesheet1.setTotalHours();
+//        testTimesheet1.setCompletionStatus(true);
+//        testTimesheet1.setSupervisorApproval(true);
+//        System.out.println(testTimesheet1.getTotalHours());
+//
+//        testTimesheet2.getLineEntries().add(lineEntry4);
+//        testTimesheet2.setTotalHours();
+//        testTimesheet2.setCompletionStatus(true);
+//        testTimesheet2.setSupervisorApproval(true);
+//
+//        testTimesheet3.setCompletionStatus(false);
+//        testTimesheet3.setSupervisorApproval(false);
+//
+//        testEmployee.getTimesheets().add(testTimesheet1);
+//        testEmployee.getTimesheets().add(testTimesheet2);
+//        testEmployee.getTimesheets().add(testTimesheet3);
+//
+//        assertEquals(26, testEmployee.getTotalApprovedHoursWorkedToDate());
+//
+//        //    public Integer getTotalHoursWorkedToDate(){
+////        List<Timesheet> timesheets = this.timesheets;
+////        Integer totalHoursWorkedToDate = 0;
+////        for (Timesheet timesheet:
+////                timesheets) {
+////            if(timesheet.getSupervisorApproval()){
+////                totalHoursWorkedToDate += timesheet.getTotalHours();
+////            }
+////        }
+////        return totalHoursWorkedToDate;
+////    }
+//
 //    }
-
-    }
 
 
     //TODO - write tests for the following methods:

@@ -8,10 +8,6 @@ import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetTotal
 import javax.persistence.*;
 import java.util.*;
 
-//TODO: add a explanatory file (READ.ME?) to this timesheets package - maybe a pdf/jpg that 's an image graph
-// of how the timesheet is translated with line entries being added to a timesheet, etc etc
-// image of timesheet existing with callouts, uml diagram as well.
-
 @Entity
 public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates {
 
