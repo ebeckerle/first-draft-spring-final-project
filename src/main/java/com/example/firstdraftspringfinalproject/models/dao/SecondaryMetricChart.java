@@ -17,15 +17,15 @@ import java.util.List;
 public class SecondaryMetricChart extends Chart implements MetricsPayRate, MetricsWorkType, MetricsProject, MetricsEmployee{
 
     @Autowired
-    private final EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
 
     @Autowired
-    private final TimesheetRepository timesheetRepository;
+    private TimesheetRepository timesheetRepository;
     @Autowired
-    private final ProjectRepository projectRepository;
+    private ProjectRepository projectRepository;
 
     @Autowired
-    private final WorkTypeRepository workTypeRepository;
+    private WorkTypeRepository workTypeRepository;
     private final MetricsCategory primaryCategory;
     private final String primaryCategorySubject;
     private final Boolean containsSecondaryCategory;
