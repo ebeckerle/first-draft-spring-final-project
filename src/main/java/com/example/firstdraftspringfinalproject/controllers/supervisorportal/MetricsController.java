@@ -1,8 +1,10 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.*;
-import com.example.firstdraftspringfinalproject.models.dao.MetricsChart;
+import com.example.firstdraftspringfinalproject.models.dao.Chart;
 import com.example.firstdraftspringfinalproject.models.dao.MetricsPayRate;
+import com.example.firstdraftspringfinalproject.models.dao.PrimaryMetricChart;
+import com.example.firstdraftspringfinalproject.models.dao.SecondaryMetricChart;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,11 +61,11 @@ public class MetricsController {
     @PostMapping(params="total")
     public String processViewMetrics(@RequestParam String xValue, Model model){
 
-        MetricsChart newMetric = new MetricsChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
-        newMetric.populateChartDataWhenThereIsNoSecondaryCategory();
+        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+        newMetric.populateChartData();
         model.addAttribute("xyValues", newMetric.getXyValues());
-        model.addAttribute("chartTitle", "Total Hours by "+newMetric.getChartTitle());
-        model.addAttribute("csvHeaders", newMetric.getCsvHeaders());
+        model.addAttribute("chartTitle", "Total Hours by "+ newMetric.getTitle());
+        model.addAttribute("csvHeaders", ((PrimaryMetricChart) newMetric).getCsvHeaders());
 
         model.addAttribute("title", "Metrics");
 
@@ -86,12 +88,12 @@ public class MetricsController {
             case "PayRate" -> primaryCategorySubject = String.valueOf(payRate);
         }
 
-        MetricsChart newMetric = new MetricsChart(MetricsCategory.getMetricsCategoryEnumFromString(chartCategory), primaryCategorySubject, MetricsCategory.getMetricsCategoryEnumFromString(xChoice), employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
-        newMetric.populateChartDataWhenThereIsASecondaryCategory();
+        Chart newMetric = new SecondaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(chartCategory), primaryCategorySubject, MetricsCategory.getMetricsCategoryEnumFromString(xChoice), employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+        newMetric.populateChartData();
         model.addAttribute("xyValues", newMetric.getXyValues());
-        model.addAttribute("chartTitle", newMetric.getChartTitle());
-        model.addAttribute("csvHeaders", newMetric.getCsvHeaders());
-        model.addAttribute("primaryCategorySubject", newMetric.getPrimaryCategorySubject());
+        model.addAttribute("chartTitle", newMetric.getTitle());
+        model.addAttribute("csvHeaders", ((SecondaryMetricChart) newMetric).getCsvHeaders());
+        model.addAttribute("primaryCategorySubject", ((SecondaryMetricChart) newMetric).getPrimaryCategorySubject());
 
         model.addAttribute("title", "Metrics");
 

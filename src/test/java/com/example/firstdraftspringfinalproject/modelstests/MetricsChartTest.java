@@ -4,7 +4,9 @@ import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
-import com.example.firstdraftspringfinalproject.models.dao.MetricsChart;
+import com.example.firstdraftspringfinalproject.models.dao.Chart;
+import com.example.firstdraftspringfinalproject.models.dao.PrimaryMetricChart;
+import com.example.firstdraftspringfinalproject.models.dao.SecondaryMetricChart;
 import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class MetricsChartTest {
 
 //    Metrics testMetricsObj1 = new Metrics("Employee", employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
 
-    MetricsChart testMetricsObj2 = new MetricsChart(MetricsCategory.PROJECT, "Notre Dame Cathedral", MetricsCategory.WORKTYPE, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+    Chart testMetricsObj2 = new SecondaryMetricChart(MetricsCategory.PROJECT, "Notre Dame Cathedral", MetricsCategory.WORKTYPE, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
 
     @Test
     public void test(){
@@ -39,9 +41,9 @@ public class MetricsChartTest {
     @Test
     public void testSetXyValuesWhenThereIsNoSecondaryCategory(){
 
-        MetricsChart testMetricsObj1 = new MetricsChart(MetricsCategory.EMPLOYEE, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
-        testMetricsObj1.populateChartDataWhenThereIsNoSecondaryCategory();
-        assertFalse(testMetricsObj1.getContainsSecondaryCategory());
+        Chart testMetricsObj1 = new PrimaryMetricChart(MetricsCategory.EMPLOYEE, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+        testMetricsObj1.populateChartData();
+
         assertFalse(testMetricsObj1.getXyValues().isEmpty());
 
     }

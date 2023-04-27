@@ -4,7 +4,8 @@ import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,53 +14,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-//I think this is a Data Access Object???
-
-public class MetricsChart implements MetricsPayRate, MetricsWorkType, MetricsProject, MetricsEmployee{
+public class SecondaryMetricChart extends Chart implements MetricsPayRate, MetricsWorkType, MetricsProject, MetricsEmployee{
 
     @Autowired
     private final EmployeeRepository employeeRepository;
-    //TODO - just pull from database this  - List<Employee> employees...
 
     @Autowired
     private final TimesheetRepository timesheetRepository;
-    //TODO - just pull from database this  - List<Timesheet> timesheets  /* - just timesheets that are submitted and
-    // approved by supervisor - */ - findBySupervisorApprovalAndCompletionStatus(true, true)
-
     @Autowired
     private final ProjectRepository projectRepository;
-    //TODO - just pull from database this  - List<Project> projects (these are maybe in the future just un retired
-    // projects, or just projects in that have entered production phase? right now all projects
 
     @Autowired
     private final WorkTypeRepository workTypeRepository;
-    //TODO - maybe? - List<WorkType> I think we are actually always pulling all work types and I don't see why that would
-    // change at this point...
-
     private final MetricsCategory primaryCategory;
     private final String primaryCategorySubject;
     private final Boolean containsSecondaryCategory;
     private final MetricsCategory secondaryCategory;
 
-    private String chartTitle;
-    private HashMap<String, Integer> xyValues;
     private List<String> csvHeaders;
 
-    public MetricsChart(MetricsCategory primaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
-        if(timesheetRepository.count() == 0){
-            throw new RuntimeException("Fail, there are no timesheets");
-        }
-        this.primaryCategory = primaryCategory;
-        this.primaryCategorySubject = "There is no secondary category, so there is no primary category subject.";
-        this.containsSecondaryCategory = false;
-        this.secondaryCategory = MetricsCategory.NOSECONDARYCATEGORY;
-        this.employeeRepository = employeeRepository;
-        this.timesheetRepository = timesheetRepository;
-        this.projectRepository = projectRepository;
-        this.workTypeRepository = workTypeRepository;
-    }
 
-    public MetricsChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
+    public SecondaryMetricChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
         if(timesheetRepository.count() == 0){
             throw new RuntimeException("Fail, there are no timesheets");
         }
@@ -76,24 +51,21 @@ public class MetricsChart implements MetricsPayRate, MetricsWorkType, MetricsPro
         this.workTypeRepository = workTypeRepository;
     }
 
-    //Getter & Setters
-
-    public Boolean getContainsSecondaryCategory() {
-        return containsSecondaryCategory;
+    public SecondaryMetricChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory) {
+        if(primaryCategory == secondaryCategory){
+            throw new RuntimeException("Fail");
+        }
+        this.primaryCategory = primaryCategory;
+        this.containsSecondaryCategory = true;
+        this.primaryCategorySubject = primaryCategorySubject;
+        this.secondaryCategory = secondaryCategory;
     }
 
-
+    //Getter & Setters
     public String getPrimaryCategorySubject() {
         return primaryCategorySubject;
     }
 
-    public String getChartTitle() {
-        return chartTitle;
-    }
-
-    public HashMap<String, Integer> getXyValues() {
-        return xyValues;
-    }
 
     public List<String> getCsvHeaders() {
         return csvHeaders;
@@ -113,24 +85,11 @@ public class MetricsChart implements MetricsPayRate, MetricsWorkType, MetricsPro
         return csvHeaders;
     }
 
-    public void populateChartDataWhenThereIsNoSecondaryCategory(){
-
-        switch (this.primaryCategory.getDisplayName()) {
-            case "Employee" ->
-                    this.xyValues = MetricsEmployee.loadXyValuesForPrimaryCategoryEmployee(employeeRepository);
-            case "Project" ->
-                    this.xyValues = MetricsProject.loadXyValuesForPrimaryCategoryProject(timesheetRepository, projectRepository);
-            case "WorkType" ->
-                    this.xyValues = MetricsWorkType.loadXyValuesForPrimaryCategoryWorkType(timesheetRepository, workTypeRepository);
-            case "PayRate" ->
-                    this.xyValues = MetricsPayRate.loadXyValuesForPrimaryCategoryPayRate(timesheetRepository);
-        }
-        this.chartTitle = primaryCategory.getDisplayName();
-        this.csvHeaders = MetricsChart.loadCsvHeaders(this.primaryCategory, this.secondaryCategory, this.primaryCategorySubject);
-    }
 
 
-    public void populateChartDataWhenThereIsASecondaryCategory(){
+
+    @Override
+    public void populateChartData(){
 
         if(this.secondaryCategory == MetricsCategory.NOSECONDARYCATEGORY){
             throw new RuntimeException("Sorry, can not populate data for a chart with a secondary category " +
@@ -141,11 +100,11 @@ public class MetricsChart implements MetricsPayRate, MetricsWorkType, MetricsPro
         }
 
         HashMap<String, Integer> xyValues = new HashMap<>();
-        this.csvHeaders = MetricsChart.loadCsvHeaders(this.primaryCategory, this.secondaryCategory, this.primaryCategorySubject);
+        this.csvHeaders = SecondaryMetricChart.loadCsvHeaders(this.primaryCategory, this.secondaryCategory, this.primaryCategorySubject);
         String xChoice = this.secondaryCategory.getDisplayName();
         switch (this.primaryCategory.getDisplayName()) {
             case "Employee" -> {
-                this.chartTitle  = this.primaryCategorySubject + "'s Hours by " + this.secondaryCategory;
+                this.setTitle(this.primaryCategorySubject + "'s Hours by " + this.secondaryCategory);
                 Employee employee = employeeRepository.findByFirstNameLastNameCombo(this.primaryCategorySubject).get();
                 List<Timesheet> employeesTimesheets = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employee.getEmployeeId(), true, true);
                 if (xChoice.equals("Project")) {
@@ -153,53 +112,53 @@ public class MetricsChart implements MetricsPayRate, MetricsWorkType, MetricsPro
                 }else if (xChoice.equals("WorkType")) {
                     xyValues = MetricsWorkType.loadXyValuesForSecondaryCategoryWorkType(workTypeRepository, employeesTimesheets);
                 }
-                this.xyValues = xyValues;
+                this.setXyValues(xyValues);
                 //TODO if xChoice.equals("PayRate") !!!
             }
             case "Project" -> {
                 String projectName = this.primaryCategorySubject;
-                this.chartTitle = "Hours worked on " + projectName + " by " + xChoice;
+                this.setTitle("Hours worked on " + projectName + " by " + xChoice);
                 Project project = projectRepository.findByProjectName(projectName);
                 List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
                 switch (xChoice) {
                     case "Employee" -> {
-                        this.xyValues = MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsProject(employeeRepository, timesheetRepository, project);
+                        this.setXyValues(MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsProject(employeeRepository, timesheetRepository, project));
                     }
                     case "WorkType" -> {
-                        this.xyValues = MetricsWorkType.loadXyValuesForSecondaryCategoryWorkTypeWhenPrimaryCategoryIsProject(timesheets, project);
+                        this.setXyValues(MetricsWorkType.loadXyValuesForSecondaryCategoryWorkTypeWhenPrimaryCategoryIsProject(timesheets, project));
                     }
                     case "PayRate" -> {
-                        this.xyValues = MetricsPayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsProject(timesheets, project);
+                        this.setXyValues(MetricsPayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsProject(timesheets, project));
                     }
                 }
             }
             case "WorkType" -> {
                 String workTypeName = this.primaryCategorySubject;
-                this.chartTitle = "Hours worked in " + workTypeName + ", by " + xChoice;
+                this.setTitle("Hours worked in " + workTypeName + ", by " + xChoice);
                 switch (xChoice) {
                     case "Employee" -> {
-                        this.xyValues = MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName);
+                        this.setXyValues(MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName));
                     }
                     case "Project" -> {
-                        this.xyValues = MetricsProject.loadXyValuesForSecondaryCategoryProjectWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName);
+                        this.setXyValues(MetricsProject.loadXyValuesForSecondaryCategoryProjectWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName));
                     }
                     case "PayRate" -> {
-                        this.xyValues = MetricsPayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName);
+                        this.setXyValues(MetricsPayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName));
                     }
                 }
             }
             case "PayRate" -> {
                 String payRateString = this.primaryCategorySubject;
-                chartTitle = "Hours worked compensated at $" + payRateString + " / per hour by " + xChoice;
+                this.setTitle("Hours worked compensated at $" + payRateString + " / per hour by " + xChoice);
                 switch (xChoice) {
                     case "Employee" -> {
-                        this.xyValues = MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString);
+                        this.setXyValues(MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString));
                     }
                     case "Project" -> {
-                        this.xyValues = MetricsProject.getXyValuesForSecondaryCategoryProjectWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString);
+                        this.setXyValues(MetricsProject.getXyValuesForSecondaryCategoryProjectWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString));
                     }
                     case "WorkType" -> {
-                        this.xyValues = MetricsWorkType.loadXyValuesForSecondaryCategoryWorkTypeWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString);
+                        this.setXyValues(MetricsWorkType.loadXyValuesForSecondaryCategoryWorkTypeWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString));
                     }
                 }
             }
