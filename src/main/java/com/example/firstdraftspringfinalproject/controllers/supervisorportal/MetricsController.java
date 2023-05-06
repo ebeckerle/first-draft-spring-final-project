@@ -2,9 +2,9 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.dao.Chart;
-import com.example.firstdraftspringfinalproject.models.dao.MetricsPayRate;
-import com.example.firstdraftspringfinalproject.models.dao.PrimaryMetricChart;
-import com.example.firstdraftspringfinalproject.models.dao.SecondaryMetricChart;
+import com.example.firstdraftspringfinalproject.models.dao.metrics.MetricsPayRate;
+import com.example.firstdraftspringfinalproject.models.dao.metrics.PrimaryMetricChart;
+import com.example.firstdraftspringfinalproject.models.dao.metrics.SecondaryMetricChart;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.springframework.beans.factory.annotation.Autowired;

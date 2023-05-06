@@ -1,21 +1,19 @@
-package com.example.firstdraftspringfinalproject.models.dao;
+package com.example.firstdraftspringfinalproject.models.dao.metrics;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
-import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
+import com.example.firstdraftspringfinalproject.models.dao.Chart;
 import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 //I think this is a Data Access Object???
 
-public class PrimaryMetricChart extends Chart implements MetricsPayRate, MetricsWorkType, MetricsProject, MetricsEmployee{
+public class PrimaryMetricChart extends Chart implements MetricsPayRate, MetricsWorkType, MetricsProject, MetricsEmployee {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -56,6 +54,11 @@ public class PrimaryMetricChart extends Chart implements MetricsPayRate, Metrics
     }
 
     //Getter & Setters
+
+
+    public MetricsCategory getPrimaryCategory() {
+        return primaryCategory;
+    }
 
     public List<String> getCsvHeaders() {
         return csvHeaders;

@@ -160,4 +160,5 @@ public class AuthenticationController {
     public String restricted(){
         return "restricted";
     }
+
 }

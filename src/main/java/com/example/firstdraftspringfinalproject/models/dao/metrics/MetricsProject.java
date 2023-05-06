@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.models.dao;
+package com.example.firstdraftspringfinalproject.models.dao.metrics;
 
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;

@@ -1,9 +1,10 @@
-package com.example.firstdraftspringfinalproject.models.dao;
+package com.example.firstdraftspringfinalproject.models.dao.metrics;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
+import com.example.firstdraftspringfinalproject.models.dao.Chart;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SecondaryMetricChart extends Chart implements MetricsPayRate, MetricsWorkType, MetricsProject, MetricsEmployee{
+public class SecondaryMetricChart extends Chart implements MetricsPayRate, MetricsWorkType, MetricsProject, MetricsEmployee {
 
     @Autowired
     private EmployeeRepository employeeRepository;

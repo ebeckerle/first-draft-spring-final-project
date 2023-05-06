@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.models.dao;
+package com.example.firstdraftspringfinalproject.models.dao.metrics;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
@@ -22,6 +22,8 @@ public interface MetricsEmployee {
         }
         return xyValues;
     }
+
+//    HashMap<String, Integer> loadXyValuesForPrimaryCategoryEmployee(List<String>);
 
 //    static HashMap<String, Integer> loadXyValuesForPrimaryCategoryEmployee(List<Timesheet> timesheets) {
 //        HashMap<String, Integer> xyValues = new HashMap<>();
