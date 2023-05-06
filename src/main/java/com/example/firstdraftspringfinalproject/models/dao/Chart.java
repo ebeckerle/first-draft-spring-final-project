@@ -62,6 +62,7 @@ public class Chart {
 
     public static void populateChartDataFromListTest(List<String> rawData) {
 
+        //TODO : a place to use Stream???
         for (String dataPair:
                 rawData) {
             String[] dataPairArray= dataPair.split(",");
@@ -69,6 +70,7 @@ public class Chart {
             String xValue = dataPairList.get(0);
             String yValueString = dataPairList.get(1);
             Integer yValue = Integer.parseInt(yValueString);
+
             System.out.println(xValue);
             System.out.println(yValue.getClass());
             System.out.println(yValue);
