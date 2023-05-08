@@ -115,7 +115,7 @@
                 </td>
                 <!--            TUESDAY TOTALS CELL -->
                 <td>
-                    <div th:if='${timesheet.totalTuesdayHours > 0}'>
+                    <div th:if='${timesheet.getTotalTuesdayHours() > 0}'>
                         <p th:text="${timesheet.totalTuesdayHours}"></p>
                     </div>
                     <div th:unless='${timesheet.totalTuesdayHours > 0}'>

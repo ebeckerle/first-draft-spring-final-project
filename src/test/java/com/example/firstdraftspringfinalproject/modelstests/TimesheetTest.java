@@ -15,6 +15,18 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TimesheetTest {
 
 
+    Employee practiceEmployee = new Employee("Elizabeth", "Beckerle");
+    Project pIasc = new Project("IASC", "Iowa State Capitol");
+    Project pNam = new Project("NAM", "Nelson Atkins Museum");
+    WorkType wT101 = new WorkType(101, "Inventory");
+    WorkType wT102 = new WorkType(102, "Cut and Process Rough Parts");
+
+    Timesheet testTimesheet1 = new Timesheet(practiceEmployee);
+
+    LineEntry lineEntry1 = new LineEntry(pIasc, wT101, DaysOfWeek.MONDAY, 5, testTimesheet1);
+    LineEntry lineEntry2 = new LineEntry(pIasc, wT102, DaysOfWeek.TUESDAY, 5,testTimesheet1);
+    LineEntry lineEntry3 = new LineEntry(pNam, wT101, DaysOfWeek.WEDNESDAY, 7, testTimesheet1);
+    LineEntry lineEntry4 = new LineEntry(pNam, wT102, DaysOfWeek.FRIDAY, 8, testTimesheet1);
 
 
     @Test
@@ -33,6 +45,44 @@ public class TimesheetTest {
     }
 
     @Test
+    public void testSetCompletionStatus(){
+        testTimesheet1.setCompletionStatus(false);
+        assertFalse(testTimesheet1.getSupervisorApproval());
+    }
+
+    @Test
+    public void testUpdateEachDayOfWeekTotalHours(){
+        testTimesheet1.getLineEntries().add(lineEntry1);
+        testTimesheet1.getLineEntries().add(lineEntry2);
+        testTimesheet1.getLineEntries().add(lineEntry3);
+        testTimesheet1.getLineEntries().add(lineEntry4);
+        testTimesheet1.updateEachDayOfWeekTotalHours();
+        LineEntry lineEntry5 = new LineEntry(pNam, wT102, DaysOfWeek.FRIDAY, 1, testTimesheet1);
+        LineEntry existingLineEntry = testTimesheet1.findMatchingLineEntry(lineEntry5);
+        assertEquals(8, testTimesheet1.getTotalFridayHours());
+
+        testTimesheet1.updateLineEntry(existingLineEntry, lineEntry5);
+
+        testTimesheet1.updateEachDayOfWeekTotalHours();
+
+        assertEquals(9, testTimesheet1.getTotalFridayHours());
+
+        LineEntry lineEntry6 = new LineEntry(pNam, wT102, DaysOfWeek.MONDAY, 2, testTimesheet1);
+
+
+    }
+
+    @Test
+    public void testSetTotalHours(){
+        testTimesheet1.getLineEntries().add(lineEntry1);
+        testTimesheet1.getLineEntries().add(lineEntry2);
+        testTimesheet1.getLineEntries().add(lineEntry3);
+        testTimesheet1.getLineEntries().add(lineEntry4);
+        testTimesheet1.setTotalHours();
+        assertEquals(25, testTimesheet1.getTotalHours());
+
+    }
+    @Test
     public void testSetCurrentPayRate(){
 
         practiceEmployee.setPayRate(30);
@@ -40,21 +90,6 @@ public class TimesheetTest {
         testTimesheet.setCurrentPayRate();
 
         assertEquals(30, testTimesheet.getCurrentPayRate());
-    }
-
-    @Test
-    public void testSetTotalHours(){
-
-        //TODO Next!!!!!
-        assertEquals(3,3);
-//        public void setTotalHours() {
-//            Integer totalHours = 0;
-//            for (LineEntry lineEntry:
-//                    this.lineEntries) {
-//                totalHours += lineEntry.getTotalHours();
-//            }
-//            this.totalHours = totalHours;
-//        }
     }
 
     @Test
@@ -72,7 +107,64 @@ public class TimesheetTest {
         assertEquals(8, testTimesheet1.totalDayOfWeekHours(DaysOfWeek.FRIDAY));
         assertEquals(0, testTimesheet1.totalDayOfWeekHours(DaysOfWeek.SATURDAY));
     }
+    @Test
+    public void testGetTotalHoursByProject(){
+        testTimesheet1.getLineEntries().add(lineEntry1);
+        testTimesheet1.getLineEntries().add(lineEntry2);
+        testTimesheet1.getLineEntries().add(lineEntry3);
+        testTimesheet1.getLineEntries().add(lineEntry4);
 
+        System.out.println(testTimesheet1.getTotalHoursByProject(pIasc));
+
+        assertEquals(10, testTimesheet1.getTotalHoursByProject(pIasc));
+        assertEquals(15, testTimesheet1.getTotalHoursByProject(pNam));
+    }
+
+    @Test
+    public void testGetTotalHoursByWorkType(){
+        testTimesheet1.getLineEntries().add(lineEntry1);
+        testTimesheet1.getLineEntries().add(lineEntry2);
+        testTimesheet1.getLineEntries().add(lineEntry3);
+        testTimesheet1.getLineEntries().add(lineEntry4);
+
+        assertEquals(12, testTimesheet1.getTotalHoursByWorkType(wT101));
+        assertEquals(13, testTimesheet1.getTotalHoursByWorkType(wT102));
+    }
+
+    @Test
+    public void testFindMatchingLineEntry(){
+        testTimesheet1.getLineEntries().add(lineEntry4);
+        LineEntry lineEntry5 = new LineEntry(pNam, wT102, DaysOfWeek.FRIDAY, 1, testTimesheet1);
+        assertEquals(lineEntry4, testTimesheet1.findMatchingLineEntry(lineEntry5));
+    }
+
+    @Test
+    public void testUpdateLineEntry(){
+        testTimesheet1.getLineEntries().add(lineEntry1);
+        testTimesheet1.getLineEntries().add(lineEntry2);
+        testTimesheet1.getLineEntries().add(lineEntry3);
+        testTimesheet1.getLineEntries().add(lineEntry4);
+        LineEntry lineEntry5 = new LineEntry(pNam, wT102, DaysOfWeek.FRIDAY, 1, testTimesheet1);
+        LineEntry existingLineEntry = testTimesheet1.findMatchingLineEntry(lineEntry5);
+        testTimesheet1.updateLineEntry(existingLineEntry, lineEntry5);
+        assertEquals(4, testTimesheet1.getLineEntries().size());
+        testTimesheet1.updateEachDayOfWeekTotalHours();
+        assertEquals(9, testTimesheet1.getTotalFridayHours());
+    }
+
+    @Test
+    public void testReplaceLineEntry(){
+        testTimesheet1.getLineEntries().add(lineEntry1);
+        testTimesheet1.getLineEntries().add(lineEntry2);
+        testTimesheet1.getLineEntries().add(lineEntry3);
+        testTimesheet1.getLineEntries().add(lineEntry4);
+        LineEntry lineEntry5 = new LineEntry(pNam, wT102, DaysOfWeek.FRIDAY, 1, testTimesheet1);
+        LineEntry existingLineEntry = testTimesheet1.findMatchingLineEntry(lineEntry5);
+        testTimesheet1.replaceLineEntry(existingLineEntry, lineEntry5);
+        assertEquals(4, testTimesheet1.getLineEntries().size());
+        testTimesheet1.updateEachDayOfWeekTotalHours();
+        assertEquals(1, testTimesheet1.getTotalFridayHours());
+    }
 
     @Test
     public void testFormatDates(){
@@ -95,37 +187,6 @@ public class TimesheetTest {
         assertEquals(startDateExpected.getClass(), startDateActual.getClass());
         assertEquals(startDateExpected, startDateActual);
 
-//        public static GregorianCalendar figureStartDateBasedOnTodaysDate(LocalDate todaysDate){
-//            //convert LocalDate to a new Gregorian Calendar Date
-//            int dayOfMonth = todaysDate.getDayOfMonth();
-//            int monthValue = todaysDate.getMonthValue();
-//            int year = todaysDate.getYear();
-//            DayOfWeek dayOfWeek = todaysDate.getDayOfWeek();
-//            GregorianCalendar todayGC = new GregorianCalendar(year, monthValue-1, dayOfMonth);
-//            //cycle thru days of the week (DayOfWeek Enum int values) to then reset (using add() method) the date back to the appropriate Monday
-//            if (dayOfWeek.getValue()== 2){
-//                todayGC.add(Calendar.DATE, -1);
-//                return todayGC;
-//            }else if (dayOfWeek.getValue()==3){
-//                todayGC.add(Calendar.DATE, -2);
-//                return todayGC;
-//            }else if (dayOfWeek.getValue()==4){
-//                todayGC.add(Calendar.DATE, -3);
-//                return todayGC;
-//            }else if (dayOfWeek.getValue()==5){
-//                todayGC.add(Calendar.DATE, -4);
-//                return todayGC;
-//            }else if (dayOfWeek.getValue()==6){
-//                todayGC.add(Calendar.DATE, -5);
-//                return todayGC;
-//            }else if (dayOfWeek.getValue()==7){
-//                todayGC.add(Calendar.DATE, -6);
-//                return todayGC;
-//            }else{
-//                return todayGC;
-//            }
-//        }
-
     }
 
     @Test
@@ -133,33 +194,6 @@ public class TimesheetTest {
         assertEquals(3, 3);
     }
 
-    @Test
-    public void testGetTotalHoursByProject(){
-
-        //TODO - had to change the Project Class's equals method to get this test to pass because my test project
-        // objects do not have an auto-generated ID - what to do?
-
-        testTimesheet1.getLineEntries().add(lineEntry1);
-        testTimesheet1.getLineEntries().add(lineEntry2);
-        testTimesheet1.getLineEntries().add(lineEntry3);
-        testTimesheet1.getLineEntries().add(lineEntry4);
-
-        System.out.println(testTimesheet1.getTotalHoursByProject(pIasc));
-
-        assertEquals(17, testTimesheet1.getTotalHoursByProject(pIasc));
-        assertEquals(9, testTimesheet1.getTotalHoursByProject(pNam));
-    }
-
-    @Test
-    public void testGetTotalHoursByWorkType(){
-        testTimesheet1.getLineEntries().add(lineEntry1);
-        testTimesheet1.getLineEntries().add(lineEntry2);
-        testTimesheet1.getLineEntries().add(lineEntry3);
-        testTimesheet1.getLineEntries().add(lineEntry4);
-
-        assertEquals(8, testTimesheet1.getTotalHoursByWorkType(wT101));
-        assertEquals(18, testTimesheet1.getTotalHoursByWorkType(wT102));
-    }
 
 
 

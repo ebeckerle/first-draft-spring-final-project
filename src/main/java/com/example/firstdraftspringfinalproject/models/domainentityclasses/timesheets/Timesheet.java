@@ -127,6 +127,26 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         return totalMondayHours;
     }
 
+    public Integer getTotalTuesdayHours() {
+        return totalTuesdayHours;
+    }
+
+    public Integer getTotalWednesdayHours() {
+        return totalWednesdayHours;
+    }
+
+    public Integer getTotalThursdayHours() {
+        return totalThursdayHours;
+    }
+
+    public Integer getTotalFridayHours() {
+        return totalFridayHours;
+    }
+
+    public Integer getTotalSaturdayHours() {
+        return totalSaturdayHours;
+    }
+
     public void setTotalMondayHours(Integer totalMondayHours) {
         this.totalMondayHours = totalMondayHours;
     }
@@ -155,12 +175,12 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         this.totalSaturdayHours = totalSaturdayHours;
     }
     public void updateEachDayOfWeekTotalHours() {
-        Integer currentTotalMonday = this.totalMondayHours;
-        Integer currentTotalTuesday = this.totalTuesdayHours;
-        Integer currentTotalWednesday = this.totalWednesdayHours;
-        Integer currentTotalThursday = this.totalThursdayHours;
-        Integer currentTotalFriday = this.totalFridayHours;
-        Integer currentTotalSaturday = this.totalSaturdayHours;
+        Integer currentTotalMonday = 0;
+        Integer currentTotalTuesday = 0;
+        Integer currentTotalWednesday = 0;
+        Integer currentTotalThursday = 0;
+        Integer currentTotalFriday = 0;
+        Integer currentTotalSaturday = 0;
         for (LineEntry lineEntry :
                 this.lineEntries) {
             currentTotalMonday += lineEntry.getMondayHours();
@@ -246,7 +266,6 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
 
     public Integer getTotalHoursByProject(Project project){
         List<LineEntry> lineEntries = this.lineEntries;
-        //iterate thru an arraylist of line entries
         Integer totalHoursForProject = 0;
         for (LineEntry lineEntry : lineEntries){
             Integer lineEntryTotal = 0;
@@ -273,6 +292,11 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
 
 
     public LineEntry findMatchingLineEntry(LineEntry theNewLineEntry) {
+        if (!theNewLineEntry.isLineEntryOnTimesheet(this)){
+            throw new RuntimeException("cannot return a matching line entry, " +
+                    "matching line entry to arg does not exist on this timesheet." +
+                    " Matching Line Entries must be equal in project and work type.");
+        }
         LineEntry existingLineEntry = new LineEntry();
         for (LineEntry lineEntry:
                 this.getLineEntries()) {
