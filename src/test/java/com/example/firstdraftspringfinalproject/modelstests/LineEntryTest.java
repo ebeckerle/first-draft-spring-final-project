@@ -1,7 +1,10 @@
 package com.example.firstdraftspringfinalproject.modelstests;
 
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
+import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
+import org.junit.jupiter.api.Test;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -9,48 +12,37 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class LineEntryTest {
 
-
-//    @Test
-//    public void testTests(){
-//        String string = "N";
-//        assertEquals("N", string);
-//    }
     Employee practiceEmployee = new Employee("Elizabeth", "Beckerle");
+    Project pIasc = new Project("IASC", "Iowa State Capitol");
+    Project pNam = new Project("NAM", "Nelson Atkins Museum");
+    WorkType wT101 = new WorkType(101, "Inventory");
+    WorkType wT102 = new WorkType(102, "Cut and Process Rough Parts");
+
     Timesheet testTimesheet1 = new Timesheet(practiceEmployee);
 
-    Project pIasc = new Project("IASC", "Iowa State Capitol");
-    WorkType wT101 = new WorkType(101, "Inventory");
+    LineEntry lineEntry1 = new LineEntry(pIasc, wT101, DaysOfWeek.MONDAY, 5, testTimesheet1);
+    LineEntry lineEntry2 = new LineEntry(pIasc, wT102, DaysOfWeek.TUESDAY, 5,testTimesheet1);
+    LineEntry lineEntry3 = new LineEntry(pNam, wT101, DaysOfWeek.WEDNESDAY, 7, testTimesheet1);
+    LineEntry lineEntry4 = new LineEntry(pNam, wT102, DaysOfWeek.FRIDAY, 8, testTimesheet1);
 
+    //TODO : test the constructor with project, workType, dayOfWeek, hours, and timesheet params
+        //TODO : try with zero hours or more than 24;
 
+    @Test
+    public void testConstructorWithProjectWorkTypeDayOfWeekHoursAndTimesheetParams(){
+//        LineEntry lineEntry = new LineEntry(pNam, wT102, DaysOfWeek.FRIDAY, 25, testTimesheet1);
+//        String string = "N";
+//        assertThrows("N", string);
 
+//        LineEntry lineEntry;
+//        Object LineEntry = new Object();
+//        Exception exception = assertThrows(RuntimeException.class, () ->
+//                LineEntry lineEntry = new LineEntry(pNam, wT102, DaysOfWeek.FRIDAY, 25, testTimesheet1);
+//        assertEquals("can not create a line entry with less than 1 hour or more than 24 hours for one day", exception.getMessage());
+    }
+        //TODO : does total hours and the day of week match?
 
+    //TODO : test "isLineEntryOnTimesheet" method
 
-//    @Test
-//    public void testUpdateALineEntry(){
-//
-//        DaysOfWeekHoursSet dayWkHrSetTest1 = new DaysOfWeekHoursSet("weDnesday", 2);
-//        DaysOfWeekHoursSet dayWkHrSetTest2 = new DaysOfWeekHoursSet("Wednesday", 3);
-//        DaysOfWeekHoursSet daysOfWeekHoursSetExpected = new DaysOfWeekHoursSet("wednesday", 5);
-//        LineEntry lineEntry1 = new LineEntry(pWT1, dayWkHrSetTest1, testTimesheet1);
-//
-//        //should I make this method static?
-////        LineEntry.updateALineEntry(dayWkHrSetTest1, dayWkHrSetTest2);
-//        DaysOfWeekHoursSet actual = lineEntry1.updateHoursOnLineEntry(dayWkHrSetTest1, dayWkHrSetTest2);
-//
-//        assertTrue(actual.equals(daysOfWeekHoursSetExpected));
-//
-//        //    public DaysOfWeekHoursSet updateALineEntry(DaysOfWeekHoursSet dayHourCombo1, DaysOfWeekHoursSet dayHourCombo2){
-////
-////        Integer newMondayTotal = dayHourCombo1.getMondayHours() + dayHourCombo2.getMondayHours();
-////        Integer newTuesdayTotal = dayHourCombo1.getTuesdayHours() + dayHourCombo2.getTuesdayHours();
-////        Integer newWednesdayTotal = dayHourCombo1.getWednesdayHours() + dayHourCombo2.getWednesdayHours();
-////        Integer newThursdayTotal = dayHourCombo1.getThursdayHours() + dayHourCombo2.getThursdayHours();
-////        Integer newFridayTotal = dayHourCombo1.getFridayHours() + dayHourCombo2.getFridayHours();
-////        Integer newSaturdayTotal = dayHourCombo1.getSaturdayHours() + dayHourCombo2.getSaturdayHours();
-////
-////        DaysOfWeekHoursSet dayHourCombo3 = new DaysOfWeekHoursSet(newMondayTotal, newTuesdayTotal, newWednesdayTotal, newThursdayTotal, newFridayTotal, newSaturdayTotal);
-////        return dayHourCombo3;
-////    }
-//    }
 
 }

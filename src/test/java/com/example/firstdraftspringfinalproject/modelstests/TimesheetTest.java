@@ -14,16 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TimesheetTest {
 
-    Employee practiceEmployee = new Employee("Elizabeth", "Beckerle");
-    Project pIasc = new Project("IASC", "Iowa State Capitol");
-    Project pNam = new Project("NAM", "Nelson Atkins Museum");
-    WorkType wT101 = new WorkType(101, "Inventory");
-    WorkType wT102 = new WorkType(102, "Cut and Process Rough Parts");
-    Timesheet testTimesheet1 = new Timesheet(practiceEmployee);
-    LineEntry lineEntry1 = new LineEntry(pIasc, wT101, DaysOfWeek.MONDAY, 5, testTimesheet1);
-    LineEntry lineEntry2 = new LineEntry(pIasc, wT102, DaysOfWeek.TUESDAY, 5,testTimesheet1);
-    LineEntry lineEntry3 = new LineEntry(pNam, wT101, DaysOfWeek.WEDNESDAY, 7, testTimesheet1);
-    LineEntry lineEntry4 = new LineEntry(pNam, wT102, DaysOfWeek.FRIDAY, 8, testTimesheet1);
+
 
 
     @Test
