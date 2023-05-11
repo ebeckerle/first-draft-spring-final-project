@@ -12,7 +12,7 @@ import java.util.Objects;
 public class WorkType {
 
     @Id
-    private Integer workTypeId;
+    private Integer id;
     private String workDescription;
 
     @OneToMany
@@ -20,22 +20,22 @@ public class WorkType {
     private List<LineEntry> lineEntries;
 
     public WorkType(Integer id, String workDescription){
-        this.workTypeId = id;
+        this.id = id;
         this.workDescription = workDescription;
     }
 
     public WorkType () {}
 
-    public Integer getWorkTypeId() {
-        return workTypeId;
+    public Integer getId() {
+        return id;
     }
 
     public String getWorkDescription() {
         return workDescription;
     }
 
-    public void setWorkTypeId(Integer workTypeId) {
-        this.workTypeId = workTypeId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setWorkDescription(String workDescription) {
@@ -52,7 +52,7 @@ public class WorkType {
 
     @Override
     public String toString() {
-        return workTypeId +" - " + workDescription;
+        return id +" - " + workDescription;
     }
 
     public static Integer fromToStringToId(String workTypeString){
@@ -61,7 +61,7 @@ public class WorkType {
     }
 
     public String toStringWorkTypeCode(){
-        return String.valueOf(getWorkTypeId());
+        return String.valueOf(getId());
     }
 
     @Override
@@ -69,12 +69,12 @@ public class WorkType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WorkType workType = (WorkType) o;
-        return Objects.equals(workTypeId, workType.workTypeId);
+        return Objects.equals(id, workType.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(workTypeId);
+        return Objects.hash(id);
     }
 
 

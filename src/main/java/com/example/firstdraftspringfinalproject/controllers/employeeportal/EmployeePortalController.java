@@ -3,7 +3,6 @@ package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
-import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
 import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetCalculateDates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,7 +54,7 @@ public class EmployeePortalController {
 
             //if the employee has already completed a timesheet for this week notify them of the status or display the
             //button with hidden form to create a new timesheet or link to edit current timesheet
-            if (timesheetRepository.findByEmployeeEmployeeIdAndStartDateAndCompletionStatus(employeeId, thisWeeksStartDate, true).isPresent()){
+            if (timesheetRepository.findByEmployeeIdAndStartDateAndCompletionStatus(employeeId, thisWeeksStartDate, true).isPresent()){
                 model.addAttribute("thisWeekTimesheetSubmissionMessage", "You have already submitted a timesheet for this week.");
             }else{
                 //the following are hidden in the form to create or edit timesheet
@@ -65,7 +64,7 @@ public class EmployeePortalController {
             }
 
             //add a model attribute for message about this week's timesheet
-            Optional<Timesheet> thisWeeksTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndStartDate(employeeId, thisWeeksStartDate);
+            Optional<Timesheet> thisWeeksTimesheet = timesheetRepository.findByEmployeeIdAndStartDate(employeeId, thisWeeksStartDate);
             if(thisWeeksTimesheet.isPresent()){
                 String startDate = TimesheetCalculateDates.formatDates(thisWeeksTimesheet.get().getStartDate());
                 if(thisWeeksTimesheet.get().getCompletionStatus()){
@@ -78,7 +77,7 @@ public class EmployeePortalController {
             }
             //add a model attribute for message about last week's timesheet
             GregorianCalendar lastWeeksStartDate = TimesheetCalculateDates.figureLastWeeksStartDateBasedOnTodaysDate(todaysDate);
-            Optional<Timesheet> lastWeeksTimesheet = timesheetRepository.findByEmployeeEmployeeIdAndStartDate(employeeId, lastWeeksStartDate);
+            Optional<Timesheet> lastWeeksTimesheet = timesheetRepository.findByEmployeeIdAndStartDate(employeeId, lastWeeksStartDate);
             if(lastWeeksTimesheet.isPresent()){
                 String startDate = TimesheetCalculateDates.formatDates(lastWeeksTimesheet.get().getStartDate());
 

@@ -19,7 +19,7 @@ public class Employee {
 
     @Id
     @GeneratedValue
-    private Integer employeeId;
+    private Integer id;
 
     private String firstName;
     private String lastName;
@@ -74,8 +74,8 @@ public class Employee {
     //  GETTERS & SETTERS
 
 
-    public Integer getEmployeeId() {
-        return employeeId;
+    public Integer getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -138,8 +138,8 @@ public class Employee {
         this.currentTimesheetCompletionStatus = currentTimesheetCompletionStatus;
     }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Boolean getSupervisorAccess() {
@@ -345,7 +345,7 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return employeeId.equals(employee.employeeId);
+        return id.equals(employee.id);
     }
 
     public boolean isMatchingPassword(String password) {

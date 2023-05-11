@@ -45,7 +45,7 @@ public interface MetricsEmployee {
         HashMap<String, Integer> xyValues = new HashMap<>();
         List<Employee> employees = (List<Employee>) employeeRepository.findAll();
         for (Employee aEmployee : employees) {
-            List<Timesheet> employeesTimesheets = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(aEmployee.getEmployeeId(), true, true);
+            List<Timesheet> employeesTimesheets = timesheetRepository.findByEmployeeIdAndCompletionStatusAndSupervisorApproval(aEmployee.getId(), true, true);
             Integer totalHoursForX = 0;
             for (Timesheet timesheet : employeesTimesheets) {
                 totalHoursForX += timesheet.getTotalHoursByProject(project);

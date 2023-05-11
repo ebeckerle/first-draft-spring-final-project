@@ -64,7 +64,7 @@ public class TimesheetController {
                                              Model model,
                                              @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
         //check if line entry already exists on this Timesheet in particular, so we can either add or update
-        LineEntry theNewLineEntry = new LineEntry(projectRepository.findByProjectId(projectId), workTypeRepository.findByWorkTypeId(workTypeId), DaysOfWeek.valueOf(daysOfWeek), hours,currentTimesheet);
+        LineEntry theNewLineEntry = new LineEntry(projectRepository.findById(projectId).get(), workTypeRepository.findById(workTypeId).get(), DaysOfWeek.valueOf(daysOfWeek), hours,currentTimesheet);
         if(theNewLineEntry.isLineEntryOnTimesheet(currentTimesheet)){
             LineEntry existingLineEntry = currentTimesheet.findMatchingLineEntry(theNewLineEntry);
             currentTimesheet.updateLineEntry(existingLineEntry, theNewLineEntry);
@@ -92,7 +92,7 @@ public class TimesheetController {
         Integer employeeId = (Integer) session.getAttribute("user");
         model.addAttribute(new LineEntry());
         // find the current timesheet for correct employee
-        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+        ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
         Timesheet currentTimesheet = timesheets.get(0);
         model.addAttribute("currentTimesheetId", currentTimesheet.getId());
         model.addAttribute("lineEntry", lineEntryRepository.findById(lineEntryId).orElseThrow());

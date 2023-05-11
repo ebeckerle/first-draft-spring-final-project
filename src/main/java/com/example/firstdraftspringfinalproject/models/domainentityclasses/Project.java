@@ -14,7 +14,7 @@ public class Project {
 
     @Id
     @GeneratedValue
-    private Integer projectId;
+    private Integer id;
 
     @NotBlank(message = "Please provide 3 to 5 characters that best abbreviates the project's name.")
     @Size(min=3, max=5, message = "Please provide 3 to 5 characters that best abbreviates the project's name.")
@@ -55,8 +55,8 @@ public class Project {
     }
 
     // GETTERS & SETTERS
-    public Integer getProjectId() {
-        return projectId;
+    public Integer getId() {
+        return id;
     }
 
     public String getProjectCode() {return projectCode;}
@@ -88,6 +88,6 @@ public class Project {
 
     @Override
     public int hashCode() {
-        return Objects.hash(projectId, projectName);
+        return Objects.hash(id, projectName);
     }
 }

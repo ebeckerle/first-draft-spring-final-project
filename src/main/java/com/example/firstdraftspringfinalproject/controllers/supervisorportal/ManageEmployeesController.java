@@ -133,8 +133,8 @@ public class ManageEmployeesController {
         }
         else if (searchType.equals("lastName")){
             if(employeeRepository.findByLastName(lastName).isPresent()){
-                Integer employeeId = employeeRepository.findByLastName(lastName).get().getEmployeeId();
-                model.addAttribute("timesheets", timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatus(employeeId, true));
+                Integer employeeId = employeeRepository.findByLastName(lastName).get().getId();
+                model.addAttribute("timesheets", timesheetRepository.findByEmployeeIdAndCompletionStatus(employeeId, true));
             }else{
                 model.addAttribute("error", "There is no employee with that last name");
             }
@@ -159,8 +159,8 @@ public class ManageEmployeesController {
         if (timesheetRepository.findById(timesheetId).isPresent()){
             Timesheet timesheet = timesheetRepository.findById(timesheetId).get();
             timesheet.setSupervisorApproval(true);
-            if(employeeRepository.findById(timesheet.getEmployee().getEmployeeId()).isPresent()){
-                Employee employee = employeeRepository.findById(timesheet.getEmployee().getEmployeeId()).get();
+            if(employeeRepository.findById(timesheet.getEmployee().getId()).isPresent()){
+                Employee employee = employeeRepository.findById(timesheet.getEmployee().getId()).get();
                 employee.resetTotalApprovedHoursWorkedToDate();
                 employeeRepository.save(employee);
             }

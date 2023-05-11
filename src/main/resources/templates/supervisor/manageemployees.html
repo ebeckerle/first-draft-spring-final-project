@@ -52,7 +52,7 @@
             <td th:text="${employee.lastName}"></td>
             <td th:text="${employee.title}"></td>
             <td th:text="${employee.currentTimesheetCompletionStatus}"></td>
-            <td><a th:href="@{/supervisor/manageemployees/editEmployee(employeeId=${employee.employeeId})}">edit</a></td>
+            <td><a th:href="@{/supervisor/manageemployees/editEmployee(employeeId=${employee.id})}">edit</a></td>
         </tr>
     </table>
     <br>

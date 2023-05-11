@@ -28,7 +28,7 @@ public class TimesheetRecordsController {
         Integer employeeId = (Integer) session.getAttribute("user");
 
         if(employeeRepository.findById(employeeId).isPresent()){
-            model.addAttribute("timesheets", timesheetRepository.findByEmployeeEmployeeId(employeeId));
+            model.addAttribute("timesheets", timesheetRepository.findByEmployeeId(employeeId));
             model.addAttribute("employeeFirstName", employeeRepository.findById(employeeId).get().getFirstName());
         }
 

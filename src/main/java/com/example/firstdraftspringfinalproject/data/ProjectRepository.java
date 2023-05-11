@@ -7,5 +7,4 @@ public interface ProjectRepository extends CrudRepository<Project, Integer> {
 
     Project findByProjectName(String name);
 
-    Project findByProjectId(Integer projectId);
 }

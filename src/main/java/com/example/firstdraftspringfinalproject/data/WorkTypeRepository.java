@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface WorkTypeRepository extends CrudRepository<WorkType, Integer> {
 
-    WorkType findByWorkTypeId(Integer workTypeId);
+
 }

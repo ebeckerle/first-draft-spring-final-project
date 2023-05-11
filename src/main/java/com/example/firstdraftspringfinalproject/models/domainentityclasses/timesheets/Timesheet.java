@@ -16,7 +16,7 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
 
     @Id
     @GeneratedValue
-    private Integer timesheetId;
+    private Integer id;
 
     //Start Dates are Mondays, due dates are the following Mondays, and payDays are the Fridays following the due date.
     private GregorianCalendar startDate;
@@ -63,7 +63,7 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
     // GETTERS & SETTERS
 
     public Integer getId() {
-        return timesheetId;
+        return id;
     }
 
     public Employee getEmployee() {

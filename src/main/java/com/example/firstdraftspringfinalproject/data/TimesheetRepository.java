@@ -10,19 +10,19 @@ import java.util.Optional;
 public interface TimesheetRepository extends CrudRepository <Timesheet, Integer> {
 
 
-    List<Timesheet> findByEmployeeEmployeeId(Integer employeeId);
+    List<Timesheet> findByEmployeeId(Integer employeeId);
 
-    List<Timesheet> findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(Integer employeeId, Boolean completionStatus, Boolean supervisorApproval);
+    List<Timesheet> findByEmployeeIdAndCompletionStatusAndSupervisorApproval(Integer employeeId, Boolean completionStatus, Boolean supervisorApproval);
 
-    Optional<Timesheet> findByEmployeeEmployeeIdAndStartDate(Integer employeeId, GregorianCalendar startDate);
+    Optional<Timesheet> findByEmployeeIdAndStartDate(Integer employeeId, GregorianCalendar startDate);
 
     List<Timesheet> findBySupervisorApprovalAndCompletionStatus(Boolean supervisorApproval, Boolean completionStatus);
 
-    List<Timesheet> findByEmployeeEmployeeIdAndCompletionStatus(Integer employeeId, Boolean completionStatus);
+    List<Timesheet> findByEmployeeIdAndCompletionStatus(Integer employeeId, Boolean completionStatus);
 
     List<Timesheet> findByCompletionStatus(Boolean completionStatus);
 
-    Optional<Timesheet> findByEmployeeEmployeeIdAndStartDateAndCompletionStatus(Integer employeeId, GregorianCalendar startDate, Boolean completionStatus);
+    Optional<Timesheet> findByEmployeeIdAndStartDateAndCompletionStatus(Integer employeeId, GregorianCalendar startDate, Boolean completionStatus);
 
 
 

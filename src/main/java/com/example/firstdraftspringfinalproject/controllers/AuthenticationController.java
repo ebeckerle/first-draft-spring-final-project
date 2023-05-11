@@ -41,7 +41,7 @@ public class AuthenticationController {
     }
 
     private static void setUserInSession(HttpSession session, Employee employee) {
-        session.setAttribute(userSessionKey, employee.getEmployeeId());
+        session.setAttribute(userSessionKey, employee.getId());
     }
 
 

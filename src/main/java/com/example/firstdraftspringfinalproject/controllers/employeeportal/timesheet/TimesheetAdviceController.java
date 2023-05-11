@@ -37,7 +37,7 @@ public class TimesheetAdviceController {
             HttpSession session = request.getSession();
             Integer employeeId = (Integer) session.getAttribute("user");
 
-            ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
+            ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
             if(timesheets.size() != 1){
                 System.out.println("There is no one current timesheet!");
             } else {
