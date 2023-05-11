@@ -332,6 +332,7 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         editedLineEntry.setProject(existingLineEntry.getProject());
         editedLineEntry.setWorkType(existingLineEntry.getWorkType());
         editedLineEntry.setTimesheet(existingLineEntry.getTimesheet());
+        editedLineEntry.updateTotalHours();
         this.lineEntries.remove(existingLineEntry);
         this.lineEntries.add(editedLineEntry);
     }

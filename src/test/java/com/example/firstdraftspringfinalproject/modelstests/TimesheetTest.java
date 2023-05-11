@@ -152,6 +152,8 @@ public class TimesheetTest {
         assertEquals(9, testTimesheet1.getTotalFridayHours());
     }
 
+    //TODO : testUpdateLineEntry - does it update the total hours of the line entry
+
     @Test
     public void testReplaceLineEntry(){
         testTimesheet1.getLineEntries().add(lineEntry1);
@@ -165,6 +167,8 @@ public class TimesheetTest {
         testTimesheet1.updateEachDayOfWeekTotalHours();
         assertEquals(1, testTimesheet1.getTotalFridayHours());
     }
+
+    //TODO : testReplaceLineEntry - does it update the total hours of the line entry
 
     @Test
     public void testFormatDates(){

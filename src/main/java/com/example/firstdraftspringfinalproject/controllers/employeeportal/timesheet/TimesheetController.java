@@ -74,6 +74,7 @@ public class TimesheetController {
         //update the timesheets total hours for each Day of the Week
         currentTimesheet.updateEachDayOfWeekTotalHours();
         currentTimesheet.setTotalHours();
+        System.out.println(currentTimesheet.getTotalHours());
         timesheetRepository.save(currentTimesheet);
 
         //DISPLAY

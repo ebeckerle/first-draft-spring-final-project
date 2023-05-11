@@ -149,6 +149,10 @@ public class LineEntry {
         return totalHours;
     }
 
+    public void updateTotalHours() {
+        this.totalHours = this.mondayHours + this.tuesdayHours + this.wednesdayHours + this.thursdayHours + this.fridayHours + this.saturdayHours;
+    }
+
     public Timesheet getTimesheet() {
         return timesheet;
     }
