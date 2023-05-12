@@ -124,9 +124,11 @@ public class EmployeePortalController {
     //lives at /employee, but renders employee>timesheet
     @PostMapping("/timesheet")
     public String createNewTimesheet(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate todaysDate, @RequestParam Integer employeeId, Model model){
-
+        model.addAttribute("projects", projectRepository.findAll());
+        model.addAttribute("workTypes", workTypeRepository.findAll());
 
         if (employeeRepository.findById(employeeId).isPresent()){
+            System.out.println("EmployeePortalController");
             //create a new timesheet object based on the employee (figured from employeeId)
             Timesheet newTimesheet = new Timesheet(employeeRepository.findById(employeeId).get());
 
@@ -145,6 +147,7 @@ public class EmployeePortalController {
 
             model.addAttribute("title", "Timesheet");
             model.addAttribute("employeeId", employeeId);
+            model.addAttribute("currentTimesheet", newTimesheet);
         }
 
         return "employee/timesheet";

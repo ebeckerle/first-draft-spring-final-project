@@ -28,6 +28,7 @@ public class EmployeePortalAdviceController {
         ArrayList<Timesheet> timesheets = (ArrayList<Timesheet>) timesheetRepository.findByEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, false, false);
         if(timesheets.size() != 1){
             System.out.println("There is no one current timesheet!");
+            System.out.println("there are : "+ timesheets.size()+ "timesheets - Are in Employee Portal Advice Controller");
         } else {
             Timesheet currentTimesheet = timesheets.get(0);
             model.addAttribute("currentTimesheet", currentTimesheet);

@@ -41,22 +41,27 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
 
 
     public Timesheet (Employee employee){
+        if(!employee.getCurrentTimesheetCompletionStatus()){
+            throw new RuntimeException("cant create a new timesheet until the current " +
+                    "is submitted for approval - Timesheet Class Constructor");
+        }
         this.employee = employee;
+        this.completionStatus = false;
+        this.supervisorApproval = false;
+
     }
 
     public Timesheet (Employee employee, GregorianCalendar startDate){
+        if(!employee.getCurrentTimesheetCompletionStatus()){
+            throw new RuntimeException("cant create a new timesheet until the current " +
+                    "is submitted for approval - Timesheet Class Constructor");
+        }
         this.employee=employee;
         this.startDate=startDate;
+        this.completionStatus = false;
+        this.supervisorApproval = false;
     }
 
-    public Timesheet (Employee employee, GregorianCalendar startDate, GregorianCalendar dueDate, GregorianCalendar payDay, Boolean completionStatus, Boolean supervisorApproval){
-        this.employee = employee;
-        this.startDate = startDate;
-        this.dueDate = dueDate;
-        this.payDay = payDay;
-        this.completionStatus = completionStatus;
-        this.supervisorApproval = supervisorApproval;
-    }
 
     public Timesheet () {}
 
@@ -206,6 +211,7 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         Integer totalHours = 0;
         for (LineEntry lineEntry:
                 this.lineEntries) {
+            System.out.println("in Timesheet setTotalHours: for each line entry");
             totalHours += lineEntry.getTotalHours();
         }
         this.totalHours = totalHours;
@@ -323,6 +329,8 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         theNewLineEntry.setThursdayHours(totalThursdayHours);
         theNewLineEntry.setFridayHours(totalFridayHours);
         theNewLineEntry.setSaturdayHours(totalSaturdayHours);
+
+        theNewLineEntry.updateTotalHours();
 
         this.lineEntries.remove(existingLineEntry);
         this.lineEntries.add(theNewLineEntry);

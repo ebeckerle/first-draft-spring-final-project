@@ -35,7 +35,7 @@
                 <p>project</p>
                         <ol th:each="project,iterStat : ${projects}">
                             <li th:id="${iterStat.count}">
-                                <a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.projectId})}"></a>
+                                <a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.id})}"></a>
                             </li>
                         </ol>
             </div>

@@ -44,5 +44,7 @@ public class LineEntryTest {
 
     //TODO : test "isLineEntryOnTimesheet" method
 
+    //TODO : test "updateTotalHours" method
+
 
 }
