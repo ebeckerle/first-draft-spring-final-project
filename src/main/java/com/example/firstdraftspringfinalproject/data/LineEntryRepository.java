@@ -8,10 +8,11 @@ import java.util.List;
 
 public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> {
 
-//    LineEntry findByProjectWorkTypeComboAndTimesheet(ProjectWorkTypeSet projectWorkTypeSet, Timesheet timesheet);
 
-    @Query(value = "SELECT first_name_last_name_combo, total_hours_worked_to_date FROM employee",
+    @Query(value = "SELECT a.project_name, b.total_hours FROM project a, line_entry b " +
+            "WHERE b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.project_id = a.id",
             nativeQuery = true)
     List<String> findAllHoursByProject();
+
 
 }
