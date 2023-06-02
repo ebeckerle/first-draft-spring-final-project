@@ -19,5 +19,8 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
             nativeQuery = true)
     List<String> findAllHoursByWorkType();
 
+    @Query(value = "SELECT current_pay_rate, total_hours FROM timesheet WHERE supervisor_approval = true",
+            nativeQuery = true)
+    List<String> findAllHoursByPayRate();
 
 }
