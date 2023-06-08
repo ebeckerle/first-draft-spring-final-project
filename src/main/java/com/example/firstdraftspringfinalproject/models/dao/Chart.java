@@ -44,7 +44,7 @@ public class Chart {
 
     }
 
-    public HashMap<String, Integer> populateChartDataFromList(List<String> rawData) {
+    public static HashMap<String, Integer> populateChartDataFromList(List<String> rawData) {
         HashMap<String, Integer> xyValues = new HashMap<>();
         for (String dataPair:
              rawData) {

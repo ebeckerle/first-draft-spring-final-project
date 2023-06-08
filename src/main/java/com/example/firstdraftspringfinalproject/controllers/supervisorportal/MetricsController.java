@@ -34,6 +34,9 @@ public class MetricsController {
     @Autowired
     WorkTypeRepository workTypeRepository;
 
+    @Autowired
+    LineEntryRepository lineEntryRepository;
+
     @GetMapping
     public String displayMetricsHome(Model model){
 
@@ -61,7 +64,8 @@ public class MetricsController {
     @PostMapping(params="total")
     public String processViewMetrics(@RequestParam String xValue, Model model){
 
-        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+//        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), lineEntryRepository);
         newMetric.populateChartData();
         model.addAttribute("xyValues", newMetric.getXyValues());
         model.addAttribute("chartTitle", "Total Hours by "+ newMetric.getTitle());

@@ -1,9 +1,6 @@
 package com.example.firstdraftspringfinalproject.models.dao.metrics;
 
-import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
-import com.example.firstdraftspringfinalproject.data.ProjectRepository;
-import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
-import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
+import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.dao.Chart;
 import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +31,23 @@ public class PrimaryMetricChart extends Chart implements MetricsPayRate, Metrics
 //    //TODO - maybe? - List<WorkType> I think we are actually always pulling all work types and I don't see why that would
 //    // change at this point...
 
+    @Autowired
+    private LineEntryRepository lineEntryRepository;
+
     private final MetricsCategory primaryCategory;
 
     private List<String> csvHeaders;
 
-    public PrimaryMetricChart(MetricsCategory primaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
-        if(timesheetRepository.count() == 0){
-            throw new RuntimeException("Fail, there are no timesheets");
+    public PrimaryMetricChart(MetricsCategory primaryCategory, LineEntryRepository lineEntryRepository) {
+        if(lineEntryRepository.count() == 0){
+            throw new RuntimeException("Fail, there are no line entries on the timesheets");
         }
         this.primaryCategory = primaryCategory;
-        this.employeeRepository = employeeRepository;
-        this.timesheetRepository = timesheetRepository;
-        this.projectRepository = projectRepository;
-        this.workTypeRepository = workTypeRepository;
+//        this.employeeRepository = employeeRepository;
+//        this.timesheetRepository = timesheetRepository;
+//        this.projectRepository = projectRepository;
+//        this.workTypeRepository = workTypeRepository;
+        this.lineEntryRepository = lineEntryRepository;
     }
 
     public PrimaryMetricChart(MetricsCategory primaryCategory) {
@@ -79,9 +80,11 @@ public class PrimaryMetricChart extends Chart implements MetricsPayRate, Metrics
 
         switch (this.primaryCategory.getDisplayName()) {
             case "Employee" ->
-                    this.setXyValues(MetricsEmployee.loadXyValuesForPrimaryCategoryEmployee(employeeRepository));
+//                    this.setXyValues(MetricsEmployee.loadXyValuesForPrimaryCategoryEmployee(employeeRepository));
+                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllHoursByProject()));
             case "Project" ->
-                    this.setXyValues(MetricsProject.loadXyValuesForPrimaryCategoryProject(timesheetRepository, projectRepository));
+//                    this.setXyValues(MetricsProject.loadXyValuesForPrimaryCategoryProject(timesheetRepository, projectRepository));
+                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllHoursByProject()));
             case "WorkType" ->
                     this.setXyValues(MetricsWorkType.loadXyValuesForPrimaryCategoryWorkType(timesheetRepository, workTypeRepository));
             case "PayRate" ->
