@@ -65,7 +65,7 @@ public class MetricsController {
     public String processViewMetrics(@RequestParam String xValue, Model model){
 
 //        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
-        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), lineEntryRepository);
+        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, lineEntryRepository);
         newMetric.populateChartData();
         model.addAttribute("xyValues", newMetric.getXyValues());
         model.addAttribute("chartTitle", "Total Hours by "+ newMetric.getTitle());

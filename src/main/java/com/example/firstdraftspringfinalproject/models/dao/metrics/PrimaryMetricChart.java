@@ -12,9 +12,9 @@ import java.util.List;
 
 public class PrimaryMetricChart extends Chart implements MetricsPayRate, MetricsWorkType, MetricsProject, MetricsEmployee {
 
-//    @Autowired
-//    private EmployeeRepository employeeRepository;
-//    //TODO - just pull from database this  - List<Employee> employees...
+    @Autowired
+    private EmployeeRepository employeeRepository;
+    //TODO - just pull from database this  - List<Employee> employees...
 //
 //    @Autowired
 //    private TimesheetRepository timesheetRepository;
@@ -38,12 +38,12 @@ public class PrimaryMetricChart extends Chart implements MetricsPayRate, Metrics
 
     private List<String> csvHeaders;
 
-    public PrimaryMetricChart(MetricsCategory primaryCategory, LineEntryRepository lineEntryRepository) {
+    public PrimaryMetricChart(MetricsCategory primaryCategory, EmployeeRepository employeeRepository, LineEntryRepository lineEntryRepository) {
         if(lineEntryRepository.count() == 0){
             throw new RuntimeException("Fail, there are no line entries on the timesheets");
         }
         this.primaryCategory = primaryCategory;
-//        this.employeeRepository = employeeRepository;
+        this.employeeRepository = employeeRepository;
 //        this.timesheetRepository = timesheetRepository;
 //        this.projectRepository = projectRepository;
 //        this.workTypeRepository = workTypeRepository;
@@ -81,7 +81,7 @@ public class PrimaryMetricChart extends Chart implements MetricsPayRate, Metrics
         switch (this.primaryCategory.getDisplayName()) {
             case "Employee" ->
 //                    this.setXyValues(MetricsEmployee.loadXyValuesForPrimaryCategoryEmployee(employeeRepository));
-                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByProject()));
+                    this.setXyValues(Chart.populateChartDataFromList(employeeRepository.findAllEmployeesFirstNameLastNameComboAndTotalHoursWorkedToDate()));
             case "Project" ->
 //                    this.setXyValues(MetricsProject.loadXyValuesForPrimaryCategoryProject(timesheetRepository, projectRepository));
                     this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByProject()));
