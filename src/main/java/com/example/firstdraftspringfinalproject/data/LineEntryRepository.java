@@ -12,15 +12,15 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
     @Query(value = "SELECT a.project_name, b.total_hours FROM project a, line_entry b " +
             "WHERE b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.project_id = a.id",
             nativeQuery = true)
-    List<String> findAllHoursByProject();
+    List<String> findAllApprovedHoursByProject();
 
     @Query(value = "SELECT a.work_description, b.total_hours FROM work_type a, line_entry b " +
             "WHERE b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.work_type_id = a.id",
             nativeQuery = true)
-    List<String> findAllHoursByWorkType();
+    List<String> findAllApprovedHoursByWorkType();
 
     @Query(value = "SELECT current_pay_rate, total_hours FROM timesheet WHERE supervisor_approval = true",
             nativeQuery = true)
-    List<String> findAllHoursByPayRate();
+    List<String> findAllApprovedHoursByPayRate();
 
 }
