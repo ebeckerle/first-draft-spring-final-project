@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.modelstests;
+package com.example.firstdraftspringfinalproject.unittests;
 
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.WorkType;
 import org.junit.jupiter.api.Test;

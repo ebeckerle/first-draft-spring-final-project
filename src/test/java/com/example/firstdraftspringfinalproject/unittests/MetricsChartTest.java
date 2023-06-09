@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.modelstests;
+package com.example.firstdraftspringfinalproject.unittests;
 
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.dao.Chart;

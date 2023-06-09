@@ -1,4 +1,4 @@
-package com.example.firstdraftspringfinalproject.modelstests;
+package com.example.firstdraftspringfinalproject.unittests;
 
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.*;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
