@@ -89,7 +89,12 @@ public class MetricsController {
                                      @RequestParam(required = false) String project,
                                      @RequestParam(required = false) String workType,
                                      @RequestParam(required = false) Integer payRate,
-                                     @RequestParam String xChoice, Model model){
+                                     @RequestParam String xChoice, Model model,
+                                     @ModelAttribute @Valid ChartRequest chartRequest
+                                    ){
+
+        Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest);
+        MetricsChartBuilder.populateChartData(newMetricChart);
 
         String primaryCategorySubject = "";
         switch (chartCategory) {
