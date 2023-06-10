@@ -1,9 +1,12 @@
 package com.example.firstdraftspringfinalproject.data;
 
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.LineEntry;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
+import java.util.Calendar;
 import java.util.List;
 
 public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> {
@@ -27,5 +30,9 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
     @Query(value = "SELECT current_pay_rate, total_hours FROM timesheet WHERE supervisor_approval = true",
             nativeQuery = true)
     List<String> findAllApprovedHoursByPayRate();
+
+    @Query(value = "",
+            nativeQuery = true)
+    List<String> findAllApprovedHoursOfEmployeeBrokenOutByProject(@Param("employeeId") Integer employeeId);
 
 }
