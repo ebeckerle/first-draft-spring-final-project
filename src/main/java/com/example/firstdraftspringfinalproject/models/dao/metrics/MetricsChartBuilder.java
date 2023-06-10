@@ -13,18 +13,6 @@ import java.util.List;
 
 public class MetricsChartBuilder {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Autowired
-    private TimesheetRepository timesheetRepository;
-
-    @Autowired
-    private ProjectRepository projectRepository;
-
-    @Autowired
-    private WorkTypeRepository workTypeRepository;
-
     public static Chart createChartFromChartRequest(ChartRequest request){
         Chart newChart = new Chart();
         if(request.hasPrimaryMetricsCategoryOnly()){
@@ -36,7 +24,7 @@ public class MetricsChartBuilder {
         return newChart;
     }
 
-    public void populateChartData(Chart chart){
+    public static void populateChartData(Chart chart){
         //TODO - do I even need the if statement?
         if(chart instanceof PrimaryMetricChart){
             chart.populateChartData();

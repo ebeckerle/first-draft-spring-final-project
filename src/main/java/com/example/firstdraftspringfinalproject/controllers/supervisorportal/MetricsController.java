@@ -2,20 +2,20 @@ package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.dao.Chart;
+import com.example.firstdraftspringfinalproject.models.dao.metrics.MetricsChartBuilder;
 import com.example.firstdraftspringfinalproject.models.dao.metrics.MetricsPayRate;
 import com.example.firstdraftspringfinalproject.models.dao.metrics.PrimaryMetricChart;
 import com.example.firstdraftspringfinalproject.models.dao.metrics.SecondaryMetricChart;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.dto.ChartRequest;
+import com.example.firstdraftspringfinalproject.models.dto.CreateEmployeeDTO;
 import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,12 +65,15 @@ public class MetricsController {
     }
 
     @PostMapping(params="total")
-    public String processViewMetrics(@RequestParam String xValue, Model model){
+    public String processViewMetrics(@RequestParam String xValue, Model model,
+                                     @ModelAttribute @Valid ChartRequest chartRequest
+                                     ){
 
 
 //        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, lineEntryRepository);
 //        newMetric.populateChartData();
-
+        Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest);
+        MetricsChartBuilder.populateChartData(newMetricChart);
         model.addAttribute("xyValues", newMetric.getXyValues());
         model.addAttribute("chartTitle", "Total Hours by "+ newMetric.getTitle());
         model.addAttribute("csvHeaders", ((PrimaryMetricChart) newMetric).getCsvHeaders());
