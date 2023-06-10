@@ -93,8 +93,8 @@ public class MetricsController {
                                      @ModelAttribute @Valid ChartRequest chartRequest
                                     ){
 
-        Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest);
-        MetricsChartBuilder.populateChartData(newMetricChart);
+//        Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest);
+//        MetricsChartBuilder.populateChartData(newMetricChart);
 
         String primaryCategorySubject = "";
         switch (chartCategory) {

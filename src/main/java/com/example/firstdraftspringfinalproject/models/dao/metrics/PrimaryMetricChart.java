@@ -83,13 +83,10 @@ public class PrimaryMetricChart extends Chart implements MetricsPayRate, Metrics
 //                    this.setXyValues(MetricsEmployee.loadXyValuesForPrimaryCategoryEmployee(employeeRepository));
                     this.setXyValues(Chart.populateChartDataFromList(employeeRepository.findAllEmployeesFirstNameLastNameComboAndTotalHoursWorkedToDate()));
             case "Project" ->
-//                    this.setXyValues(MetricsProject.loadXyValuesForPrimaryCategoryProject(timesheetRepository, projectRepository));
                     this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByProject()));
             case "WorkType" ->
-//                    this.setXyValues(MetricsWorkType.loadXyValuesForPrimaryCategoryWorkType(timesheetRepository, workTypeRepository));
                     this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByWorkType()));
             case "PayRate" ->
-//                    this.setXyValues(MetricsPayRate.loadXyValuesForPrimaryCategoryPayRate(timesheetRepository));
                     this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByPayRate()));
         }
         this.setTitle(primaryCategory.getDisplayName());

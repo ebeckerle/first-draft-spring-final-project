@@ -1,9 +1,6 @@
 package com.example.firstdraftspringfinalproject.models.dao.metrics;
 
-import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
-import com.example.firstdraftspringfinalproject.data.ProjectRepository;
-import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
-import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
+import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.dao.Chart;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
@@ -22,8 +19,12 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
 
     @Autowired
     private TimesheetRepository timesheetRepository;
+
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private LineEntryRepository lineEntryRepository;
 
     @Autowired
     private WorkTypeRepository workTypeRepository;
