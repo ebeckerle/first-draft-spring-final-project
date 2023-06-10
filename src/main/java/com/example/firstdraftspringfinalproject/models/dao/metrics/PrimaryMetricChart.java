@@ -80,7 +80,6 @@ public class PrimaryMetricChart extends Chart implements MetricsPayRate, Metrics
 
         switch (this.primaryCategory.getDisplayName()) {
             case "Employee" ->
-//                    this.setXyValues(MetricsEmployee.loadXyValuesForPrimaryCategoryEmployee(employeeRepository));
                     this.setXyValues(Chart.populateChartDataFromList(employeeRepository.findAllEmployeesFirstNameLastNameComboAndTotalHoursWorkedToDate()));
             case "Project" ->
                     this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByProject()));
