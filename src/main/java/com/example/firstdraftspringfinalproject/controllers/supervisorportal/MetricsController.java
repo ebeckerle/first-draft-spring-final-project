@@ -74,9 +74,9 @@ public class MetricsController {
 //        newMetric.populateChartData();
         Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest);
         MetricsChartBuilder.populateChartData(newMetricChart);
-        model.addAttribute("xyValues", newMetric.getXyValues());
-        model.addAttribute("chartTitle", "Total Hours by "+ newMetric.getTitle());
-        model.addAttribute("csvHeaders", ((PrimaryMetricChart) newMetric).getCsvHeaders());
+        model.addAttribute("xyValues", newMetricChart.getXyValues());
+        model.addAttribute("chartTitle", "Total Hours by "+ newMetricChart.getTitle());
+        model.addAttribute("csvHeaders", ((PrimaryMetricChart) newMetricChart).getCsvHeaders());
 
         model.addAttribute("title", "Metrics");
 
