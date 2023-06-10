@@ -244,20 +244,20 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
         }
     }
 
-    @Override
-    public void populateChartData(){
-
-        switch (this.primaryCategory.getDisplayName()) {
-            case "Employee" ->
-                    this.setXyValues(Chart.populateChartDataFromList(employeeRepository.findAllEmployeesFirstNameLastNameComboAndTotalHoursWorkedToDate()));
-            case "Project" ->
-                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByProject()));
-            case "WorkType" ->
-                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByWorkType()));
-            case "PayRate" ->
-                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByPayRate()));
-        }
-        this.setTitle(primaryCategory.getDisplayName());
-        this.csvHeaders = PrimaryMetricChart.loadCsvHeaders(this.primaryCategory);
-    }
+//    @Override
+//    public void populateChartData(){
+//
+//        switch (this.primaryCategory.getDisplayName()) {
+//            case "Employee" ->
+//                    this.setXyValues(Chart.populateChartDataFromList(employeeRepository.findAllEmployeesFirstNameLastNameComboAndTotalHoursWorkedToDate()));
+//            case "Project" ->
+//                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByProject()));
+//            case "WorkType" ->
+//                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByWorkType()));
+//            case "PayRate" ->
+//                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursByPayRate()));
+//        }
+//        this.setTitle(primaryCategory.getDisplayName());
+//        this.csvHeaders = PrimaryMetricChart.loadCsvHeaders(this.primaryCategory);
+//    }
 }
