@@ -6,7 +6,7 @@ public class ChartRequest {
 
     private MetricsCategory primaryCategory;
 
-    private Boolean doesSecondaryCategoryExist = false;
+    private Boolean doesSecondaryCategoryExist;
 
     private String primaryCategoryTopic;
 

@@ -17,6 +17,9 @@
             <select name="xValue">
                 <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
             </select>
+<!--            <select name="xValue" th:field="${chartRequest.primaryCategory}">-->
+<!--                <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>-->
+<!--            </select>-->
         </label>
 
         <button class="btn-style" name="total">View Total Hours</button>
@@ -28,6 +31,10 @@
                 <option value="" disabled selected id="noSelection"></option>
                 <option th:each="chartCategory : ${chartCategories}" th:value="${chartCategory}" th:text="${chartCategory}" th:id="${chartCategory}"></option>
             </select>
+<!--            <select name="chartCategory" onchange="viewSubOptions()" th:field="${chartRequest.secondaryCategory}">-->
+<!--                <option value="" disabled selected id="noSelection"></option>-->
+<!--                <option th:each="chartCategory : ${chartCategories}" th:value="${chartCategory}" th:text="${chartCategory}" th:id="${chartCategory}"></option>-->
+<!--            </select>-->
         </label>
 
         <div id="subOptionsEmployee" style="display: none;">

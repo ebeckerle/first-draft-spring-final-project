@@ -6,6 +6,7 @@ import com.example.firstdraftspringfinalproject.models.dao.metrics.MetricsPayRat
 import com.example.firstdraftspringfinalproject.models.dao.metrics.PrimaryMetricChart;
 import com.example.firstdraftspringfinalproject.models.dao.metrics.SecondaryMetricChart;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
+import com.example.firstdraftspringfinalproject.models.dto.ChartRequest;
 import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,6 +58,8 @@ public class MetricsController {
         List<Integer> payRates = MetricsPayRate.loadListOfPayRates(timesheets);
         model.addAttribute("payRates", payRates);
 
+        model.addAttribute(new ChartRequest());
+
         model.addAttribute("title", "Metrics Query");
         return "supervisor/metrics-query";
     }
@@ -64,9 +67,10 @@ public class MetricsController {
     @PostMapping(params="total")
     public String processViewMetrics(@RequestParam String xValue, Model model){
 
-//        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
-        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, lineEntryRepository);
-        newMetric.populateChartData();
+
+//        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, lineEntryRepository);
+//        newMetric.populateChartData();
+
         model.addAttribute("xyValues", newMetric.getXyValues());
         model.addAttribute("chartTitle", "Total Hours by "+ newMetric.getTitle());
         model.addAttribute("csvHeaders", ((PrimaryMetricChart) newMetric).getCsvHeaders());

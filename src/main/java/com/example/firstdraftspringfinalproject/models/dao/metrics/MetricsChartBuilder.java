@@ -37,12 +37,11 @@ public class MetricsChartBuilder {
     }
 
     public void populateChartData(Chart chart){
+        //TODO - do I even need the if statement?
         if(chart instanceof PrimaryMetricChart){
-            if(((PrimaryMetricChart) chart).getPrimaryCategory().equals(MetricsCategory.EMPLOYEE)){
-                List<String> rawData = employeeRepository.findAllEmployeesFirstNameLastNameComboAndTotalHoursWorkedToDate();
-                chart.populateChartDataFromList(rawData);
-            }
+            chart.populateChartData();
         }
+
     }
 
 
