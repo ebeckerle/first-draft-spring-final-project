@@ -187,7 +187,8 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
                 Employee employee = employeeRepository.findByFirstNameLastNameCombo(this.primaryCategorySubject).get();
                 List<Timesheet> employeesTimesheets = timesheetRepository.findByEmployeeIdAndCompletionStatusAndSupervisorApproval(employee.getId(), true, true);
                 if (xChoice.equals("Project")) {
-                    xyValues = MetricsProject.loadXyValuesForSecondaryCategoryProject(projectRepository, employeesTimesheets);
+//                    xyValues = MetricsProject.loadXyValuesForSecondaryCategoryProject(projectRepository, employeesTimesheets);
+                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfEmployeeBrokenOutByProject()));
                 }else if (xChoice.equals("WorkType")) {
                     xyValues = MetricsWorkType.loadXyValuesForSecondaryCategoryWorkType(workTypeRepository, employeesTimesheets);
                 }
