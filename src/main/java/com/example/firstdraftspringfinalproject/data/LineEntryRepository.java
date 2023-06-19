@@ -51,4 +51,8 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
             nativeQuery = true)
     List<String> findAllApprovedHoursOfProjectBrokenOutByEmployee(@Param("projectId") Integer projectId);
 
+    @Query(value = "",
+            nativeQuery = true)
+    List<String> findAllApprovedHoursOfProjectBrokenOutByWorkType(@Param("projectId") Integer projectId);
+
 }
