@@ -41,7 +41,7 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
             "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true AND employee_id = :employeeId) " +
             "AND b.work_type_id = a.id",
             nativeQuery = true)
-    List<String> findAllApprovedHoursOfEmployeeBrokenOutByWorktype(@Param("employeeId") Integer employeeId);
+    List<String> findAllApprovedHoursOfEmployeeBrokenOutByWorkType(@Param("employeeId") Integer employeeId);
 
     @Query(value = "",
             nativeQuery = true)
@@ -82,4 +82,5 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
     @Query(value = "",
             nativeQuery = true)
     List<String> findAllApprovedHoursOfPayRateBrokenOutByWorkType(@Param("payRate") Integer payRate);
+
 }
