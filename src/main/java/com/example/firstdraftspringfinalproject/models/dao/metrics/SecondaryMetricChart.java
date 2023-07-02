@@ -186,17 +186,16 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
                 this.setTitle(this.primaryCategorySubject + "'s Hours by " + this.secondaryCategory);
                 Employee employee = employeeRepository.findByFirstNameLastNameCombo(this.primaryCategorySubject).get();
                 List<Timesheet> employeesTimesheets = timesheetRepository.findByEmployeeIdAndCompletionStatusAndSupervisorApproval(employee.getId(), true, true);
-                if (xChoice.equals("Project")) {
+                switch (xChoice) {
+                    case "Project" ->
 //                    xyValues = MetricsProject.loadXyValuesForSecondaryCategoryProject(projectRepository, employeesTimesheets);
-                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfEmployeeBrokenOutByProject(employee.getId())));
-                }else if (xChoice.equals("WorkType")) {
+                            this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfEmployeeBrokenOutByProject(employee.getId())));
+                    case "WorkType" ->
 //                    xyValues = MetricsWorkType.loadXyValuesForSecondaryCategoryWorkType(workTypeRepository, employeesTimesheets);
-                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfEmployeeBrokenOutByWorkType(employee.getId())));
-                }else if (xChoice.equals("PayRate")) {
-                    this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfEmployeeBrokenOutByPayRate(employee.getId())));
+                            this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfEmployeeBrokenOutByWorkType(employee.getId())));
+                    case "PayRate" -> this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfEmployeeBrokenOutByPayRate(employee.getId())));
                 }
                 this.setXyValues(xyValues);
-                //TODO if xChoice.equals("PayRate") !!!
             }
             case "Project" -> {
                 String projectName = this.primaryCategorySubject;
