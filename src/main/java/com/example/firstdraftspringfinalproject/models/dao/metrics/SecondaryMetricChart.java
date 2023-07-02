@@ -191,9 +191,10 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
                             this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfEmployeeBrokenOutByProject(employee.getId())));
                     case "WorkType" ->
                             this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfEmployeeBrokenOutByWorkType(employee.getId())));
-                    case "PayRate" -> this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfEmployeeBrokenOutByPayRate(employee.getId())));
+                    case "PayRate" ->
+                            this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfEmployeeBrokenOutByPayRate(employee.getId())));
                 }
-                this.setXyValues(xyValues);
+//                this.setXyValues(xyValues);
             }
             case "Project" -> {
                 String projectName = this.primaryCategorySubject;
@@ -202,7 +203,8 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
                 List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
                 switch (xChoice) {
                     case "Employee" -> {
-                        this.setXyValues(MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsProject(employeeRepository, timesheetRepository, project));
+//                        this.setXyValues(MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsProject(employeeRepository, timesheetRepository, project));
+                        this.setXyValues();
                     }
                     case "WorkType" -> {
                         this.setXyValues(MetricsWorkType.loadXyValuesForSecondaryCategoryWorkTypeWhenPrimaryCategoryIsProject(timesheets, project));
