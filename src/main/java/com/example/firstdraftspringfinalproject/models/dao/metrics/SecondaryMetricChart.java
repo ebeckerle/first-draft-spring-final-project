@@ -4,6 +4,7 @@ import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.dao.Chart;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Project;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.WorkType;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -219,7 +220,7 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
             case "WorkType" -> {
                 String workTypeName = this.primaryCategorySubject;
                 this.setTitle("Hours worked in " + workTypeName + ", by " + xChoice);
-
+                WorkType workType = workTypeRepository.findByWorkTypeName();
                 switch (xChoice) {
                     case "Employee" -> {
                         this.setXyValues(MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName));
