@@ -204,7 +204,7 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
                 switch (xChoice) {
                     case "Employee" -> {
 //                        this.setXyValues(MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsProject(employeeRepository, timesheetRepository, project));
-                        this.setXyValues();
+                        this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfProjectBrokenOutByEmployee(project.getId())));
                     }
                     case "WorkType" -> {
                         this.setXyValues(MetricsWorkType.loadXyValuesForSecondaryCategoryWorkTypeWhenPrimaryCategoryIsProject(timesheets, project));
