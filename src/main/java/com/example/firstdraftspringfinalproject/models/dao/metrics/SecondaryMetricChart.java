@@ -231,7 +231,8 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
                         this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfWorkTypeBrokenOutByProject(workType.getId())));
                     }
                     case "PayRate" -> {
-                        this.setXyValues(MetricsPayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName));
+//                        this.setXyValues(MetricsPayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName));
+                        this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfWorkTypeBrokenOutByPayRate(workType.getId())));
                     }
                 }
             }
@@ -240,7 +241,7 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
                 this.setTitle("Hours worked compensated at $" + payRateString + " / per hour by " + xChoice);
                 switch (xChoice) {
                     case "Employee" -> {
-                        this.setXyValues(MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString));
+//                        this.setXyValues(MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString));
                     }
                     case "Project" -> {
                         this.setXyValues(MetricsProject.getXyValuesForSecondaryCategoryProjectWhenPrimaryCategoryIsPayRate(timesheetRepository, payRateString));
