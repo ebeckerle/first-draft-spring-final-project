@@ -223,7 +223,6 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
                         this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfWorkTypeBrokenOutByProject(workType.getId())));
                     }
                     case "PayRate" -> {
-//                        this.setXyValues(MetricsPayRate.loadXyValuesForSecondaryCategoryPayRateWhenPrimaryCategoryIsWorkType(timesheetRepository, workTypeName));
                         this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfWorkTypeBrokenOutByPayRate(workType.getId())));
                     }
                 }
