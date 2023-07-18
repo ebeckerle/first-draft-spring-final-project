@@ -199,7 +199,6 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
                 String projectName = this.primaryCategorySubject;
                 this.setTitle("Hours worked on " + projectName + " by " + xChoice);
                 Project project = projectRepository.findByProjectName(projectName);
-                List<Timesheet> timesheets = timesheetRepository.findBySupervisorApprovalAndCompletionStatus(true, true);
                 switch (xChoice) {
                     case "Employee" -> {
 //                        this.setXyValues(MetricsEmployee.loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsProject(employeeRepository, timesheetRepository, project));
