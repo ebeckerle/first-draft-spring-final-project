@@ -99,7 +99,6 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
             throw new RuntimeException("Sorry, can not populate data for this topic, as it is not in the Database.");
         }
 
-        HashMap<String, Integer> xyValues = new HashMap<>();
         this.csvHeaders = SecondaryMetricChart.loadCsvHeaders(this.primaryCategory, this.secondaryCategory, this.primaryCategorySubject);
         String xChoice = this.secondaryCategory.getDisplayName();
         switch (this.primaryCategory.getDisplayName()) {
