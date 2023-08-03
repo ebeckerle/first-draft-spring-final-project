@@ -23,21 +23,6 @@ public interface MetricsEmployee {
         return xyValues;
     }
 
-//    HashMap<String, Integer> loadXyValuesForPrimaryCategoryEmployee(List<String>);
-
-//    static HashMap<String, Integer> loadXyValuesForPrimaryCategoryEmployee(List<Timesheet> timesheets) {
-//        HashMap<String, Integer> xyValues = new HashMap<>();
-//        for (Timesheet timesheet:
-//                timesheets) {
-//            if(xyValues.containsKey(timesheet.getEmployee().getFirstNameLastNameCombo())){
-//                Integer existingYValue = xyValues.get(timesheet.getEmployee().getFirstNameLastNameCombo());
-//                xyValues.replace(timesheet.getEmployee().getFirstNameLastNameCombo(), existingYValue + timesheet.getTotalHours());
-//            }else{
-//                xyValues.put(timesheet.getEmployee().getFirstNameLastNameCombo(), timesheet.getTotalHours());
-//            }
-//        }
-//        return xyValues;
-//    }
 
     static HashMap<String, Integer> loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsProject(EmployeeRepository employeeRepository,
                                                                               TimesheetRepository timesheetRepository,
@@ -55,22 +40,6 @@ public interface MetricsEmployee {
         return xyValues;
     }
 
-//    static HashMap<String, Integer> loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsProject(List<Timesheet> timesheets, List<Object> xValues, Project project){
-//        HashMap<String, Integer> xyValues = new HashMap<>();
-//        for (Object xValue : xValues) {
-//            for (Timesheet timesheet:
-//                 timesheets) {
-//                //if timesheet belongs to xValue
-//            }
-//            List<Timesheet> xValuesTimesheets = timesheetRepository.findByEmployeeEmployeeIdAndCompletionStatusAndSupervisorApproval(aEmployee.getEmployeeId(), true, true);
-//            Integer totalHoursForX = 0;
-//            for (Timesheet timesheet : employeesTimesheets) {
-//                totalHoursForX += timesheet.getTotalHoursByProject(project);
-//                xyValues.put(aEmployee.toString(), totalHoursForX);
-//            }
-//        }
-//        return xyValues;
-//    }
 
 
     static HashMap<String, Integer> loadXyValuesForSecondaryCategoryEmployeeWhenPrimaryCategoryIsWorkType(TimesheetRepository timesheetRepository, String workTypeName) {
