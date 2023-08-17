@@ -133,7 +133,7 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
             case "WorkType" -> {
                 String workTypeName = this.primaryCategorySubject;
                 this.setTitle("Hours worked in " + workTypeName + ", by " + xChoice);
-                WorkType workType = workTypeRepository.findByWorkTypeName(workTypeName);
+                WorkType workType = workTypeRepository.findByWorkDescription(workTypeName);
                 switch (xChoice) {
                     case "Employee" -> {
                         this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfWorkTypeBrokenOutByEmployee(workType.getId())));
