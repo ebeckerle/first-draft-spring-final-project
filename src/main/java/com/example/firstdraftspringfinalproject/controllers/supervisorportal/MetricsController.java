@@ -41,11 +41,15 @@ public class MetricsController {
     @GetMapping
     public String displayMetricsHome(Model model){
 
-        List<String> xValueChoices = new ArrayList<>();
-        xValueChoices.add("Employee");
-        xValueChoices.add("Project");
-        xValueChoices.add("WorkType");
-        xValueChoices.add("PayRate");
+        List<MetricsCategory> xValueChoices = new ArrayList<>();
+//        xValueChoices.add("Employee");
+//        xValueChoices.add("Project");
+//        xValueChoices.add("WorkType");
+//        xValueChoices.add("PayRate");
+        xValueChoices.add(MetricsCategory.EMPLOYEE);
+        xValueChoices.add(MetricsCategory.PROJECT);
+        xValueChoices.add(MetricsCategory.PAYRATE);
+        xValueChoices.add(MetricsCategory.PAYRATE);
         model.addAttribute("xValueChoices", xValueChoices);
         model.addAttribute("chartCategories", xValueChoices);
 
@@ -72,6 +76,7 @@ public class MetricsController {
 
 //        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, lineEntryRepository);
 //        newMetric.populateChartData();
+        System.out.println("primary metrics category: " + chartRequest.getPrimaryCategory());
         Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest);
         MetricsChartBuilder.populateChartData(newMetricChart);
         model.addAttribute("xyValues", newMetricChart.getXyValues());

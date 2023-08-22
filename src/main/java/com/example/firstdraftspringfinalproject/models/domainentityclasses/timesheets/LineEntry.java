@@ -44,7 +44,6 @@ public class LineEntry {
     @Min(0)private Integer saturdayHours = 0;
 
     @ManyToOne
-    @JoinColumn(name="timesheet_id")
     private Timesheet timesheet;
 
     private Integer totalHours = 0;
