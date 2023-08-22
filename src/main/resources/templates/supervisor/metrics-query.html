@@ -38,7 +38,8 @@
 <!--            </select>-->
         </label>
 
-        <div id="subOptionsEmployee" style="display: none;">
+        <div id="subOptionsEmployee">
+<!--            <div id="subOptionsEmployee" style="display: none;">-->
             <label>View Total Hours For:
                 <select name="employee">
                     <option th:each="employee : ${employees}" th:value="${employee}" th:text="${employee}"></option>
@@ -52,7 +53,8 @@
             </label>
         </div>
 
-        <div id="subOptionsProject" style="display: none;">
+<!--        <div id="subOptionsProject" style="display: none;">-->
+        <div id="subOptionsProject">
             <label>View Total Hours For:
                 <select name="project">
                     <option th:each="project : ${projects}" th:value="${project}" th:text="${project}"></option>

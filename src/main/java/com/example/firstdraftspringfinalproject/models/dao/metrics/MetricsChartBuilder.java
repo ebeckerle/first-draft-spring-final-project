@@ -16,7 +16,7 @@ public class MetricsChartBuilder {
             newChart = new PrimaryMetricChart(request.getPrimaryCategory(), employeeRepository, lineEntryRepository);
         }
         if(request.hasSecondaryMetricsCategory()){
-            newChart = new SecondaryMetricChart(request.getPrimaryCategory(), request.getPrimaryCategoryTopic(), request.getSecondaryCategory());
+            newChart = new SecondaryMetricChart(request.getPrimaryCategory(), request.getPrimaryCategoryTopic(), request.getSecondaryCategory(), employeeRepository, lineEntryRepository);
         }
         return newChart;
     }
@@ -26,6 +26,10 @@ public class MetricsChartBuilder {
         if(chart instanceof PrimaryMetricChart){
             chart.populateChartData();
         }
+        if(chart instanceof SecondaryMetricChart){
+            chart.populateChartData();
+        }
+
 
     }
 

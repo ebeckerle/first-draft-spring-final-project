@@ -37,10 +37,10 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
     private List<String> csvHeaders;
 
 
-    public SecondaryMetricChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory, EmployeeRepository employeeRepository, TimesheetRepository timesheetRepository, ProjectRepository projectRepository, WorkTypeRepository workTypeRepository) {
-        if(timesheetRepository.count() == 0){
-            throw new RuntimeException("Fail, there are no timesheets");
-        }
+    public SecondaryMetricChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory, EmployeeRepository employeeRepository, LineEntryRepository lineEntryRepository) {
+//        if(timesheetRepository.count() == 0){
+//            throw new RuntimeException("Fail, there are no timesheets");
+//        }
         if(primaryCategory == secondaryCategory){
             throw new RuntimeException("Fail");
         }
@@ -49,9 +49,7 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
         this.primaryCategorySubject = primaryCategorySubject;
         this.secondaryCategory = secondaryCategory;
         this.employeeRepository = employeeRepository;
-        this.timesheetRepository = timesheetRepository;
-        this.projectRepository = projectRepository;
-        this.workTypeRepository = workTypeRepository;
+        this.lineEntryRepository = lineEntryRepository;
     }
 
     public SecondaryMetricChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory) {

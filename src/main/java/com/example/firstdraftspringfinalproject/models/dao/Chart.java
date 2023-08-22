@@ -53,8 +53,18 @@ public class Chart {
             String xValue = dataPairList.get(0);
             String yValueString = dataPairList.get(1);
             Integer yValue = Integer.parseInt(yValueString);
-            xyValues.put(xValue, yValue);
+//            System.out.println(xValue);
+//            System.out.println(yValue);
+            if(xyValues.containsKey(xValue)){
+                Integer currentYValue = xyValues.get(xValue);
+                Integer totalYValue = currentYValue + yValue;
+                xyValues.put(xValue, totalYValue);
+            }else{
+                xyValues.put(xValue, yValue);
+            }
+
         }
+        System.out.println("xyvalue size: " + xyValues.size());
         return xyValues;
     }
 
