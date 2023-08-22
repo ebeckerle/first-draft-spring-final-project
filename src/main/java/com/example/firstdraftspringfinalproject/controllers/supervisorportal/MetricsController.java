@@ -69,7 +69,7 @@ public class MetricsController {
     }
 
     @PostMapping(params="total")
-    public String processViewMetrics(@RequestParam String xValue, Model model,
+    public String processViewMetrics(@RequestParam String xValue(required = false), Model model,
                                      @ModelAttribute @Valid ChartRequest chartRequest
                                      ){
 
