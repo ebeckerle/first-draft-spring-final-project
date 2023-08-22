@@ -53,9 +53,7 @@ public class Chart {
             String xValue = dataPairList.get(0);
             String yValueString = dataPairList.get(1);
             Integer yValue = Integer.parseInt(yValueString);
-            System.out.println(xValue);
-            System.out.println(yValue.getClass());
-            System.out.println(yValue);
+            xyValues.put(xValue, yValue);
         }
         return xyValues;
     }
@@ -71,9 +69,6 @@ public class Chart {
             String yValueString = dataPairList.get(1);
             Integer yValue = Integer.parseInt(yValueString);
 
-            System.out.println(xValue);
-            System.out.println(yValue.getClass());
-            System.out.println(yValue);
         }
     }
 }

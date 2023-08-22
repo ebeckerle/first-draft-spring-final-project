@@ -1,9 +1,6 @@
 package com.example.firstdraftspringfinalproject.models.dao.metrics;
 
-import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
-import com.example.firstdraftspringfinalproject.data.ProjectRepository;
-import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
-import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
+import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.dao.Chart;
 import com.example.firstdraftspringfinalproject.models.dto.ChartRequest;
 import com.example.firstdraftspringfinalproject.models.enums.MetricsCategory;
@@ -13,10 +10,10 @@ import java.util.List;
 
 public class MetricsChartBuilder {
 
-    public static Chart createChartFromChartRequest(ChartRequest request){
+    public static Chart createChartFromChartRequest(ChartRequest request, EmployeeRepository employeeRepository, LineEntryRepository lineEntryRepository){
         Chart newChart = new Chart();
         if(request.hasPrimaryMetricsCategoryOnly()){
-            newChart = new PrimaryMetricChart(request.getPrimaryCategory());
+            newChart = new PrimaryMetricChart(request.getPrimaryCategory(), employeeRepository, lineEntryRepository);
         }
         if(request.hasSecondaryMetricsCategory()){
             newChart = new SecondaryMetricChart(request.getPrimaryCategory(), request.getPrimaryCategoryTopic(), request.getSecondaryCategory());

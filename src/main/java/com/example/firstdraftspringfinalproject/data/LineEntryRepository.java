@@ -12,12 +12,12 @@ import java.util.List;
 public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> {
 
     @Query(value = "SELECT a.first_last_name_combo, b.total_hours FROM employee a, line_entry b " +
-            "WHERE b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.timesheet_id = (SELECTa.id)",
+            "WHERE b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.timesheet_id = (SELECT a.id)",
             nativeQuery = true)
     List<String> findAllApprovedHoursByEmployee();
 
     @Query(value = "SELECT a.project_name, b.total_hours FROM project a, line_entry b " +
-            "WHERE b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.project_id = a.id",
+            "WHERE b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.project_id = a.id",
             nativeQuery = true)
     List<String> findAllApprovedHoursByProject();
 

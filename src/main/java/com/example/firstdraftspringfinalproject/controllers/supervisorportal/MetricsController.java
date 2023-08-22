@@ -69,15 +69,12 @@ public class MetricsController {
     }
 
     @PostMapping(params="total")
-    public String processViewMetrics(@RequestParam String xValue(required = false), Model model,
+    public String processViewMetrics(@RequestParam(required = false) String xValue, Model model,
                                      @ModelAttribute @Valid ChartRequest chartRequest
                                      ){
 
-
-//        Chart newMetric = new PrimaryMetricChart(MetricsCategory.getMetricsCategoryEnumFromString(xValue), employeeRepository, lineEntryRepository);
-//        newMetric.populateChartData();
-        System.out.println("primary metrics category: " + chartRequest.getPrimaryCategory());
-        Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest);
+        chartRequest.setSecondaryCategory(MetricsCategory.NOSECONDARYCATEGORY);
+        Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest, employeeRepository, lineEntryRepository);
         MetricsChartBuilder.populateChartData(newMetricChart);
         model.addAttribute("xyValues", newMetricChart.getXyValues());
         model.addAttribute("chartTitle", "Total Hours by "+ newMetricChart.getTitle());
