@@ -36,13 +36,13 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
             nativeQuery = true)
     List<String> findAllApprovedHoursOfEmployeeBrokenOutByProject(@Param("employeeId") Integer employeeId);
 
-    @Query(value = "SELECT a.work_type , b.total_hours FROM work_type a, line_entry b WHERE " +
+    @Query(value = "SELECT a.work_description , b.total_hours FROM work_type a, line_entry b WHERE " +
             "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true AND employee_id = :employeeId) " +
             "AND b.work_type_id = a.id",
             nativeQuery = true)
     List<String> findAllApprovedHoursOfEmployeeBrokenOutByWorkType(@Param("employeeId") Integer employeeId);
 
-    @Query(value = "SELECT a.pay_rate, b.total_hours FROM timesheet a, line_entry b WHERE " +
+    @Query(value = "SELECT a.current_pay_rate, b.total_hours FROM timesheet a, line_entry b WHERE " +
             "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true AND employee_id = :employeeId)",
             nativeQuery = true)
     List<String> findAllApprovedHoursOfEmployeeBrokenOutByPayRate(@Param("employeeId") Integer employeeId);
@@ -52,12 +52,12 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
             nativeQuery = true)
     List<String> findAllApprovedHoursOfProjectBrokenOutByEmployee(@Param("projectId") Integer projectId);
 
-    @Query(value = "SELECT a.work_type , b.total_hours FROM work_type a, line_entry b WHERE " +
+    @Query(value = "SELECT a.work_description , b.total_hours FROM work_type a, line_entry b WHERE " +
             "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.work_type_id = :workTypeId",
             nativeQuery = true)
     List<String> findAllApprovedHoursOfProjectBrokenOutByWorkType(@Param("workTypeId") Integer workTypeId);
 
-    @Query(value = "SELECT a.pay_rate , b.total_hours FROM timesheet a, line_entry b WHERE " +
+    @Query(value = "SELECT a.current_pay_rate , b.total_hours FROM timesheet a, line_entry b WHERE " +
             "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.pay_rate = :payRate",
             nativeQuery = true)
     List<String> findAllApprovedHoursOfProjectBrokenOutByPayRate(@Param("payRate") Integer payRate);
@@ -72,7 +72,7 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
             nativeQuery = true)
     List<String> findAllApprovedHoursOfWorkTypeBrokenOutByProject(@Param("projectId") Integer projectId);
 
-    @Query(value = "SELECT a.pay_rate , b.total_hours FROM timesheet a, line_entry b WHERE " +
+    @Query(value = "SELECT a.current_pay_rate , b.total_hours FROM timesheet a, line_entry b WHERE " +
             "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.pay_rate = :payRate",
             nativeQuery = true)
     List<String> findAllApprovedHoursOfWorkTypeBrokenOutByPayRate(@Param("payRate") Integer payRate);
