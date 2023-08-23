@@ -46,8 +46,13 @@ public class MetricsController {
         xValueChoices.add(MetricsCategory.PROJECT);
         xValueChoices.add(MetricsCategory.WORKTYPE);
         xValueChoices.add(MetricsCategory.PAYRATE);
+        List<String> chartCategories = new ArrayList<>();
+        chartCategories.add("Employee");
+        chartCategories.add("Project");
+        chartCategories.add("WorkType");
+        chartCategories.add("PayRate");
         model.addAttribute("xValueChoices", xValueChoices);
-        model.addAttribute("chartCategories", xValueChoices);
+        model.addAttribute("chartCategories", chartCategories);
 
         model.addAttribute("employees", employeeRepository.findAll());
         //TODO -do we need all of the other columns of data - just need employee first name, last name, id - native sql query?
@@ -65,10 +70,11 @@ public class MetricsController {
     }
 
     @PostMapping(params="total")
-    public String processViewMetrics(@RequestParam(required = false) String xValue, Model model,
+    public String processViewMetrics(@RequestParam(required = false) MetricsCategory xValue, Model model,
                                      @ModelAttribute @Valid ChartRequest chartRequest
                                      ){
 
+        chartRequest.setPrimaryCategory(xValue);
         chartRequest.setSecondaryCategory(MetricsCategory.NOSECONDARYCATEGORY);
         Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest, employeeRepository, lineEntryRepository, projectRepository);
         MetricsChartBuilder.populateChartData(newMetricChart);
@@ -82,7 +88,7 @@ public class MetricsController {
     }
 
     @PostMapping(params="category")
-    public String processViewMetrics(@RequestParam MetricsCategory chartCategory,
+    public String processViewMetrics(@RequestParam String chartCategory,
                                      @RequestParam(required = false) String employee,
                                      @RequestParam(required = false) String project,
                                      @RequestParam(required = false) String workType,
@@ -93,32 +99,18 @@ public class MetricsController {
 
         String primaryCategoryTopic = "";
         switch (chartCategory) {
-            case EMPLOYEE -> primaryCategoryTopic = employee;
-            case PROJECT -> primaryCategoryTopic = project;
-            case WORKTYPE -> primaryCategoryTopic = workType;
-            case PAYRATE -> primaryCategoryTopic = String.valueOf(payRate);
+            case "Employee" -> primaryCategoryTopic = employee;
+            case "Project" -> primaryCategoryTopic = project;
+            case "WorkType" -> primaryCategoryTopic = workType;
+            case "PayRate" -> primaryCategoryTopic = String.valueOf(payRate);
         }
-        System.out.println("xChoice: "+ xChoice);
-        chartRequest.setPrimaryCategory(chartCategory);
-//        System.out.println(MetricsCategory.getMetricsCategoryEnumFromString(xChoice));
-        System.out.println(xChoice.getClass());
+
+        chartRequest.setPrimaryCategory(MetricsCategory.getMetricsCategoryEnumFromString(chartCategory));
         chartRequest.setSecondaryCategory(xChoice);
         chartRequest.setPrimaryCategoryTopic(primaryCategoryTopic);
-        System.out.println(chartRequest.getSecondaryCategory());
         Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest, employeeRepository, lineEntryRepository, projectRepository);
         MetricsChartBuilder.populateChartData(newMetricChart);
-        System.out.println(newMetricChart.getXyValues());
 
-//        String primaryCategorySubject = "";
-//        switch (chartCategory) {
-//            case EMPLOYEE -> primaryCategorySubject = employee;
-//            case PROJECT -> primaryCategorySubject = project;
-//            case WORKTYPE -> primaryCategorySubject = workType;
-//            case PAYRATE -> primaryCategorySubject = String.valueOf(payRate);
-//        }
-//
-//        Chart newMetric = new SecondaryMetricChart(chartCategory, primaryCategorySubject, MetricsCategory.getMetricsCategoryEnumFromString(xChoice), employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
-//        newMetric.populateChartData();
         model.addAttribute("xyValues", newMetricChart.getXyValues());
         model.addAttribute("chartTitle", newMetricChart.getTitle());
         model.addAttribute("csvHeaders", ((SecondaryMetricChart) newMetricChart).getCsvHeaders());

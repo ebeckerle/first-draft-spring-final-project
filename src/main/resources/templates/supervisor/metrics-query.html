@@ -14,7 +14,8 @@
 
     <form method="post">
         <label>View Total Hours By:
-            <select name="xValue" th:field="${chartRequest.primaryCategory}">
+            <select name="xValue">
+<!--                <select name="xValue" th:field="${chartRequest.primaryCategory}">-->
 <!--                <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>-->
                 <option th:each="xValue : ${xValueChoices}" th:value="${xValue}" th:text="${xValue}"></option>
             </select>
@@ -38,8 +39,7 @@
 <!--            </select>-->
         </label>
 
-        <div id="subOptionsEmployee">
-<!--            <div id="subOptionsEmployee" style="display: none;">-->
+        <div id="subOptionsEmployee" style="display: none;">
             <label>View Total Hours For:
                 <select name="employee">
                     <option th:each="employee : ${employees}" th:value="${employee}" th:text="${employee}"></option>
@@ -53,8 +53,7 @@
             </label>
         </div>
 
-<!--        <div id="subOptionsProject" style="display: none;">-->
-        <div id="subOptionsProject">
+        <div id="subOptionsProject" style="display: none;">
             <label>View Total Hours For:
                 <select name="project">
                     <option th:each="project : ${projects}" th:value="${project}" th:text="${project}"></option>

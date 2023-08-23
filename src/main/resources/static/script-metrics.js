@@ -176,6 +176,7 @@ function viewPolarAreaGraph(){
 }
 
 function viewSubOptions(){
+    console.log("in view suboptions function");
     if (document.getElementById("Employee").selected){
         document.getElementById("subOptionsEmployee").style.display = "block";
         document.getElementById("subOptionsProject").style.display = "none";
