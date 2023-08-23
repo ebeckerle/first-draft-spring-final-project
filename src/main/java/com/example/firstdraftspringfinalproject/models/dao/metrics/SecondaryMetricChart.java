@@ -37,7 +37,7 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
     private List<String> csvHeaders;
 
 
-    public SecondaryMetricChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory, EmployeeRepository employeeRepository, LineEntryRepository lineEntryRepository) {
+    public SecondaryMetricChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory, EmployeeRepository employeeRepository, LineEntryRepository lineEntryRepository, ProjectRepository projectRepository) {
 //        if(timesheetRepository.count() == 0){
 //            throw new RuntimeException("Fail, there are no timesheets");
 //        }
@@ -50,6 +50,7 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
         this.secondaryCategory = secondaryCategory;
         this.employeeRepository = employeeRepository;
         this.lineEntryRepository = lineEntryRepository;
+        this.projectRepository = projectRepository;
     }
 
     public SecondaryMetricChart(MetricsCategory primaryCategory, String primaryCategorySubject, MetricsCategory secondaryCategory) {
@@ -93,9 +94,9 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
             throw new RuntimeException("Sorry, can not populate data for a chart with a secondary category " +
                     "when secondary category is null. Please consider populating a chart with only a primary category.");
         }
-        if (employeeRepository.findByFirstNameLastNameCombo(this.primaryCategorySubject).isEmpty()) {
-            throw new RuntimeException("Sorry, can not populate data for this topic, as it is not in the Database.");
-        }
+//        if (employeeRepository.findByFirstNameLastNameCombo(this.primaryCategorySubject).isEmpty()) {
+//            throw new RuntimeException("Sorry, can not populate data for this topic, as it is not in the Database.");
+//        }
 
         this.csvHeaders = SecondaryMetricChart.loadCsvHeaders(this.primaryCategory, this.secondaryCategory, this.primaryCategorySubject);
         String xChoice = this.secondaryCategory.getDisplayName();

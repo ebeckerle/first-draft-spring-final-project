@@ -10,13 +10,14 @@ import java.util.List;
 
 public class MetricsChartBuilder {
 
-    public static Chart createChartFromChartRequest(ChartRequest request, EmployeeRepository employeeRepository, LineEntryRepository lineEntryRepository){
+    public static Chart createChartFromChartRequest(ChartRequest request, EmployeeRepository employeeRepository,
+                                                    LineEntryRepository lineEntryRepository, ProjectRepository projectRepository){
         Chart newChart = new Chart();
         if(request.hasPrimaryMetricsCategoryOnly()){
             newChart = new PrimaryMetricChart(request.getPrimaryCategory(), employeeRepository, lineEntryRepository);
         }
         if(request.hasSecondaryMetricsCategory()){
-            newChart = new SecondaryMetricChart(request.getPrimaryCategory(), request.getPrimaryCategoryTopic(), request.getSecondaryCategory(), employeeRepository, lineEntryRepository);
+            newChart = new SecondaryMetricChart(request.getPrimaryCategory(), request.getPrimaryCategoryTopic(), request.getSecondaryCategory(), employeeRepository, lineEntryRepository, projectRepository);
         }
         return newChart;
     }
