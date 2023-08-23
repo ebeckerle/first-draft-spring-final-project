@@ -47,49 +47,51 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
             nativeQuery = true)
     List<String> findAllApprovedHoursOfEmployeeBrokenOutByPayRate(@Param("employeeId") Integer employeeId);
 
-    @Query(value = "SELECT a.first_last_name_combo , b.total_hours FROM employee a, line_entry b WHERE " +
-            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.project_id = :projectId",
+    @Query(value = "SELECT first_name_last_name_combo, line_entry.total_hours FROM employee " +
+            "INNER JOIN timesheet ON  employee.id = timesheet.employee_id " +
+            "INNER JOIN line_entry ON  timesheet.id = line_entry.timesheet_id " +
+            "WHERE line_entry.project_id = :projectId AND line_entry.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true)",
             nativeQuery = true)
     List<String> findAllApprovedHoursOfProjectBrokenOutByEmployee(@Param("projectId") Integer projectId);
 
     @Query(value = "SELECT a.work_description , b.total_hours FROM work_type a, line_entry b WHERE " +
-            "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.work_type_id = :workTypeId",
+            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.project_id = :projectId",
             nativeQuery = true)
-    List<String> findAllApprovedHoursOfProjectBrokenOutByWorkType(@Param("workTypeId") Integer workTypeId);
+    List<String> findAllApprovedHoursOfProjectBrokenOutByWorkType(@Param("projectId") Integer projectId);
 
     @Query(value = "SELECT a.current_pay_rate , b.total_hours FROM timesheet a, line_entry b WHERE " +
-            "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.pay_rate = :payRate",
+            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.project_id = :projectId",
             nativeQuery = true)
-    List<String> findAllApprovedHoursOfProjectBrokenOutByPayRate(@Param("payRate") Integer payRate);
+    List<String> findAllApprovedHoursOfProjectBrokenOutByPayRate(@Param("projectId") Integer projectId);
 
     @Query(value = "SELECT a.first_last_name_combo , b.total_hours FROM employee a, line_entry b WHERE " +
-            "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.employee_id = :employeeId",
+            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.work_type_id = :workTypeId",
             nativeQuery = true)
-    List<String> findAllApprovedHoursOfWorkTypeBrokenOutByEmployee(@Param("employeeId") Integer employeeId);
+    List<String> findAllApprovedHoursOfWorkTypeBrokenOutByEmployee(@Param("workTypeId") Integer workTypeId);
 
     @Query(value = "SELECT a.project_name , b.total_hours FROM project a, line_entry b WHERE " +
-            "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.project_id = :projectId",
+            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.work_type_id = :workTypeId",
             nativeQuery = true)
-    List<String> findAllApprovedHoursOfWorkTypeBrokenOutByProject(@Param("projectId") Integer projectId);
+    List<String> findAllApprovedHoursOfWorkTypeBrokenOutByProject(@Param("workTypeId") Integer workTypeId);
 
     @Query(value = "SELECT a.current_pay_rate , b.total_hours FROM timesheet a, line_entry b WHERE " +
-            "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.pay_rate = :payRate",
+            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.work_type_id = :workTypeId",
             nativeQuery = true)
-    List<String> findAllApprovedHoursOfWorkTypeBrokenOutByPayRate(@Param("payRate") Integer payRate);
+    List<String> findAllApprovedHoursOfWorkTypeBrokenOutByPayRate(@Param("workTypeId") Integer workTypeId);
 
     @Query(value = "SELECT a.first_last_name_combo , b.total_hours FROM timesheet a, line_entry b WHERE " +
-            "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.employee_id = :employeeId",
+            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.current_pay_rate = :payRate",
             nativeQuery = true)
-    List<String> findAllApprovedHoursOfPayRateBrokenOutByEmployee(@Param("employeeId") Integer employeeId);
+    List<String> findAllApprovedHoursOfPayRateBrokenOutByEmployee(@Param("payRate") Integer payRate);
 
     @Query(value = "SELECT a.project_name , b.total_hours FROM timesheet a, line_entry b WHERE " +
-            "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.project_id = :projectId",
+            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.current_pay_rate = :payRate",
             nativeQuery = true)
-    List<String> findAllApprovedHoursOfPayRateBrokenOutByProject(@Param("projectId") Integer projectId);
+    List<String> findAllApprovedHoursOfPayRateBrokenOutByProject(@Param("payRate") Integer payRate);
 
     @Query(value = "SELECT a.work_description , b.total_hours FROM work_type a, line_entry b WHERE " +
-            "b.timesheet_id = (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.work_type_id = :workTypeId",
+            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND a.current_pay_rate = :payRate",
             nativeQuery = true)
-    List<String> findAllApprovedHoursOfPayRateBrokenOutByWorkType(@Param("workTypeId") Integer workTypeId);
+    List<String> findAllApprovedHoursOfPayRateBrokenOutByWorkType(@Param("payRate") Integer payRate);
 
 }
