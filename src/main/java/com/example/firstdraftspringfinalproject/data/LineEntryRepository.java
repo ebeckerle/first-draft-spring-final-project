@@ -62,18 +62,22 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
             nativeQuery = true)
     List<String> findAllApprovedHoursOfProjectBrokenOutByWorkType(@Param("projectId") Integer projectId);
 
-    @Query(value = "SELECT a.current_pay_rate , b.total_hours FROM timesheet a, line_entry b WHERE " +
-            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.project_id = :projectId",
+    @Query(value = "SELECT timesheet.current_pay_rate , line_entry.total_hours FROM line_entry " +
+            "INNER JOIN timesheet ON line_entry.timesheet_id = timesheet.id " +
+            "WHERE line_entry.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND line_entry.project_id = :projectId",
             nativeQuery = true)
     List<String> findAllApprovedHoursOfProjectBrokenOutByPayRate(@Param("projectId") Integer projectId);
 
-    @Query(value = "SELECT a.first_last_name_combo , b.total_hours FROM employee a, line_entry b WHERE " +
-            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.work_type_id = :workTypeId",
+    @Query(value = "SELECT first_name_last_name_combo, line_entry.total_hours FROM employee " +
+            "INNER JOIN timesheet ON employee.id = timesheet.employee_id " +
+            "INNER JOIN line_entry ON  timesheet.id = line_entry.timesheet_id " +
+            "WHERE line_entry.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND line_entry.work_type_id = :workTypeId",
             nativeQuery = true)
     List<String> findAllApprovedHoursOfWorkTypeBrokenOutByEmployee(@Param("workTypeId") Integer workTypeId);
 
-    @Query(value = "SELECT a.project_name , b.total_hours FROM project a, line_entry b WHERE " +
-            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND b.work_type_id = :workTypeId",
+    @Query(value = "SELECT project_name , line_entry.total_hours FROM project\n" +
+            "INNER JOIN line_entry ON project.id = line_entry.project_id\n" +
+            "WHERE line_entry.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true) AND line_entry.work_type_id = 101",
             nativeQuery = true)
     List<String> findAllApprovedHoursOfWorkTypeBrokenOutByProject(@Param("workTypeId") Integer workTypeId);
 
