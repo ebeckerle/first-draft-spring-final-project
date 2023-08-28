@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public class SecondaryMetricChart extends Chart implements MetricsPayRate, MetricsWorkType, MetricsProject, MetricsEmployee {
 
@@ -135,16 +136,16 @@ public class SecondaryMetricChart extends Chart implements MetricsPayRate, Metri
             case "WorkType" -> {
                 String workTypeName = this.primaryCategorySubject;
                 this.setTitle("Hours worked in " + workTypeName + ", by " + xChoice);
-                WorkType workType = workTypeRepository.findByWorkDescription(workTypeName);
+                Integer workTypeId = WorkType.fromToStringToId(workTypeName);
                 switch (xChoice) {
                     case "Employee" -> {
-                        this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfWorkTypeBrokenOutByEmployee(workType.getId())));
+                        this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfWorkTypeBrokenOutByEmployee(workTypeId)));
                     }
                     case "Project" -> {
-                        this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfWorkTypeBrokenOutByProject(workType.getId())));
+                        this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfWorkTypeBrokenOutByProject(workTypeId)));
                     }
                     case "PayRate" -> {
-                        this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfWorkTypeBrokenOutByPayRate(workType.getId())));
+                        this.setXyValues(Chart.populateChartDataFromList(lineEntryRepository.findAllApprovedHoursOfWorkTypeBrokenOutByPayRate(workTypeId)));
                     }
                 }
             }
