@@ -76,7 +76,8 @@ public class MetricsController {
 
         chartRequest.setPrimaryCategory(xValue);
         chartRequest.setSecondaryCategory(MetricsCategory.NOSECONDARYCATEGORY);
-        Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest, employeeRepository, lineEntryRepository, projectRepository);
+        Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest, employeeRepository,
+                lineEntryRepository, projectRepository, workTypeRepository);
         MetricsChartBuilder.populateChartData(newMetricChart);
         model.addAttribute("xyValues", newMetricChart.getXyValues());
         model.addAttribute("chartTitle", "Total Hours by "+ newMetricChart.getTitle());
@@ -108,7 +109,8 @@ public class MetricsController {
         chartRequest.setPrimaryCategory(MetricsCategory.getMetricsCategoryEnumFromString(chartCategory));
         chartRequest.setSecondaryCategory(xChoice);
         chartRequest.setPrimaryCategoryTopic(primaryCategoryTopic);
-        Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest, employeeRepository, lineEntryRepository, projectRepository);
+        Chart newMetricChart = MetricsChartBuilder.createChartFromChartRequest(chartRequest, employeeRepository,
+                lineEntryRepository, projectRepository, workTypeRepository);
         MetricsChartBuilder.populateChartData(newMetricChart);
 
         model.addAttribute("xyValues", newMetricChart.getXyValues());
