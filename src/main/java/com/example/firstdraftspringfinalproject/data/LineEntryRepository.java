@@ -42,8 +42,9 @@ public interface LineEntryRepository extends CrudRepository<LineEntry, Integer> 
             nativeQuery = true)
     List<String> findAllApprovedHoursOfEmployeeBrokenOutByWorkType(@Param("employeeId") Integer employeeId);
 
-    @Query(value = "SELECT a.current_pay_rate, b.total_hours FROM timesheet a, line_entry b WHERE " +
-            "b.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true AND employee_id = :employeeId)",
+    @Query(value = "SELECT current_pay_rate, line_entry.total_hours FROM timesheet " +
+            "INNER JOIN line_entry on timesheet.id = line_entry.timesheet_id " +
+            "WHERE line_entry.timesheet_id IN (SELECT id FROM timesheet WHERE supervisor_approval = true AND employee_id = :employeeId)",
             nativeQuery = true)
     List<String> findAllApprovedHoursOfEmployeeBrokenOutByPayRate(@Param("employeeId") Integer employeeId);
 
