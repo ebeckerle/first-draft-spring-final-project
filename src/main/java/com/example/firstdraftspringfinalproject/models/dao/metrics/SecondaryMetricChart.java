@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public class SecondaryMetricChart extends Chart implements MetricsPayRate, MetricsWorkType, MetricsProject, MetricsEmployee {
+public class SecondaryMetricChart extends Chart {
 
     @Autowired
     private EmployeeRepository employeeRepository;
