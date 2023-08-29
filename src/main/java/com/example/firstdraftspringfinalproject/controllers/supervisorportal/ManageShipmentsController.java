@@ -50,9 +50,9 @@ public class ManageShipmentsController {
         Calendar monthEndDate = OurCalendar.findMonthEndDateBasedOnTodaysDate(todaysDate);
         EventsForCalendarDAO listOfEvents = ShipmentDAO.createAListOfCurrentMonthShipmentsEvents(eventRepository, shipmentRepository, monthStartDate, monthEndDate);
 
-        System.out.println(listOfEvents.getEvents().get(0).getName());
+//        System.out.println(listOfEvents.getEvents().get(0).getName());
         System.out.println(listOfEvents.getEvents().size());
-        System.out.println(listOfEvents.getEvents().get(0).getColorCode());
+//        System.out.println(listOfEvents.getEvents().get(0).getColorCode());
         model.addAttribute("currentMonthShipmentEvents", listOfEvents);
         System.out.println(listOfEvents.getKeyLegend().size());
 
