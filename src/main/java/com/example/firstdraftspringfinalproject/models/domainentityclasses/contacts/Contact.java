@@ -143,19 +143,7 @@ public class Contact implements ContactConstants {
     }
 
     public Contact(EditContactDetailsDTO editContactDetailsDTO){
-//        this.contactType = editContactDetailsDTO.getContactType();
-//        this.companyName = editContactDetailsDTO.getCompanyName();
-//
-//        if(editContactDetailsDTO.getLastName()!= null){
-//            if(!editContactDetailsDTO.getLastName().equals("")){
-//                this.lastName = editContactDetailsDTO.getLastName();
-//            }
-//        }
-//        if(editContactDetailsDTO.getFirstName()!= null){
-//            if (!editContactDetailsDTO.getFirstName().equals("")){
-//                this.firstName = editContactDetailsDTO.getFirstName();
-//            }
-//        }
+
         if(editContactDetailsDTO.getAddressLineOne()!= null){
             if(!editContactDetailsDTO.getAddressLineOne().equals("")){
                 this.addressLineOne = editContactDetailsDTO.getAddressLineOne();
@@ -261,6 +249,11 @@ public class Contact implements ContactConstants {
     }
 
     public Contact() {
+    }
+
+    public Contact(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Integer getId() {

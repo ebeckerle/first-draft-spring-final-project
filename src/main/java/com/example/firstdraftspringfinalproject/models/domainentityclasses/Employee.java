@@ -61,6 +61,7 @@ public class Employee {
         this.payRate = payRate;
         this.paidTimeOff = paidTimeOff;
         this.pwHash = encoder.encode(oneTimePassword);
+        this.contactInfo = new Contact(firstName, lastName);
     }
 
     public Employee (String username, String password) {
