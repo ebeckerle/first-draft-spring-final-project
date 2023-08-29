@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class EmergencyContact extends Contact {
 
     @Size(max = 40)
-    protected String relationship;
+    protected String relationship = "NA";
 
     public EmergencyContact(EditContactDetailsDTO editContactDetailsDTO){
         this.contactType = ContactType.EMERGENCYCONTACT;
