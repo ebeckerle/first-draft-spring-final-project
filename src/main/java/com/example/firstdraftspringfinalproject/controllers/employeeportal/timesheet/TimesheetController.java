@@ -63,8 +63,7 @@ public class TimesheetController {
                                              @RequestParam String daysOfWeek,
                                              @RequestParam Integer hours,
                                              Model model,
-                                             @ModelAttribute("currentTimesheet") Timesheet currentTimesheet,
-                                             @ModelAttribute("dayOfWeekTotals") List<Integer> dayOfWeekTotals){
+                                             @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
         //check if line entry already exists on this Timesheet in particular, so we can either add or update
         LineEntry theNewLineEntry = new LineEntry(projectRepository.findById(projectId).get(), workTypeRepository.findById(workTypeId).get(), DaysOfWeek.valueOf(daysOfWeek), hours,currentTimesheet);
         if(theNewLineEntry.isLineEntryOnTimesheet(currentTimesheet)){
