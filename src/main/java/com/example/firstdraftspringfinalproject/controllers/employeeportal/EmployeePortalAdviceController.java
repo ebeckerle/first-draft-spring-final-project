@@ -2,6 +2,7 @@ package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
+import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -33,6 +34,11 @@ public class EmployeePortalAdviceController {
             Timesheet currentTimesheet = timesheets.get(0);
             model.addAttribute("currentTimesheet", currentTimesheet);
         }
+    }
+
+    @ModelAttribute("wednesdayTotal")
+    public void getWednesdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        model.addAttribute("wednesdayTotal", currentTimesheet.totalDayOfWeekHours(DaysOfWeek.WEDNESDAY));
     }
 
 }

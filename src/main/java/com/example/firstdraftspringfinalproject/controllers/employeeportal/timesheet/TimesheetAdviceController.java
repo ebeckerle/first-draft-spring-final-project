@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 
 @ControllerAdvice("com.example.firstdraftspringfinalproject.controllers.employeeportal.timesheet")
 public class TimesheetAdviceController {
@@ -86,6 +86,7 @@ public class TimesheetAdviceController {
         @ModelAttribute("mondayTotal")
         public void getMondayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours(DaysOfWeek.MONDAY));
+            System.out.println("Timesheet Advice Controller: getMondayTotal Method: MOnday Total:"+ currentTimesheet.totalDayOfWeekHours(DaysOfWeek.MONDAY));
         }
 
         @ModelAttribute("tuesdayTotal")
@@ -117,6 +118,19 @@ public class TimesheetAdviceController {
         public void getTotalHoursForTheWeek(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             model.addAttribute("totalHoursForTheWeek", currentTimesheet.getTotalHours());
         }
+
+        @ModelAttribute("dayOfWeekTotals")
+        public void getDayOfWeekTotals(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+            List<Integer> dayOfWeekTotals = new ArrayList<>();
+            dayOfWeekTotals.add(currentTimesheet.totalDayOfWeekHours(DaysOfWeek.MONDAY));
+            dayOfWeekTotals.add(currentTimesheet.totalDayOfWeekHours(DaysOfWeek.TUESDAY));
+            dayOfWeekTotals.add(currentTimesheet.totalDayOfWeekHours(DaysOfWeek.WEDNESDAY));
+            dayOfWeekTotals.add(currentTimesheet.totalDayOfWeekHours(DaysOfWeek.THURSDAY));
+            dayOfWeekTotals.add(currentTimesheet.totalDayOfWeekHours(DaysOfWeek.FRIDAY));
+            dayOfWeekTotals.add(currentTimesheet.totalDayOfWeekHours(DaysOfWeek.SATURDAY));
+            model.addAttribute("dayOfWeekTotals", dayOfWeekTotals);
+        }
+
 
 
         @ModelAttribute("projects")

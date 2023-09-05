@@ -3,6 +3,7 @@ package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
+import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
 import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetCalculateDates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -128,7 +129,6 @@ public class EmployeePortalController {
         model.addAttribute("workTypes", workTypeRepository.findAll());
 
         if (employeeRepository.findById(employeeId).isPresent()){
-            System.out.println("EmployeePortalController");
             //create a new timesheet object based on the employee (figured from employeeId)
             Timesheet newTimesheet = new Timesheet(employeeRepository.findById(employeeId).get());
 
@@ -148,6 +148,12 @@ public class EmployeePortalController {
             model.addAttribute("title", "Timesheet");
             model.addAttribute("employeeId", employeeId);
             model.addAttribute("currentTimesheet", newTimesheet);
+            model.addAttribute("startDate", TimesheetCalculateDates.formatDates(newTimesheet.getStartDate()));
+            model.addAttribute("dueDate", TimesheetCalculateDates.formatDates(newTimesheet.getDueDate()));
+            model.addAttribute("payDay", TimesheetCalculateDates.formatDates(newTimesheet.getPayDay()));
+            model.addAttribute("daysOfWeek", DaysOfWeek.values());
+            model.addAttribute("totalHoursForTheWeek", newTimesheet.getTotalHours());
+            model.addAttribute("wednesdayTotal", newTimesheet.totalDayOfWeekHours(DaysOfWeek.WEDNESDAY));
         }
 
         return "employee/timesheet";

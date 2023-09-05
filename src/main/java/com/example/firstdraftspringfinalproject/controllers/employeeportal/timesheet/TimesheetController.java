@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.List;
 
 // - TODO  -  add a PTO feature,
 //  TODO - make it so that the employee cannot submit more than one timesheet for the given week
@@ -62,7 +63,8 @@ public class TimesheetController {
                                              @RequestParam String daysOfWeek,
                                              @RequestParam Integer hours,
                                              Model model,
-                                             @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
+                                             @ModelAttribute("currentTimesheet") Timesheet currentTimesheet,
+                                             @ModelAttribute("dayOfWeekTotals") List<Integer> dayOfWeekTotals){
         //check if line entry already exists on this Timesheet in particular, so we can either add or update
         LineEntry theNewLineEntry = new LineEntry(projectRepository.findById(projectId).get(), workTypeRepository.findById(workTypeId).get(), DaysOfWeek.valueOf(daysOfWeek), hours,currentTimesheet);
         if(theNewLineEntry.isLineEntryOnTimesheet(currentTimesheet)){
@@ -80,7 +82,17 @@ public class TimesheetController {
         //DISPLAY
         model.addAttribute("title", "Current Timesheet");
         model.addAttribute("employeeId", employeeId);
-        model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours(DaysOfWeek.MONDAY));
+
+        model.addAttribute("mondayTotal", dayOfWeekTotals.get(0));
+        model.addAttribute("tuesdayTotal", dayOfWeekTotals.get(1));
+        model.addAttribute("wednesdayTotal", dayOfWeekTotals.get(2));
+        model.addAttribute("thursdayTotal", dayOfWeekTotals.get(3));
+        model.addAttribute("fridayTotal", dayOfWeekTotals.get(4));
+        model.addAttribute("saturdayTotal", dayOfWeekTotals.get(5));
+        model.addAttribute("totalHoursForTheWeek", currentTimesheet.getTotalHours());
+
+        System.out.println("Timesheet Controller : monday total; "+currentTimesheet.totalDayOfWeekHours(DaysOfWeek.MONDAY));
+        System.out.println("Timesheet Controller : wednesday total: "+currentTimesheet.totalDayOfWeekHours(DaysOfWeek.WEDNESDAY));
 
         return "employee/timesheet";
     }
