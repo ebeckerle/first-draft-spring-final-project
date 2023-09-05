@@ -76,23 +76,14 @@ public class TimesheetController {
         //update the timesheets total hours for each Day of the Week
         currentTimesheet.updateEachDayOfWeekTotalHours();
         currentTimesheet.setTotalHours();
-        System.out.println("Timesheetcontroller: current timesheet total hours: "+currentTimesheet.getTotalHours());
         timesheetRepository.save(currentTimesheet);
 
         //DISPLAY
+        TimesheetAdviceController.updateAllDayOfWeekTotals(currentTimesheet, model);
         model.addAttribute("title", "Current Timesheet");
         model.addAttribute("employeeId", employeeId);
 
-        model.addAttribute("mondayTotal", dayOfWeekTotals.get(0));
-        model.addAttribute("tuesdayTotal", dayOfWeekTotals.get(1));
-        model.addAttribute("wednesdayTotal", dayOfWeekTotals.get(2));
-        model.addAttribute("thursdayTotal", dayOfWeekTotals.get(3));
-        model.addAttribute("fridayTotal", dayOfWeekTotals.get(4));
-        model.addAttribute("saturdayTotal", dayOfWeekTotals.get(5));
         model.addAttribute("totalHoursForTheWeek", currentTimesheet.getTotalHours());
-
-        System.out.println("Timesheet Controller : monday total; "+currentTimesheet.totalDayOfWeekHours(DaysOfWeek.MONDAY));
-        System.out.println("Timesheet Controller : wednesday total: "+currentTimesheet.totalDayOfWeekHours(DaysOfWeek.WEDNESDAY));
 
         return "employee/timesheet";
     }

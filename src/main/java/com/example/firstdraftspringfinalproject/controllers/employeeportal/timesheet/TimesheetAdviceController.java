@@ -84,39 +84,40 @@ public class TimesheetAdviceController {
         }
 
         @ModelAttribute("mondayTotal")
-        public void getMondayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        public static void getMondayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             model.addAttribute("mondayTotal", currentTimesheet.totalDayOfWeekHours(DaysOfWeek.MONDAY));
             System.out.println("Timesheet Advice Controller: getMondayTotal Method: MOnday Total:"+ currentTimesheet.totalDayOfWeekHours(DaysOfWeek.MONDAY));
         }
 
         @ModelAttribute("tuesdayTotal")
-        public void getTuesdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        public static void getTuesdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             model.addAttribute("tuesdayTotal", currentTimesheet.totalDayOfWeekHours(DaysOfWeek.TUESDAY));
         }
 
         @ModelAttribute("wednesdayTotal")
-        public void getWednesdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        public static void getWednesdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             model.addAttribute("wednesdayTotal", currentTimesheet.totalDayOfWeekHours(DaysOfWeek.WEDNESDAY));
         }
 
         @ModelAttribute("thursdayTotal")
-        public void getThursdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        public static void getThursdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             model.addAttribute("thursdayTotal", currentTimesheet.totalDayOfWeekHours(DaysOfWeek.THURSDAY));
         }
 
         @ModelAttribute("fridayTotal")
-        public void getFridayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        public static void getFridayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             model.addAttribute("fridayTotal", currentTimesheet.totalDayOfWeekHours(DaysOfWeek.FRIDAY));
         }
 
         @ModelAttribute("saturdayTotal")
-        public void getSaturdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        public static void getSaturdayTotal(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             model.addAttribute("saturdayTotal", currentTimesheet.totalDayOfWeekHours(DaysOfWeek.SATURDAY));
         }
 
         @ModelAttribute("totalHoursForTheWeek")
         public void getTotalHoursForTheWeek(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             model.addAttribute("totalHoursForTheWeek", currentTimesheet.getTotalHours());
+            System.out.println("timesheet Advice controller: line 120");
         }
 
         @ModelAttribute("dayOfWeekTotals")
@@ -131,6 +132,15 @@ public class TimesheetAdviceController {
             model.addAttribute("dayOfWeekTotals", dayOfWeekTotals);
         }
 
+        public static void updateAllDayOfWeekTotals(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+            TimesheetAdviceController.getMondayTotal(currentTimesheet, model);
+            TimesheetAdviceController.getTuesdayTotal(currentTimesheet, model);
+            TimesheetAdviceController.getWednesdayTotal(currentTimesheet, model);
+            TimesheetAdviceController.getThursdayTotal(currentTimesheet, model);
+            TimesheetAdviceController.getFridayTotal(currentTimesheet, model);
+            TimesheetAdviceController.getSaturdayTotal(currentTimesheet, model);
+
+        }
 
 
         @ModelAttribute("projects")
