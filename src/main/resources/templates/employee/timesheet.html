@@ -34,13 +34,13 @@
             <tr>
 
                 <td>
-                    <select name="projectId">
+                    <select name="projectId" required>
                         <option value="" disabled selected>Project</option>
                         <option th:each="project : ${projects}" th:value="${project.getId()}" th:text="${project.toString()}">default project</option>
                     </select>
                 </td>
                 <td>
-                    <select name="workTypeId">
+                    <select name="workTypeId" required>
                         <option value="" disabled selected>Work Type</option>
                         <option th:each="workType : ${workTypes}" th:value="${workType.getId()}" th:text="${workType.toString()}">default work type</option>
                     </select>
