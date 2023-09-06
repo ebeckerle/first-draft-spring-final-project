@@ -125,9 +125,11 @@ public class EmployeePortalController {
 
     //lives at /employee, but renders employee>timesheet
     @PostMapping("/timesheet")
-    public String createNewTimesheet(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate todaysDate, @RequestParam Integer employeeId, Model model){
-        model.addAttribute("projects", projectRepository.findAll());
-        model.addAttribute("workTypes", workTypeRepository.findAll());
+    public String createNewTimesheet(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate todaysDate,
+                                     @RequestParam Integer employeeId, Model model){
+
+//        model.addAttribute("projects", projectRepository.findAll());
+//        model.addAttribute("workTypes", workTypeRepository.findAll());
 
         if (employeeRepository.findById(employeeId).isPresent()){
             //create a new timesheet object based on the employee (figured from employeeId)
@@ -157,24 +159,10 @@ public class EmployeePortalController {
 
     //form submit lives at employee/timesheet url (or employee/timesheet/createnewlineentry url), renders at employee/successSubmit url
     @PostMapping("/successSubmit")
-    public RedirectView processSubmitTimesheet(@RequestParam Integer mondayTotal,
-                                               @RequestParam Integer tuesdayTotal,
-                                               @RequestParam Integer wednesdayTotal,
-                                               @RequestParam Integer thursdayTotal,
-                                               @RequestParam Integer fridayTotal,
-                                               @RequestParam Integer saturdayTotal,
-                                               HttpServletRequest request,
+    public RedirectView processSubmitTimesheet(HttpServletRequest request,
                                                RedirectAttributes redirectAttributes, Model model,
                                                @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
-        System.out.println("EmployeePortalController: request param: mondayTotal: "+mondayTotal);
-        System.out.println("EmployeePortalController: currentTimesheet get total monday hours: "+currentTimesheet.getTotalMondayHours());
-        //set the total of monday's hours, tuesdays hours, etc
-//        currentTimesheet.setTotalMondayHours(mondayTotal);
-//        currentTimesheet.setTotalTuesdayHours(tuesdayTotal);
-//        currentTimesheet.setTotalWednesdayHours(wednesdayTotal);
-//        currentTimesheet.setTotalThursdayHours(thursdayTotal);
-//        currentTimesheet.setTotalFridayHours(fridayTotal);
-//        currentTimesheet.setTotalSaturdayHours(saturdayTotal);
+
         // set the current payrate
         currentTimesheet.setCurrentPayRate();
         //set the total hours
