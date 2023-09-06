@@ -34,7 +34,29 @@
 
     <hr>
 
-    <div th:replace="supervisor/timesheets :: timesheet-table"></div>
+       <table class="table-style1">
+        <thead>
+        <th>Employee</th>
+        <th>Start Date</th>
+        <th>Due Date</th>
+        <th>Approval Status</th>
+        <th>Total Hours</th>
+        <th>View Details</th>
+        </thead>
+        <tr th:each="timesheet : ${timesheets}">
+            <td class="style1-left-col" th:text="${timesheet.employee.getFirstName() + ' ' + timesheet.employee.getLastName()}"></td>
+            <td th:text="${#calendars.format(timesheet.startDate, 'dd/MMM/yyyy')}"></td>
+            <td th:text="${#calendars.format(timesheet.dueDate, 'dd/MMM/yyyy')}"></td>
+            <td>
+                <div th:if="${timesheet.supervisorApproval}"><p>approved</p></div>
+                <div th:unless="${timesheet.supervisorApproval}"><p>awaiting approval</p></div>
+            </td>
+            <td th:text="${timesheet.totalHours}"></td>
+            <td><a th:href="@{/employee/timesheetrecords/detail(timesheetId=${timesheet.Id})}">details</a></td>
+        </tr>
+    </table>
+
+
 
 <!--    <table class="table-style1">-->
 <!--        <thead>-->

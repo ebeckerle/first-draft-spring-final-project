@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8">
+    <title th:text="${title}">Default Title</title>
+</head>
+<body>
+
+<div th:replace="fragments :: header-nav-login"></div>
+
+<div class="main-contents">
+
+    <h1>Timesheet</h1>
+
+    <div style="border: solid 2px black;">
+        <p th:text="${timesheet.employee.firstName + ' ' + timesheet.employee.lastName}"></p>
+        <p th:text="${'Start Date : ' + #calendars.format(timesheet.startDate, 'dd/MMM/yyyy')}"></p>
+        <p th:text="${'Due Date : ' + #calendars.format(timesheet.dueDate, 'dd/MMM/yyyy')}"></p>
+
+
+        <table class="timesheet">
+            <thead>
+            <tr>
+                <th class="total-header"></th>
+                <th class="day-header">M</th>
+                <th class="day-header">T</th>
+                <th class="day-header">W</th>
+                <th class="day-header">T</th>
+                <th class="day-header">F</th>
+                <th class="day-header">S</th>
+                <th class="total-header">Total</th>
+            </tr>
+            </thead>
+
+            <th:block th:each="lineEntry : ${timesheet.lineEntries}">
+                <tr>
+                    <th th:text="${lineEntry.getProject().toString()+
+                        ' - '+lineEntry.getWorkType().toStringWorkTypeCode()}">default Project - workType</th>
+<!--                    <th>default Project - workType</th>-->
+
+                    <!--            MONDAY COLUMN-->
+                    <td>
+                        <div th:if='${lineEntry.getMondayHours() > 0}'>
+                            <p th:text="${lineEntry.getMondayHours()}"></p>
+                        </div>
+                        <div th:unless='${lineEntry.getMondayHours() > 0}'>
+                            <p></p>
+                        </div>
+
+                    </td>
+                    <!--            TUESDAY COLUMN-->
+                    <td>
+                        <div th:if='${lineEntry.getTuesdayHours() > 0}'>
+                            <p th:text="${lineEntry.getTuesdayHours()}"></p>
+                        </div>
+                        <div th:unless='${lineEntry.getTuesdayHours() > 0}'>
+                            <p></p>
+                        </div>
+                    </td>
+                    <!--            WEDNESDAY COLUMN-->
+                    <td>
+                        <div th:if='${lineEntry.getWednesdayHours() > 0}'>
+                            <p th:text="${lineEntry.getWednesdayHours()}"></p>
+                        </div>
+                        <div th:unless='${lineEntry.getWednesdayHours() > 0}'>
+                            <p></p>
+                        </div>
+                    </td>
+
+                    <!--            THURSDAY COLUMN-->
+                    <td>
+                        <div th:if='${lineEntry.getThursdayHours() > 0}'>
+                            <p th:text="${lineEntry.getThursdayHours()}"></p>
+                        </div>
+                        <div th:unless='${lineEntry.getThursdayHours() > 0}'>
+                            <p></p>
+                        </div>
+                    </td>
+
+                    <!--            FRIDAY COLUMN-->
+                    <td>
+                        <div th:if='${lineEntry.getFridayHours() > 0}'>
+                            <p th:text="${lineEntry.getFridayHours()}"></p>
+                        </div>
+                        <div th:unless='${lineEntry.getFridayHours() > 0}'>
+                            <p></p>
+                        </div>
+                    </td>
+                    <!--            SATURDAY COLUMN-->
+                    <td>
+                        <div th:if='${lineEntry.getSaturdayHours() > 0}'>
+                            <p th:text="${lineEntry.getSaturdayHours()}"></p>
+                        </div>
+                        <div th:unless='${lineEntry.getSaturdayHours() > 0}'>
+                            <p></p>
+                        </div>
+                    </td>
+
+                    <td th:text="${lineEntry.getTotalHours()}">T</td>
+
+                </tr>
+            </th:block>
+            <!--total row at bottom of table-->
+            <tr>
+                <th>Total</th>
+                <!--            DAY TOTALS ROW-->
+                <!--            MONDAY TOTALS CELL -->
+                <td>
+                    <div th:if='${timesheet.totalMondayHours > 0}'>
+                        <p th:text="${timesheet.totalMondayHours}"></p>
+                    </div>
+                    <div th:unless='${timesheet.totalMondayHours > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+                <!--            TUESDAY TOTALS CELL -->
+                <td>
+                    <div th:if='${timesheet.getTotalTuesdayHours() > 0}'>
+                        <p th:text="${timesheet.totalTuesdayHours}"></p>
+                    </div>
+                    <div th:unless='${timesheet.totalTuesdayHours > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+                <!--            WEDNESDAY TOTALS CELL -->
+                <td>
+                    <div th:if='${timesheet.totalWednesdayHours > 0}'>
+                        <p th:text="${timesheet.totalWednesdayHours}"></p>
+                    </div>
+                    <div th:unless='${timesheet.totalWednesdayHours > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+                <!--            THURSDAY TOTALS CELL -->
+                <td>
+                    <div th:if='${timesheet.totalThursdayHours > 0}'>
+                        <p th:text="${timesheet.totalThursdayHours}"></p>
+                    </div>
+                    <div th:unless='${timesheet.totalThursdayHours > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+                <!--            FRIDAY TOTALS CELL -->
+                <td>
+                    <div th:if='${timesheet.totalFridayHours > 0}'>
+                        <p th:text="${timesheet.totalFridayHours}"></p>
+                    </div>
+                    <div th:unless='${timesheet.totalFridayHours > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+                <!--            SATURDAY TOTALS CELL -->
+                <td>
+                    <div th:if='${timesheet.totalSaturdayHours > 0}'>
+                        <p th:text="${timesheet.totalSaturdayHours}"></p>
+                    </div>
+                    <div th:unless='${timesheet.totalSaturdayHours > 0}'>
+                        <p></p>
+                    </div>
+                </td>
+
+                <!--            TOTAL OF TOTALS CELL-->
+                <td></td>
+
+            </tr>
+        </table>
+
+        <p th:text="${'Total Hours : ' + timesheet.totalHours}"></p>
+
+    </div>
+
+
+    <div th:unless="${!timesheet.supervisorApproval}">
+        <p style="color: green;">Approved</p>
+    </div>
+
+    <div th:unless="${timesheet.supervisorApproval}">
+
+        <p>Awaiting Approval</p>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>
