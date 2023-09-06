@@ -1,5 +1,6 @@
 package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 
+import com.example.firstdraftspringfinalproject.controllers.employeeportal.timesheet.TimesheetAdviceController;
 import com.example.firstdraftspringfinalproject.data.*;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
@@ -148,11 +149,8 @@ public class EmployeePortalController {
             model.addAttribute("title", "Timesheet");
             model.addAttribute("employeeId", employeeId);
             model.addAttribute("currentTimesheet", newTimesheet);
-            model.addAttribute("startDate", TimesheetCalculateDates.formatDates(newTimesheet.getStartDate()));
-            model.addAttribute("dueDate", TimesheetCalculateDates.formatDates(newTimesheet.getDueDate()));
-            model.addAttribute("payDay", TimesheetCalculateDates.formatDates(newTimesheet.getPayDay()));
-            model.addAttribute("daysOfWeek", DaysOfWeek.values());
-            model.addAttribute("totalHoursForTheWeek", newTimesheet.getTotalHours());
+            EmployeePortalAdviceController.getThisTimesheetsDatesForDisplay(newTimesheet, model);
+//            model.addAttribute("daysOfWeek", DaysOfWeek.values());
         }
 
         return "employee/timesheet";

@@ -49,14 +49,14 @@ public class TimesheetAdviceController {
 
 
         @ModelAttribute("todaysDate")
-        public void getTodaysDate(Model model){
+        public static void getTodaysDate(Model model){
             LocalDate currentDate = LocalDate.now();
             String today = currentDate.getDayOfWeek()+", "+currentDate.getMonth()+"/"+currentDate.getDayOfMonth()+"/"+currentDate.getYear();
             model.addAttribute("today", today);
         }
 
         @ModelAttribute("startDate")
-        public void getThisTimesheetsStartDate(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        public static void getThisTimesheetsStartDate(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             if(currentTimesheet.getStartDate() == null){
                 System.out.println("curent tmsheets start date is null");
             }else {
@@ -65,7 +65,7 @@ public class TimesheetAdviceController {
         }
 
         @ModelAttribute("dueDate")
-        public void getThisTimesheetsDueDate(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        public static void getThisTimesheetsDueDate(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             if(currentTimesheet.getDueDate() == null){
                 System.out.println("curent tmsheets due date is null");
             }else{
@@ -74,7 +74,7 @@ public class TimesheetAdviceController {
         }
 
         @ModelAttribute("payDay")
-        public void getThisTimesheetsPayDay(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
+        public static void getThisTimesheetsPayDay(@ModelAttribute("currentTimesheet") Timesheet currentTimesheet, Model model){
             model.addAttribute("payDay", TimesheetCalculateDates.formatDates(currentTimesheet.getPayDay()));
         }
 
