@@ -17,7 +17,10 @@
         </thead>
 
         <tr th:each="project : ${projects}">
-            <td th:text="${project.projectName}"></td>
+<!--            <td th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.id})}"></td>-->
+            <td>
+                <a th:text="${project.projectName}" th:href="@{/supervisor/manageprojects/projectdetails(projectId=${project.id})}"></a>
+            </td>
             <td th:text="${project.projectCode}"></td>
         </tr>
     </table>

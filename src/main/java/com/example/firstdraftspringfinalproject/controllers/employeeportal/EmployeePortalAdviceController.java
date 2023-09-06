@@ -2,6 +2,7 @@ package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 
 import com.example.firstdraftspringfinalproject.controllers.employeeportal.timesheet.TimesheetAdviceController;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.Contact;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,11 @@ public class EmployeePortalAdviceController {
         TimesheetAdviceController.getThisTimesheetsStartDate(currentTimesheet, model);
         TimesheetAdviceController.getThisTimesheetsDueDate(currentTimesheet, model);
         TimesheetAdviceController.getThisTimesheetsPayDay(currentTimesheet, model);
+    }
+
+    @ModelAttribute("states")
+    public void getFiftyStates(Model model){
+        model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
     }
 
 }

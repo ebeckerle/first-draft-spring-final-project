@@ -38,7 +38,7 @@ public class AccountController {
             model.addAttribute("employee", employee);
 
             model.addAttribute(new EditContactDetailsDTO());
-            model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
+//            model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
         }
 
         return "employee/account";
@@ -56,7 +56,7 @@ public class AccountController {
             if(errors.hasErrors()){
                 model.addAttribute("title", "Account Details");
                 model.addAttribute("employee", employee);
-                model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
+//                model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
 
                 model.addAttribute(editContactDetails);
 
@@ -85,7 +85,7 @@ public class AccountController {
             //repopulate display
             model.addAttribute("employee", employee);
             model.addAttribute(new EditContactDetailsDTO());
-            model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
+//            model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
 
         }
 
