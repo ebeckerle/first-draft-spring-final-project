@@ -135,11 +135,12 @@ public class TimesheetController {
     public String processEditLineEntryDelete(@RequestParam Integer lineEntryId, @RequestParam Integer currentTimesheetId, Model model){
         //remove the lineEntry from the Current Timesheet's array list of line entries
         Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).orElseThrow();
-
         LineEntry lineEntryToDelete = lineEntryRepository.findById(lineEntryId).orElseThrow();
         currentTimesheet.getLineEntries().remove(lineEntryToDelete);
         lineEntryRepository.deleteById(lineEntryId);
 
+        //update the timesheets total hours for each Day of the Week
+        currentTimesheet.updateEachDayOfWeekTotalHours();
         currentTimesheet.setTotalHours();
         timesheetRepository.save(currentTimesheet);
 
