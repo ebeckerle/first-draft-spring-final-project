@@ -153,7 +153,6 @@ public class EmployeePortalController {
             model.addAttribute("payDay", TimesheetCalculateDates.formatDates(newTimesheet.getPayDay()));
             model.addAttribute("daysOfWeek", DaysOfWeek.values());
             model.addAttribute("totalHoursForTheWeek", newTimesheet.getTotalHours());
-            model.addAttribute("wednesdayTotal", newTimesheet.totalDayOfWeekHours(DaysOfWeek.WEDNESDAY));
         }
 
         return "employee/timesheet";
