@@ -137,11 +137,11 @@ public class TimesheetController {
         Timesheet currentTimesheet = timesheetRepository.findById(currentTimesheetId).orElseThrow();
 
         LineEntry lineEntryToDelete = lineEntryRepository.findById(lineEntryId).orElseThrow();
-
         currentTimesheet.getLineEntries().remove(lineEntryToDelete);
         lineEntryRepository.deleteById(lineEntryId);
 
         currentTimesheet.setTotalHours();
+        timesheetRepository.save(currentTimesheet);
 
         model.addAttribute("title", "Timesheet");
 

@@ -150,7 +150,6 @@ public class EmployeePortalController {
             model.addAttribute("employeeId", employeeId);
             model.addAttribute("currentTimesheet", newTimesheet);
             EmployeePortalAdviceController.getThisTimesheetsDatesForDisplay(newTimesheet, model);
-//            model.addAttribute("daysOfWeek", DaysOfWeek.values());
         }
 
         return "employee/timesheet";
@@ -167,15 +166,15 @@ public class EmployeePortalController {
                                                HttpServletRequest request,
                                                RedirectAttributes redirectAttributes, Model model,
                                                @ModelAttribute("currentTimesheet") Timesheet currentTimesheet){
-        System.out.println("request param: mondayTotal: "+mondayTotal);
-        System.out.println("currentTimesheet get total monday hours: "+currentTimesheet.getTotalMondayHours());
+        System.out.println("EmployeePortalController: request param: mondayTotal: "+mondayTotal);
+        System.out.println("EmployeePortalController: currentTimesheet get total monday hours: "+currentTimesheet.getTotalMondayHours());
         //set the total of monday's hours, tuesdays hours, etc
-        currentTimesheet.setTotalMondayHours(mondayTotal);
-        currentTimesheet.setTotalTuesdayHours(tuesdayTotal);
-        currentTimesheet.setTotalWednesdayHours(wednesdayTotal);
-        currentTimesheet.setTotalThursdayHours(thursdayTotal);
-        currentTimesheet.setTotalFridayHours(fridayTotal);
-        currentTimesheet.setTotalSaturdayHours(saturdayTotal);
+//        currentTimesheet.setTotalMondayHours(mondayTotal);
+//        currentTimesheet.setTotalTuesdayHours(tuesdayTotal);
+//        currentTimesheet.setTotalWednesdayHours(wednesdayTotal);
+//        currentTimesheet.setTotalThursdayHours(thursdayTotal);
+//        currentTimesheet.setTotalFridayHours(fridayTotal);
+//        currentTimesheet.setTotalSaturdayHours(saturdayTotal);
         // set the current payrate
         currentTimesheet.setCurrentPayRate();
         //set the total hours
