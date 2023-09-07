@@ -30,7 +30,7 @@ public class MetricsChartTest {
 
 //    Metrics testMetricsObj1 = new Metrics("Employee", employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
 
-    Chart testMetricsObj2 = new SecondaryMetricChart(MetricsCategory.PROJECT, "Notre Dame Cathedral", MetricsCategory.WORKTYPE, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
+//    Chart testMetricsObj2 = new SecondaryMetricChart(MetricsCategory.PROJECT, "Notre Dame Cathedral", MetricsCategory.WORKTYPE, employeeRepository, timesheetRepository, projectRepository, workTypeRepository);
 
     @Test
     public void test(){
