@@ -15,24 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TimesheetTest {
 
-    Employee testEmployee;
-    @Before
-    public void createTestObjects(){
-        Employee testEmployee = new Employee("Elizabeth", "Beckerle");
-        Project testProject1 = new Project("IASC", "Iowa State Capitol");
-        Project testProject2 = new Project("NAM", "Nelson Atkins Museum");
-        WorkType testWorkType101 = new WorkType(101, "Inventory");
-        WorkType testWorkType102 = new WorkType(102, "Cut and Process Rough Parts");
-
-        Timesheet testTimesheet1 = new Timesheet(testEmployee);
-
-        LineEntry lineEntry1 = new LineEntry(testProject1, testWorkType101, DaysOfWeek.MONDAY, 5, testTimesheet1);
-        LineEntry lineEntry2 = new LineEntry(testProject1, testWorkType102, DaysOfWeek.TUESDAY, 5,testTimesheet1);
-        LineEntry lineEntry3 = new LineEntry(testProject2, testWorkType101, DaysOfWeek.WEDNESDAY, 7, testTimesheet1);
-        LineEntry lineEntry4 = new LineEntry(testProject2, testWorkType102, DaysOfWeek.FRIDAY, 8, testTimesheet1);
-    }
-
-
     Employee practiceEmployee = new Employee("Elizabeth", "Beckerle");
     Project pIasc = new Project("IASC", "Iowa State Capitol");
     Project pNam = new Project("NAM", "Nelson Atkins Museum");
@@ -49,7 +31,6 @@ public class TimesheetTest {
 
     @Test
     public void testSetDates(){
-
         Timesheet testTimesheet = new Timesheet(practiceEmployee);
 
         GregorianCalendar startDateGC = new GregorianCalendar(2022, Calendar.OCTOBER, 31);
@@ -194,10 +175,8 @@ public class TimesheetTest {
         testTimesheet1.updateEachDayOfWeekTotalHours();
         assertEquals(3, testTimesheet1.getTotalMondayHours());
         assertEquals("Iowa State Capitol", lineEntry5.getProject().toString());
-        assertEquals();
+        assertEquals("101 - Inventory", lineEntry5.getWorkType().toString());
     }
-
-    //TODO : testReplaceLineEntry - does it update the total hours of the line entry
 
     @Test
     public void testReplaceLineEntryUpdatesTotalHoursOfLineEntry(){
