@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.*;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class TimesheetTest {
 
@@ -159,11 +161,18 @@ public class TimesheetTest {
         testTimesheet1.updateLineEntry(existingLineEntry, lineEntry5);
         assertEquals(9, lineEntry5.getTotalHours());
     }
-    //TODO : testUpdateLineEntry - does it throw an exception when non matching line entries are put in as arguments?
+
     @Test
     public void testUpdateLineEntryThrowsException(){
         testTimesheet1.getLineEntries().add(lineEntry4);
-        testTimesheet1.updateLineEntry(lineEntry4, lineEntry1);
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            testTimesheet1.updateLineEntry(lineEntry4, lineEntry1);
+        });
+
+        String expectedMessage = "these line entries do not match, (are not equal in project and work type), failed to update existing.";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
 
     }
     @Test
@@ -188,33 +197,35 @@ public class TimesheetTest {
         assertEquals(7, lineEntry5.getTotalHours());
     }
 
-    @Test
-    public void testFormatDates(){
-        GregorianCalendar date = new GregorianCalendar(2022, 2, 4);
-        String expected = TimesheetCalculateDates.formatDates(date);
-        System.out.println(expected);
-        assertEquals(expected, "2/4/2022");
-    }
+    //TODO: DELETE? I don't think these methods exist anymore
 
-    @Test
-    public void testFigureStartDateBasedOnTodaysDate(){
-
-        LocalDate today = LocalDate.now();
-        GregorianCalendar startDateExpected = TimesheetCalculateDates.figureStartDateBasedOnTodaysDate(today);
-        GregorianCalendar startDateActual = TimesheetCalculateDates.figureStartDateBasedOnTodaysDate(today);
-
-        System.out.println(TimesheetCalculateDates.formatDates(startDateExpected));
-
-        //TODO : wrong ?????
-        assertEquals(startDateExpected.getClass(), startDateActual.getClass());
-        assertEquals(startDateExpected, startDateActual);
-
-    }
-
-    @Test
-    public void testFigureLastWeeksStartDateBasedOnTodaysDate(){
-        assertEquals(3, 3);
-    }
+//    @Test
+//    public void testFormatDates(){
+//        GregorianCalendar date = new GregorianCalendar(2022, 2, 4);
+//        String expected = TimesheetCalculateDates.formatDates(date);
+//        System.out.println(expected);
+//        assertEquals(expected, "2/4/2022");
+//    }
+//
+//    @Test
+//    public void testFigureStartDateBasedOnTodaysDate(){
+//
+//        LocalDate today = LocalDate.now();
+//        GregorianCalendar startDateExpected = TimesheetCalculateDates.figureStartDateBasedOnTodaysDate(today);
+//        GregorianCalendar startDateActual = TimesheetCalculateDates.figureStartDateBasedOnTodaysDate(today);
+//
+//        System.out.println(TimesheetCalculateDates.formatDates(startDateExpected));
+//
+//        //TODO : wrong ?????
+//        assertEquals(startDateExpected.getClass(), startDateActual.getClass());
+//        assertEquals(startDateExpected, startDateActual);
+//
+//    }
+//
+//    @Test
+//    public void testFigureLastWeeksStartDateBasedOnTodaysDate(){
+//        assertEquals(3, 3);
+//    }
 
 
 
