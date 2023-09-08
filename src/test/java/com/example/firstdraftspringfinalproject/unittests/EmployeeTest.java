@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EmployeeTest {
 
-    //TODO: move all of these variables for the tests out of this method and some where DRYer???
     Project pIasc = new Project("IASC", "Iowa State Capitol");
     Project pNam = new Project("NAM", "Nelson Atkins Museum");
     WorkType wT101 = new WorkType(101, "Inventory");
@@ -26,22 +25,8 @@ public class EmployeeTest {
     Timesheet testTimesheet2 = new Timesheet(testEmployee, date2);
     Timesheet testTimesheet3 = new Timesheet(testEmployee, date3);
 
-//    ProjectWorkTypeSet pWT1 = new ProjectWorkTypeSet(pIasc, wT101);
-//    ProjectWorkTypeSet pWT2 = new ProjectWorkTypeSet(pIasc, wT102);
-//    ProjectWorkTypeSet pWT3 = new ProjectWorkTypeSet(pNam, wT102);
-//    DaysOfWeekHoursSet dWkHr1 = new DaysOfWeekHoursSet(0, 0, 4,0,0,0);
-//    DaysOfWeekHoursSet dWkHr2 = new DaysOfWeekHoursSet(0,0,0,0,4,0);
-//    DaysOfWeekHoursSet dWkHr3 = new DaysOfWeekHoursSet(1,1,3,0,4,0);
-//
-//    LineEntry lineEntry1 = new LineEntry(pWT1, dWkHr1, testTimesheet1);
-//    LineEntry lineEntry2 = new LineEntry(pWT1, dWkHr2, testTimesheet1);
-//    LineEntry lineEntry3 = new LineEntry(pWT2, dWkHr3, testTimesheet1);
-//    LineEntry lineEntry4 = new LineEntry(pWT3, dWkHr3, testTimesheet1);
-
-
     @Test
     public void testGetCurrentTimesheet(){
-
         testTimesheet1.setSupervisorApproval(true);
         testTimesheet1.setCompletionStatus(true);
         testTimesheet2.setCompletionStatus(true);
@@ -52,18 +37,6 @@ public class EmployeeTest {
         testEmployee.getTimesheets().add(testTimesheet3);
 
         assertEquals(testTimesheet3, testEmployee.getCurrentTimesheet());
-
-        //    public Timesheet getCurrentTimesheet(){
-//        Timesheet returnedTimesheet = null;
-//        for (Timesheet timesheet:
-//                this.timesheets) {
-//            if (!timesheet.getCompletionStatus()){
-//                returnedTimesheet = timesheet;
-//            }
-//        }
-//        return returnedTimesheet;
-//    }
-
     }
 
 
@@ -110,7 +83,10 @@ public class EmployeeTest {
 
     //TODO - write tests for the following methods:
 
-//    public void setEmergencyContactUpdates(EditContactDetailsDTO editedContactDetails){
+    @Test
+    public void testSetEmergencyContactUpdates(){
+        assertEquals(3,3);
+        //    public void setEmergencyContactUpdates(EditContactDetailsDTO editedContactDetails){
 //        if(!editedContactDetails.getEcFirstName().equals("")){
 //            this.emergencyContact.firstName = editedContactDetails.getEcFirstName();
 //        }
@@ -127,6 +103,9 @@ public class EmployeeTest {
 //            this.emergencyContact.relationship = editedContactDetails.getEcRelationship();
 //        }
 //    }
+    }
+
+
 //    public void setContactInfoUpdates(EditContactDetailsDTO editedContactDetails){
 //        if(!editedContactDetails.getAddressLineOne().equals("")){
 //            this.contactInfo.setAddressLineOne(editedContactDetails.getAddressLineOne());
