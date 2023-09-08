@@ -5,6 +5,7 @@ import com.example.firstdraftspringfinalproject.models.domainentityclasses.times
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
 import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetCalculateDates;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -13,6 +14,23 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TimesheetTest {
+
+    Employee testEmployee;
+    @Before
+    public void createTestObjects(){
+        Employee testEmployee = new Employee("Elizabeth", "Beckerle");
+        Project testProject1 = new Project("IASC", "Iowa State Capitol");
+        Project testProject2 = new Project("NAM", "Nelson Atkins Museum");
+        WorkType testWorkType101 = new WorkType(101, "Inventory");
+        WorkType testWorkType102 = new WorkType(102, "Cut and Process Rough Parts");
+
+        Timesheet testTimesheet1 = new Timesheet(testEmployee);
+
+        LineEntry lineEntry1 = new LineEntry(testProject1, testWorkType101, DaysOfWeek.MONDAY, 5, testTimesheet1);
+        LineEntry lineEntry2 = new LineEntry(testProject1, testWorkType102, DaysOfWeek.TUESDAY, 5,testTimesheet1);
+        LineEntry lineEntry3 = new LineEntry(testProject2, testWorkType101, DaysOfWeek.WEDNESDAY, 7, testTimesheet1);
+        LineEntry lineEntry4 = new LineEntry(testProject2, testWorkType102, DaysOfWeek.FRIDAY, 8, testTimesheet1);
+    }
 
 
     Employee practiceEmployee = new Employee("Elizabeth", "Beckerle");
@@ -152,23 +170,44 @@ public class TimesheetTest {
         assertEquals(9, testTimesheet1.getTotalFridayHours());
     }
 
-    //TODO : testUpdateLineEntry - does it update the total hours of the line entry
-
     @Test
-    public void testReplaceLineEntry(){
-        testTimesheet1.getLineEntries().add(lineEntry1);
-        testTimesheet1.getLineEntries().add(lineEntry2);
-        testTimesheet1.getLineEntries().add(lineEntry3);
+    public void testUpdateLineEntryTotalsHoursInLineEntry(){
         testTimesheet1.getLineEntries().add(lineEntry4);
         LineEntry lineEntry5 = new LineEntry(pNam, wT102, DaysOfWeek.FRIDAY, 1, testTimesheet1);
         LineEntry existingLineEntry = testTimesheet1.findMatchingLineEntry(lineEntry5);
-        testTimesheet1.replaceLineEntry(existingLineEntry, lineEntry5);
-        assertEquals(4, testTimesheet1.getLineEntries().size());
+        testTimesheet1.updateLineEntry(existingLineEntry, lineEntry5);
+        assertEquals(9, lineEntry5.getTotalHours());
+    }
+    //TODO : testUpdateLineEntry - does it throw an exception when non matching line entries are put in as arguments?
+    @Test
+    public void testUpdateLineEntryThrowsException(){
+        testTimesheet1.getLineEntries().add(lineEntry4);
+        testTimesheet1.updateLineEntry(lineEntry4, lineEntry1);
+
+    }
+    @Test
+    public void testReplaceLineEntry(){
+        testTimesheet1.getLineEntries().add(lineEntry1);
+        LineEntry lineEntry5 = new LineEntry();
+        lineEntry5.setMondayHours(3);
+        testTimesheet1.replaceLineEntry(lineEntry1, lineEntry5);
         testTimesheet1.updateEachDayOfWeekTotalHours();
-        assertEquals(1, testTimesheet1.getTotalFridayHours());
+        assertEquals(3, testTimesheet1.getTotalMondayHours());
+        assertEquals("Iowa State Capitol", lineEntry5.getProject().toString());
+        assertEquals();
     }
 
     //TODO : testReplaceLineEntry - does it update the total hours of the line entry
+
+    @Test
+    public void testReplaceLineEntryUpdatesTotalHoursOfLineEntry(){
+        testTimesheet1.getLineEntries().add(lineEntry1);
+        LineEntry lineEntry5 = new LineEntry();
+        lineEntry5.setMondayHours(3);
+        lineEntry5.setTuesdayHours(4);
+        testTimesheet1.replaceLineEntry(lineEntry1, lineEntry5);
+        assertEquals(7, lineEntry5.getTotalHours());
+    }
 
     @Test
     public void testFormatDates(){
