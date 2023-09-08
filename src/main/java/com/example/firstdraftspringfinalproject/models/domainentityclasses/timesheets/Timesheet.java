@@ -211,7 +211,6 @@ public class Timesheet implements TimesheetTotalsHours, TimesheetCalculateDates 
         Integer totalHours = 0;
         for (LineEntry lineEntry:
                 this.lineEntries) {
-//            System.out.println("in Timesheet setTotalHours: for each line entry");
             totalHours += lineEntry.getTotalHours();
         }
         this.totalHours = totalHours;
