@@ -21,9 +21,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+//import static org.springframework.test.web.servlet.result.XpathResultMatchers;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.util.XpathExpectationsHelper;
+import org.springframework.test.web.servlet.ResultMatcher;
+//import javax.xml.xpath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
 
 @SpringBootTest
@@ -43,6 +49,7 @@ public class EmployeePortalControllerTest {
     public void testEmployeeWelcomeLoads () throws Exception {
         mockMvc.perform(get("/employee"))
                 .andExpect(status().is(302));
+//                .andExpect(xpath("//h2").exists());
     }
 
     @Test

@@ -1,7 +1,9 @@
 package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 
 import com.example.firstdraftspringfinalproject.controllers.employeeportal.timesheet.TimesheetAdviceController;
+import com.example.firstdraftspringfinalproject.data.ProjectRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
+import com.example.firstdraftspringfinalproject.data.WorkTypeRepository;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.Contact;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.timesheets.Timesheet;
 import com.example.firstdraftspringfinalproject.models.enums.DaysOfWeek;
@@ -21,6 +23,12 @@ public class EmployeePortalAdviceController {
 
     @Autowired
     private TimesheetRepository timesheetRepository;
+
+    @Autowired
+    private static ProjectRepository projectRepository;
+
+    @Autowired
+    private static WorkTypeRepository workTypeRepository;
 
 
     @ModelAttribute("currentTimesheet")
@@ -43,6 +51,12 @@ public class EmployeePortalAdviceController {
         TimesheetAdviceController.getThisTimesheetsStartDate(currentTimesheet, model);
         TimesheetAdviceController.getThisTimesheetsDueDate(currentTimesheet, model);
         TimesheetAdviceController.getThisTimesheetsPayDay(currentTimesheet, model);
+    }
+
+    public static void getDropDownMenusOptions(Model model){
+        TimesheetAdviceController.getDaysOfWeek(model);
+        TimesheetAdviceController.getAllProjects(model, projectRepository);
+        TimesheetAdviceController.getAllWorkTypes(model, workTypeRepository);
     }
 
     @ModelAttribute("states")

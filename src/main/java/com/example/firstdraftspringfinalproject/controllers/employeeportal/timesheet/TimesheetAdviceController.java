@@ -130,18 +130,19 @@ public class TimesheetAdviceController {
 
 
         @ModelAttribute("projects")
-        public void getAllProjects(Model model){
+        public static void getAllProjects(Model model, ProjectRepository projectRepository){
             model.addAttribute("projects", projectRepository.findAll());
         }
 
         @ModelAttribute("workTypes")
-        public void getAllWorkTypes(Model model){
+        public static void getAllWorkTypes(Model model, WorkTypeRepository workTypeRepository){
             model.addAttribute("workTypes", workTypeRepository.findAll());
         }
 
         @ModelAttribute("daysOfWeek")
-        public void getDaysOfWeek(Model model){
+        public static void getDaysOfWeek(Model model){
             model.addAttribute("daysOfWeek", DaysOfWeek.values());
         }
+
 
 }

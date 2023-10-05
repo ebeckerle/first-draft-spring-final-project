@@ -131,6 +131,7 @@ public class EmployeePortalController {
 //        model.addAttribute("projects", projectRepository.findAll());
 //        model.addAttribute("workTypes", workTypeRepository.findAll());
 
+
         if (employeeRepository.findById(employeeId).isPresent()){
             //create a new timesheet object based on the employee (figured from employeeId)
             Timesheet newTimesheet = new Timesheet(employeeRepository.findById(employeeId).get());
@@ -152,6 +153,7 @@ public class EmployeePortalController {
             model.addAttribute("employeeId", employeeId);
             model.addAttribute("currentTimesheet", newTimesheet);
             EmployeePortalAdviceController.getThisTimesheetsDatesForDisplay(newTimesheet, model);
+            EmployeePortalAdviceController.getDropDownMenusOptions(model);
         }
 
         return "employee/timesheet";
