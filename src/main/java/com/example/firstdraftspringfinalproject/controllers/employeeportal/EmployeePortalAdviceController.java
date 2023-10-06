@@ -25,10 +25,10 @@ public class EmployeePortalAdviceController {
     private TimesheetRepository timesheetRepository;
 
     @Autowired
-    private static ProjectRepository projectRepository;
+    private ProjectRepository projectRepository;
 
     @Autowired
-    private static WorkTypeRepository workTypeRepository;
+    private WorkTypeRepository workTypeRepository;
 
 
     @ModelAttribute("currentTimesheet")
@@ -55,8 +55,16 @@ public class EmployeePortalAdviceController {
 
     public static void getDropDownMenusOptions(Model model){
         TimesheetAdviceController.getDaysOfWeek(model);
-        TimesheetAdviceController.getAllProjects(model, projectRepository);
-        TimesheetAdviceController.getAllWorkTypes(model, workTypeRepository);
+    }
+
+    @ModelAttribute("projects")
+    public void getAllProjects(Model model){
+        model.addAttribute("projects", projectRepository.findAll());
+    }
+
+    @ModelAttribute("workTypes")
+    public void getAllWorkTypes(Model model){
+        model.addAttribute("workTypes", workTypeRepository.findAll());
     }
 
     @ModelAttribute("states")
