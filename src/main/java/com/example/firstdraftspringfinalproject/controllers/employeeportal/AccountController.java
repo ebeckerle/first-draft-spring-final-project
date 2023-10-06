@@ -56,8 +56,6 @@ public class AccountController {
             if(errors.hasErrors()){
                 model.addAttribute("title", "Account Details");
                 model.addAttribute("employee", employee);
-//                model.addAttribute("states", Contact.ALLSTATESPOSTALCODES);
-
                 model.addAttribute(editContactDetails);
 
                 return "employee/account";
