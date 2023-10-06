@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,7 +30,7 @@ public class TimesheetRecordsController {
         Integer employeeId = (Integer) session.getAttribute("user");
 
         if(employeeRepository.findById(employeeId).isPresent()){
-            model.addAttribute("timesheets", timesheetRepository.findByEmployeeId(employeeId));
+            model.addAttribute("timesheets", timesheetRepository.findByEmployeeIdAndCompletionStatus(employeeId, true));
             model.addAttribute("employeeFirstName", employeeRepository.findById(employeeId).get().getFirstName());
         }
 
@@ -43,5 +44,32 @@ public class TimesheetRecordsController {
         timesheetRepository.findById(timesheetId).ifPresent(timesheet -> model.addAttribute("timesheet", timesheet));
         model.addAttribute("title", timesheetRepository.findById(timesheetId).get().getEmployee().getFirstName()+"'s Timesheet");
         return "employee/viewtimesheet";
+    }
+
+    @PostMapping(value="/results")
+    public String processTimesheetSearch(HttpServletRequest request,
+                                         @RequestParam String searchType,
+                                         Model model){
+
+        HttpSession session = request.getSession();
+        Integer employeeId = (Integer) session.getAttribute("user");
+
+        if(employeeRepository.findById(employeeId).isPresent()){
+            model.addAttribute("timesheets", timesheetRepository.findByEmployeeId(employeeId));
+            model.addAttribute("employeeFirstName", employeeRepository.findById(employeeId).get().getFirstName());
+        }
+
+        if(searchType.equals("all")){
+            model.addAttribute("timesheets", timesheetRepository.findByEmployeeIdAndCompletionStatus(employeeId,true));
+        }else if (searchType.equals("approval")){
+            model.addAttribute("timesheets", timesheetRepository.findByEmployeeIdAndCompletionStatusAndSupervisorApproval(employeeId, true, false));
+        }
+
+        model.addAttribute("all", "all");
+        model.addAttribute("approval", "approval");
+        model.addAttribute("previousChoice", searchType);
+
+        model.addAttribute("title", "Your Timesheets");
+        return "employee/timesheetrecords";
     }
 }
