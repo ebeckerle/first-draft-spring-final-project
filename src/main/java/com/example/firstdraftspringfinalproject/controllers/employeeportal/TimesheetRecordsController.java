@@ -34,6 +34,7 @@ public class TimesheetRecordsController {
             model.addAttribute("employeeFirstName", employeeRepository.findById(employeeId).get().getFirstName());
         }
 
+        model.addAttribute("previousChoice", "all");
         model.addAttribute("title", "Your Timesheets");
 
         return "employee/timesheetrecords";
@@ -55,7 +56,6 @@ public class TimesheetRecordsController {
         Integer employeeId = (Integer) session.getAttribute("user");
 
         if(employeeRepository.findById(employeeId).isPresent()){
-            model.addAttribute("timesheets", timesheetRepository.findByEmployeeId(employeeId));
             model.addAttribute("employeeFirstName", employeeRepository.findById(employeeId).get().getFirstName());
         }
 
