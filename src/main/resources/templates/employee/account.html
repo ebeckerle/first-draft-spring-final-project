@@ -28,6 +28,21 @@
         <br>
 <!--TODO - link to change username or password-->
 <!--        <a>Change Username or Password</a>-->
+        <table class="table-style2">
+            <tr>
+                <th>Remaining Paid Time Off</th>
+                <td>
+                    <p th:text="${employee.paidTimeOff}"></p>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <a th:href="@{/employee/account/schedulerequest}"><button>Request Time Off</button></a>
+                </td>
+            </tr>
+
+        </table>
     </div>
 
 <!--  <form method="post" th:action="@{/employee/account}">-->

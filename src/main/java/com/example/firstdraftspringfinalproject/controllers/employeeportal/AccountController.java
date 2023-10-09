@@ -5,6 +5,7 @@ import com.example.firstdraftspringfinalproject.models.domainentityclasses.conta
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.EmergencyContact;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
+import com.example.firstdraftspringfinalproject.models.dto.PtoScheduleRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -88,5 +89,24 @@ public class AccountController {
         }
 
         return "employee/account";
+    }
+
+
+    @GetMapping("/schedulerequest")
+    public String displayRequestTimeOffForm(HttpServletRequest request, Model model){
+        model.addAttribute("title", "Request Time Off Form");
+
+        HttpSession session = request.getSession();
+        Integer employeeId = (Integer) session.getAttribute("user");
+
+        if (employeeRepository.findById(employeeId).isPresent()){
+            Employee employee = employeeRepository.findById(employeeId).get();
+            model.addAttribute("employee", employee);
+
+            model.addAttribute(new PtoScheduleRequestDTO());
+
+        }
+
+        return "employee/schedule-request";
     }
 }

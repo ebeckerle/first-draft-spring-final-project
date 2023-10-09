@@ -155,6 +155,14 @@ public class Employee {
         this.payRate = payRate;
     }
 
+    public Integer getPaidTimeOff() {
+        return paidTimeOff;
+    }
+
+    public void setPaidTimeOff(Integer paidTimeOff) {
+        this.paidTimeOff = paidTimeOff;
+    }
+
     public void setFirstDateOfWork(GregorianCalendar firstDateOfWork) {
         this.firstDateOfWork = firstDateOfWork;
     }
@@ -186,6 +194,8 @@ public class Employee {
         }
         this.totalHoursWorkedToDate = newTotalHoursWorkedToDate;
     }
+
+
 
     public Contact getContactInfo() {
         return contactInfo;
