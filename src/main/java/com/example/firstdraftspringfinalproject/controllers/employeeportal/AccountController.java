@@ -5,7 +5,7 @@ import com.example.firstdraftspringfinalproject.models.domainentityclasses.conta
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.EmergencyContact;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
-import com.example.firstdraftspringfinalproject.models.dto.PtoScheduleRequestDTO;
+import com.example.firstdraftspringfinalproject.models.dto.TimeOffScheduleRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -103,7 +103,7 @@ public class AccountController {
             Employee employee = employeeRepository.findById(employeeId).get();
             model.addAttribute("employee", employee);
 
-            model.addAttribute(new PtoScheduleRequestDTO());
+            model.addAttribute(new TimeOffScheduleRequestDTO());
 
         }
 

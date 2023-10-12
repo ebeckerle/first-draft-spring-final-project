@@ -10,7 +10,28 @@
     <br>
 
     <div>
+        <form>
+            <div class="form-style1">
+                <label>Start Date:
+                    <input type="date" class="form-control" name="startDate" th:field="${timeOffScheduleRequestDTO.startDate}">
+                </label>
+            </div>
+            <div class="form-style1">
+                <label>End Date:
+                    <input type="date" class="form-control" name="endDate" th:field="${timeOffScheduleRequestDTO.endDate}">
+                </label>
+            </div>
 
+            <div class="form-style1">
+                <label>Note / Reason:
+                    <input th:field="${timeOffScheduleRequestDTO.noteOrReasonForRequest}" class="form-control">
+                </label>
+                <p class="error" th:errors="${timeOffScheduleRequestDTO.noteOrReasonForRequest}"></p>
+            </div>
+            <div class="form-style1">
+                <input type="submit" value="Make Request" class="btn btn-success">
+            </div>
+        </form>
     </div>
 
 
