@@ -4,6 +4,8 @@ import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.Contact;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.EmergencyContact;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
+import com.example.firstdraftspringfinalproject.models.domainentityclasses.requests.ScheduleRequest;
+import com.example.firstdraftspringfinalproject.models.dto.CreateEmployeeDTO;
 import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
 import com.example.firstdraftspringfinalproject.models.dto.TimeOffScheduleRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 @Controller
@@ -108,5 +113,30 @@ public class AccountController {
         }
 
         return "employee/schedule-request";
+    }
+
+    @PostMapping("/schedulerequest")
+    public RedirectView processRequestTimeOffForm(@ModelAttribute @Valid TimeOffScheduleRequestDTO timeOffScheduleRequestDTO,
+                                                  Errors errors,
+                                                  RedirectAttributes redirectAttributes,
+                                                  HttpServletRequest request,
+                                                  Model model){
+        if (errors.hasErrors()){
+            model.addAttribute("title", "Request Time Off Form");
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return new RedirectView("/employee/account/schedulerequest", true);
+        }
+
+        HttpSession session = request.getSession();
+        Integer employeeId = (Integer) session.getAttribute("user");
+
+        ScheduleRequest scheduleRequest = new ScheduleRequest(timeOffScheduleRequestDTO);
+        if(employeeRepository.findById(employeeId).isPresent()){
+            Optional<Employee> employee = employeeRepository.findById(employeeId);
+            scheduleRequest.setEmployee(employee);
+        }
+
+
+        return new RedirectView("/employee/account/success-request-for-time-off", true);
     }
 }
