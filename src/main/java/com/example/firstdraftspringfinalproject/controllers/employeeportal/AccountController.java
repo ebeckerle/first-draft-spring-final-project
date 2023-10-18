@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -124,7 +126,8 @@ public class AccountController {
         if (errors.hasErrors()){
             model.addAttribute("title", "Request Time Off Form");
             redirectAttributes.addFlashAttribute("errors", errors);
-            return new RedirectView("/employee/account/schedulerequest", true);
+            System.out.println("in if statement for errors for processing schedule request");
+            return new RedirectView("/employee/account/schedulerequest/success", true);
         }
 
         HttpSession session = request.getSession();
@@ -133,10 +136,25 @@ public class AccountController {
         ScheduleRequest scheduleRequest = new ScheduleRequest(timeOffScheduleRequestDTO);
         if(employeeRepository.findById(employeeId).isPresent()){
             Optional<Employee> employee = employeeRepository.findById(employeeId);
-            scheduleRequest.setEmployee(employee);
+            scheduleRequest.setEmployee(employee.get());
         }
 
-
         return new RedirectView("/employee/account/success-request-for-time-off", true);
+    }
+
+    @GetMapping(value = "/schedulerequest/successRequest")
+    public String displayEmployeeAccountDetailsSuccessRequest(HttpServletRequest request, Model model){
+
+//        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+//        String employeeFirstName = (String) inputFlashMap.get("employeeFirstName");
+//        String employeeFirstTimePassword = (String) inputFlashMap.get("employeeFirstTimePassword");
+//
+//        model.addAttribute("employeeFirstName", employeeFirstName);
+//        model.addAttribute("employeeFirstTimePassword", employeeFirstTimePassword);
+//        model.addAttribute("successSubmit", "true");
+//        model.addAttribute("employees", employeeRepository.findAll());
+
+        model.addAttribute("title", "Account Details");
+        return "supervisor/manageemployees";
     }
 }
