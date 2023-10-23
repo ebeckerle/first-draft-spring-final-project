@@ -126,8 +126,10 @@ public class AccountController {
         if (errors.hasErrors()){
             model.addAttribute("title", "Request Time Off Form");
             redirectAttributes.addFlashAttribute("errors", errors);
+            System.out.println(errors.getErrorCount());
+            System.out.println(errors.getAllErrors());
             System.out.println("in if statement for errors for processing schedule request");
-            return new RedirectView("/employee/account/schedulerequest/success", true);
+            return new RedirectView("/employee/account/schedulerequest", true);
         }
 
         HttpSession session = request.getSession();
@@ -138,8 +140,10 @@ public class AccountController {
             Optional<Employee> employee = employeeRepository.findById(employeeId);
             scheduleRequest.setEmployee(employee.get());
         }
+        //TODO save the new ScheduleRequest to database
+        System.out.println("in processRequestTimeOffForm method that returns a Redirect View");
 
-        return new RedirectView("/employee/account/success-request-for-time-off", true);
+        return new RedirectView("/employee/account/schedulerequest/successRequest", true);
     }
 
     @GetMapping(value = "/schedulerequest/successRequest")
@@ -153,8 +157,19 @@ public class AccountController {
 //        model.addAttribute("employeeFirstTimePassword", employeeFirstTimePassword);
 //        model.addAttribute("successSubmit", "true");
 //        model.addAttribute("employees", employeeRepository.findAll());
+        model.addAttribute("title", "Account Details");
+
+        HttpSession session = request.getSession();
+        Integer employeeId = (Integer) session.getAttribute("user");
+
+        if (employeeRepository.findById(employeeId).isPresent()){
+            Employee employee = employeeRepository.findById(employeeId).get();
+            model.addAttribute("employee", employee);
+
+            model.addAttribute(new EditContactDetailsDTO());
+        }
 
         model.addAttribute("title", "Account Details");
-        return "supervisor/manageemployees";
+        return "employee/account";
     }
 }

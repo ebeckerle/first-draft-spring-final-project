@@ -10,16 +10,18 @@
     <br>
 
     <div>
-        <form>
+        <form method="post">
             <div class="form-style1">
                 <label>Start Date:
                     <input type="date" class="form-control" name="startDate" th:field="${timeOffScheduleRequestDTO.startDate}">
                 </label>
+                <p class="error" th:errors="${timeOffScheduleRequestDTO.startDate}"></p>
             </div>
             <div class="form-style1">
                 <label>End Date:
                     <input type="date" class="form-control" name="endDate" th:field="${timeOffScheduleRequestDTO.endDate}">
                 </label>
+                <p class="error" th:errors="${timeOffScheduleRequestDTO.endDate}"></p>
             </div>
 
             <div class="form-style1">
