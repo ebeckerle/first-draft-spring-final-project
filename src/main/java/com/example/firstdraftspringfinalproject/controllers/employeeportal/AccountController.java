@@ -111,8 +111,15 @@ public class AccountController {
             model.addAttribute("employee", employee);
 
             model.addAttribute(new TimeOffScheduleRequestDTO());
-
         }
+
+
+//This didn't work to solve issue - delete later - I think something in the view?
+//        if(RequestContextUtils.getInputFlashMap(request) != null){
+//            Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+//            Errors errors = (Errors) inputFlashMap.get("errors");
+//            model.addAttribute("errors", errors);
+//        }
 
         return "employee/schedule-request";
     }
