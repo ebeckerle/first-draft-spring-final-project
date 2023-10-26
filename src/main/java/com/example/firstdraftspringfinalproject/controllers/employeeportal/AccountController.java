@@ -114,7 +114,7 @@ public class AccountController {
         }
 
 
-//This didn't work to solve issue - delete later - I think something in the view?
+//This didn't work to solve issue with validation working with a redirect view - delete later - I think something in the view?
 //        if(RequestContextUtils.getInputFlashMap(request) != null){
 //            Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
 //            Errors errors = (Errors) inputFlashMap.get("errors");
@@ -125,7 +125,7 @@ public class AccountController {
     }
 
     @PostMapping("/schedulerequest")
-    public RedirectView processRequestTimeOffForm(@ModelAttribute @Valid TimeOffScheduleRequestDTO timeOffScheduleRequestDTO,
+    public String processRequestTimeOffForm(@ModelAttribute @Valid TimeOffScheduleRequestDTO timeOffScheduleRequestDTO,
                                                   Errors errors,
                                                   RedirectAttributes redirectAttributes,
                                                   HttpServletRequest request,
@@ -133,10 +133,18 @@ public class AccountController {
         if (errors.hasErrors()){
             model.addAttribute("title", "Request Time Off Form");
             redirectAttributes.addFlashAttribute("errors", errors);
+            HttpSession session = request.getSession();
+            Integer employeeId = (Integer) session.getAttribute("user");
+            if(employeeRepository.findById(employeeId).isPresent()){
+                Employee employee = employeeRepository.findById(employeeId).get();
+                model.addAttribute("employee", employee);
+
+                model.addAttribute(new EditContactDetailsDTO());
+            }
             System.out.println(errors.getErrorCount());
             System.out.println(errors.getAllErrors());
             System.out.println("in if statement for errors for processing schedule request");
-            return new RedirectView("/employee/account/schedulerequest", true);
+            return "/employee/schedule-request";
         }
 
         HttpSession session = request.getSession();
@@ -144,39 +152,73 @@ public class AccountController {
 
         ScheduleRequest scheduleRequest = new ScheduleRequest(timeOffScheduleRequestDTO);
         if(employeeRepository.findById(employeeId).isPresent()){
-            Optional<Employee> employee = employeeRepository.findById(employeeId);
-            scheduleRequest.setEmployee(employee.get());
-        }
-        //TODO save the new ScheduleRequest to database
-        System.out.println("in processRequestTimeOffForm method that returns a Redirect View");
-
-        return new RedirectView("/employee/account/schedulerequest/successRequest", true);
-    }
-
-    @GetMapping(value = "/schedulerequest/successRequest")
-    public String displayEmployeeAccountDetailsSuccessRequest(HttpServletRequest request, Model model){
-
-//        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-//        String employeeFirstName = (String) inputFlashMap.get("employeeFirstName");
-//        String employeeFirstTimePassword = (String) inputFlashMap.get("employeeFirstTimePassword");
-//
-//        model.addAttribute("employeeFirstName", employeeFirstName);
-//        model.addAttribute("employeeFirstTimePassword", employeeFirstTimePassword);
-//        model.addAttribute("successSubmit", "true");
-//        model.addAttribute("employees", employeeRepository.findAll());
-        model.addAttribute("title", "Account Details");
-
-        HttpSession session = request.getSession();
-        Integer employeeId = (Integer) session.getAttribute("user");
-
-        if (employeeRepository.findById(employeeId).isPresent()){
+//            Optional<Employee> employee = employeeRepository.findById(employeeId);
+//            scheduleRequest.setEmployee(employee.get());
+//            model.addAttribute("employee", employee);
             Employee employee = employeeRepository.findById(employeeId).get();
             model.addAttribute("employee", employee);
 
             model.addAttribute(new EditContactDetailsDTO());
         }
+        //TODO save the new ScheduleRequest to database
+        System.out.println("in processRequestTimeOffForm method ");
 
-        model.addAttribute("title", "Account Details");
         return "employee/account";
     }
+
+//    @PostMapping("/schedulerequest")
+//    public RedirectView processRequestTimeOffForm(@ModelAttribute @Valid TimeOffScheduleRequestDTO timeOffScheduleRequestDTO,
+//                                                  Errors errors,
+//                                                  RedirectAttributes redirectAttributes,
+//                                                  HttpServletRequest request,
+//                                                  Model model){
+//        if (errors.hasErrors()){
+//            model.addAttribute("title", "Request Time Off Form");
+//            redirectAttributes.addFlashAttribute("errors", errors);
+//            System.out.println(errors.getErrorCount());
+//            System.out.println(errors.getAllErrors());
+//            System.out.println("in if statement for errors for processing schedule request");
+//            return new RedirectView("/employee/account/schedulerequest", true);
+//        }
+//
+//        HttpSession session = request.getSession();
+//        Integer employeeId = (Integer) session.getAttribute("user");
+//
+//        ScheduleRequest scheduleRequest = new ScheduleRequest(timeOffScheduleRequestDTO);
+//        if(employeeRepository.findById(employeeId).isPresent()){
+//            Optional<Employee> employee = employeeRepository.findById(employeeId);
+//            scheduleRequest.setEmployee(employee.get());
+//        }
+//        //TODO save the new ScheduleRequest to database
+//        System.out.println("in processRequestTimeOffForm method that returns a Redirect View");
+//
+//        return new RedirectView("/employee/account/schedulerequest/successRequest", true);
+//    }
+
+//    @GetMapping(value = "/schedulerequest/successRequest")
+//    public String displayEmployeeAccountDetailsSuccessRequest(HttpServletRequest request, Model model){
+//
+////        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+////        String employeeFirstName = (String) inputFlashMap.get("employeeFirstName");
+////        String employeeFirstTimePassword = (String) inputFlashMap.get("employeeFirstTimePassword");
+////
+////        model.addAttribute("employeeFirstName", employeeFirstName);
+////        model.addAttribute("employeeFirstTimePassword", employeeFirstTimePassword);
+////        model.addAttribute("successSubmit", "true");
+////        model.addAttribute("employees", employeeRepository.findAll());
+//        model.addAttribute("title", "Account Details");
+//
+//        HttpSession session = request.getSession();
+//        Integer employeeId = (Integer) session.getAttribute("user");
+//
+//        if (employeeRepository.findById(employeeId).isPresent()){
+//            Employee employee = employeeRepository.findById(employeeId).get();
+//            model.addAttribute("employee", employee);
+//
+//            model.addAttribute(new EditContactDetailsDTO());
+//        }
+//
+//        model.addAttribute("title", "Account Details");
+//        return "employee/account";
+//    }
 }
