@@ -4,10 +4,12 @@ package com.example.firstdraftspringfinalproject.models.domainentityclasses.requ
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.dto.TimeOffScheduleRequestDTO;
 
+import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
 
+@Entity
 public class ScheduleRequest {
 
     @Temporal(TemporalType.DATE)
@@ -17,6 +19,9 @@ public class ScheduleRequest {
 
     private String noteOrReasonForRequest;
     private Employee employee;
+
+    public ScheduleRequest() {
+    }
 
     public ScheduleRequest(TimeOffScheduleRequestDTO timeOffScheduleRequestDTO) {
         this.startDateTime = timeOffScheduleRequestDTO.getStartDate();
@@ -55,5 +60,15 @@ public class ScheduleRequest {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    @Override
+    public String toString() {
+        return "ScheduleRequest{" +
+                "startDateTime=" + startDateTime +
+                ", endDateTime=" + endDateTime +
+                ", noteOrReasonForRequest='" + noteOrReasonForRequest + '\'' +
+                ", employee=" + employee +
+                '}';
     }
 }

@@ -130,38 +130,32 @@ public class AccountController {
                                                   RedirectAttributes redirectAttributes,
                                                   HttpServletRequest request,
                                                   Model model){
-        if (errors.hasErrors()){
-            model.addAttribute("title", "Request Time Off Form");
-            redirectAttributes.addFlashAttribute("errors", errors);
-            HttpSession session = request.getSession();
-            Integer employeeId = (Integer) session.getAttribute("user");
-            if(employeeRepository.findById(employeeId).isPresent()){
-                Employee employee = employeeRepository.findById(employeeId).get();
-                model.addAttribute("employee", employee);
-
-                model.addAttribute(new EditContactDetailsDTO());
-            }
-            System.out.println(errors.getErrorCount());
-            System.out.println(errors.getAllErrors());
-            System.out.println("in if statement for errors for processing schedule request");
-            return "/employee/schedule-request";
-        }
-
         HttpSession session = request.getSession();
         Integer employeeId = (Integer) session.getAttribute("user");
 
+        if (errors.hasErrors()){
+            model.addAttribute("title", "Request Time Off Form");
+            redirectAttributes.addFlashAttribute("errors", errors);
+
+            if(employeeRepository.findById(employeeId).isPresent()){
+                Employee employee = employeeRepository.findById(employeeId).get();
+                model.addAttribute("employee", employee);
+                model.addAttribute(new EditContactDetailsDTO());
+            }
+            return "/employee/schedule-request";
+        }
+
         ScheduleRequest scheduleRequest = new ScheduleRequest(timeOffScheduleRequestDTO);
         if(employeeRepository.findById(employeeId).isPresent()){
-//            Optional<Employee> employee = employeeRepository.findById(employeeId);
-//            scheduleRequest.setEmployee(employee.get());
-//            model.addAttribute("employee", employee);
             Employee employee = employeeRepository.findById(employeeId).get();
+            scheduleRequest.setEmployee(employee);
             model.addAttribute("employee", employee);
-
             model.addAttribute(new EditContactDetailsDTO());
         }
         //TODO save the new ScheduleRequest to database
+        System.out.println(scheduleRequest.toString());
         System.out.println("in processRequestTimeOffForm method ");
+
 
         return "employee/account";
     }
