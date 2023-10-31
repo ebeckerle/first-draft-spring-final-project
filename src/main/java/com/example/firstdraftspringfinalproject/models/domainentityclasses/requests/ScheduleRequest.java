@@ -4,13 +4,15 @@ package com.example.firstdraftspringfinalproject.models.domainentityclasses.requ
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.dto.TimeOffScheduleRequestDTO;
 
-import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 public class ScheduleRequest {
+
+    @Id
+    @GeneratedValue
+    private Integer id;
 
     @Temporal(TemporalType.DATE)
     private Date startDateTime;
@@ -18,6 +20,9 @@ public class ScheduleRequest {
     private Date endDateTime;
 
     private String noteOrReasonForRequest;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     public ScheduleRequest() {

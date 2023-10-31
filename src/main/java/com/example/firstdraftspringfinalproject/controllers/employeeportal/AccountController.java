@@ -1,11 +1,11 @@
 package com.example.firstdraftspringfinalproject.controllers.employeeportal;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
+import com.example.firstdraftspringfinalproject.data.ScheduleRequestRepository;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.Contact;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.contacts.EmergencyContact;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.requests.ScheduleRequest;
-import com.example.firstdraftspringfinalproject.models.dto.CreateEmployeeDTO;
 import com.example.firstdraftspringfinalproject.models.dto.EditContactDetailsDTO;
 import com.example.firstdraftspringfinalproject.models.dto.TimeOffScheduleRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +17,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
-import org.springframework.web.servlet.view.RedirectView;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Map;
-import java.util.Optional;
+
 
 
 @Controller
@@ -33,6 +31,9 @@ public class AccountController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private ScheduleRequestRepository scheduleRequestRepository;
 
     @GetMapping
     public String displayEmployeeAccountDetails(HttpServletRequest request, Model model){
@@ -155,7 +156,7 @@ public class AccountController {
         //TODO save the new ScheduleRequest to database
         System.out.println(scheduleRequest.toString());
         System.out.println("in processRequestTimeOffForm method ");
-
+        scheduleRequestRepository.save(scheduleRequest);
 
         return "employee/account";
     }

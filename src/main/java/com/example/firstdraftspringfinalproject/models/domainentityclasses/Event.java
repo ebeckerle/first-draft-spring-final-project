@@ -7,6 +7,10 @@ import java.util.Date;
 
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="event_type",
+        discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorValue("0")
 public class Event {
 
 
