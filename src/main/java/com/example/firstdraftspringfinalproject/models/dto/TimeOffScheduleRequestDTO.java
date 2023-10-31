@@ -3,18 +3,18 @@ package com.example.firstdraftspringfinalproject.models.dto;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 public class TimeOffScheduleRequestDTO {
 
     @Future(message = "this must be a future date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "must not leave blank")
     private Date startDate;
     @Future(message = "this must be a future date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "must not leave blank")
     private Date endDate;
 
     @NotBlank(message = "must not leave blank")
