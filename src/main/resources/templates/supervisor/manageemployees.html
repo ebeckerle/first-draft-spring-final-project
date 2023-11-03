@@ -36,6 +36,16 @@
         </span>
     </div>
 
+    <br>
+
+    <div th:if="${requestsOffForApproval}">
+        <span>
+            There are <a th:href="@{/supervisor/manageemployees/requests}" style="display: inline;">
+                        <button class="btn-style" th:text="${requestsOffForApproval+' requests off'}"></button>
+            </a> awaiting approval.
+        </span>
+    </div>
+
     <hr>
 
     <table class="table-style1">

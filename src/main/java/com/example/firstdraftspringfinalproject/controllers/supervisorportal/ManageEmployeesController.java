@@ -1,6 +1,7 @@
 package com.example.firstdraftspringfinalproject.controllers.supervisorportal;
 
 import com.example.firstdraftspringfinalproject.data.EmployeeRepository;
+import com.example.firstdraftspringfinalproject.data.ScheduleRequestRepository;
 import com.example.firstdraftspringfinalproject.data.TimesheetRepository;
 import com.example.firstdraftspringfinalproject.models.domainentityclasses.Employee;
 import com.example.firstdraftspringfinalproject.models.interfaces.TimesheetCalculateDates;
@@ -31,12 +32,18 @@ public class ManageEmployeesController {
     @Autowired
     private TimesheetRepository timesheetRepository;
 
+    @Autowired
+    private ScheduleRequestRepository scheduleRequestRepository;
+
     @GetMapping(value = "")
     public String displayManageEmployeeProfilesHome(Model model){
         model.addAttribute("employees", employeeRepository.findAll());
         if (!timesheetRepository.findBySupervisorApprovalAndCompletionStatus(false, true).isEmpty()){
             model.addAttribute("timesheetsForApproval", timesheetRepository.findBySupervisorApprovalAndCompletionStatus(false, true).size());
         }
+        System.out.println(scheduleRequestRepository.count());
+        model.addAttribute("requestsOffForApproval", scheduleRequestRepository.count());
+        System.out.println(scheduleRequestRepository.count());
         model.addAttribute("title", "Manage Employees");
         return "supervisor/manageemployees";
     }
@@ -191,6 +198,13 @@ public class ManageEmployeesController {
 
         return "supervisor/timesheets";
     }
+
+    @GetMapping(value = "requests")
+    public String displayAllRequestsOff(Model model){
+        model.addAttribute("title", "Employees Requesting Time Off");
+        return "supervisor/managerequests";
+    }
+
 
 
 }
