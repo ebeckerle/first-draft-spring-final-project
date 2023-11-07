@@ -202,6 +202,7 @@ public class ManageEmployeesController {
     @GetMapping(value = "requests")
     public String displayAllRequestsOff(Model model){
         model.addAttribute("title", "Employees Requesting Time Off");
+        model.addAttribute("requests", scheduleRequestRepository.findAll());
         return "supervisor/managerequests";
     }
 
