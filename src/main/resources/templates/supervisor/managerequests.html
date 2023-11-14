@@ -11,9 +11,16 @@
 <div class="main-contents">
 
     <h1>Manage Employees Requests Off Work</h1>
+
+    <div><p>TODO: view as list or view in calendar - start with list view</p></div>
     <p th:text="${requests}">here</p>
     <br>
-    <p th:text="${requests.employee}">here</p>
+    <div th:each="request : ${requests}">
+        <p th:text="${request.employee}">here</p>
+        <br>
+        <p th:text="${request.startDateTime}">here</p>
+    </div>
+
 
 </div>
 </body>
